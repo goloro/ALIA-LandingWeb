@@ -1,0 +1,237 @@
+.calculator-section {
+    padding: 6rem 5%;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.calc-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+}
+
+.calc-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1.2rem;
+    letter-spacing: -1px;
+    line-height: 1.15;
+}
+
+.calc-header p {
+    font-size: 1.15rem;
+    color: var(--text-body);
+    line-height: 1.6;
+}
+
+.calc-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.calc-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.calc-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.calc-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.calc-question {
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    max-width: 80%;
+}
+
+.calc-value {
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: #0F766E;
+}
+
+/* Custom Range Slider */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background: #0F766E;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: 2px solid white;
+}
+
+.calc-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-recalc {
+    background: linear-gradient(90deg, #0f766e, #22d3ee);
+    color: white;
+    border: none;
+    padding: 1.5rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(15, 118, 110, 0.3);
+}
+
+.btn-recalc:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(15, 118, 110, 0.4);
+}
+
+/* Results Panel */
+.calc-results {
+    background: linear-gradient(180deg, #202432, #14151C);
+    border-radius: 20px;
+    padding: 3.5rem 3rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.result-label {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #94a3b8;
+    letter-spacing: 1.5px;
+    margin-bottom: 1.5rem;
+}
+
+.result-main {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.result-number {
+    font-size: 6.5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -3px;
+}
+
+.result-unit {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.result-info {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    margin-bottom: 3.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.info-icon {
+    width: 42px;
+    height: 42px;
+    background: rgba(45, 212, 191, 0.2);
+    color: #2dd4bf;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.info-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.result-info p {
+    font-size: 1.05rem;
+    color: #e2e8f0;
+    line-height: 1.5;
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+}
+

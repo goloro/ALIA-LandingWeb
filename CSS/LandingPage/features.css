@@ -1,0 +1,106 @@
+.features {
+    padding: 6rem 5%;
+    width: 100%;
+    background-color: #F7FAFF;
+}
+
+.features-header {
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+}
+
+.features-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -1px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.06);
+}
+
+.feature-blob {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    filter: blur(25px);
+    z-index: 0;
+    opacity: 0.6;
+    transition: transform 0.5s ease;
+}
+
+.feature-card:hover .feature-blob {
+    transform: scale(1.1);
+}
+
+.blob-purple { background-color: #f3e8ff; }
+.blob-blue { background-color: #e0f2fe; }
+.blob-green { background-color: #dcfce7; }
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.bg-purple {
+    background-color: #E6DEFF;
+    color: #4A1A9A;
+}
+
+.bg-blue {
+    background-color: #B5E4FA;
+    color: #0E6C8C;
+}
+
+.bg-green {
+    background-color: #61F28B;
+    color: #111827; /* Dark almost black for contrast */
+}
+
+.feature-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.feature-card p {
+    font-size: 1.05rem;
+    color: var(--text-body);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+

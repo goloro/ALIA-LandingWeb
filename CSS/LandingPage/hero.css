@@ -1,0 +1,44 @@
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2.5%;
+    flex: 1;
+    gap: 4rem;
+    width: 100%;
+}
+
+
+.hero-content {
+    flex: 1;
+    max-width: 650px;
+}
+
+.hero-title {
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    letter-spacing: -2.5px;
+}
+
+.hero-title .highlight {
+    background: linear-gradient(135deg, var(--highlight-color), #8B5CF6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: var(--text-body);
+    margin-bottom: 3rem;
+    max-width: 600px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+

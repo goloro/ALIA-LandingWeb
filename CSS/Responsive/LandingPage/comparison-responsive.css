@@ -1,0 +1,36 @@
+/* CSS/Responsive/LandingPage/comparison-responsive.css */
+@media (max-width: 1024px) {
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+    .comparison-header {
+        margin-bottom: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .comparison {
+        padding: 4rem 5%;
+    }
+    .comparison-header h2 {
+        font-size: 2.5rem;
+    }
+    .comparison-card {
+        padding: 2rem;
+    }
+    .card-header h3 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .comparison-header h2 {
+        font-size: 2.2rem;
+    }
+    .comparison-card {
+        padding: 1.5rem;
+    }
+    .comparison-list li {
+        font-size: 0.95rem;
+    }
+}

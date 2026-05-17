@@ -1,0 +1,120 @@
+.hardware {
+    padding: 6rem 5%;
+    width: 100%;
+    background-color: #F7FAFF;
+}
+
+.hardware-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 6rem;
+}
+
+.hardware-visual {
+    flex: 1;
+    position: relative;
+}
+
+.hardware-visual img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    display: block;
+}
+
+.hardware-content {
+    flex: 1.1;
+    max-width: 550px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #EEEDFF;
+    color: #7B5CFF;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.hardware-content h2 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+}
+
+.hardware-desc {
+    font-size: 1.1rem;
+    color: var(--text-body);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.hardware-features {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.hardware-features li {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.hardware-features li span {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.hardware-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background-color: #E2F5EE;
+    color: #1E876A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.hardware-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-outline {
+    display: inline-block;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #29A386;
+    border: 2px solid #29A386;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+.btn-outline:hover {
+    background-color: #29A386;
+    color: #ffffff;
+    box-shadow: 0 10px 20px rgba(41, 163, 134, 0.2);
+    transform: translateY(-2px);
+}
+

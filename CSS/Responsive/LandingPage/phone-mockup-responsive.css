@@ -1,0 +1,34 @@
+/* CSS/Responsive/LandingPage/phone-mockup-responsive.css */
+@media (max-width: 1024px) {
+    .phone-container {
+        width: 320px;
+        height: 640px;
+    }
+    .hero-visual::before {
+        width: 600px;
+        height: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-visual {
+        height: auto;
+        min-height: 650px;
+        width: 100%;
+    }
+    .phone-container {
+        height: 650px;
+        max-width: 100%;
+        width: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .phone-container {
+        height: 550px;
+        width: 300px;
+    }
+    .hero-visual {
+        min-height: 550px;
+    }
+}

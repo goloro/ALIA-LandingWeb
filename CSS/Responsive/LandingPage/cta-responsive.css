@@ -1,0 +1,42 @@
+/* CSS/Responsive/LandingPage/cta-responsive.css */
+@media (max-width: 1024px) {
+    .cta-container {
+        padding: 4.5rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .cta-container {
+        padding: 4rem 1.5rem;
+    }
+    
+    .cta-container h2 {
+        font-size: 2.2rem;
+    }
+    
+    .cta-container p br {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-section {
+        padding: 4rem 5%;
+    }
+    .cta-container {
+        padding: 3rem 1.2rem;
+    }
+    .cta-container h2 {
+        font-size: 1.8rem;
+    }
+    .cta-container p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    .btn-cta {
+        padding: 1rem 2rem;
+        font-size: 1.05rem;
+        width: 100%;
+        max-width: 280px;
+    }
+}
