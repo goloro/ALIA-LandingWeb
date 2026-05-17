@@ -38,13 +38,15 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    justify-content: space-between;
 }
 
 .calc-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 16px;
-    padding: 2.5rem;
+    padding: 3.5rem 2.5rem;
+    /* Increased top/bottom padding to make them taller */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }
 
@@ -97,7 +99,7 @@ input[type=range]::-webkit-slider-thumb {
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border: 2px solid white;
 }
 
@@ -110,28 +112,6 @@ input[type=range]::-webkit-slider-thumb {
     color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-}
-
-.btn-recalc {
-    background: linear-gradient(135deg, var(--primary-color), #0D849E);
-    color: white;
-    border: none;
-    padding: 1.5rem;
-    border-radius: 15px;
-    font-weight: 700;
-    font-size: 1.15rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(21, 158, 186, 0.3);
-}
-
-.btn-recalc:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(21, 158, 186, 0.4);
 }
 
 /* Results Panel */
@@ -181,7 +161,7 @@ input[type=range]::-webkit-slider-thumb {
     gap: 1.2rem;
     align-items: center;
     margin-bottom: 3.5rem;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .info-icon {
@@ -217,7 +197,7 @@ input[type=range]::-webkit-slider-thumb {
     background: rgba(0, 0, 0, 0.25);
     border-radius: 12px;
     padding: 1.5rem;
-    border: 1px solid rgba(255,255,255,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .stat-label {
@@ -234,4 +214,3 @@ input[type=range]::-webkit-slider-thumb {
     font-weight: 700;
     color: white;
 }
-

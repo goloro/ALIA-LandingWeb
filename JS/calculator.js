@@ -3,10 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const sliderMinutos = document.getElementById("slider-minutos");
     const valCitas = document.getElementById("val-citas");
     const valMinutos = document.getElementById("val-minutos");
-    
+
     const resMensual = document.getElementById("res-mensual");
     const resAnual = document.getElementById("res-anual");
-    const btnRecalcular = document.getElementById("btn-recalcular");
 
     function updateSliderBackground(slider) {
         const value = (slider.value - slider.min) / (slider.max - slider.min) * 100;
@@ -16,14 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function calculate() {
         const citas = parseInt(sliderCitas.value);
         const minutos = parseInt(sliderMinutos.value);
-        
+
         valCitas.textContent = citas;
         valMinutos.textContent = minutos;
-        
+
         // 4 semanas por mes aprox
         const horasMensuales = Math.round((citas * minutos * 4) / 60);
         const horasAnuales = horasMensuales * 12;
-        
+
         resMensual.textContent = horasMensuales;
         resAnual.textContent = horasAnuales + " Horas";
     }
@@ -33,10 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
         calculate();
     }
 
-    if(sliderCitas && sliderMinutos) {
+    if (sliderCitas && sliderMinutos) {
         sliderCitas.addEventListener("input", onSliderInput);
         sliderMinutos.addEventListener("input", onSliderInput);
-        btnRecalcular.addEventListener("click", calculate);
 
         // Initial setup
         updateSliderBackground(sliderCitas);

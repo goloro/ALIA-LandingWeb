@@ -3,7 +3,7 @@
     .calc-container {
         grid-template-columns: 1fr;
     }
-    
+
     .calc-results {
         padding: 3rem 2rem;
     }
@@ -13,12 +13,9 @@
     .calc-header h2 {
         font-size: 2.5rem;
     }
+
     .result-number {
         font-size: 5rem;
-    }
-    .btn-recalc {
-        padding: 1.2rem;
-        font-size: 1.1rem;
     }
 }
 
@@ -26,21 +23,27 @@
     .calculator-section {
         padding: 4rem 5%;
     }
+
     .calc-header h2 {
         font-size: 2.2rem;
     }
+
     .calc-card {
         padding: 1.5rem;
     }
+
     .calc-results {
         padding: 2rem 1.5rem;
     }
+
     .result-number {
         font-size: 4rem;
     }
+
     .result-stats {
         grid-template-columns: 1fr;
     }
+
     .calc-question {
         font-size: 0.95rem;
     }
