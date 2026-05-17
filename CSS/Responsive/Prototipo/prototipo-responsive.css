@@ -1,0 +1,11 @@
+/* ====== MEDIA QUERY PARA BLOQUEO MÓVIL ====== */
+/* Si la pantalla es menor o igual a 1024px (tablets y móviles) */
+@media (max-width: 1024px) {
+    .app-container {
+        display: none !important; /* Oculta todo el entorno de escritorio */
+    }
+    
+    .mobile-blocker {
+        display: flex !important; /* Muestra el mensaje de bloqueo */
+    }
+}

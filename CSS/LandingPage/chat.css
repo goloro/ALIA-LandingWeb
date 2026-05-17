@@ -39,6 +39,7 @@
     animation: slideInUp 0.4s ease forwards;
     opacity: 0;
     transform: translateY(15px);
+    text-align: justify;
 }
 
 @keyframes slideInUp {

@@ -2,17 +2,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 2.5%;
+    padding: 1rem 5% 2rem 0;
     flex: 1;
-    gap: 4rem;
+    gap: 8rem;
     width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 
 .hero-content {
     flex: 1;
     max-width: 650px;
-    margin-left: 3%;
 }
 
 .hero-title {
@@ -42,4 +43,3 @@
     gap: 1.5rem;
     align-items: center;
 }
-

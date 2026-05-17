@@ -75,7 +75,7 @@
     color: #0F766E;
 }
 
-kj .portal-visual {
+.portal-visual {
     flex: 1.2;
     display: flex;
     justify-content: flex-end;
