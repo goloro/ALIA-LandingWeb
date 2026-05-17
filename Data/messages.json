@@ -7,7 +7,7 @@
   {
     "sender": "bot",
     "text": "Hola Carlos! Soy ALIA, el asistente inteligente de la peluquería ALIA. He revisado la agenda para mañana por la tarde, tengo un hueco libre a las 18:30 con Marcos, o a las 19:15 con Sofía. ¿Cuál te encaja mejor?",
-    "time": "14:21"
+    "time": "14:20"
   },
   {
     "sender": "user",
@@ -17,11 +17,16 @@
   {
     "sender": "bot",
     "text": "¡Bloqueado a las 18:30! Por cierto Carlos, ya que tienes un evento importante este finde, ¿te añado nuestro \"Tratamiento Facial Exprés\" (son solo 15 min extra)? Muchos clientes lo piden antes de una boda para llevar la piel perfecta. ✨",
-    "time": "14:22"
+    "time": "14:21"
   },
   {
     "sender": "user",
     "text": "Venga dale, me has convencido. ¿Me pasas la dirección exacta para ponerla en el GPS?",
+    "time": "14:22"
+  },
+  {
+    "sender": "bot",
+    "text": "¡Cita confirmada! 🎉 Mañana a las 18:30 con Marcos (Corte + Barba + Facial). Estamos en Calle Mayor, 12. Te enviaré un recordatorio automático unas horas antes. ¡Allí nos vemos!",
     "time": "14:22"
   }
 ]

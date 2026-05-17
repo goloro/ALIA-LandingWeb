@@ -113,11 +113,11 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .btn-recalc {
-    background: linear-gradient(90deg, #0f766e, #22d3ee);
+    background: linear-gradient(135deg, var(--primary-color), #0D849E);
     color: white;
     border: none;
     padding: 1.5rem;
-    border-radius: 12px;
+    border-radius: 15px;
     font-weight: 700;
     font-size: 1.15rem;
     display: flex;
@@ -126,12 +126,12 @@ input[type=range]::-webkit-slider-thumb {
     gap: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(15, 118, 110, 0.3);
+    box-shadow: 0 4px 15px rgba(21, 158, 186, 0.3);
 }
 
 .btn-recalc:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 35px rgba(15, 118, 110, 0.4);
+    box-shadow: 0 8px 25px rgba(21, 158, 186, 0.4);
 }
 
 /* Results Panel */

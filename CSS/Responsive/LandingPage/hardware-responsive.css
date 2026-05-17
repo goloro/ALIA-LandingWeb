@@ -3,7 +3,7 @@
     .hardware-container {
         flex-direction: column-reverse;
         text-align: center;
-        gap: 4rem;
+        gap: 2rem;
     }
     
     .hardware-content {
@@ -11,6 +11,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    
+    .hardware-content h2 {
+        font-size: 2.5rem;
     }
     
     .hardware-features li {
@@ -24,7 +28,7 @@
 
 @media (max-width: 768px) {
     .hardware-content h2 {
-        font-size: 2.8rem;
+        font-size: 2.2rem;
     }
     .hardware-desc {
         font-size: 1.05rem;
@@ -36,7 +40,7 @@
         padding: 4rem 5%;
     }
     .hardware-content h2 {
-        font-size: 2.3rem;
+        font-size: 1.8rem;
     }
     .hardware-features {
         gap: 1.2rem;

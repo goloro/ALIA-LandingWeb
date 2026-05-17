@@ -6,6 +6,9 @@
     .comparison-header {
         margin-bottom: 3rem;
     }
+    .comparison-header h2 {
+        font-size: 2.5rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -13,7 +16,7 @@
         padding: 4rem 5%;
     }
     .comparison-header h2 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     .comparison-card {
         padding: 2rem;
@@ -25,7 +28,7 @@
 
 @media (max-width: 480px) {
     .comparison-header h2 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
     }
     .comparison-card {
         padding: 1.5rem;

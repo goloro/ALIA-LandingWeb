@@ -2,7 +2,7 @@
 @media (max-width: 1024px) {
     .phone-container {
         width: 320px;
-        height: 640px;
+        height: 550px;
     }
     .hero-visual::before {
         width: 600px;
@@ -13,11 +13,11 @@
 @media (max-width: 768px) {
     .hero-visual {
         height: auto;
-        min-height: 650px;
+        min-height: 550px;
         width: 100%;
     }
     .phone-container {
-        height: 650px;
+        height: 550px;
         max-width: 100%;
         width: 350px;
     }
@@ -25,10 +25,10 @@
 
 @media (max-width: 480px) {
     .phone-container {
-        height: 550px;
+        height: 450px;
         width: 300px;
     }
     .hero-visual {
-        min-height: 550px;
+        min-height: 450px;
     }
 }

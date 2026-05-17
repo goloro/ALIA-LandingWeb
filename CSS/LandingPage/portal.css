@@ -75,12 +75,7 @@
     color: #0F766E;
 }
 
-.icon-purple {
-    background-color: #F3F0FF;
-    color: #6D28D9;
-}
-
-.portal-visual {
+kj .portal-visual {
     flex: 1.2;
     display: flex;
     justify-content: flex-end;
@@ -92,10 +87,12 @@
     position: relative;
     max-width: 100%;
     border-radius: 24px;
+    transform: scale(1.1);
+    transform-origin: center right;
 }
 
 .image-wrapper img {
-    width: 100%;
+    width: 125%;
     display: block;
     border-radius: 20px;
 }
@@ -103,10 +100,10 @@
 .floating-badge {
     position: absolute;
     top: -20px;
-    right: 20px;
+    right: 0px;
     background-color: #ffffff;
     padding: 0.8rem 1.5rem;
-    border-radius: 40px;
+    border-radius: 15px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
     font-weight: 700;
     font-size: 0.95rem;
@@ -119,8 +116,15 @@
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
-}
+    0% {
+        transform: translateY(0px);
+    }
 
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}

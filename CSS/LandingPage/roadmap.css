@@ -115,21 +115,15 @@
     color: #5C6BC0;
 }
 
-.badge-purple {
-    background-color: #F0EAFF;
-    color: #7C3AED;
-}
-
 .roadmap-rocket {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #D8B4FE;
-    opacity: 0.8;
+    color: #5c6bc0;
+    opacity: 1;
 }
 
 .roadmap-rocket svg {
     width: 60px;
     height: 60px;
 }
-

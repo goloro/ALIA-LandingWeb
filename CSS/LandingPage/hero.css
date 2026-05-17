@@ -12,6 +12,7 @@
 .hero-content {
     flex: 1;
     max-width: 650px;
+    margin-left: 3%;
 }
 
 .hero-title {

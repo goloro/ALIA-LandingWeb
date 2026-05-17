@@ -1,5 +1,5 @@
 .footer {
-    background-color: #F3F0FF;
+    background-color: #e9f0fc;
     padding: 2.5rem 5%;
     width: 100%;
 }
@@ -30,30 +30,13 @@
     font-weight: 500;
 }
 
-.footer-links {
-    display: flex;
-    gap: 2.5rem;
-}
-
-.footer-links a {
-    color: #6b7280;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: #7C3AED;
-}
-
 .footer-social {
     display: flex;
     gap: 1.2rem;
 }
 
 .social-btn {
-    background-color: #EAE4FF;
+    background-color: #F7FAFF;
     border: none;
     width: 42px;
     height: 42px;
@@ -76,4 +59,3 @@
     color: #7C3AED;
     transform: translateY(-2px);
 }
-

@@ -32,8 +32,8 @@
 
 .tag {
     display: inline-block;
-    background-color: #EEEDFF;
-    color: #7B5CFF;
+    background-color: #dbe4ff;
+    color: #5C6BC0;
     font-size: 0.75rem;
     font-weight: 800;
     padding: 0.6rem 1.2rem;
@@ -97,24 +97,3 @@
     width: 20px;
     height: 20px;
 }
-
-.btn-outline {
-    display: inline-block;
-    text-decoration: none;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: #29A386;
-    border: 2px solid #29A386;
-    transition: all 0.3s ease;
-    background-color: transparent;
-}
-
-.btn-outline:hover {
-    background-color: #29A386;
-    color: #ffffff;
-    box-shadow: 0 10px 20px rgba(41, 163, 134, 0.2);
-    transform: translateY(-2px);
-}
-
