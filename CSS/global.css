@@ -1,0 +1,73 @@
+:root {
+    --primary-color: #159EBA;
+    --primary-hover: #128a9f;
+    --highlight-color: #5A66F9;
+    --text-dark: #0f172a;
+    --text-body: #475569;
+    --bg-color: #ffffff;
+    
+    --phone-border: #f8fafc;
+    --chat-bg: #f8fafc;
+    --msg-bot-bg: #ffffff;
+    --msg-user-bg: #dcfce7;
+    --msg-user-text: #1f2937;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Forzar que no haya scroll en la ventana de escritorio si solo queremos ver la primera parte */
+@media (min-width: 1025px) {
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+}
+
+.btn {
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    box-shadow: 0 4px 12px rgba(21, 158, 186, 0.3);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid #cbd5e1;
+    line-height: 1.3;
+    padding: 0.6rem 1.5rem;
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-color);
+    background-color: #f8fafc;
+}

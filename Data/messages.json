@@ -1,0 +1,27 @@
+[
+  {
+    "sender": "user",
+    "text": "Hola! ¿Tienen algún hueco libre para mañana por la tarde? Tengo una boda el sábado y necesito un corte de pelo y arreglo de barba, voy fatal de tiempo 😅",
+    "time": "14:20"
+  },
+  {
+    "sender": "bot",
+    "text": "Hola Carlos! Soy ALIA, el asistente inteligente de la peluquería ALIA. He revisado la agenda para mañana por la tarde, tengo un hueco libre a las 18:30 con Marcos, o a las 19:15 con Sofía. ¿Cuál te encaja mejor?",
+    "time": "14:21"
+  },
+  {
+    "sender": "user",
+    "text": "A las 18:30 con Marcos me viene genial.",
+    "time": "14:21"
+  },
+  {
+    "sender": "bot",
+    "text": "¡Bloqueado a las 18:30! Por cierto Carlos, ya que tienes un evento importante este finde, ¿te añado nuestro \"Tratamiento Facial Exprés\" (son solo 15 min extra)? Muchos clientes lo piden antes de una boda para llevar la piel perfecta. ✨",
+    "time": "14:22"
+  },
+  {
+    "sender": "user",
+    "text": "Venga dale, me has convencido. ¿Me pasas la dirección exacta para ponerla en el GPS?",
+    "time": "14:22"
+  }
+]

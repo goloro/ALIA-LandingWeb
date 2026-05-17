@@ -1,0 +1,62 @@
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hero-visual::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(90, 102, 249, 0.05) 0%, rgba(255,255,255,0) 70%);
+    z-index: 0;
+}
+
+.phone-container {
+    width: 350px;
+    height: 700px;
+    background-color: white;
+    border-radius: 45px;
+    padding: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 1;
+}
+
+.notch {
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 28px;
+    background-color: #000;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background-color: var(--chat-bg);
+    border-radius: 35px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+@media (max-width: 768px) {
+    .hero-visual {
+        height: 650px;
+        width: 100%;
+    }
+    .phone-container {
+        height: 100%; /* En móvil si que ocupa el maximo relativo */
+        max-width: 100%;
+    }
+}
