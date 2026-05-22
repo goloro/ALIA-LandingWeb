@@ -18,13 +18,26 @@
     }
     
     .hybrid-features li {
-        text-align: left;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
     }
     
     .hybrid-visual {
         width: 100%;
         justify-content: center;
         margin-top: 2rem;
+    }
+    
+    .hybrid-image-wrapper {
+        justify-content: center;
+    }
+    
+    .hybrid-image-wrapper img {
+        width: 100%;
+        margin-left: 0;
+        transform: none;
     }
 }
 

@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="CSS/LandingPage/roadmap.css">
     <link rel="stylesheet" href="CSS/LandingPage/cta.css">
     <link rel="stylesheet" href="CSS/LandingPage/footer.css">
+    <link rel="stylesheet" href="CSS/LandingPage/ai-chat-button.css">
+    <link rel="stylesheet" href="CSS/LandingPage/ai-chat-window.css">
 
     <!-- Responsive CSS (Modulos) -->
     <link rel="stylesheet" href="CSS/Responsive/LandingPage/header-responsive.css">
@@ -44,9 +46,51 @@
     <link rel="stylesheet" href="CSS/Responsive/LandingPage/roadmap-responsive.css">
     <link rel="stylesheet" href="CSS/Responsive/LandingPage/cta-responsive.css">
     <link rel="stylesheet" href="CSS/Responsive/LandingPage/footer-responsive.css">
+    <link rel="stylesheet" href="CSS/Responsive/LandingPage/ai-chat-window-responsive.css">
 </head>
 
 <body>
+    <!-- AI Chat Toggle Button -->
+    <button id="ai-chat-toggle" class="ai-chat-toggle" aria-label="Abrir chat con IA">
+        <div class="ai-chat-toggle-icon">
+            <img src="Images/Logos/LogoChatAlia-SinFondo.png" alt="Chat IA">
+        </div>
+    </button>
+
+    <!-- AI Chat Window -->
+    <div id="ai-chat-window" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <img src="Images/Logos/LogoTextoAlia-SinFondo.png" alt="ALIA Logo">
+            <button id="ai-chat-close" class="ai-chat-close" aria-label="Cerrar chat">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div class="ai-chat-body">
+            <div class="ai-chat-message received">
+                <div class="ai-chat-avatar">
+                    <img src="Images/Logos/LogoHexagonoAlia-SinFondo.png" alt="ALIA Avatar">
+                </div>
+                <div class="ai-chat-bubble">
+                    <p>¡Hola! Soy ALIA. Puedo darte un presupuesto personalizado o contarte como automatizar tu negocio. ¿En que estas pensando?</p>
+                </div>
+            </div>
+        </div>
+        <div class="ai-chat-footer">
+            <button class="ai-chat-icon-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button class="ai-chat-icon-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+            </button>
+            <input type="text" id="ai-chat-input" placeholder="Escribe tu consulta" class="ai-chat-input">
+            <button id="ai-chat-send-btn" class="ai-chat-send-btn" aria-label="Enviar mensaje">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="logo-container">
@@ -657,6 +701,7 @@
     <!-- App Logic (Modules) -->
     <script type="module" src="JS/Hero/init.js"></script>
     <script src="JS/calculator.js"></script>
+    <script src="JS/ai-chat.js"></script>
 </body>
 
 </html>

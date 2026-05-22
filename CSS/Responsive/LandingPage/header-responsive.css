@@ -17,7 +17,7 @@
 
 @media (max-width: 480px) {
     .header {
-        padding: 1rem;
+        padding: 1rem 5%;
     }
     .logo-img {
         height: 28px;
