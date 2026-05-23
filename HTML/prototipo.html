@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../CSS/Prototipo/dashboard.css">
     <link rel="stylesheet" href="../CSS/Prototipo/agenda.css">
     <link rel="stylesheet" href="../CSS/Prototipo/prototipo.css">
-    <link rel="stylesheet" href="../CSS/Prototipo/prototipo.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/clientes.css">
     <link rel="stylesheet" href="../CSS/Responsive/Prototipo/prototipo-responsive.css">
 </head>
 
@@ -661,7 +661,269 @@
 
                                 </div>
                             </div>
-
+                            
+                            <!-- Diapositiva 4: Clientes -->
+                            <div class="page-section" id="page-clientes">
+                                <div class="clientes-table-wrapper">
+                                    <table class="clientes-table">
+                                        <thead>
+                                            <tr>
+                                                <th>NOMBRE</th>
+                                                <th>TELÉFONO</th>
+                                                <th>ÚLTIMA CITA</th>
+                                                <th>TOTAL DE CITAS</th>
+                                                <th class="th-actions">
+                                                    <button class="btn-nuevo-cliente">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                                        Nuevo Cliente
+                                                    </button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Row 1 Roberto -->
+                                            <tr>
+                                                <td>
+                                                    <div class="table-client-info">
+                                                        <div class="table-avatar avatar-teal">R</div>
+                                                        <div class="table-client-details">
+                                                            <span class="table-client-name">Roberto</span>
+                                                            <span class="table-client-email">roberto@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="table-text">+34 666 666 666</span></td>
+                                                <td><span class="table-text">20 Enero 2026</span></td>
+                                                <td><span class="badge-total-citas">4</span></td>
+                                                <td>
+                                                    <div class="table-actions">
+                                                        <button class="btn-action btn-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                                        <button class="btn-action btn-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 2 Sofía -->
+                                            <tr>
+                                                <td>
+                                                    <div class="table-client-info">
+                                                        <div class="table-avatar avatar-dark">S</div>
+                                                        <div class="table-client-details">
+                                                            <span class="table-client-name">Sofía</span>
+                                                            <span class="table-client-email">sofia@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="table-text">+34 555 555 555</span></td>
+                                                <td><span class="table-text">01 Febrero 2025</span></td>
+                                                <td><span class="badge-total-citas">14</span></td>
+                                                <td>
+                                                    <div class="table-actions">
+                                                        <button class="btn-action btn-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                                        <button class="btn-action btn-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 3 Emma -->
+                                            <tr>
+                                                <td>
+                                                    <div class="table-client-info">
+                                                        <div class="table-avatar avatar-blue">E</div>
+                                                        <div class="table-client-details">
+                                                            <span class="table-client-name">Emma</span>
+                                                            <span class="table-client-email">emma@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="table-text">+34 222 222 222</span></td>
+                                                <td><span class="table-text">18 Abril 2025</span></td>
+                                                <td><span class="badge-total-citas">1</span></td>
+                                                <td>
+                                                    <div class="table-actions">
+                                                        <button class="btn-action btn-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                                        <button class="btn-action btn-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 4 Alfonso -->
+                                            <tr>
+                                                <td>
+                                                    <div class="table-client-info">
+                                                        <div class="table-avatar avatar-green">A</div>
+                                                        <div class="table-client-details">
+                                                            <span class="table-client-name">Alfonso</span>
+                                                            <span class="table-client-email">alfonso@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="table-text">+34 333 333 333</span></td>
+                                                <td><span class="table-text">23 Marzo 2026</span></td>
+                                                <td><span class="badge-total-citas">20</span></td>
+                                                <td>
+                                                    <div class="table-actions">
+                                                        <button class="btn-action btn-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                                        <button class="btn-action btn-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 5 Hugo -->
+                                            <tr>
+                                                <td>
+                                                    <div class="table-client-info">
+                                                        <div class="table-avatar avatar-teal">H</div>
+                                                        <div class="table-client-details">
+                                                            <span class="table-client-name">Hugo</span>
+                                                            <span class="table-client-email">hugo@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="table-text">+34 888 888 888</span></td>
+                                                <td><span class="table-text">08 Abril 2026</span></td>
+                                                <td><span class="badge-total-citas">9</span></td>
+                                                <td>
+                                                    <div class="table-actions">
+                                                        <button class="btn-action btn-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                                        <button class="btn-action btn-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 6 Andrea -->
+                                            <tr>
+                                                <td>
+                                                    <div class="table-client-info">
+                                                        <div class="table-avatar avatar-green">A</div>
+                                                        <div class="table-client-details">
+                                                            <span class="table-client-name">Andrea</span>
+                                                            <span class="table-client-email">hugo@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="table-text">+34 444 444 444</span></td>
+                                                <td><span class="table-text">17 Noviembre 2025</span></td>
+                                                <td><span class="badge-total-citas">6</span></td>
+                                                <td>
+                                                    <div class="table-actions">
+                                                        <button class="btn-action btn-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                                        <button class="btn-action btn-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 7 Nuria -->
+                                            <tr>
+                                                <td>
+                                                    <div class="table-client-info">
+                                                        <div class="table-avatar avatar-teal">N</div>
+                                                        <div class="table-client-details">
+                                                            <span class="table-client-name">Nuria</span>
+                                                            <span class="table-client-email">hugo@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="table-text">+34 999 999 999</span></td>
+                                                <td><span class="table-text">28 Julio 2025</span></td>
+                                                <td><span class="badge-total-citas">18</span></td>
+                                                <td>
+                                                    <div class="table-actions">
+                                                        <button class="btn-action btn-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                                        <button class="btn-action btn-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 8 Miguel -->
+                                            <tr>
+                                                <td>
+                                                    <div class="table-client-info">
+                                                        <div class="table-avatar avatar-blue">M</div>
+                                                        <div class="table-client-details">
+                                                            <span class="table-client-name">Miguel</span>
+                                                            <span class="table-client-email">hugo@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="table-text">+34 777 777 777</span></td>
+                                                <td><span class="table-text">7 Febrero 2026</span></td>
+                                                <td><span class="badge-total-citas">12</span></td>
+                                                <td>
+                                                    <div class="table-actions">
+                                                        <button class="btn-action btn-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                                        <button class="btn-action btn-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                    <div class="pagination-container">
+                                        <div class="pagination-info">Mostrando <strong>1 a 8</strong> de 1987 clientes</div>
+                                        <div class="pagination-controls">
+                                            <button class="page-btn page-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                                            <button class="page-btn active">1</button>
+                                            <button class="page-btn">2</button>
+                                            <button class="page-btn">3</button>
+                                            <span class="page-dots">...</span>
+                                            <button class="page-btn">249</button>
+                                            <button class="page-btn page-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stats Cards -->
+                                <div class="clientes-stats-grid">
+                                    <!-- Card 1: Nuevos Clientes -->
+                                    <div class="c-stat-card c-stat-purple">
+                                        <div class="c-stat-header">
+                                            <div class="c-icon-circle">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                            </div>
+                                            <span class="badge-este-mes">ESTE MES</span>
+                                        </div>
+                                        <div class="c-stat-body">
+                                            <div class="c-stat-value">26</div>
+                                            <div class="c-stat-label">Nuevos Clientes</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Card 2: Retención -->
+                                    <div class="c-stat-card c-stat-white">
+                                        <div class="c-stat-header">
+                                            <div class="c-icon-circle icon-blue">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                            </div>
+                                        </div>
+                                        <div class="c-stat-body">
+                                            <div class="c-stat-value">94%</div>
+                                            <div class="c-stat-label">Tasa de Retención</div>
+                                            <div class="c-progress-track">
+                                                <div class="c-progress-fill" style="width: 94%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Card 3: Asistencia -->
+                                    <div class="c-stat-card c-stat-white" style="position:relative;">
+                                        <div class="c-stat-header">
+                                            <div class="c-icon-circle icon-green">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><polyline points="9 16 12 19 16 13"></polyline></svg>
+                                            </div>
+                                        </div>
+                                        <div class="c-stat-body">
+                                            <div class="c-stat-value">98%</div>
+                                            <div class="c-stat-label">Tasa de Asistencia</div>
+                                        </div>
+                                        <!-- Chart Curve SVG simulated -->
+                                        <svg class="c-chart-curve" viewBox="0 0 300 80" preserveAspectRatio="none">
+                                            <defs>
+                                                <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                    <stop offset="0%" style="stop-color:#4800B2;stop-opacity:0.2" />
+                                                    <stop offset="100%" style="stop-color:#4800B2;stop-opacity:0" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path d="M0 80 C 100 80, 200 40, 300 10 L 300 80 Z" fill="url(#grad1)"></path>
+                                            <path d="M0 80 C 100 80, 200 40, 300 10" fill="none" stroke="#4800B2" stroke-width="3"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                     

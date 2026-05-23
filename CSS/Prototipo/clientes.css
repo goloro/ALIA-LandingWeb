@@ -1,0 +1,353 @@
+/* --- VISTA CLIENTES --- */
+#page-clientes {
+    display: none;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px;
+    height: 100%;
+    overflow-y: auto;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--portal-bg, #f8fafc);
+}
+
+#page-clientes.active {
+    display: flex;
+}
+
+/* Contenedor de la Tabla */
+.clientes-table-wrapper {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Tabla */
+.clientes-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.clientes-table th {
+    padding: 24px 20px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Botón Nuevo Cliente en el Header */
+.th-actions {
+    text-align: right;
+    padding-right: 24px !important;
+}
+
+.btn-nuevo-cliente {
+    background-color: #4800B2; /* Purple from design */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+}
+
+.btn-nuevo-cliente:hover {
+    background-color: #3b0091;
+}
+
+.clientes-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.clientes-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.clientes-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Info del Cliente en la Tabla */
+.table-client-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.table-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.avatar-teal { background-color: #00677D; }
+.avatar-green { background-color: #006129; }
+.avatar-blue { background-color: #0369a1; }
+.avatar-dark { background-color: #042F2E; }
+
+.table-client-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.table-client-name {
+    font-weight: 600;
+    color: #1D1A25;
+    font-size: 14px;
+}
+
+.table-client-email {
+    color: #676768;
+    font-size: 12px;
+}
+
+/* Textos de la Tabla */
+.table-text {
+    color: #494456;
+    font-size: 13px;
+}
+
+/* Badge Total Citas */
+.badge-total-citas {
+    background-color: #F2E8FD;
+    color: #4800B2;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+}
+
+/* Botones de Acción */
+.table-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-action {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-action:hover {
+    transform: scale(1.05);
+}
+
+.btn-edit {
+    background-color: #D1E4FF;
+    color: #039BE5;
+}
+
+.btn-delete {
+    background-color: rgba(186, 26, 26, 0.1);
+    color: #BA1A1A;
+}
+
+/* Paginación */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.pagination-info {
+    font-size: 13px;
+    color: #676768;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #1D1A25;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.page-btn:hover:not(.active) {
+    background-color: #f1f5f9;
+}
+
+.page-btn.active {
+    background-color: #4800B2;
+    color: white;
+}
+
+.page-arrow {
+    color: #676768;
+}
+
+.page-dots {
+    color: #94a3b8;
+    letter-spacing: 2px;
+}
+
+/* Grid de Estadísticas */
+.clientes-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 8px;
+}
+
+.c-stat-card {
+    background-color: white;
+    border-radius: 24px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+}
+
+/* Tarjeta Morada (Nuevos Clientes) */
+.c-stat-purple {
+    background: linear-gradient(135deg, #4800B2 0%, #6d28d9 100%); /* Adjust gradient */
+    color: white;
+}
+
+.c-stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.c-icon-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-stat-purple .c-icon-circle {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.badge-este-mes {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.c-stat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1;
+}
+
+.c-stat-value {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.c-stat-label {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.c-stat-purple .c-stat-label {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Tarjetas Blancas (Tasas) */
+.c-stat-white .c-stat-value {
+    color: #1D1A25;
+}
+
+.c-stat-white .c-stat-label {
+    color: #676768;
+}
+
+.icon-blue {
+    background-color: #D1E4FF;
+    color: #039BE5;
+}
+
+.icon-green {
+    background-color: rgba(0, 97, 41, 0.1); /* light green */
+    color: #3FE374; /* actually in image it's a solid green icon #2CF865 */
+}
+
+/* Progress Bar (Retención) */
+.c-progress-track {
+    width: 100%;
+    height: 4px;
+    background-color: #f1f5f9;
+    border-radius: 4px;
+    margin-top: 16px;
+    overflow: hidden;
+}
+
+.c-progress-fill {
+    height: 100%;
+    background-color: #00677D;
+    border-radius: 4px;
+}
+
+/* Chart Curve (Asistencia) */
+.c-chart-curve {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
