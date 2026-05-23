@@ -224,4 +224,53 @@ document.addEventListener('DOMContentLoaded', () => {
             container.classList.remove('open');
         });
     });
+
+    // --- Lógica de Filtros y Vistas de la Agenda ---
+    const profFilters = document.querySelectorAll('.prof-filter-btn');
+    const viewToggles = document.querySelectorAll('.view-toggle-btn');
+    
+    function updateViewTogglesState() {
+        const activeFilter = document.querySelector('.prof-filter-btn.active');
+        const isTodos = activeFilter && activeFilter.textContent.trim() === 'Todos';
+        
+        viewToggles.forEach(toggle => {
+            const isDay = toggle.textContent.trim() === 'Day';
+            if (isTodos && !isDay) {
+                // Bloquear Week y Month
+                toggle.classList.add('disabled');
+                toggle.disabled = true;
+                // Si estaba activo, cambiar a Day
+                if (toggle.classList.contains('active')) {
+                    toggle.classList.remove('active');
+                    const dayToggle = Array.from(viewToggles).find(t => t.textContent.trim() === 'Day');
+                    if (dayToggle) dayToggle.classList.add('active');
+                }
+            } else {
+                // Desbloquear
+                toggle.classList.remove('disabled');
+                toggle.disabled = false;
+            }
+        });
+    }
+
+    if (profFilters.length > 0 && viewToggles.length > 0) {
+        profFilters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                profFilters.forEach(f => f.classList.remove('active'));
+                btn.classList.add('active');
+                updateViewTogglesState();
+            });
+        });
+
+        viewToggles.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.disabled) return;
+                viewToggles.forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Inicializar estado
+        updateViewTogglesState();
+    }
 });
