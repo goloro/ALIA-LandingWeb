@@ -341,22 +341,58 @@
                                     <div class="agenda-grid">
                                         <!-- Headers -->
                                         <div class="agenda-grid-header-row">
-                                            <div class="agenda-time-col-header"></div>
-                                            <div class="agenda-prof-header">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Jesús" class="prof-avatar">
-                                                <span class="prof-name">Jesús</span>
+                                            <div class="agenda-time-col-header">
+                                                <span class="time-zone-label" style="display:none; font-size: 10px; font-weight: 600; color: #475569; padding-left: 16px; margin-top: auto; padding-bottom: 8px;">GMT 4</span>
                                             </div>
-                                            <div class="agenda-prof-header">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Marcos" class="prof-avatar">
-                                                <span class="prof-name">Marcos</span>
+                                            
+                                            <div class="agenda-prof-headers-wrapper" style="display: contents;">
+                                                <div class="agenda-prof-header">
+                                                    <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Jesús" class="prof-avatar">
+                                                    <span class="prof-name">Jesús</span>
+                                                </div>
+                                                <div class="agenda-prof-header">
+                                                    <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Marcos" class="prof-avatar">
+                                                    <span class="prof-name">Marcos</span>
+                                                </div>
+                                                <div class="agenda-prof-header">
+                                                    <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Sofía" class="prof-avatar">
+                                                    <span class="prof-name">Sofía</span>
+                                                </div>
+                                                <div class="agenda-prof-header">
+                                                    <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Elena" class="prof-avatar">
+                                                    <span class="prof-name">Elena</span>
+                                                </div>
                                             </div>
-                                            <div class="agenda-prof-header">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Sofía" class="prof-avatar">
-                                                <span class="prof-name">Sofía</span>
-                                            </div>
-                                            <div class="agenda-prof-header">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Elena" class="prof-avatar">
-                                                <span class="prof-name">Elena</span>
+
+                                            <div class="agenda-week-headers-wrapper" style="display: none;">
+                                                <div class="agenda-week-header active">
+                                                    <span class="day-name">LUNES</span>
+                                                    <span class="day-num">20</span>
+                                                </div>
+                                                <div class="agenda-week-header">
+                                                    <span class="day-name">MARTES</span>
+                                                    <span class="day-num">21</span>
+                                                </div>
+                                                <div class="agenda-week-header">
+                                                    <span class="day-name">MIÉRCOLES</span>
+                                                    <span class="day-num">22</span>
+                                                </div>
+                                                <div class="agenda-week-header">
+                                                    <span class="day-name">JUEVES</span>
+                                                    <span class="day-num">23</span>
+                                                </div>
+                                                <div class="agenda-week-header">
+                                                    <span class="day-name">VIERNES</span>
+                                                    <span class="day-num">24</span>
+                                                </div>
+                                                <div class="agenda-week-header">
+                                                    <span class="day-name">SÁBADO</span>
+                                                    <span class="day-num">25</span>
+                                                </div>
+                                                <div class="agenda-week-header">
+                                                    <span class="day-name">DOMINGO</span>
+                                                    <span class="day-num">26</span>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -390,6 +426,9 @@
                                                     <div class="bg-col"></div>
                                                     <div class="bg-col"></div>
                                                     <div class="bg-col"></div>
+                                                    <div class="bg-col week-only" style="display: none;"></div>
+                                                    <div class="bg-col week-only" style="display: none;"></div>
+                                                    <div class="bg-col week-only" style="display: none;"></div>
                                                 </div>
                                                 
                                                 <!-- Eventos Jesús -->
@@ -471,9 +510,155 @@
                                                     <div class="agenda-event event-blue" style="top: 768px; height: 42px;">18:00 - Jorge</div>
                                                     <div class="agenda-event event-blue" style="top: 816px; height: 42px;">18:30 - Jorge</div>
                                                 </div>
+                                                
+                                                <!-- Extra columns for Week View -->
+                                                <div class="agenda-prof-col week-only" style="display: none; background-color: #f8fafc;">
+                                                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0.5; color: #5b21b6; font-weight: 700; font-size: 14px;">
+                                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="12" x2="12" y2="18"></line></svg>
+                                                        DÍA DE DESCANSO
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Sábado con citas -->
+                                                <div class="agenda-prof-col week-only" style="display: none;">
+                                                    <div class="agenda-event event-blue" style="top: 0px; height: 42px;">10:00 - María</div>
+                                                    <div class="agenda-event event-blue" style="top: 96px; height: 90px;">11:00 - Carmen</div>
+                                                    <div class="agenda-event event-blue" style="top: 192px; height: 90px;">12:00 - David</div>
+                                                    <div class="agenda-event event-blue" style="top: 288px; height: 42px;">13:00 - Blanca</div>
+                                                    <div class="agenda-event event-lunch" style="top: 432px; height: 90px;">PAUSA ALMUERZO</div>
+                                                                                        <div class="agenda-event event-blue" style="top: 528px; height: 42px;">15:30 - Diego</div>
+                                                    <div class="agenda-event event-blue" style="top: 624px; height: 138px;">16:30 - Gloria</div>
+                                                </div>
+                                                
+                                                <div class="agenda-prof-col week-only" style="display: none; background-color: #f8fafc;">
+                                                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0.5; color: #5b21b6; font-weight: 700; font-size: 14px;">
+                                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="12" x2="12" y2="18"></line></svg>
+                                                        DÍA DE DESCANSO
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+<!-- Month View Grid -->
+                                    <div class="agenda-month-grid" style="display: none;">
+                                        <div class="month-grid-header">
+                                            <div class="month-header-cell">LUNES</div>
+                                            <div class="month-header-cell">MARTES</div>
+                                            <div class="month-header-cell">MIÉRCOLES</div>
+                                            <div class="month-header-cell">JUEVES</div>
+                                            <div class="month-header-cell">VIERNES</div>
+                                            <div class="month-header-cell">SÁBADO</div>
+                                            <div class="month-header-cell">DOMINGO</div>
+                                        </div>
+                                        <div class="month-grid-body">
+                                            <div class="month-cell other-month">
+                                                <span class="month-day-num">30</span>
+                                            </div>
+                                            <div class="month-cell other-month">
+                                                <span class="month-day-num">31</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">01</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">02</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">03</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">04</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">05</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">06</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">07</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">08</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">09</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">10</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">11</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">12</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">13</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">14</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">15</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">16</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">17</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">18</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">19</span>
+                                            </div>
+                                            <div class="month-cell today-cell">
+                                                <span class="month-day-num">20</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">21</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">22</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">23</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">24</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">25</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">26</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">27</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">28</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">29</span>
+                                            </div>
+                                            <div class="month-cell">
+                                                <span class="month-day-num">30</span>
+                                            </div>
+                                            <div class="month-cell other-month">
+                                                <span class="month-day-num">01</span>
+                                            </div>
+                                            <div class="month-cell other-month">
+                                                <span class="month-day-num">02</span>
+                                            </div>
+                                            <div class="month-cell other-month">
+                                                <span class="month-day-num">03</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 

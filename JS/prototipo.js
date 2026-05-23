@@ -231,7 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function updateViewTogglesState() {
         const activeFilter = document.querySelector('.prof-filter-btn.active');
-        const isTodos = activeFilter && activeFilter.textContent.trim() === 'Todos';
+        const filterName = activeFilter ? activeFilter.textContent.trim() : 'Todos';
+        const isTodos = filterName === 'Todos';
         
         viewToggles.forEach(toggle => {
             const isDay = toggle.textContent.trim() === 'Day';
@@ -251,6 +252,90 @@ document.addEventListener('DOMContentLoaded', () => {
                 toggle.disabled = false;
             }
         });
+
+        // Actualizar el layout de la agenda
+        const agendaGrid = document.querySelector('.agenda-grid');
+        const agendaMonthGrid = document.querySelector('.agenda-month-grid');
+        const profCols = document.querySelectorAll('.agenda-prof-col');
+        const activeToggle = document.querySelector('.view-toggle-btn.active');
+        const activeToggleText = activeToggle ? activeToggle.textContent.trim() : 'Day';
+        const isWeekView = activeToggleText === 'Week';
+        const isMonthView = activeToggleText === 'Month';
+        
+        const profHeaders = document.querySelector('.agenda-prof-headers-wrapper');
+        const weekHeaders = document.querySelector('.agenda-week-headers-wrapper');
+        const timeZoneLabel = document.querySelector('.time-zone-label');
+        const weekOnlyBgCols = document.querySelectorAll('.bg-col.week-only');
+        
+        if (agendaMonthGrid) {
+            if (isMonthView) {
+                if (agendaGrid) agendaGrid.style.display = 'none';
+                agendaMonthGrid.style.display = 'flex';
+                // Cambiar el título a solo el mes para ajustarse a la vista
+                const dateTitle = document.querySelector('.agenda-date-title');
+                if (dateTitle) {
+                    dateTitle.textContent = 'Abril 2026';
+                }
+            } else {
+                if (agendaGrid) agendaGrid.style.display = 'flex';
+                agendaMonthGrid.style.display = 'none';
+                // Restaurar el título (idealmente dinámico, pero hardcodeado para el prototipo)
+                const dateTitle = document.querySelector('.agenda-date-title');
+                if (dateTitle && isWeekView) {
+                    dateTitle.textContent = 'Abril 20 - Abril 26, 2026';
+                } else if (dateTitle) {
+                    dateTitle.textContent = 'Lunes 20 Abril 2026';
+                }
+            }
+        }
+        
+        if (agendaGrid && profCols.length >= 4 && !isMonthView) {
+            // Reiniciar estados
+            agendaGrid.classList.remove('single-prof-view', 'week-view');
+            if(profHeaders) profHeaders.style.display = 'none';
+            if(weekHeaders) weekHeaders.style.display = 'none';
+            if(timeZoneLabel) timeZoneLabel.style.display = 'none';
+            weekOnlyBgCols.forEach(c => c.style.display = 'none');
+            
+            if (isWeekView) {
+                // Configurar Vista Semanal
+                agendaGrid.classList.add('week-view');
+                if(weekHeaders) weekHeaders.style.display = 'contents';
+                if(timeZoneLabel) timeZoneLabel.style.display = 'block';
+                weekOnlyBgCols.forEach(c => c.style.display = 'block');
+                
+                // Mostramos las 7 columnas
+                profCols.forEach(col => col.style.display = 'block');
+                
+            } else {
+                // Configurar Vista Diaria
+                if (isTodos) {
+                    // Vista Todos (4 columnas de profesionales)
+                    if(profHeaders) profHeaders.style.display = 'contents';
+                    
+                    profCols.forEach(col => {
+                        if (col.classList.contains('week-only')) {
+                            col.style.display = 'none';
+                        } else {
+                            col.style.display = 'block';
+                        }
+                    });
+                } else {
+                    // Vista 1 profesional (1 columna)
+                    agendaGrid.classList.add('single-prof-view');
+                    profCols.forEach(col => col.style.display = 'none');
+                    
+                    let targetIndex = 0;
+                    if (filterName === 'Marcos') targetIndex = 1;
+                    else if (filterName === 'Sofía') targetIndex = 2;
+                    else if (filterName === 'Elena') targetIndex = 3;
+                    
+                    if (profCols[targetIndex]) {
+                        profCols[targetIndex].style.display = 'block';
+                    }
+                }
+            }
+        }
     }
 
     if (profFilters.length > 0 && viewToggles.length > 0) {
@@ -267,6 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (btn.disabled) return;
                 viewToggles.forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
+                updateViewTogglesState();
             });
         });
 
