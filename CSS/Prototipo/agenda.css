@@ -161,11 +161,19 @@
     align-items: center;
     justify-content: center;
     padding: 12px 12px 8px 12px;
-    border-top: 3px solid transparent;
+    position: relative;
 }
 
-.agenda-week-header.active {
-    border-top: 3px solid #0f766e; /* Teal border for active day */
+.agenda-week-header.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 3px;
+    background-color: #0f766e; /* Teal border for active day */
+    border-radius: 0 0 4px 4px;
 }
 
 .day-name {
@@ -374,7 +382,7 @@
 .month-grid-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-auto-rows: 1fr;
 }
 
 .month-cell {

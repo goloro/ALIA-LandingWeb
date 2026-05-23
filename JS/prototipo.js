@@ -271,22 +271,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isMonthView) {
                 if (agendaGrid) agendaGrid.style.display = 'none';
                 agendaMonthGrid.style.display = 'flex';
-                // Cambiar el título a solo el mes para ajustarse a la vista
-                const dateTitle = document.querySelector('.agenda-date-title');
-                if (dateTitle) {
-                    dateTitle.textContent = 'Abril 2026';
-                }
             } else {
                 if (agendaGrid) agendaGrid.style.display = 'flex';
                 agendaMonthGrid.style.display = 'none';
-                // Restaurar el título (idealmente dinámico, pero hardcodeado para el prototipo)
-                const dateTitle = document.querySelector('.agenda-date-title');
-                if (dateTitle && isWeekView) {
-                    dateTitle.textContent = 'Abril 20 - Abril 26, 2026';
-                } else if (dateTitle) {
-                    dateTitle.textContent = 'Lunes 20 Abril 2026';
-                }
             }
+        }
+        
+        // Call dynamic dates update
+        if (typeof updateAgendaDynamicDates === 'function') {
+            updateAgendaDynamicDates();
         }
         
         if (agendaGrid && profCols.length >= 4 && !isMonthView) {
@@ -359,4 +352,104 @@ document.addEventListener('DOMContentLoaded', () => {
         // Inicializar estado
         updateViewTogglesState();
     }
+
+    // --- Lógica de Agenda Dinámica ---
+    function updateAgendaDynamicDates() {
+        const dateTitle = document.querySelector('.agenda-date-title');
+        if (!dateTitle) return;
+
+        const now = new Date();
+        const activeToggle = document.querySelector('.view-toggle-btn.active');
+        const viewMode = activeToggle ? activeToggle.textContent.trim() : 'Day';
+
+        // Helpers
+        const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
+        const getMonthName = d => capitalize(d.toLocaleDateString('es-ES', { month: 'long' }));
+        const getDayName = d => capitalize(d.toLocaleDateString('es-ES', { weekday: 'long' }));
+
+        // Día de la semana (Lunes = 1, Domingo = 7)
+        let dayOfWeek = now.getDay();
+        if (dayOfWeek === 0) dayOfWeek = 7; 
+        
+        // Calcular inicio de semana (Lunes)
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - dayOfWeek + 1);
+
+        if (viewMode === 'Day' || !activeToggle) {
+            // ej: "20 de Abril de 2026"
+            dateTitle.textContent = `${now.getDate()} de ${getMonthName(now)} de ${now.getFullYear()}`;
+        } else if (viewMode === 'Week') {
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+            if (startOfWeek.getMonth() === endOfWeek.getMonth()) {
+                dateTitle.textContent = `${startOfWeek.getDate()} - ${endOfWeek.getDate()} de ${getMonthName(startOfWeek)} de ${endOfWeek.getFullYear()}`;
+            } else {
+                dateTitle.textContent = `${startOfWeek.getDate()} de ${getMonthName(startOfWeek)} - ${endOfWeek.getDate()} de ${getMonthName(endOfWeek)} de ${endOfWeek.getFullYear()}`;
+            }
+        } else if (viewMode === 'Month') {
+            dateTitle.textContent = `${getMonthName(now)} de ${now.getFullYear()}`;
+        }
+
+        // Actualizar Cabeceras de Semana
+        const weekHeaders = document.querySelectorAll('.agenda-week-header');
+        if (weekHeaders.length === 7) {
+            for (let i = 0; i < 7; i++) {
+                const headerDate = new Date(startOfWeek);
+                headerDate.setDate(startOfWeek.getDate() + i);
+                const dayNumEl = weekHeaders[i].querySelector('.day-num');
+                if (dayNumEl) {
+                    dayNumEl.textContent = headerDate.getDate();
+                }
+                // Resaltar día actual
+                if (headerDate.toDateString() === now.toDateString()) {
+                    weekHeaders[i].classList.add('active');
+                } else {
+                    weekHeaders[i].classList.remove('active');
+                }
+            }
+        }
+
+        // Generar Cuadrícula del Mes
+        const monthGridBody = document.querySelector('.month-grid-body');
+        if (monthGridBody) {
+            monthGridBody.innerHTML = '';
+            
+            // Primer día del mes
+            const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            let firstDayOfWeek = firstDayOfMonth.getDay();
+            if (firstDayOfWeek === 0) firstDayOfWeek = 7;
+            
+            // Fecha inicio (puede ser del mes anterior)
+            const startDate = new Date(firstDayOfMonth);
+            startDate.setDate(firstDayOfMonth.getDate() - firstDayOfWeek + 1);
+            
+            // Calcular cuantas semanas necesitamos para mostrar todo el mes
+            // Generalmente 5 semanas (35 dias) o 6 (42 dias) dependiendo del dia 1
+            const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+            const totalDaysSpan = firstDayOfWeek - 1 + lastDayOfMonth.getDate();
+            const cellsToGenerate = totalDaysSpan > 35 ? 42 : 35;
+            
+            for (let i = 0; i < cellsToGenerate; i++) {
+                const cellDate = new Date(startDate);
+                cellDate.setDate(startDate.getDate() + i);
+                
+                const cellDiv = document.createElement('div');
+                cellDiv.className = 'month-cell';
+                
+                if (cellDate.getMonth() !== now.getMonth()) {
+                    cellDiv.classList.add('other-month');
+                }
+                if (cellDate.toDateString() === now.toDateString()) {
+                    cellDiv.classList.add('today-cell');
+                }
+                
+                const numStr = String(cellDate.getDate()).padStart(2, '0');
+                cellDiv.innerHTML = `<span class="month-day-num">${numStr}</span>`;
+                monthGridBody.appendChild(cellDiv);
+            }
+        }
+    }
+
+    // Initialize date dynamically on start
+    updateAgendaDynamicDates();
 });
