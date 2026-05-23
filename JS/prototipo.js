@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnCancelModal.addEventListener('click', closeModal);
     }
 
-    // Cerrar si se hace click fuera del modal
+    // Cerrar si se hace click fuera del modal de nueva cita
     if (modalNuevaCita) {
         modalNuevaCita.addEventListener('click', (e) => {
             if (e.target === modalNuevaCita) {
@@ -129,6 +129,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Popover de Notificaciones ---
+    const modalNotificaciones = document.getElementById('modal-notificaciones');
+    const btnOpenNotificaciones = document.getElementById('btn-open-notificaciones');
+
+    function openNotificaciones() {
+        if (modalNotificaciones && btnOpenNotificaciones) {
+            // Asegurar que otros modales están cerrados
+            closeModal();
+            modalNotificaciones.classList.add('active');
+            btnOpenNotificaciones.classList.add('active');
+        }
+    }
+
+    function closeNotificaciones() {
+        if (modalNotificaciones && btnOpenNotificaciones) {
+            modalNotificaciones.classList.remove('active');
+            btnOpenNotificaciones.classList.remove('active');
+        }
+    }
+
+    if (btnOpenNotificaciones) {
+        btnOpenNotificaciones.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // Evitar que el click cierre inmediatamente
+            if (modalNotificaciones.classList.contains('active')) {
+                closeNotificaciones();
+            } else {
+                openNotificaciones();
+            }
+        });
+    }
+
+    // Cerrar si se hace click fuera del popover de notificaciones
+    document.addEventListener('click', (e) => {
+        if (modalNotificaciones && modalNotificaciones.classList.contains('active')) {
+            if (!modalNotificaciones.contains(e.target) && e.target !== btnOpenNotificaciones) {
+                closeNotificaciones();
+            }
+        }
+    });
 
     // --- Lógica de los Custom Selects (Desplegables Bonitos) ---
     const customSelects = document.querySelectorAll('.custom-select-container');
