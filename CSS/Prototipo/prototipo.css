@@ -1,5 +1,9 @@
 /* CSS/Prototipo/prototipo.css */
 
+body {
+    overflow: hidden;
+}
+
 /* Por defecto, ocultamos el bloqueador móvil */
 .mobile-blocker {
     display: none;
@@ -57,37 +61,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #F7FAFF;
+    background-color: #fcfcfd;
+    padding: 20px;
+    overflow: hidden;
 }
 
-.workspace-placeholder {
+.prototype-content {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1.5rem;
+    gap: 40px;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
 }
 
-.workspace-placeholder h2 {
-    font-size: 2rem;
-    color: var(--text-dark);
+/* Contenedor del Portal */
+.portal-container {
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0,0,0,0.05);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #f3f4f6;
+    display: flex;
 }
 
-.workspace-placeholder p {
-    color: var(--text-body);
-    font-size: 1.2rem;
+/* Ajustes del Móvil para el Prototipo */
+.phone-container.prototype-phone {
+    flex-shrink: 0;
+    height: 100%;
+    width: 375px; /* Ajuste ligeramente más fino que los 400px de portada */
 }
 
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(21, 158, 186, 0.2);
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+/* Ocultar el resplandor de la portada */
+.phone-container.prototype-phone::before {
+    display: none;
 }
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
