@@ -1,0 +1,241 @@
+/* CSS/Prototipo/agenda.css */
+
+.agenda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.agenda-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--portal-text-main);
+}
+
+.agenda-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.agenda-date-range {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--portal-text-main);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.nav-arrow:hover {
+    background-color: #f8fafc;
+}
+
+.view-toggles {
+    display: flex;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.view-btn {
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.view-btn.active {
+    background-color: white;
+    color: var(--portal-text-main);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.btn-today {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--portal-text-main);
+    cursor: pointer;
+}
+
+/* Calendar Grid Base */
+.calendar-container {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-header-row {
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+    border-bottom: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.time-col-header {
+    width: 60px;
+    border-right: 1px solid #e2e8f0;
+}
+
+.day-header {
+    padding: 12px;
+    text-align: center;
+    border-right: 1px solid #e2e8f0;
+}
+
+.day-header:last-child {
+    border-right: none;
+}
+
+.day-name {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.day-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--portal-text-main);
+}
+
+.day-number.active {
+    width: 32px;
+    height: 32px;
+    background-color: var(--portal-icon-active-bg);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* Calendar Body */
+.calendar-body {
+    display: flex;
+    position: relative;
+    height: 600px;
+    overflow-y: auto;
+}
+
+.time-column {
+    width: 60px;
+    flex-shrink: 0;
+    background-color: white;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+}
+
+.time-slot-label {
+    height: 60px;
+    padding-right: 8px;
+    text-align: right;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 600;
+    transform: translateY(-8px);
+}
+
+.days-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    position: relative;
+}
+
+.day-column {
+    border-right: 1px solid #e2e8f0;
+    position: relative;
+    background-image: linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+    background-size: 100% 60px; /* 60px is 1 hour */
+}
+
+.day-column:last-child {
+    border-right: none;
+}
+
+/* Events */
+.event-block {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 0.75rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.1s;
+    border-left: 3px solid transparent;
+}
+
+.event-block:hover {
+    transform: scale(1.02);
+    z-index: 10;
+}
+
+.event-title {
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: #0f172a;
+}
+
+.event-time {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* Event Types */
+.event-purple {
+    background-color: #f3e8ff;
+    border-left-color: #9333ea;
+    color: #6b21a8;
+}
+
+.event-purple .event-title {
+    color: #6b21a8;
+}
+
+.event-gray {
+    background-color: #f1f5f9;
+    border-left-color: #94a3b8;
+    color: #475569;
+}
+
+.event-blue {
+    background-color: #e0f2fe;
+    border-left-color: #0284c7;
+    color: #0369a1;
+}
+
+.event-blue .event-title {
+    color: #0369a1;
+}

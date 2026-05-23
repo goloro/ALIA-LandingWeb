@@ -20,6 +20,10 @@
     <!-- Prototype CSS -->
     <link rel="stylesheet" href="../CSS/LandingPage/phone-mockup.css">
     <link rel="stylesheet" href="../CSS/LandingPage/chat.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/layout.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/dashboard.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/agenda.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/prototipo.css">
     <link rel="stylesheet" href="../CSS/Prototipo/prototipo.css">
     <link rel="stylesheet" href="../CSS/Responsive/Prototipo/prototipo-responsive.css">
 </head>
@@ -56,7 +60,358 @@
             <div class="prototype-content">
                 <!-- Contenedor del Portal (Izquierda) -->
                 <div class="portal-container">
-                    <!-- Aquí desarrollaremos el portal -->
+                    
+                    <!-- Sidebar -->
+                    <nav class="portal-sidebar">
+                        <div class="sidebar-logo">
+                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Logo Negocio">
+                        </div>
+                        <div class="sidebar-nav">
+                            <a href="#" class="nav-item active" title="Dashboard" data-target="page-dashboard">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                            </a>
+                            <a href="#" class="nav-item" title="Agenda" data-target="page-agenda-semanal">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            </a>
+                            <a href="#" class="nav-item" title="Clientes" data-target="page-clientes">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </a>
+                            <a href="#" class="nav-item" title="Chats">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </a>
+                            <a href="#" class="nav-item" title="Disponibilidad">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M9 16l2 2 4-4"></path></svg>
+                            </a>
+                            <a href="#" class="nav-item" title="Mi Equipo">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><circle cx="12" cy="11" r="3"></circle></svg>
+                            </a>
+                        </div>
+                        <div class="sidebar-spacer"></div>
+                        <div class="sidebar-nav">
+                            <a href="#" class="nav-item" title="Soporte">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            </a>
+                            <a href="#" class="nav-item" title="Ajustes">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            </a>
+                        </div>
+                    </nav>
+
+                    <!-- Main Content Area -->
+                    <div class="portal-main">
+                        <!-- Topbar -->
+                        <header class="portal-topbar">
+                            <h2 class="topbar-title">Dashboard</h2>
+                            <div class="topbar-actions">
+                                <div class="search-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                    <input type="text" placeholder="Buscar cliente...">
+                                </div>
+                                <button class="btn-new-cita">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    Nueva Cita
+                                </button>
+                            </div>
+                        </header>
+
+                        <!-- Dynamic Pages Container -->
+                        <div class="portal-page-content">
+                            <!-- Diapositiva 1: Dashboard -->
+                            <div class="page-section active" id="page-dashboard">
+                                <div class="dashboard-header">
+                                    <h1 class="dashboard-greeting">Hola, Jesús 👋</h1>
+                                    <p class="dashboard-date">Lunes, 20 de Abril de 2026</p>
+                                </div>
+
+                                <h3 class="section-title">Visión Global Del Negocio</h3>
+                                
+                                <div class="metrics-grid">
+                                    <div class="metric-card">
+                                        <div class="metric-title">Ingresos Previstos (Abril)</div>
+                                        <div class="metric-value">12.450 <span>€</span></div>
+                                        <div class="metric-line"></div>
+                                    </div>
+                                    
+                                    <div class="metric-card">
+                                        <div class="metric-title">Tasa De Ocupación (Abril)</div>
+                                        <div class="metric-value">82 <span>%</span></div>
+                                        <div class="metric-sub"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> +4% vs mes ant.</div>
+                                    </div>
+                                    
+                                    <div class="metric-card">
+                                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                            <div class="metric-title">Nuevos Clientes (Abril)</div>
+                                            <div class="pill-green">+12%</div>
+                                        </div>
+                                        <div class="metric-value">24</div>
+                                        <div class="avatars-group">
+                                            <div class="avatar-circle">G</div>
+                                            <div class="avatar-circle">E</div>
+                                            <div class="avatar-circle">S</div>
+                                            <div class="avatar-circle more">+21</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="metric-card purple-card">
+                                        <div class="metric-title">Horas Ahorradas Por IA (Abril)</div>
+                                        <div class="metric-value">✨ 14h</div>
+                                        <div class="metric-sub">Equivale a 1.200€ en costes<br>operativos</div>
+                                    </div>
+                                </div>
+
+                                <div class="middle-row">
+                                    <div class="chart-card">
+                                        <div class="chart-header">
+                                            <div>
+                                                <h3 class="section-title" style="margin-bottom: 4px;">Citas por Día</h3>
+                                                <span class="section-subtitle">Comparativa de canal de entrada</span>
+                                            </div>
+                                            <div class="legend">
+                                                <div class="legend-item"><div class="dot green"></div> WhatsApp/ALIA</div>
+                                                <div class="legend-item"><div class="dot gray"></div> Manuales</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Placeholder visual para el gráfico -->
+                                        <div class="chart-area-placeholder">
+                                            <span class="axis-label">Lun</span>
+                                            <span class="axis-label">Mar</span>
+                                            <span class="axis-label">Mié</span>
+                                            <span class="axis-label">Jue</span>
+                                            <span class="axis-label">Vie</span>
+                                            <span class="axis-label">Sáb</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-card">
+                                        <h3 class="section-title" style="margin-bottom: 4px;">Rendimiento del Equipo</h3>
+                                        <span class="section-subtitle">Ocupación semanal</span>
+                                        
+                                        <div class="team-list">
+                                            <div class="team-member">
+                                                <div class="member-avatar">EM</div>
+                                                <div class="member-info">
+                                                    <div class="member-header">
+                                                        <span class="member-name">Elena Martínez</span>
+                                                        <span class="member-stat">92%</span>
+                                                    </div>
+                                                    <div class="progress-bar-bg">
+                                                        <div class="progress-bar-fill" style="width: 92%; background-color: #10b981;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="team-member">
+                                                <div class="member-avatar">CG</div>
+                                                <div class="member-info">
+                                                    <div class="member-header">
+                                                        <span class="member-name">Carlos G.</span>
+                                                        <span class="member-stat" style="color: #3b82f6;">78%</span>
+                                                    </div>
+                                                    <div class="progress-bar-bg">
+                                                        <div class="progress-bar-fill" style="width: 78%; background-color: #3b82f6;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="team-member">
+                                                <div class="member-avatar" style="background-color: #e0e7ff; color: #4f46e5;">SM</div>
+                                                <div class="member-info">
+                                                    <div class="member-header">
+                                                        <span class="member-name">Sara Moreno</span>
+                                                        <span class="member-stat" style="color: #06b6d4;">64%</span>
+                                                    </div>
+                                                    <div class="progress-bar-bg">
+                                                        <div class="progress-bar-fill" style="width: 64%; background-color: #06b6d4;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <button class="btn-outline">VER DETALLE DE EQUIPO</button>
+                                    </div>
+                                </div>
+
+                                <h3 class="section-title">Próxima Cita</h3>
+                                <div class="appointment-card">
+                                    <div class="appt-left">
+                                        <div class="appt-status">
+                                            <span class="badge-green">CONFIRMADA</span>
+                                            <span class="appt-time">17:00 - 17:30</span>
+                                        </div>
+                                        <div class="appt-name">Alonso</div>
+                                        <div class="appt-service">Corte de pelo</div>
+                                    </div>
+                                    <div class="appt-right">
+                                        <div class="client-avatar">A</div>
+                                        <button class="btn-outline" style="width: auto; padding: 10px 20px; background-color: #f8fafc; margin: 0;">Ver Ficha de Cliente</button>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Agendar Cita Manualmente (Oculto por defecto para simular Slide 2) -->
+                                <div class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.4); z-index: 100; align-items: center; justify-content: center;">
+                                    <div class="modal-content" style="background: white; border-radius: 20px; width: 450px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                                            <h3 style="font-size: 1.2rem; font-weight: 700; margin: 0;">Agendar Cita Manualmente</h3>
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                        </div>
+                                        
+                                        <div style="margin-bottom: 20px;">
+                                            <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #64748b; margin-bottom: 8px;">Seleccionar cliente o nuevo</label>
+                                            <div style="position: relative;">
+                                                <input type="text" placeholder="Ej. Roberto Martínez" style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; outline: none;">
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                                            <div>
+                                                <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #64748b; margin-bottom: 8px;">Fecha</label>
+                                                <div style="position: relative;">
+                                                    <input type="text" value="22/04/2026" style="width: 100%; padding: 12px 16px 12px 40px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; outline: none; color: #0f172a; font-weight: 600;">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 16px; top: 14px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #64748b; margin-bottom: 8px;">Profesional</label>
+                                                <div style="position: relative;">
+                                                    <select style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; outline: none; appearance: none; color: #0f172a; font-weight: 600;">
+                                                        <option>Cualquiera Disponible</option>
+                                                        <option>Elena Martínez</option>
+                                                    </select>
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 16px; top: 14px; pointer-events: none;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="margin-bottom: 24px;">
+                                            <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #64748b; margin-bottom: 8px;">Servicio(s)</label>
+                                            <div style="position: relative;">
+                                                <select style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; outline: none; appearance: none; color: #0f172a; font-weight: 600;">
+                                                    <option>Corte de pelo</option>
+                                                </select>
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 16px; top: 14px; pointer-events: none;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                                            <button style="padding: 12px 24px; border-radius: 20px; background: white; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600; font-size: 0.9rem; cursor: pointer;">Cancelar</button>
+                                            <button style="padding: 12px 24px; border-radius: 20px; background: #159EBA; border: none; color: white; font-weight: 600; font-size: 0.9rem; cursor: pointer;">Guardar Cita</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Diapositiva 3: Agenda Semanal -->
+                            <div class="page-section" id="page-agenda-semanal">
+                                <div class="agenda-header">
+                                    <h1 class="agenda-title">Agenda</h1>
+                                    <div class="agenda-controls">
+                                        <div class="agenda-date-range">
+                                            Abril 22 - Abril 28, 2026
+                                        </div>
+                                        <div style="display: flex; gap: 8px;">
+                                            <button class="nav-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                                            <button class="nav-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                                        </div>
+                                        <button class="btn-today">Hoy</button>
+                                        <div class="view-toggles">
+                                            <button class="view-btn">Día</button>
+                                            <button class="view-btn active">Semana</button>
+                                            <button class="view-btn">Mes</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="calendar-container">
+                                    <div class="calendar-header-row">
+                                        <div class="time-col-header"></div>
+                                        <div class="day-header"><div class="day-name">Lun</div><div class="day-number">22</div></div>
+                                        <div class="day-header"><div class="day-name">Mar</div><div class="day-number">23</div></div>
+                                        <div class="day-header"><div class="day-name">Mié</div><div class="day-number">24</div></div>
+                                        <div class="day-header"><div class="day-name">Jue</div><div class="day-number">25</div></div>
+                                        <div class="day-header"><div class="day-name">Vie</div><div class="day-number active">26</div></div>
+                                        <div class="day-header"><div class="day-name">Sáb</div><div class="day-number">27</div></div>
+                                        <div class="day-header"><div class="day-name">Dom</div><div class="day-number" style="opacity:0.5;">28</div></div>
+                                    </div>
+                                    
+                                    <div class="calendar-body">
+                                        <div class="time-column">
+                                            <div class="time-slot-label" style="margin-top: 60px;">09:00</div>
+                                            <div class="time-slot-label">10:00</div>
+                                            <div class="time-slot-label">11:00</div>
+                                            <div class="time-slot-label">12:00</div>
+                                            <div class="time-slot-label">13:00</div>
+                                            <div class="time-slot-label">14:00</div>
+                                            <div class="time-slot-label">15:00</div>
+                                            <div class="time-slot-label">16:00</div>
+                                            <div class="time-slot-label">17:00</div>
+                                            <div class="time-slot-label">18:00</div>
+                                            <div class="time-slot-label">19:00</div>
+                                            <div class="time-slot-label">20:00</div>
+                                        </div>
+                                        
+                                        <div class="days-grid">
+                                            <!-- Lunes 22 -->
+                                            <div class="day-column">
+                                                <!-- top: 60px = 09:00, height: 60px = 1h -->
+                                                <div class="event-block event-gray" style="top: 60px; height: 90px;">
+                                                    <div class="event-title">Corte de pelo</div>
+                                                    <div class="event-time">09:00 - 10:30 • Carlos G.</div>
+                                                </div>
+                                            </div>
+                                            <!-- Martes 23 -->
+                                            <div class="day-column">
+                                                <div class="event-block event-purple" style="top: 120px; height: 60px;">
+                                                    <div class="event-title">Mechas + Tinte</div>
+                                                    <div class="event-time">10:00 - 11:00 • Elena M.</div>
+                                                </div>
+                                                <div class="event-block event-blue" style="top: 240px; height: 120px;">
+                                                    <div class="event-title">Coloración Completa</div>
+                                                    <div class="event-time">12:00 - 14:00 • Sara M.</div>
+                                                </div>
+                                            </div>
+                                            <!-- Miércoles 24 -->
+                                            <div class="day-column">
+                                                <div class="event-block event-gray" style="top: 150px; height: 45px;">
+                                                    <div class="event-title">Arreglo Barba</div>
+                                                    <div class="event-time">10:30 - 11:15 • Carlos G.</div>
+                                                </div>
+                                            </div>
+                                            <!-- Jueves 25 -->
+                                            <div class="day-column">
+                                                <div class="event-block event-purple" style="top: 90px; height: 90px;">
+                                                    <div class="event-title">Mechas Balayage</div>
+                                                    <div class="event-time">09:30 - 11:00 • Elena M.</div>
+                                                </div>
+                                            </div>
+                                            <!-- Viernes 26 -->
+                                            <div class="day-column">
+                                                <div class="event-block event-gray" style="top: 210px; height: 60px;">
+                                                    <div class="event-title">Corte Mujer</div>
+                                                    <div class="event-time">11:30 - 12:30 • Sara M.</div>
+                                                </div>
+                                                <div class="event-block event-blue" style="top: 360px; height: 90px;">
+                                                    <div class="event-title">Tratamiento Keratina</div>
+                                                    <div class="event-time">14:00 - 15:30 • Elena M.</div>
+                                                </div>
+                                            </div>
+                                            <!-- Sábado 27 -->
+                                            <div class="day-column">
+                                                <div class="event-block event-purple" style="top: 60px; height: 120px;">
+                                                    <div class="event-title">Pack Novia Prueba</div>
+                                                    <div class="event-time">09:00 - 11:00 • Elena M.</div>
+                                                </div>
+                                            </div>
+                                            <!-- Domingo 28 -->
+                                            <div class="day-column"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Contenedor del Móvil (Derecha) -->

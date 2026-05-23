@@ -1,4 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Lógica de Navegación del Portal ---
+    const navItems = document.querySelectorAll('.nav-item');
+    const pageSections = document.querySelectorAll('.page-section');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = item.getAttribute('data-target');
+            if (!targetId) return;
+
+            // Quitar active de todos los nav items
+            navItems.forEach(n => n.classList.remove('active'));
+            // Poner active al clickeado
+            item.classList.add('active');
+
+            // Ocultar todas las secciones
+            pageSections.forEach(sec => sec.classList.remove('active'));
+            // Mostrar la sección target
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) targetSection.classList.add('active');
+        });
+    });
+
+    // --- Lógica del Chat ---
     const chatArea = document.getElementById('prototype-chat-container');
     const inputField = document.getElementById('prototype-chat-input');
     const sendBtn = document.getElementById('prototype-chat-send');
