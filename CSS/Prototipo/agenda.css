@@ -475,7 +475,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #0f172a;
+    color: #1D1A25;
     padding: 4px;
     border-radius: 4px;
     display: flex;
@@ -491,7 +491,7 @@
 .panel-title {
     font-size: 24px;
     font-weight: 700;
-    color: #0f172a;
+    color: #1D1A25;
     margin: 0 0 4px 0;
 }
 
@@ -504,11 +504,11 @@
 }
 
 .panel-time {
-    color: #0ea5e9; /* Sky blue */
+    color: #00677D;
 }
 
 .panel-date {
-    color: #0ea5e9;
+    color: #00677D;
 }
 
 /* Body */
@@ -530,7 +530,7 @@
 .section-subtitle {
     font-size: 13px;
     font-weight: 600;
-    color: #475569;
+    color: #676768;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin: 0;
@@ -544,7 +544,7 @@
 
 .edit-link {
     font-size: 12px;
-    color: #94a3b8;
+    color: #494456;
     cursor: pointer;
 }
 
@@ -555,7 +555,7 @@
 
 /* Client Card */
 .client-card {
-    background-color: #e0f2fe; /* light blue bg */
+    background-color: #D1E4FF;
     border-radius: 12px;
     padding: 16px;
     display: flex;
@@ -566,8 +566,8 @@
 .client-avatar {
     width: 40px;
     height: 40px;
-    background-color: #0369a1;
-    color: white;
+    background-color: #4800B2;
+    color: #FFFFFF;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -582,18 +582,18 @@
 
 .client-name {
     font-weight: 600;
-    color: #0f172a;
+    color: #1D1A25;
     font-size: 15px;
     margin-bottom: 2px;
 }
 
 .client-phone {
     font-size: 13px;
-    color: #64748b;
+    color: #676768;
 }
 
 .btn-client-chat {
-    background-color: #10b981; /* green */
+    background-color: #042F2E;
     border: none;
     border-radius: 8px;
     width: 36px;
@@ -605,15 +605,19 @@
     transition: transform 0.2s;
 }
 
+.btn-client-chat svg {
+    stroke: #2CF865;
+}
+
 .btn-client-chat:hover {
     transform: scale(1.05);
 }
 
 /* Notes Card */
 .notes-card {
-    background-color: white;
+    background-color: #FFFFFF;
     border: 1px solid #e2e8f0;
-    border-left: 3px solid #ef4444; /* red border left */
+    border-left: 3px solid #BA1A1A;
     border-radius: 8px;
     padding: 16px;
 }
@@ -622,7 +626,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #ef4444; /* red */
+    color: #BA1A1A;
     font-weight: 600;
     font-size: 14px;
     margin-bottom: 8px;
@@ -631,7 +635,7 @@
 .notes-text {
     margin: 0;
     font-size: 14px;
-    color: #334155;
+    color: #494456;
     line-height: 1.5;
 }
 
@@ -673,9 +677,9 @@
     border-radius: 50%;
 }
 
-.marker-blue .marker-dot { background-color: #0ea5e9; }
-.marker-green .marker-dot { background-color: #10b981; }
-.marker-red .marker-dot { background-color: #ef4444; }
+.marker-blue .marker-dot { background-color: #039BE5; }
+.marker-green .marker-dot { background-color: #3FE374; }
+.marker-red .marker-dot { background-color: #BA1A1A; }
 
 .marker-line {
     width: 2px;
@@ -687,7 +691,7 @@
 
 .history-content {
     flex: 1;
-    background-color: #f8fafc;
+    background-color: #F7FAFF;
     border-radius: 12px;
     padding: 16px;
     margin-bottom: 16px;
@@ -703,7 +707,7 @@
 .history-date {
     font-size: 13px;
     font-weight: 700;
-    color: #475569;
+    color: #676768;
 }
 
 .history-badge {
@@ -714,22 +718,22 @@
 }
 
 .badge-pending {
-    background-color: #e0f2fe;
-    color: #0ea5e9;
+    background-color: #D1E4FF;
+    color: #00677D;
 }
 .badge-completed {
-    background-color: #d1fae5;
-    color: #10b981;
+    background-color: rgba(0, 97, 41, 0.1);
+    color: #006129;
 }
 .badge-noshow {
-    background-color: #fee2e2;
-    color: #ef4444;
+    background-color: rgba(186, 26, 26, 0.3);
+    color: #BA1A1A;
 }
 
 .history-service {
     font-size: 15px;
     font-weight: 700;
-    color: #0f172a;
+    color: #1D1A25;
     margin-bottom: 12px;
 }
 
@@ -738,7 +742,7 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #64748b;
+    color: #676768;
 }
 
 .prof-mini-avatar {
@@ -759,9 +763,9 @@
 
 .btn-footer-outline {
     flex: 1;
-    background: white;
-    border: 1px solid #ef4444;
-    color: #ef4444;
+    background: #FFFFFF;
+    border: 1px solid #BA1A1A;
+    color: #BA1A1A;
     font-weight: 600;
     font-size: 14px;
     border-radius: 8px;
@@ -771,14 +775,14 @@
 }
 
 .btn-footer-outline:hover {
-    background-color: #fef2f2;
+    background-color: rgba(186, 26, 26, 0.1);
 }
 
 .btn-footer-solid {
     flex: 1;
-    background: #0ea5e9;
+    background: linear-gradient(135deg, #039BE5 0%, #00677D 100%);
     border: none;
-    color: white;
+    color: #FFFFFF;
     font-weight: 600;
     font-size: 14px;
     border-radius: 8px;
@@ -788,5 +792,5 @@
 }
 
 .btn-footer-solid:hover {
-    background: #0284c7;
+    background: linear-gradient(135deg, #0287c9 0%, #005263 100%);
 }

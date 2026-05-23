@@ -486,7 +486,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Evento para abrir al hacer clic en cualquier cita de la agenda
     function attachAppointmentEvents() {
-        const events = document.querySelectorAll('.agenda-event');
+        // Excluimos explícitamente los bloques de almuerzo (.event-lunch)
+        const events = document.querySelectorAll('.agenda-event:not(.event-lunch)');
         events.forEach(event => {
             // Eliminar listener previo por si se re-renderiza
             event.removeEventListener('click', openAppointmentPanel);
