@@ -2,12 +2,12 @@
 
 /* Variables para el portal */
 :root {
-    --portal-sidebar-bg: #f8fafc;
+    --portal-sidebar-bg: #F8F9FA;
     --portal-sidebar-border: #e2e8f0;
     --portal-icon-inactive: #004EB2;
     --portal-icon-active-bg: #004EB2; 
     --portal-icon-active: #FFFFFF;
-    --portal-bg: #F4F7F9;
+    --portal-bg: #ffffff;
     --portal-text-main: #0f172a;
     --portal-text-muted: #64748b;
     --portal-accent: #159EBA;
@@ -89,8 +89,8 @@
 }
 
 .topbar-title {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 800;
     color: var(--portal-text-main);
     margin: 0;
 }
@@ -175,4 +175,242 @@
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Global (Nueva Cita) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+.modal-container {
+    background: #ffffff;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 580px;
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: #0f172a;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--portal-text-main);
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.modal-subtitle {
+    font-size: 0.85rem;
+    color: var(--portal-text-muted);
+    margin-bottom: 32px;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon svg.left-icon {
+    position: absolute;
+    left: 14px;
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.form-control {
+    width: 100%;
+    padding: 14px 14px 14px 44px;
+    border-radius: 12px;
+    border: none;
+    background-color: #F8FAFC;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--portal-text-main);
+    outline: none;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    background-color: #ffffff;
+    box-shadow: 0 0 0 2px #13B8CA;
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.input-with-icon svg.right-icon {
+    position: absolute;
+    right: 14px;
+    color: #0d7685;
+    cursor: pointer;
+}
+
+.input-with-icon select.form-control {
+    appearance: none;
+    padding-right: 40px;
+}
+
+.input-with-icon svg.select-arrow {
+    position: absolute;
+    right: 14px;
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.btn-cancel {
+    background: transparent;
+    border: none;
+    color: #0d7685;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #13B8CA 0%, #0F8EA2 100%);
+    border: none;
+    border-radius: 100px;
+    padding: 14px 32px;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(19, 184, 202, 0.3);
+    transition: all 0.2s;
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(19, 184, 202, 0.4);
+}
+
+/* Custom Selects (Desplegables Bonitos) */
+.custom-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-trigger {
+    width: 100%;
+    padding: 14px 40px 14px 44px;
+    border-radius: 12px;
+    background-color: #F8FAFC;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--portal-text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.custom-select-trigger:hover {
+    background-color: #f1f5f9;
+}
+
+.custom-select-container.open .custom-select-trigger {
+    background-color: #ffffff;
+    box-shadow: 0 0 0 2px #13B8CA;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.custom-select-container.open .select-arrow {
+    transform: rotate(180deg);
+}
+
+.custom-select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: none;
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-top: none;
+}
+
+.custom-select-container.open .custom-select-options {
+    display: block;
+    animation: fadeIn 0.15s ease-out;
+}
+
+.custom-option {
+    padding: 12px 16px 12px 44px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--portal-text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.custom-option:hover {
+    background-color: #f8fafc;
+    color: #0d7685;
 }

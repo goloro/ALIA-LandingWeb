@@ -69,4 +69,111 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Lógica de Fecha Dinámica ---
+    const currentDate = new Date();
+    
+    // Formatear fecha completa (ej. Lunes, 20 de abril de 2026)
+    const opcionesFechaCompleta = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let fechaCompletaStr = currentDate.toLocaleDateString('es-ES', opcionesFechaCompleta);
+    // Capitalizar primera letra
+    fechaCompletaStr = fechaCompletaStr.charAt(0).toUpperCase() + fechaCompletaStr.slice(1);
+    
+    // Formatear solo mes (ej. Abril)
+    const opcionesMes = { month: 'long' };
+    let mesStr = currentDate.toLocaleDateString('es-ES', opcionesMes);
+    mesStr = mesStr.charAt(0).toUpperCase() + mesStr.slice(1);
+    
+    // Asignar al DOM
+    const dateElement = document.getElementById('current-date-full');
+    if (dateElement) {
+        dateElement.textContent = fechaCompletaStr;
+    }
+    
+    const monthElements = document.querySelectorAll('.current-month-text');
+    monthElements.forEach(el => {
+        el.textContent = mesStr;
+    });
+
+    // --- Lógica del Modal Global ---
+    const btnNewCita = document.querySelector('.btn-new-cita');
+    const modalNuevaCita = document.getElementById('modal-nueva-cita');
+    const btnCloseModal = document.getElementById('btn-close-modal');
+    const btnCancelModal = document.getElementById('btn-cancel-modal');
+
+    function openModal() {
+        if (modalNuevaCita) modalNuevaCita.classList.add('active');
+    }
+
+    function closeModal() {
+        if (modalNuevaCita) modalNuevaCita.classList.remove('active');
+    }
+
+    if (btnNewCita) {
+        btnNewCita.addEventListener('click', openModal);
+    }
+
+    if (btnCloseModal) {
+        btnCloseModal.addEventListener('click', closeModal);
+    }
+
+    if (btnCancelModal) {
+        btnCancelModal.addEventListener('click', closeModal);
+    }
+
+    // Cerrar si se hace click fuera del modal
+    if (modalNuevaCita) {
+        modalNuevaCita.addEventListener('click', (e) => {
+            if (e.target === modalNuevaCita) {
+                closeModal();
+            }
+        });
+    }
+
+    // --- Lógica de los Custom Selects (Desplegables Bonitos) ---
+    const customSelects = document.querySelectorAll('.custom-select-container');
+
+    customSelects.forEach(container => {
+        const trigger = container.querySelector('.custom-select-trigger');
+        const options = container.querySelectorAll('.custom-option');
+        const selectedValue = container.querySelector('.selected-value');
+
+        // Abrir/cerrar al hacer click en el trigger
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que el click en el body lo cierre inmediatamente
+            
+            // Cerrar todos los demás primero
+            customSelects.forEach(otherContainer => {
+                if (otherContainer !== container) {
+                    otherContainer.classList.remove('open');
+                }
+            });
+            
+            container.classList.toggle('open');
+        });
+
+        // Seleccionar una opción
+        options.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectedValue.textContent = option.textContent;
+                
+                // Mantenemos el color gris si es un estado vacío (contiene '--')
+                if (option.textContent.includes('--')) {
+                    selectedValue.style.color = '#94a3b8';
+                } else {
+                    selectedValue.style.color = 'var(--portal-text-main)';
+                }
+
+                container.classList.remove('open');
+            });
+        });
+    });
+
+    // Cerrar los desplegables al hacer click fuera
+    document.addEventListener('click', () => {
+        customSelects.forEach(container => {
+            container.classList.remove('open');
+        });
+    });
 });
