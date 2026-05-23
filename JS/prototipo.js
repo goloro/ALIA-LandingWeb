@@ -452,4 +452,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize date dynamically on start
     updateAgendaDynamicDates();
+
+    // --- Lógica del Panel Lateral de Detalles de Cita ---
+    const appointmentPanel = document.getElementById('appointment-details-panel');
+    const appointmentBackdrop = document.getElementById('appointment-details-backdrop');
+    const btnCloseAppointmentPanel = document.getElementById('btn-close-appointment-panel');
+    
+    // Función para abrir el panel
+    function openAppointmentPanel() {
+        if (appointmentPanel && appointmentBackdrop) {
+            appointmentPanel.classList.add('active');
+            appointmentBackdrop.classList.add('active');
+            // Opcional: Podríamos rellenar dinámicamente los datos aquí
+        }
+    }
+
+    // Función para cerrar el panel
+    function closeAppointmentPanel() {
+        if (appointmentPanel && appointmentBackdrop) {
+            appointmentPanel.classList.remove('active');
+            appointmentBackdrop.classList.remove('active');
+        }
+    }
+
+    // Eventos para cerrar
+    if (btnCloseAppointmentPanel) {
+        btnCloseAppointmentPanel.addEventListener('click', closeAppointmentPanel);
+    }
+    
+    if (appointmentBackdrop) {
+        appointmentBackdrop.addEventListener('click', closeAppointmentPanel);
+    }
+
+    // Evento para abrir al hacer clic en cualquier cita de la agenda
+    function attachAppointmentEvents() {
+        const events = document.querySelectorAll('.agenda-event');
+        events.forEach(event => {
+            // Eliminar listener previo por si se re-renderiza
+            event.removeEventListener('click', openAppointmentPanel);
+            event.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evita conflictos con otros clics
+                openAppointmentPanel();
+            });
+        });
+    }
+
+    // Adjuntar los eventos inicialmente
+    attachAppointmentEvents();
+
+    // Si la agenda se reconstruye dinámicamente, habría que llamar a attachAppointmentEvents() de nuevo
 });

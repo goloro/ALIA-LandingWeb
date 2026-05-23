@@ -78,6 +78,7 @@
     flex-direction: column;
     background-color: var(--portal-bg);
     overflow: hidden;
+    position: relative;
 }
 
 /* Topbar */
