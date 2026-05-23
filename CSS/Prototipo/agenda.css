@@ -4,9 +4,13 @@
     background-color: transparent;
     padding: 32px;
     height: 100%;
-    display: flex;
     flex-direction: column;
     overflow-y: auto;
+    display: none;
+}
+
+#page-agenda-semanal.active {
+    display: flex;
 }
 
 .agenda-new-container {
