@@ -363,3 +363,270 @@
     width: 100%;
     height: auto;
 }
+
+/* --- CLIENT DETAILS PANEL --- */
+.client-details-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.client-details-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.client-details-panel {
+    position: absolute;
+    top: 0;
+    right: -450px;
+    width: 450px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: 'Inter', sans-serif;
+}
+
+.client-details-panel.active {
+    right: 0;
+}
+
+/* Panel Header */
+.cd-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 32px 16px 32px;
+}
+
+.btn-close-cd {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1D1A25;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.btn-edit-cd {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: transparent;
+    border: 1px solid #e2e8f0;
+    color: #039BE5;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Panel Body - Scrollable */
+.cd-body {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Client Info */
+.cd-client-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 32px 24px 32px;
+}
+
+.cd-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #00677D;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cd-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cd-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1D1A25;
+    margin: 0;
+}
+
+.cd-contact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #676768;
+    font-size: 13px;
+}
+
+.cd-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Action Buttons */
+.cd-actions {
+    display: flex;
+    gap: 12px;
+    padding: 0 32px 24px 32px;
+}
+
+.btn-cd-action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-whatsapp {
+    background-color: #042F2E;
+}
+
+.btn-new-appt {
+    background: linear-gradient(90deg, #039BE5 0%, #00677D 100%);
+}
+
+/* Stats Row */
+.cd-stats-row {
+    display: flex;
+    gap: 12px;
+    padding: 0 32px 24px 32px;
+}
+
+.cd-stat-box {
+    flex: 1;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cd-stat-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cd-stat-val {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1D1A25;
+}
+
+/* Tabs */
+.cd-tabs {
+    display: flex;
+    gap: 24px;
+    padding: 0 32px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.cd-tab {
+    padding: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #676768;
+    cursor: pointer;
+    position: relative;
+}
+
+.cd-tab.active {
+    color: #4800B2;
+}
+
+.cd-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #4800B2;
+}
+
+/* History Content */
+.cd-history-content {
+    padding: 24px 32px;
+    flex: 1;
+}
+
+/* Footer */
+.cd-footer {
+    padding: 24px 32px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cd-registered {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cd-reg-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.cd-reg-date {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1D1A25;
+}
+
+.btn-delete-client {
+    background: none;
+    border: none;
+    color: #BA1A1A;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}

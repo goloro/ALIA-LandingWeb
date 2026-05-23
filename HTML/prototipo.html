@@ -927,9 +927,7 @@
                             </div>
                             
                         </div>
-                    </div>
-                    
-                    <!-- Modal Global: Nueva Cita (Limitado al portal-container) -->
+                                        <!-- Modal Global: Nueva Cita (Limitado al portal-container) -->
                     <div class="modal-overlay" id="modal-nueva-cita">
                         <div class="modal-container">
                             <button class="modal-close" id="btn-close-modal">
@@ -1165,7 +1163,174 @@
                     </div>
                 </div>
 
+                <!-- Client Details Panel -->
+                <div class="client-details-backdrop" id="client-details-backdrop"></div>
+                <div class="client-details-panel" id="client-details-panel">
+                    <div class="cd-header">
+                        <button class="btn-close-cd" id="btn-close-client-panel">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                        <button class="btn-edit-cd">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            Editar
+                        </button>
+                    </div>
+                    
+                    <div class="cd-body">
+                        <!-- Info general -->
+                        <div class="cd-client-info">
+                            <div class="cd-avatar">R</div>
+                            <div class="cd-details">
+                                <h2 class="cd-name">Roberto</h2>
+                                <div class="cd-contact-row">
+                                    <div class="cd-contact-item">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        roberto@email.com
+                                    </div>
+                                    <div class="cd-contact-item">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                        +34 666 666 666
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Botones acción principal -->
+                        <div class="cd-actions">
+                            <button class="btn-cd-action btn-whatsapp">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                Whats App
+                            </button>
+                            <button class="btn-cd-action btn-new-appt">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                Nueva Cita
+                            </button>
+                        </div>
+                        
+                        <!-- Estadísticas Rápidas -->
+                        <div class="cd-stats-row">
+                            <div class="cd-stat-box">
+                                <span class="cd-stat-label">ÚLTIMA VISITA</span>
+                                <span class="cd-stat-val">20 Ene</span>
+                            </div>
+                            <div class="cd-stat-box">
+                                <span class="cd-stat-label">CITAS TOTALES</span>
+                                <span class="cd-stat-val">4</span>
+                            </div>
+                            <div class="cd-stat-box">
+                                <span class="cd-stat-label">TASA ASISTENCIA</span>
+                                <span class="cd-stat-val">75%</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Tabs -->
+                        <div class="cd-tabs">
+                            <div class="cd-tab active">Historial</div>
+                            <div class="cd-tab">Notas Internas</div>
+                        </div>
+                        
+                        <!-- Tab Content: Historial -->
+                        <div class="cd-history-content">
+                            <div class="history-timeline">
+                                <!-- History Item 1 -->
+                                <div class="history-item">
+                                    <div class="history-marker marker-blue">
+                                        <div class="marker-dot">
+                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        </div>
+                                        <div class="marker-line"></div>
+                                    </div>
+                                    <div class="history-content">
+                                        <div class="history-header">
+                                            <span class="history-date">20 ABR 2026, 13:30</span>
+                                            <span class="history-badge badge-pending">Pendiente</span>
+                                        </div>
+                                        <div class="history-service">Corte de pelo + Barba</div>
+                                        <div class="history-prof">
+                                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Marcos" class="prof-mini-avatar">
+                                            <span>Atendido por <strong>Marcos</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- History Item 2 -->
+                                <div class="history-item">
+                                    <div class="history-marker marker-green">
+                                        <div class="marker-dot">
+                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        </div>
+                                        <div class="marker-line"></div>
+                                    </div>
+                                    <div class="history-content">
+                                        <div class="history-header">
+                                            <span class="history-date">20 ENE 2026, 13:30</span>
+                                            <span class="history-badge badge-completed">Completado</span>
+                                        </div>
+                                        <div class="history-service">Corte de pelo + Barba</div>
+                                        <div class="history-prof">
+                                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Marcos" class="prof-mini-avatar">
+                                            <span>Atendido por <strong>Marcos</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- History Item 3 -->
+                                <div class="history-item">
+                                    <div class="history-marker marker-red">
+                                        <div class="marker-dot">
+                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                        </div>
+                                        <div class="marker-line"></div>
+                                    </div>
+                                    <div class="history-content">
+                                        <div class="history-header">
+                                            <span class="history-date">15 ENE 2026, 11:30</span>
+                                            <span class="history-badge badge-noshow">No Show</span>
+                                        </div>
+                                        <div class="history-service">Corte de pelo + Barba</div>
+                                        <div class="history-prof">
+                                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Marcos" class="prof-mini-avatar">
+                                            <span>Atendido por <strong>Marcos</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- History Item 4 -->
+                                <div class="history-item">
+                                    <div class="history-marker marker-green">
+                                        <div class="marker-dot">
+                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        </div>
+                                    </div>
+                                    <div class="history-content">
+                                        <div class="history-header">
+                                            <span class="history-date">20 OCT 2025, 11:30</span>
+                                            <span class="history-badge badge-completed">Completado</span>
+                                        </div>
+                                        <div class="history-service">Corte de pelo + Barba</div>
+                                        <div class="history-prof">
+                                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Marcos" class="prof-mini-avatar">
+                                            <span>Atendido por <strong>Marcos</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cd-footer">
+                        <div class="cd-registered">
+                            <span class="cd-reg-label">REGISTRADO DESDE</span>
+                            <span class="cd-reg-date">14 Noviembre 2025</span>
+                        </div>
+                        <button class="btn-delete-client">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            Eliminar Cliente
+                        </button>
+                    </div>
+                </div>
+
+
                 
+</div>
+                    
                 <!-- Contenedor del Móvil (Derecha) -->
                 <div class="phone-container prototype-phone">
                     <div class="notch"></div>

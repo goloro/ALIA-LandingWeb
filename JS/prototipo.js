@@ -502,4 +502,54 @@ document.addEventListener('DOMContentLoaded', () => {
     attachAppointmentEvents();
 
     // Si la agenda se reconstruye dinámicamente, habría que llamar a attachAppointmentEvents() de nuevo
+
+    // --- Lógica del Panel Lateral de Detalles de Cliente ---
+    const clientPanel = document.getElementById('client-details-panel');
+    const clientBackdrop = document.getElementById('client-details-backdrop');
+    const btnCloseClientPanel = document.getElementById('btn-close-client-panel');
+    
+    // Función para abrir el panel
+    function openClientPanel() {
+        if (clientPanel && clientBackdrop) {
+            clientPanel.classList.add('active');
+            clientBackdrop.classList.add('active');
+        }
+    }
+
+    // Función para cerrar el panel
+    function closeClientPanel() {
+        if (clientPanel && clientBackdrop) {
+            clientPanel.classList.remove('active');
+            clientBackdrop.classList.remove('active');
+        }
+    }
+
+    // Eventos para cerrar
+    if (btnCloseClientPanel) {
+        btnCloseClientPanel.addEventListener('click', closeClientPanel);
+    }
+    
+    if (clientBackdrop) {
+        clientBackdrop.addEventListener('click', closeClientPanel);
+    }
+
+    // Evento para abrir al hacer clic en cualquier fila de la tabla de clientes
+    function attachClientEvents() {
+        const clientRows = document.querySelectorAll('.clientes-table tbody tr');
+        clientRows.forEach(row => {
+            row.style.cursor = 'pointer';
+            row.removeEventListener('click', openClientPanel);
+            row.addEventListener('click', (e) => {
+                // Prevenir abrir el panel si se hace clic en un botón de acción (editar/borrar)
+                if(e.target.closest('.btn-action')) return;
+                
+                e.stopPropagation();
+                openClientPanel();
+            });
+        });
+    }
+
+    // Adjuntar los eventos inicialmente
+    attachClientEvents();
+
 });
