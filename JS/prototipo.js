@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mostrar la sección target
             const targetSection = document.getElementById(targetId);
             if (targetSection) targetSection.classList.add('active');
+
+            // Cambiar el título de la barra superior
+            const topbarTitle = document.querySelector('.topbar-title');
+            const newTitle = item.getAttribute('title');
+            if (topbarTitle && newTitle) {
+                topbarTitle.textContent = newTitle;
+            }
         });
     });
 
