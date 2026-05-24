@@ -574,12 +574,6 @@ document.addEventListener('DOMContentLoaded', () => {
             pageSections.forEach(sec => sec.classList.remove('active'));
             // Mostrar página añadir
             pageAddProfesional.classList.add('active');
-            
-            // Cambiar título
-            const topbarTitle = document.querySelector('.topbar-title');
-            if (topbarTitle) {
-                topbarTitle.textContent = 'Añadir Nuevo Profesional';
-            }
         }
     }
 
@@ -587,12 +581,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pageAddProfesional && pageMiEquipo) {
             pageSections.forEach(sec => sec.classList.remove('active'));
             pageMiEquipo.classList.add('active');
-            
-            // Restaurar título
-            const topbarTitle = document.querySelector('.topbar-title');
-            if (topbarTitle) {
-                topbarTitle.textContent = 'Mi Equipo';
-            }
         }
     }
 

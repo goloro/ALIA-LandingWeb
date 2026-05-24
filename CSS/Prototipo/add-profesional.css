@@ -3,8 +3,8 @@
  * ------------------------------------- */
 
 .add-prof-wrapper {
-    max-width: 1100px;
-    /* margin: 0 auto; */
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 
@@ -158,16 +158,46 @@ textarea {
 }
 
 .checkbox-group input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #0891b2;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
     cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.checkbox-group input[type="checkbox"]:hover {
+    border-color: #0891b2;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: #0891b2;
+    border-color: #0891b2;
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 
 .checkbox-group label {
-    font-size: 0.9rem;
-    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #475569;
     cursor: pointer;
+    user-select: none;
 }
 
 .add-prof-actions {

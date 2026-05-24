@@ -1436,132 +1436,143 @@
                             
                             <!-- Diapositiva: Añadir Profesional -->
                             <div class="page-section" id="page-add-profesional">
-                                <div class="add-prof-header">
-                                    <button class="btn-back" id="btn-back-mi-equipo">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                                    </button>
-                                    <h2>Añadir Nuevo Profesional</h2>
-                                </div>
+                                <div class="add-prof-wrapper">
+                                    <div class="add-prof-header">
+                                        <button class="btn-back" id="btn-back-mi-equipo">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                                        </button>
+                                        <h2>Añadir Nuevo Profesional</h2>
+                                    </div>
 
-                                <div class="add-prof-grid">
-                                    <!-- Información Personal -->
-                                    <div class="add-prof-card">
-                                        <div class="card-header-with-icon">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                            <h3>Información Personal</h3>
+                                    <div class="add-prof-grid">
+                                        <!-- Información Personal -->
+                                        <div class="add-prof-card">
+                                            <div class="card-header-with-icon">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                                <h3>Información Personal</h3>
+                                            </div>
+                                            <div class="form-grid-2">
+                                                <div class="form-group-clean">
+                                                    <label>NOMBRE COMPLETO</label>
+                                                    <input type="text" placeholder="Ej. Julián Casablancas...">
+                                                </div>
+                                                <div class="form-group-clean">
+                                                    <label>CORREO PERSONAL (OBLIGATORIO)</label>
+                                                    <input type="email" placeholder="julian@example.com">
+                                                </div>
+                                                <div class="form-group-clean">
+                                                    <label>TELÉFONO</label>
+                                                    <input type="text" placeholder="+34 600 000 000">
+                                                </div>
+                                                <div class="form-group-clean">
+                                                    <label>FECHA DE NACIMIENTO</label>
+                                                    <input type="text" placeholder="dd/mm/yyyy">
+                                                </div>
+                                                <div class="form-group-clean full-width">
+                                                    <label>DIRECCIÓN COMPLETA</label>
+                                                    <input type="text" placeholder="Calle, Número, Planta, Código Postal">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-grid-2">
-                                            <div class="form-group-clean">
-                                                <label>NOMBRE COMPLETO</label>
-                                                <input type="text" placeholder="Ej. Julián Casablancas...">
-                                            </div>
-                                            <div class="form-group-clean">
-                                                <label>CORREO PERSONAL (OBLIGATORIO)</label>
-                                                <input type="email" placeholder="julian@example.com">
-                                            </div>
-                                            <div class="form-group-clean">
-                                                <label>TELÉFONO</label>
-                                                <input type="text" placeholder="+34 600 000 000">
-                                            </div>
-                                            <div class="form-group-clean">
-                                                <label>FECHA DE NACIMIENTO</label>
-                                                <input type="text" placeholder="dd/mm/yyyy">
+
+                                        <!-- Perfil Profesional -->
+                                        <div class="add-prof-card">
+                                            <div class="card-header-with-icon">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                                <h3>Perfil Profesional</h3>
                                             </div>
                                             <div class="form-group-clean full-width">
-                                                <label>DIRECCIÓN COMPLETA</label>
-                                                <input type="text" placeholder="Calle, Número, Planta, Código Postal">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Perfil Profesional -->
-                                    <div class="add-prof-card">
-                                        <div class="card-header-with-icon">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                                            <h3>Perfil Profesional</h3>
-                                        </div>
-                                        <div class="form-group-clean full-width">
-                                            <label>ROL EN EL EQUIPO</label>
-                                            <select class="clean-select">
-                                                <option>Estilista</option>
-                                                <option>Colorista</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group-clean full-width">
-                                            <label>ESPECIALIDAD</label>
-                                            <div class="input-with-search">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                                <input type="text" placeholder="Colorista, Cortes masculinos...">
-                                            </div>
-                                        </div>
-                                        <div class="form-group-clean full-width">
-                                            <label>BIO DE LA CUENTA</label>
-                                            <textarea placeholder="Breve descripción del profesional..." rows="4"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <!-- Datos Administrativos -->
-                                    <div class="add-prof-card">
-                                        <div class="card-header-with-icon">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                                            <h3>Datos Administrativos</h3>
-                                        </div>
-                                        <div class="form-grid-2">
-                                            <div class="form-group-clean">
-                                                <label>Nº SEGURIDAD SOCIAL</label>
-                                                <input type="text" placeholder="12 dígitos">
-                                            </div>
-                                            <div class="form-group-clean">
-                                                <label>DNI / NIE</label>
-                                                <input type="text" placeholder="00000000X">
+                                                <label>ROL EN EL EQUIPO</label>
+                                                <div class="input-with-icon custom-select-container">
+                                                    <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="left: 12px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                                    <div class="custom-select-trigger" style="border: 1px solid #cbd5e1; border-radius: 8px; background-color: #ffffff; padding: 14px 40px 14px 44px; width: 100%; box-sizing: border-box; cursor: pointer;">
+                                                        <span class="selected-value" style="color: #0f172a;">Estilista</span>
+                                                    </div>
+                                                    <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right: 14px; top: 16px; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                                    <div class="custom-select-options" style="border: 1px solid #cbd5e1; border-top: none; border-radius: 0 0 8px 8px; z-index: 100;">
+                                                        <div class="custom-option">Estilista</div>
+                                                        <div class="custom-option">Colorista</div>
+                                                        <div class="custom-option">Recepcionista</div>
+                                                        <div class="custom-option">Manager</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group-clean full-width">
-                                                <label>FECHA DE ALTA PREVISTA</label>
-                                                <input type="text" placeholder="mm/dd/yyyy">
+                                                <label>ESPECIALIDAD</label>
+                                                <div class="input-with-search">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                                    <input type="text" placeholder="Colorista, Cortes masculinos...">
+                                                </div>
+                                            </div>
+                                            <div class="form-group-clean full-width">
+                                                <label>BIO DE LA CUENTA</label>
+                                                <textarea placeholder="Breve descripción del profesional..." rows="4"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Datos Administrativos -->
+                                        <div class="add-prof-card">
+                                            <div class="card-header-with-icon">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                                <h3>Datos Administrativos</h3>
+                                            </div>
+                                            <div class="form-grid-2">
+                                                <div class="form-group-clean">
+                                                    <label>Nº SEGURIDAD SOCIAL</label>
+                                                    <input type="text" placeholder="12 dígitos">
+                                                </div>
+                                                <div class="form-group-clean">
+                                                    <label>DNI / NIE</label>
+                                                    <input type="text" placeholder="00000000X">
+                                                </div>
+                                                <div class="form-group-clean full-width">
+                                                    <label>FECHA DE ALTA PREVISTA</label>
+                                                    <input type="text" placeholder="mm/dd/yyyy">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Detalles de Pago -->
+                                        <div class="add-prof-card">
+                                            <div class="card-header-with-icon">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                                                <h3>Detalles de Pago</h3>
+                                            </div>
+                                            <div class="form-group-clean full-width">
+                                                <label>CUENTA BANCARIA (IBAN)</label>
+                                                <div class="input-with-search">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                                                    <input type="text" placeholder="ES00 0000 0000 0000 0000 0000">
+                                                </div>
+                                            </div>
+                                            <div class="form-group-clean full-width">
+                                                <label>TITULAR DE LA CUENTA</label>
+                                                <input type="text" placeholder="Nombre completo">
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="check-veracidad">
+                                                <label for="check-veracidad">Confirmar veracidad de datos bancarios</label>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- Detalles de Pago -->
-                                    <div class="add-prof-card">
-                                        <div class="card-header-with-icon">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
-                                            <h3>Detalles de Pago</h3>
-                                        </div>
-                                        <div class="form-group-clean full-width">
-                                            <label>CUENTA BANCARIA (IBAN)</label>
-                                            <div class="input-with-search">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
-                                                <input type="text" placeholder="ES00 0000 0000 0000 0000 0000">
-                                            </div>
-                                        </div>
-                                        <div class="form-group-clean full-width">
-                                            <label>TITULAR DE LA CUENTA</label>
-                                            <input type="text" placeholder="Nombre completo">
-                                        </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="check-veracidad">
-                                            <label for="check-veracidad">Confirmar veracidad de datos bancarios</label>
-                                        </div>
+                                    <div class="add-prof-actions">
+                                        <button class="btn-cancel-clean" id="btn-cancel-prof">Cancelar</button>
+                                        <button class="btn-save-prof">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                            Guardar Profesional
+                                        </button>
                                     </div>
-                                </div>
 
-                                <div class="add-prof-actions">
-                                    <button class="btn-cancel-clean" id="btn-cancel-prof">Cancelar</button>
-                                    <button class="btn-save-prof">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                                        Guardar Profesional
-                                    </button>
-                                </div>
-
-                                <div class="add-prof-footer-cards">
-                                    <div class="footer-card">
-                                        <div class="fc-title">PRIVACIDAD</div>
-                                        <div class="fc-desc">Datos encriptados bajo protocolo AES-256</div>
-                                    </div>
-                                    <div class="footer-card">
-                                        <div class="fc-title">SOPORTE ALIA</div>
-                                        <div class="fc-desc">¿Necesitas ayuda? Contacta con administración</div>
+                                    <div class="add-prof-footer-cards">
+                                        <div class="footer-card">
+                                            <div class="fc-title">PRIVACIDAD</div>
+                                            <div class="fc-desc">Datos encriptados bajo protocolo AES-256</div>
+                                        </div>
+                                        <div class="footer-card">
+                                            <div class="fc-title">SOPORTE ALIA</div>
+                                            <div class="fc-desc">¿Necesitas ayuda? Contacta con administración</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
