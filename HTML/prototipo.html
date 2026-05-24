@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="../CSS/Prototipo/disponibilidad.css">
     <link rel="stylesheet" href="../CSS/Prototipo/mi-equipo.css">
     <link rel="stylesheet" href="../CSS/Prototipo/add-profesional.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/soporte.css">
     <link rel="stylesheet" href="../CSS/Responsive/Prototipo/prototipo-responsive.css">
 </head>
 
@@ -96,7 +97,7 @@
                         </div>
                         <div class="sidebar-spacer"></div>
                         <div class="sidebar-nav">
-                            <a href="#" class="nav-item" title="Soporte">
+                            <a href="#" class="nav-item" title="Soporte" data-target="page-soporte">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                             </a>
                             <a href="#" class="nav-item" title="Ajustes">
@@ -1574,6 +1575,118 @@
                                             <div class="fc-desc">¿Necesitas ayuda? Contacta con administración</div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Diapositiva: Soporte -->
+                            <div class="page-section" id="page-soporte">
+                                <div class="soporte-layout-container" style="max-width: 1600px; margin: 0 auto;">
+                                    <div class="soporte-layout" style="margin: 0; max-width: none;">
+                                    
+                                    <!-- Left Column: Open Ticket Form -->
+                                    <div class="soporte-card ticket-form-card">
+                                        <div class="ticket-header">
+                                            <h2>Abrir un nuevo Ticket</h2>
+                                            <p>Nuestro equipo técnico está listo para ayudarte. Completa los detalles a continuación y nos pondremos en contacto pronto.</p>
+                                        </div>
+                                        
+                                        <div class="form-grid-2">
+                                            <div class="form-group-clean">
+                                                <label>CATEGORÍA DEL PROBLEMA</label>
+                                                <div class="input-with-icon custom-select-container">
+                                                    <div class="custom-select-trigger" style="border: 1px solid #cbd5e1; border-radius: 8px; background-color: #f8fafc; padding: 14px 40px 14px 16px; width: 100%; box-sizing: border-box; cursor: pointer;">
+                                                        <span class="selected-value" style="color: #0f172a;">Technical</span>
+                                                    </div>
+                                                    <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right: 14px; top: 16px; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                                    <div class="custom-select-options" style="border: 1px solid #cbd5e1; border-top: none; border-radius: 0 0 8px 8px; z-index: 100;">
+                                                        <div class="custom-option">Technical</div>
+                                                        <div class="custom-option">Facturación</div>
+                                                        <div class="custom-option">Cuenta</div>
+                                                        <div class="custom-option">Otro</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group-clean">
+                                                <label>ASUNTO BREVE</label>
+                                                <input type="text" placeholder="Ej: Error al procesar pago" style="background-color: #f8fafc;">
+                                            </div>
+                                            
+                                            <div class="form-group-clean full-width">
+                                                <label>DESCRIBE TU PROBLEMA CON DETALLE...</label>
+                                                <textarea placeholder="Por favor, incluye pasos para reproducir el error o cualquier detalle relevante..." rows="6" style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; width: 100%; box-sizing: border-box; resize: vertical; font-family: inherit; font-size: 0.95rem;"></textarea>
+                                            </div>
+                                            
+                                            <div class="form-group-clean full-width">
+                                                <label>CAPTURA DE PANTALLA (OPCIONAL)</label>
+                                                <div class="file-drop-zone">
+                                                    <div class="drop-icon">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                                    </div>
+                                                    <div class="drop-text"><strong>Arrastra una captura de pantalla o haz clic aquí</strong></div>
+                                                    <div class="drop-hint">PNG, JPG (hasta 10MB)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="ticket-actions">
+                                            <button class="btn-purple-action">Enviar Ticket</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Right Column: Quick Actions & KB -->
+                                    <div class="soporte-sidebar">
+                                        <!-- Urgencia Card -->
+                                        <div class="soporte-card action-card">
+                                            <div class="card-subtitle">¿NECESITAS AYUDA INMEDIATA?</div>
+                                            <h3 class="card-title">¿Es una urgencia?</h3>
+                                            
+                                            <button class="btn-support-action">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                                Chat de Soporte
+                                            </button>
+                                            
+                                            <button class="btn-support-action">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                                Llamar al soporte
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- KB Card -->
+                                        <div class="soporte-card kb-card">
+                                            <div class="kb-header">
+                                                <div class="kb-icon">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                                                </div>
+                                                <h3 class="card-title">Base de Conocimiento</h3>
+                                            </div>
+                                            
+                                            <div class="kb-search">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                                <input type="text" placeholder="Buscar artículos...">
+                                            </div>
+                                            
+                                            <ul class="kb-list">
+                                                <li>
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                                    <a href="#">¿Cómo bloquear un día por vacaciones?</a>
+                                                </li>
+                                                <li>
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                                    <a href="#">El cliente no recibe el WhatsApp</a>
+                                                </li>
+                                                <li>
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                                    <a href="#">Cambiar mi contraseña</a>
+                                                </li>
+                                            </ul>
+                                            
+                                            <div class="kb-footer">
+                                                <a href="#" class="btn-link">VER TODOS LOS ARTÍCULOS</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>

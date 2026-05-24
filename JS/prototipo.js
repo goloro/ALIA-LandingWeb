@@ -27,13 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 topbarTitle.textContent = newTitle;
             }
 
-            // Gestionar scroll del contenedor para la vista de chats
+            // Gestionar scroll del contenedor para la vista de chats y soporte
             const pageContent = document.querySelector('.portal-page-content');
             if (pageContent) {
                 if (targetId === 'page-chats') {
                     pageContent.classList.add('no-scroll-chats');
+                    pageContent.classList.remove('no-scroll-soporte');
+                } else if (targetId === 'page-soporte') {
+                    pageContent.classList.add('no-scroll-soporte');
+                    pageContent.classList.remove('no-scroll-chats');
                 } else {
                     pageContent.classList.remove('no-scroll-chats');
+                    pageContent.classList.remove('no-scroll-soporte');
                 }
             }
         });

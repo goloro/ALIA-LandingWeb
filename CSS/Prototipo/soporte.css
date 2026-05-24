@@ -1,0 +1,296 @@
+/* -------------------------------------
+ *  SOPORTE VIEW
+ * ------------------------------------- */
+
+.portal-page-content.no-scroll-soporte {
+    overflow: hidden !important;
+}
+
+.soporte-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .soporte-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Cards Generales */
+.soporte-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.soporte-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Ticket Form */
+.ticket-form-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.ticket-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+}
+
+.ticket-header p {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.file-drop-zone {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.file-drop-zone:hover {
+    border-color: #0891b2;
+    background-color: #f0f9ff;
+}
+
+.drop-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #e0f2fe;
+    color: #0284c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.drop-text {
+    color: #0f172a;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.drop-hint {
+    color: #64748b;
+    font-size: 0.8rem;
+}
+
+.ticket-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.btn-purple-action {
+    background-color: #6d28d9;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 28px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+}
+
+.btn-purple-action:hover {
+    background-color: #5b21b6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(109, 40, 217, 0.4);
+}
+
+/* Action Card (Urgencia) */
+.action-card {
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-card::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.card-subtitle {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0891b2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 20px 0;
+}
+
+.btn-support-action {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+}
+
+.btn-support-action:last-child {
+    margin-bottom: 0;
+}
+
+.btn-support-action:hover {
+    border-color: #cbd5e1;
+    background-color: #f1f5f9;
+}
+
+/* Knowledge Base Card */
+.kb-card {
+    padding: 24px;
+}
+
+.kb-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.kb-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background-color: #e0f2fe;
+    color: #0284c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kb-header .card-title {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.kb-search {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.kb-search svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+.kb-search input {
+    width: 100%;
+    padding: 12px 12px 12px 36px;
+    border-radius: 8px;
+    border: none;
+    background-color: #f8fafc;
+    font-size: 0.9rem;
+    color: #0f172a;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+}
+
+.kb-search input:focus {
+    outline: none;
+    background-color: #f1f5f9;
+}
+
+.kb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.kb-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.kb-list svg {
+    color: #94a3b8;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.kb-list a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+}
+
+.kb-list a:hover {
+    color: #0891b2;
+    text-decoration: underline;
+}
+
+.kb-footer {
+    text-align: center;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.btn-link {
+    color: #0891b2;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+
+.btn-link:hover {
+    color: #0284c7;
+}
