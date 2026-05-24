@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="../CSS/Prototipo/agenda.css">
     <link rel="stylesheet" href="../CSS/Prototipo/prototipo.css">
     <link rel="stylesheet" href="../CSS/Prototipo/clientes.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/chats.css">
     <link rel="stylesheet" href="../CSS/Responsive/Prototipo/prototipo-responsive.css">
 </head>
 
@@ -76,7 +77,7 @@
                             <a href="#" class="nav-item" title="Clientes" data-target="page-clientes">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             </a>
-                            <a href="#" class="nav-item" title="Chats">
+                            <a href="#" class="nav-item" title="Chats ALIA" data-target="page-chats">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                             </a>
                             <a href="#" class="nav-item" title="Disponibilidad">
@@ -925,9 +926,161 @@
                                     </div>
                                 </div>
                             </div>
+<!-- Diapositiva 5: Chats -->
+                            <div class="page-section" id="page-chats">
+                                <div class="chats-container">
+                                    <!-- Sidebar: Lista de Mensajes -->
+                                    <div class="chats-sidebar">
+                                        <div class="cs-header">
+                                            <h2 class="cs-title">Lista Mensajes</h2>
+                                            <div class="cs-search">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                                <input type="text" placeholder="Buscar conversaciones...">
+                                            </div>
+                                            <div class="cs-filters">
+                                                <button class="cs-filter-btn active">Todas</button>
+                                                <button class="cs-filter-btn outline-green">Requieren Ayuda</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="cs-list">
+                                            <!-- Item: Ricardo Mendoza -->
+                                            <div class="cs-item active warning">
+                                                <div class="cs-item-badge">ALIA Necesita Ayuda</div>
+                                                <div class="cs-item-body">
+                                                    <div class="cs-item-avatar">
+                                                        <img src="../Images/AvatarRicardo.png" alt="Ricardo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23111827\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'40\' fill=\'white\' dominant-baseline=\'middle\' text-anchor=\'middle\'>R</text></svg>'">
+                                                    </div>
+                                                    <div class="cs-item-content">
+                                                        <div class="cs-item-top">
+                                                            <span class="cs-item-name">Ricardo Mendoza</span>
+                                                        </div>
+                                                        <div class="cs-item-bottom">
+                                                            <p class="cs-item-preview">¿Cuál es el costo del plan Enterprise para 500...</p>
+                                                        </div>
+                                                        <div class="cs-item-meta">
+                                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                                            <span class="cs-item-time">Hace 2 minutos</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Main Chat Area -->
+                                    <div class="chats-main">
+                                        <!-- Header -->
+                                        <div class="cm-header">
+                                            <div class="cm-header-client">
+                                                <div class="cm-avatar">
+                                                    <img src="../Images/AvatarRicardo.png" alt="Ricardo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23111827\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'40\' fill=\'white\' dominant-baseline=\'middle\' text-anchor=\'middle\'>R</text></svg>'">
+                                                </div>
+                                                <h3 class="cm-client-name">Ricardo Mendoza</h3>
+                                            </div>
+                                            <div class="cm-header-actions">
+                                                <div class="cm-toggle-ia">
+                                                    <span class="cm-toggle-label">IA ACTIVA</span>
+                                                    <label class="switch-pink">
+                                                        <input type="checkbox" checked>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                                <button class="btn-control-manual">Tomar Control Manual</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- History -->
+                                        <div class="cm-history">
+                                            <div class="cm-date-divider">
+                                                <span>Hoy</span>
+                                            </div>
+                                            
+                                            <!-- Client Message -->
+                                            <div class="msg msg-user">
+                                                <div class="msg-meta">RICARDO MENDOZA • 10:15 AM</div>
+                                                <div class="msg-bubble">
+                                                    Hola, quería pedir cita. Quiero teñirme el pelo de gris plata o blanco.
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- ALIA Message -->
+                                            <div class="msg msg-alia">
+                                                <div class="msg-meta">ALIA • 10:15 AM</div>
+                                                <div class="msg-bubble">
+                                                    ¡Hola Ricardo! 👋 Soy ALIA, el asistente virtual de la peluquería ALIA. Estaré encantada de ayudarte. Para un cambio a gris plata, ¿tienes preferencia por algún barbero o estilista de nuestro equipo, o te busco el primer hueco disponible?
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Client Message -->
+                                            <div class="msg msg-user">
+                                                <div class="msg-meta">RICARDO MENDOZA • 10:17 AM</div>
+                                                <div class="msg-bubble">
+                                                    Me da igual quién me lo haga. Pero antes de ir necesito saber exactamente cuánto me va a costar y cuánto vais a tardar. Tengo el pelo castaño muy oscuro, casi negro, y bastante fino.
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- ALIA Message -->
+                                            <div class="msg msg-alia">
+                                                <div class="msg-meta">ALIA • 10:17 AM</div>
+                                                <div class="msg-bubble">
+                                                    Entiendo. Para llegar a un gris plata o blanco desde una base tan oscura, se necesita un proceso de decoloración intenso. El precio base de la decoloración más el matiz es de 55€, pero el tiempo y el precio final varían según las sesiones que necesite tu cabello para aclarar. Lo ideal sería agendar una cita de valoración gratuita de 15 minutos. ¿Te busco hueco para que un especialista lo vea?
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Client Message -->
+                                            <div class="msg msg-user">
+                                                <div class="msg-meta">RICARDO MENDOZA • 10:20 AM</div>
+                                                <div class="msg-bubble">
+                                                    Es que trabajo hasta tarde y no tengo tiempo para ir dos veces. Necesito que me deis un precio cerrado por aquí y saber si se me va a quemar o caer el pelo por decolorarlo tanto. Si la broma sube de 90€ decídmelo ya y busco otro sitio.
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- ALIA Message -->
+                                            <div class="msg msg-alia">
+                                                <div class="msg-meta">ALIA • 10:20 AM</div>
+                                                <div class="msg-bubble">
+                                                    Entiendo perfectamente tu situación, Ricardo. Como se trata de un proceso químico muy fuerte sobre cabello fino y oscuro, prefiero que un especialista valore tus dudas directamente para no darte un presupuesto incorrecto ni arriesgar la salud de tu pelo o tu cuero cabelludo.<br><br>⏸ Pauso mi asistencia automática. En unos minutos uno de nuestros estilistas leerá esto y te responderá por aquí mismo. ¡Dame un momento!
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- System Divider -->
+                                            <div class="cm-system-divider">
+                                                <div class="cm-system-pill">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                                    <span>ASISTENTE ALIA PAUSADA • INTERVENCIÓN HUMANA REQUERIDA</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Professional Message -->
+                                            <div class="msg msg-pro">
+                                                <div class="msg-meta">PROFESIONAL MARCOS GÓMEZ • 10:25 AM</div>
+                                                <div class="msg-bubble">
+                                                    Hola Ricardo, soy Marcos, especialista colorista de la peluquería. Haces muy bien en preguntar. Pasar de oscuro a gris plata en pelo fino casi siempre requiere dos decoloraciones suaves para no romper la fibra capilar, además del matiz. Darte un precio cerrado por WhatsApp sin hacer una prueba de mechón es arriesgado, pero calcula que rondará los 85-100€ y tardaremos unas 3 horas. Si te encaja, te busco un hueco largo esta semana.
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <!-- Input Area -->
+                                        <div class="cm-input-area">
+                                            <div class="cm-input-wrapper">
+                                                <button class="btn-attach">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0097a7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                                </button>
+                                                <input type="text" placeholder="Escribe un mensaje...">
+                                            </div>
+                                            <button class="btn-send-msg">
+                                                <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             
                         </div>
-                                        <!-- Modal Global: Nueva Cita (Limitado al portal-container) -->
+<!-- Modal Global: Nueva Cita (Limitado al portal-container) -->
                     <div class="modal-overlay" id="modal-nueva-cita">
                         <div class="modal-container">
                             <button class="modal-close" id="btn-close-modal">

@@ -26,6 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (topbarTitle && newTitle) {
                 topbarTitle.textContent = newTitle;
             }
+
+            // Gestionar scroll del contenedor para la vista de chats
+            const pageContent = document.querySelector('.portal-page-content');
+            if (pageContent) {
+                if (targetId === 'page-chats') {
+                    pageContent.classList.add('no-scroll-chats');
+                } else {
+                    pageContent.classList.remove('no-scroll-chats');
+                }
+            }
         });
     });
 
