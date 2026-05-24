@@ -1,0 +1,246 @@
+/* -------------------------------------
+ *  AJUSTES VIEW
+ * ------------------------------------- */
+
+.ajustes-layout-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding-top: 24px;
+    padding-bottom: 64px;
+}
+
+.ajustes-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 40px 0;
+}
+
+.ajustes-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Big Link Cards */
+.ajustes-card-link {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ajustes-card-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.card-text {
+    flex-grow: 1;
+    margin-left: 24px;
+}
+
+.card-text h3 {
+    margin: 0 0 6px 0;
+    color: #0f172a;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.card-text p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.chevron-icon {
+    color: #94a3b8;
+    flex-shrink: 0;
+    margin-left: 16px;
+}
+
+/* Sections */
+.ajustes-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0891b2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-left: 8px;
+}
+
+.ajustes-panel {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.setting-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.setting-info span {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 1.05rem;
+}
+
+/* Segmented Control */
+.segmented-control {
+    display: flex;
+    background-color: #f8fafc;
+    border-radius: 20px;
+    padding: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+.segment {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.segment:hover:not(.active) {
+    color: #0f172a;
+}
+
+.segment.active {
+    background-color: #ffffff;
+    color: #0891b2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Custom Slider */
+.slider-container {
+    position: relative;
+    margin-top: 40px;
+    padding: 0 16px;
+}
+
+.slider-track {
+    height: 4px;
+    background-color: #e2e8f0;
+    border-radius: 2px;
+    width: 100%;
+    position: relative;
+}
+
+.slider-fill {
+    height: 100%;
+    background-color: #0891b2;
+    border-radius: 2px;
+}
+
+.slider-dots {
+    position: absolute;
+    top: 2px;
+    left: 16px;
+    right: 16px;
+    transform: translateY(-50%);
+}
+
+.slider-dot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border: 3px solid #f1f5f9;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.slider-dot.active {
+    border-color: #0891b2;
+    background-color: #0891b2;
+    border-width: 2px;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.slider-labels span {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.slider-labels span:nth-child(2) {
+    color: #0891b2;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    width: 48px;
+    height: 26px;
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 13px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.toggle-switch:hover {
+    background-color: #e2e8f0;
+}
+
+.toggle-knob {
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-switch.active {
+    background-color: #0891b2;
+    border-color: #0891b2;
+}
+
+.toggle-switch.active .toggle-knob {
+    transform: translateX(22px);
+}
