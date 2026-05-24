@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="../CSS/Prototipo/prototipo.css">
     <link rel="stylesheet" href="../CSS/Prototipo/clientes.css">
     <link rel="stylesheet" href="../CSS/Prototipo/chats.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/disponibilidad.css">
     <link rel="stylesheet" href="../CSS/Responsive/Prototipo/prototipo-responsive.css">
 </head>
 
@@ -80,7 +81,7 @@
                             <a href="#" class="nav-item" title="Chats ALIA" data-target="page-chats">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                             </a>
-                            <a href="#" class="nav-item" title="Disponibilidad">
+                            <a href="#" class="nav-item" title="Disponibilidad" data-target="page-disponibilidad">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M9 16l2 2 4-4"></path></svg>
                             </a>
                             <a href="#" class="nav-item" title="Mi Equipo">
@@ -1078,6 +1079,215 @@
                                 </div>
                             </div>
 
+                            <!-- Diapositiva 6: Disponibilidad -->
+                            <div class="page-section" id="page-disponibilidad">
+                                <div class="disp-grid-container">
+                                    <!-- Top Row -->
+                                    <div class="disp-top-row">
+                                        <!-- Card: Calendario -->
+                                        <div class="disp-card card-calendario">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Calendario Mensual</h3>
+                                                    <div class="card-controls">
+                                                        <span class="card-subtitle">
+                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                            Abril, 2026
+                                                        </span>
+                                                        <div class="cal-nav">
+                                                            <button class="cal-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                                                            <button class="cal-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="cal-grid">
+                                                    <div class="cal-header">LUN</div><div class="cal-header">MAR</div><div class="cal-header">MIÉ</div><div class="cal-header">JUE</div><div class="cal-header">VIE</div><div class="cal-header">SÁB</div><div class="cal-header">DOM</div>
+                                                    
+                                                    <div class="cal-day disabled">30</div><div class="cal-day disabled">31</div>
+                                                    <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day cerrado">5</div>
+                                                    <div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day vacas">10</div><div class="cal-day vacas">11</div><div class="cal-day vacas">12</div>
+                                                    <div class="cal-day vacas">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day cerrado">19</div>
+                                                    <div class="cal-day hoy">20<span class="hoy-dot"></span></div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day cerrado">26</div>
+                                                    <div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
+                                                    <div class="cal-day disabled">1</div><div class="cal-day disabled">2</div><div class="cal-day disabled">3</div>
+                                                </div>
+                                                <div class="cal-legend">
+                                                    <span class="legend-item"><span class="dot dot-hoy"></span> Hoy</span>
+                                                    <span class="legend-item"><span class="dot dot-cerrado"></span> Negocio Cerrado</span>
+                                                    <span class="legend-item"><span class="dot dot-vacas"></span> Vacaciones</span>
+                                                    <span class="legend-item"><span class="dot dot-baja"></span> Baja Médica</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Card: Últimas Solicitudes -->
+                                            <div class="disp-card card-solicitudes">
+                                                <h3 class="card-title-small">Últimas Solicitudes</h3>
+                                                <div class="solicitud-list">
+                                                    <div class="sol-item">
+                                                        <div class="sol-icon icon-green">
+                                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                                        </div>
+                                                        <div class="sol-info">
+                                                            <h4>Vacaciones Verano</h4>
+                                                            <p>Aprobado • 15 Ago - 22 Ago</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sol-item">
+                                                        <div class="sol-icon icon-yellow">
+                                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2" ry="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+                                                        </div>
+                                                        <div class="sol-info">
+                                                            <h4>Baja Médica (Gripe)</h4>
+                                                            <p>Finalizado • 19 Oct - 19 Oct</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <!-- Card: Registrar Ausencia -->
+                                        <div class="disp-card card-registrar">
+                                                <h3 class="card-title">Registrar Nueva Ausencia</h3>
+                                                <form class="disp-form">
+                                                    <div class="form-group">
+                                                        <label>TIPO DE AUSENCIA</label>
+                                                        <select class="disp-select">
+                                                            <option>Vacaciones</option>
+                                                            <option>Baja Médica</option>
+                                                            <option>Día Libre</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group half">
+                                                            <label>DESDE</label>
+                                                            <div class="disp-input-icon">
+                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                                <input type="text" value="10 Oct">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group half">
+                                                            <label>HASTA</label>
+                                                            <div class="disp-input-icon">
+                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                                <input type="text" value="12 Oct">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>COMENTARIOS (OPCIONAL)</label>
+                                                        <textarea class="disp-textarea" placeholder="Ej: Viaje familiar..."></textarea>
+                                                    </div>
+                                                    <button type="button" class="btn-guardar-disp">Guardar</button>
+                                                </form>
+                                            </div>
+
+                                            <!-- Card: Purple -->
+                                            <div class="disp-card card-purple-stats">
+                                                <div class="purple-icon">
+                                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 12a11.05 11.05 0 0 0-22 0zm-5 7a3 3 0 0 1-6 0v-7"></path></svg>
+                                                </div>
+                                                <h1 class="stat-number">14</h1>
+                                                <p class="stat-label">DÍAS<br>DISPONIBLES</p>
+                                            </div>
+                                    </div>
+
+                                    <!-- Bottom Row -->
+                                    <div class="disp-bottom-row">
+                                        <div class="disp-card">
+                                            <h3 class="section-title-disp">Solicitudes de los Profesionales</h3>
+                                            <div class="disp-table-wrapper">
+                                                <table class="disp-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>NOMBRE</th>
+                                                            <th>TIPO DE AUSENCIA</th>
+                                                            <th>RANGO DE FECHAS</th>
+                                                            <th>COMENTARIOS</th>
+                                                            <th>ACCIONES</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="prof-name-cell">
+                                                                    <div class="prof-avatar avatar-m">M</div>
+                                                                    <div class="prof-info">
+                                                                        <span class="prof-name">Marcos Gómez</span>
+                                                                        <span class="prof-email">mgomez@peluqueriaalia.com</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td><span class="pill pill-vacas">Vacaciones</span></td>
+                                                            <td>
+                                                                <div class="date-range">
+                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                                    15 Ago - 22 Ago
+                                                                </div>
+                                                            </td>
+                                                            <td class="comment-cell">"Solicitud anual para descanso familiar. Coordinado con el equipo de soporte."</td>
+                                                            <td>
+                                                                <div class="action-btns">
+                                                                    <button class="btn-action btn-approve"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></button>
+                                                                    <button class="btn-action btn-deny"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="prof-name-cell">
+                                                                    <div class="prof-avatar avatar-s">S</div>
+                                                                    <div class="prof-info">
+                                                                        <span class="prof-name">Sofía Capelo</span>
+                                                                        <span class="prof-email">scapelo@peluqueriaalia.com</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td><span class="pill pill-vacas">Vacaciones</span></td>
+                                                            <td>
+                                                                <div class="date-range">
+                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                                    20 May - 24 May
+                                                                </div>
+                                                            </td>
+                                                            <td class="comment-cell">"Vacaciones familiares planificadas para disfrutar del buen tiempo."</td>
+                                                            <td>
+                                                                <div class="action-btns">
+                                                                    <button class="btn-action btn-approve"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></button>
+                                                                    <button class="btn-action btn-deny"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="prof-name-cell">
+                                                                    <div class="prof-avatar avatar-e">E</div>
+                                                                    <div class="prof-info">
+                                                                        <span class="prof-name">Elena Gutierrez</span>
+                                                                        <span class="prof-email">egutierrez@peluqueriaalia.com</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td><span class="pill pill-baja">Baja Médica</span></td>
+                                                            <td>
+                                                                <div class="date-range">
+                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                                    12 May 2026 - Pendiente de alta
+                                                                </div>
+                                                            </td>
+                                                            <td class="comment-cell">"Adjunto parte médico oficial en el portal de empleado. Reposo absoluto."</td>
+                                                            <td>
+                                                                <div class="action-btns">
+                                                                    <button class="btn-action btn-approve"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></button>
+                                                                    <button class="btn-action btn-deny"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="disp-table-footer">Mostrando <strong>3</strong> solicitudes</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             
                         </div>
 <!-- Modal Global: Nueva Cita (Limitado al portal-container) -->
@@ -1526,8 +1736,7 @@
                                 <div class="message-time">14:20 <span>✓✓</span></div>
                             </div>
                         </div>
-
-                        <!-- Chat Footer -->
+                        <!-- Chat Footer -->
                         <div class="chat-footer">
                             <span class="icon-plus">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1550,10 +1759,8 @@
             </div>
         </main>
     </div>
-
-
-
     <!-- Prototype Scripts -->
     <script src="../JS/prototipo.js"></script>
+    <script src="../JS/disponibilidad.js"></script>
 </body>
 </html>
