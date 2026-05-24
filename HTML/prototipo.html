@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="../CSS/Prototipo/clientes.css">
     <link rel="stylesheet" href="../CSS/Prototipo/chats.css">
     <link rel="stylesheet" href="../CSS/Prototipo/disponibilidad.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/mi-equipo.css">
     <link rel="stylesheet" href="../CSS/Responsive/Prototipo/prototipo-responsive.css">
 </head>
 
@@ -84,7 +85,7 @@
                             <a href="#" class="nav-item" title="Disponibilidad" data-target="page-disponibilidad">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M9 16l2 2 4-4"></path></svg>
                             </a>
-                            <a href="#" class="nav-item" title="Mi Equipo">
+                            <a href="#" class="nav-item" title="Mi Equipo" data-target="page-mi-equipo">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <circle cx="12" cy="10" r="3"></circle>
@@ -1293,6 +1294,144 @@
                                 </div>
                             </div>
                             
+
+                        
+                        <div class="page-section" id="page-mi-equipo">
+                            <!-- Top Row -->
+                            <div class="eq-top-row">
+                                <div class="eq-stats-left">
+                                    <div class="eq-stat-card border-purple">
+                                        <span class="eq-stat-label">Total Staff</span>
+                                        <span class="eq-stat-value">4</span>
+                                    </div>
+                                    <div class="eq-stat-card border-green">
+                                        <span class="eq-stat-label">Activos Hoy</span>
+                                        <span class="eq-stat-value">3</span>
+                                    </div>
+                                </div>
+                                <button class="btn-add-prof">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                    + Añadir Profesional
+                                </button>
+                            </div>
+                            
+                            <!-- Table -->
+                            <div class="eq-table-wrapper">
+                                <table class="eq-table">
+                                    <thead>
+                                        <tr>
+                                            <th>NOMBRE</th>
+                                            <th>ESPECIALIDAD</th>
+                                            <th>ESTADO</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="eq-prof-cell">
+                                                    <div class="eq-avatar avatar-j">J</div>
+                                                    <div class="eq-prof-info">
+                                                        <span class="eq-prof-name">Jesús (Tú)</span>
+                                                        <span class="eq-prof-email">jruiz@peluqueriaalia.com</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><span class="eq-spec">Estilista</span></td>
+                                            <td><span class="pill-status pill-activo">ACTIVO</span></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="eq-prof-cell">
+                                                    <div class="eq-avatar avatar-m">M</div>
+                                                    <div class="eq-prof-info">
+                                                        <span class="eq-prof-name">Marcos Gómez</span>
+                                                        <span class="eq-prof-email">mgomez@peluqueriaalia.com</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><span class="eq-spec">Colorista</span></td>
+                                            <td><span class="pill-status pill-activo">ACTIVO</span></td>
+                                            <td><button class="btn-delete"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="eq-prof-cell">
+                                                    <div class="eq-avatar avatar-s">S</div>
+                                                    <div class="eq-prof-info">
+                                                        <span class="eq-prof-name">Sofía Capelo</span>
+                                                        <span class="eq-prof-email">scapelo@peluqueriaalia.com</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><span class="eq-spec">Especialista en Curly</span></td>
+                                            <td><span class="pill-status pill-activo">ACTIVO</span></td>
+                                            <td><button class="btn-delete"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="eq-prof-cell">
+                                                    <div class="eq-avatar avatar-e">E</div>
+                                                    <div class="eq-prof-info">
+                                                        <span class="eq-prof-name">Elena Gutierrez</span>
+                                                        <span class="eq-prof-email">egutierrez@peluqueriaalia.com</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><span class="eq-spec">Peluquero/a Unisex</span></td>
+                                            <td><span class="pill-status pill-vacaciones">VACACIONES</span></td>
+                                            <td><button class="btn-delete"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Insights -->
+                            <div class="section-heading">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                <h3>Insights del Equipo</h3>
+                            </div>
+                            <div class="insights-row">
+                                <div class="insight-card insight-cyan">
+                                    <div class="insight-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    </div>
+                                    <div class="insight-info">
+                                        <span class="insight-label">Horas esta semana</span>
+                                        <span class="insight-value">342 hrs</span>
+                                    </div>
+                                </div>
+                                <div class="insight-card insight-purple">
+                                    <div class="insight-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                                    </div>
+                                    <div class="insight-info">
+                                        <span class="insight-label">Top Performer</span>
+                                        <span class="insight-value">Marcos Gómez</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Invitaciones -->
+                            <div class="section-heading">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c2 0 3 1 3 3v10c0 2-1 3-3 3H4c-2 0-3-1-3-3V7c0-2 1-3 3-3z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <h3>Invitaciones enviadas</h3>
+                            </div>
+                            <div class="invitation-card">
+                                <div class="inv-left">
+                                    <div class="inv-avatar">E</div>
+                                    <div class="inv-info">
+                                        <span class="inv-email">clopez@peluqueria.com</span>
+                                        <span class="inv-status">Enviado hace 2 días • <span>Pendiente de aceptación</span></span>
+                                    </div>
+                                </div>
+                                <div class="inv-actions">
+                                    <button class="btn-resend"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg> Reenviar acceso</button>
+                                    <button class="btn-delete-inv"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                </div>
+                            </div>
+                        </div>
                         </div>
 <!-- Modal Global: Nueva Cita (Limitado al portal-container) -->
                     <div class="modal-overlay" id="modal-nueva-cita">
@@ -1740,7 +1879,8 @@
                                 <div class="message-time">14:20 <span>✓✓</span></div>
                             </div>
                         </div>
-                        <!-- Chat Footer -->
+
+                        <!-- Chat Footer -->
                         <div class="chat-footer">
                             <span class="icon-plus">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
