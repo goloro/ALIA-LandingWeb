@@ -145,66 +145,76 @@
 }
 
 /* Custom Slider */
-.slider-container {
-    position: relative;
+.custom-slider-wrapper {
     margin-top: 40px;
     padding: 0 16px;
+    padding-bottom: 24px;
 }
 
-.slider-track {
+.custom-slider-track {
+    position: relative;
     height: 4px;
     background-color: #e2e8f0;
     border-radius: 2px;
-    width: 100%;
-    position: relative;
+    cursor: pointer;
 }
 
-.slider-fill {
+.custom-slider-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     background-color: #0891b2;
     border-radius: 2px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.slider-dots {
+.custom-slider-point {
     position: absolute;
-    top: 2px;
-    left: 16px;
-    right: 16px;
+    top: 50%;
     transform: translateY(-50%);
+    width: 0;
+    height: 0;
 }
 
-.slider-dot {
+.custom-slider-dot {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
     background-color: #ffffff;
-    border: 3px solid #f1f5f9;
     border-radius: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
 }
 
-.slider-dot.active {
-    border-color: #0891b2;
+.custom-slider-dot.active {
     background-color: #0891b2;
-    border-width: 2px;
+    box-shadow: none;
 }
 
-.slider-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-}
-
-.slider-labels span {
-    font-size: 0.7rem;
+.custom-slider-label {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
     font-weight: 700;
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    width: 60px;
+    text-align: center;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-.slider-labels span:nth-child(2) {
+.custom-slider-label.active {
     color: #0891b2;
 }
 
