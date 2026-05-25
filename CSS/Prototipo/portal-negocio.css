@@ -1,0 +1,346 @@
+/* Portal del Negocio CSS */
+.portal-negocio-layout {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px;
+    padding-bottom: 100px;
+}
+
+.portal-negocio-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.pn-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.pn-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    padding: 32px;
+    margin-bottom: 24px;
+}
+
+.pn-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.pn-card-title-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pn-card-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #f0f9ff;
+    color: #0284c7;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pn-card-titles h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+}
+
+.pn-card-titles p {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Forms */
+.pn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.pn-grid-full {
+    grid-column: 1 / -1;
+}
+
+.pn-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.pn-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.pn-input, .pn-select, .pn-textarea {
+    width: 100%;
+    padding: 0 16px;
+    background-color: #f8fafc;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #334155;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.pn-input, .pn-select {
+    height: 48px;
+}
+
+.pn-textarea {
+    padding: 16px;
+    height: 100px;
+    resize: none;
+    line-height: 1.5;
+}
+
+.pn-input:focus, .pn-select:focus, .pn-textarea:focus {
+    outline: none;
+    border-color: #0891b2;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+}
+
+.pn-select {
+    cursor: pointer;
+}
+
+/* Service List */
+.pn-service-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.pn-service-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.pn-service-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pn-service-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f1f5f9;
+    color: #64748b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pn-service-text h4 {
+    margin: 0 0 4px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.pn-service-text span {
+    font-size: 0.85rem;
+    color: #64748b;
+    background-color: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.pn-service-price {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.pn-price-value {
+    font-weight: 600;
+    color: #334155;
+    font-size: 1.05rem;
+}
+
+.pn-toggle {
+    width: 44px;
+    height: 24px;
+    background-color: #0891b2;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pn-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 22px;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: left 0.2s;
+}
+
+.pn-toggle.off {
+    background-color: #e2e8f0;
+}
+
+.pn-toggle.off::after {
+    left: 2px;
+}
+
+/* Buttons */
+.pn-btn-add {
+    background-color: #e0f2fe;
+    color: #0284c7;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+}
+
+.pn-btn-add:hover {
+    background-color: #bae6fd;
+}
+
+.pn-btn-add-outline {
+    background-color: transparent;
+    color: #00677D;
+    border: 1px dashed #00677D;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    width: fit-content;
+}
+
+.pn-btn-add-outline:hover {
+    background-color: #f0f9ff;
+}
+
+.pn-recordatorio-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.pn-recordatorio-row .pn-select {
+    flex: 1;
+}
+
+.pn-btn-trash {
+    background: none;
+    border: none;
+    color: #0891b2;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+}
+
+.pn-btn-trash:hover {
+    color: #06b6d4;
+}
+
+.pn-bottom-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.pn-btn-save {
+    background: linear-gradient(90deg, #00677D 0%, #22d3ee 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.pn-btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+}
+
+.pn-btn-discard {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.pn-btn-discard:hover {
+    text-decoration: underline;
+}
+
+.pn-subheader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #334155;
+    margin: 32px 0 16px 0;
+}
+
+.pn-confirm-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    padding: 16px;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00677D;
+}
+
+.pn-confirm-row .pn-toggle {
+    margin-left: auto;
+}

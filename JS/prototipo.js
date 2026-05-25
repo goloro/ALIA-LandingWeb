@@ -629,6 +629,46 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnBackMiCuenta) {
         btnBackMiCuenta.addEventListener('click', hideMiCuentaPage);
     }
+
+    // --- Lógica de la página Portal del Negocio ---
+    const btnPortalNegocio = document.getElementById('btn-portal-negocio');
+    const pagePortalNegocio = document.getElementById('page-portal-negocio');
+    const btnBackPortal = document.getElementById('btn-back-portal');
+
+    function showPortalNegocioPage() {
+        if (pagePortalNegocio && pageAjustes) {
+            pageSections.forEach(sec => sec.classList.remove('active'));
+            pagePortalNegocio.classList.add('active');
+        }
+    }
+
+    function hidePortalNegocioPage() {
+        if (pagePortalNegocio && pageAjustes) {
+            pageSections.forEach(sec => sec.classList.remove('active'));
+            pageAjustes.classList.add('active');
+        }
+    }
+
+    if (btnPortalNegocio) {
+        btnPortalNegocio.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPortalNegocioPage();
+        });
+    }
+    
+    if (btnBackPortal) {
+        btnBackPortal.addEventListener('click', hidePortalNegocioPage);
+    }
+
+    // Toggle switch logic for the Portal del Negocio services
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.pn-toggle')) {
+            const toggle = e.target.closest('.pn-toggle');
+            toggle.classList.toggle('off');
+            toggle.classList.toggle('active');
+        }
+    });
+
     // --- Lógica de la página Ajustes (Slider Tamaño Texto) ---
     const textSizeContainer = document.getElementById('text-size-container');
     if (textSizeContainer) {
