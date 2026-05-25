@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item');
     const pageSections = document.querySelectorAll('.page-section');
 
+    /**
+     * Initializes the portal navigation logic.
+     * Listens for clicks on sidebar items and toggles the active page section.
+     */
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
@@ -49,6 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputField = document.getElementById('prototype-chat-input');
     const sendBtn = document.getElementById('prototype-chat-send');
 
+    /**
+     * Handles sending a new message in the chat prototype.
+     * Reads from the input field, sanitizes the text, and appends it to the chat container.
+     */
     function sendMessage() {
         const text = inputField.value.trim();
         if (!text) return;
@@ -123,10 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseModal = document.getElementById('btn-close-modal');
     const btnCancelModal = document.getElementById('btn-cancel-modal');
 
+    /**
+     * Opens the global "Nueva Cita" modal dialog.
+     */
     function openModal() {
         if (modalNuevaCita) modalNuevaCita.classList.add('active');
     }
 
+    /**
+     * Closes the global "Nueva Cita" modal dialog.
+     */
     function closeModal() {
         if (modalNuevaCita) modalNuevaCita.classList.remove('active');
     }
