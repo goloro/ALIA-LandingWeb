@@ -4,6 +4,7 @@
 
 #page-disponibilidad {
     padding-bottom: 24px;
+    overflow-y: auto;
 }
 
 .disp-grid-container {
