@@ -598,6 +598,37 @@ document.addEventListener('DOMContentLoaded', () => {
             hideAddProfPage();
         });
     }
+
+    // --- Lógica de la página Mi Cuenta ---
+    const btnMiCuenta = document.getElementById('btn-mi-cuenta');
+    const pageAjustes = document.getElementById('page-ajustes');
+    const pageMiCuenta = document.getElementById('page-mi-cuenta');
+    const btnBackMiCuenta = document.getElementById('btn-back-mi-cuenta');
+
+    function showMiCuentaPage() {
+        if (pageMiCuenta && pageAjustes) {
+            pageSections.forEach(sec => sec.classList.remove('active'));
+            pageMiCuenta.classList.add('active');
+        }
+    }
+
+    function hideMiCuentaPage() {
+        if (pageMiCuenta && pageAjustes) {
+            pageSections.forEach(sec => sec.classList.remove('active'));
+            pageAjustes.classList.add('active');
+        }
+    }
+
+    if (btnMiCuenta) {
+        btnMiCuenta.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMiCuentaPage();
+        });
+    }
+    
+    if (btnBackMiCuenta) {
+        btnBackMiCuenta.addEventListener('click', hideMiCuentaPage);
+    }
     // --- Lógica de la página Ajustes (Slider Tamaño Texto) ---
     const textSizeContainer = document.getElementById('text-size-container');
     if (textSizeContainer) {

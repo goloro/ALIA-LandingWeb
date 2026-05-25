@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="../CSS/Prototipo/add-profesional.css">
     <link rel="stylesheet" href="../CSS/Prototipo/soporte.css">
     <link rel="stylesheet" href="../CSS/Prototipo/ajustes.css">
+    <link rel="stylesheet" href="../CSS/Prototipo/mi-cuenta.css">
     <link rel="stylesheet" href="../CSS/Responsive/Prototipo/prototipo-responsive.css">
 </head>
 
@@ -1696,7 +1697,7 @@
                                 <div class="ajustes-layout-container">
                                     <div class="ajustes-content">
                                         <!-- Top Cards -->
-                                        <a href="#" class="ajustes-card-link">
+                                        <a href="#" class="ajustes-card-link" id="btn-mi-cuenta">
                                             <div class="card-icon-wrapper" style="background-color: #e2e8f0;">
                                                 <!-- Mockup image for user -->
                                                 <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Usuario" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
@@ -1780,6 +1781,117 @@
                                             </div>
                                         </div>
                                         
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Diapositiva: Mi Cuenta -->
+                            <div class="page-section" id="page-mi-cuenta">
+                                <div class="mi-cuenta-layout">
+                                    <div class="mi-cuenta-header">
+                                        <button class="btn-back-mi-cuenta" id="btn-back-mi-cuenta">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                                        </button>
+                                        <h2 class="mi-cuenta-title">Mi Cuenta</h2>
+                                    </div>
+                                    
+                                    <div class="mi-cuenta-panel">
+                                        <!-- Información Personal -->
+                                        <div class="mi-cuenta-section">
+                                            <h2>Información Personal</h2>
+                                            
+                                            <div class="avatar-row">
+                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar" class="avatar-image">
+                                                <div class="avatar-actions">
+                                                    <button class="btn-upload-photo">Subir nueva foto</button>
+                                                    <button class="btn-remove-photo">Eliminar</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mi-cuenta-grid">
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">NOMBRE COMPLETO</label>
+                                                    <input type="text" class="mi-cuenta-input" value="Marcos Gómez" disabled>
+                                                </div>
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">FECHA NACIMIENTO</label>
+                                                    <input type="text" class="mi-cuenta-input" value="20/05/1998" disabled>
+                                                </div>
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">EMAIL PROFESIONAL</label>
+                                                    <input type="text" class="mi-cuenta-input" value="mgomez@peluqueriaalia.com" disabled>
+                                                </div>
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">CORREO PERSONAL</label>
+                                                    <input type="text" class="mi-cuenta-input" value="marcosgomez@mail.com">
+                                                </div>
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">TELÉFONO</label>
+                                                    <input type="text" class="mi-cuenta-input" value="+34 600 000 000">
+                                                </div>
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">DIRECCIÓN COMPLETA</label>
+                                                    <input type="text" class="mi-cuenta-input" value="Avenida de mi casa, Nº 1, Planta 3, Mi ciudad, 00000">
+                                                </div>
+                                            </div>
+                                            
+                                            <button class="btn-update">Actualizar Datos</button>
+                                        </div>
+                                        
+                                        <div class="mi-cuenta-divider"></div>
+                                        
+                                        <!-- Seguridad y Acceso -->
+                                        <div class="mi-cuenta-section">
+                                            <h2>Seguridad y Acceso</h2>
+                                            
+                                            <div class="mi-cuenta-grid">
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">CONTRASEÑA ACTUAL</label>
+                                                    <div class="mi-cuenta-input-wrapper">
+                                                        <input type="password" class="mi-cuenta-input" value="********">
+                                                        <button class="password-eye"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                                                    </div>
+                                                </div>
+                                                <div></div> <!-- Empty grid cell to keep alignment -->
+                                                
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">NUEVA CONTRASEÑA</label>
+                                                    <div class="mi-cuenta-input-wrapper">
+                                                        <input type="password" class="mi-cuenta-input" value="********">
+                                                        <button class="password-eye"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                                                    </div>
+                                                </div>
+                                                <div class="mi-cuenta-form-group">
+                                                    <label class="mi-cuenta-label">CONFIRMAR CONTRASEÑA</label>
+                                                    <div class="mi-cuenta-input-wrapper">
+                                                        <input type="password" class="mi-cuenta-input" value="********">
+                                                        <button class="password-eye"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <button class="btn-update">Actualizar Contraseña</button>
+                                        </div>
+                                        
+                                        <div class="mi-cuenta-divider"></div>
+                                        
+                                        <!-- Detalles de Pago -->
+                                        <div class="mi-cuenta-section">
+                                            <h2>Detalles de Pago</h2>
+                                            
+                                            <div class="mi-cuenta-grid">
+                                                <div class="mi-cuenta-form-group mi-cuenta-grid-full">
+                                                    <label class="mi-cuenta-label">TITULAR DE LA CUENTA</label>
+                                                    <input type="text" class="mi-cuenta-input" value="Marcos Gómez" disabled>
+                                                </div>
+                                                <div class="mi-cuenta-form-group mi-cuenta-grid-full">
+                                                    <label class="mi-cuenta-label">IBAN</label>
+                                                    <input type="text" class="mi-cuenta-input" value="ES XX 0000 0000 00 0000000000">
+                                                </div>
+                                            </div>
+                                            
+                                            <button class="btn-update">Actualizar Contraseña</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
