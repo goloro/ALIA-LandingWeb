@@ -170,6 +170,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseModal = document.getElementById('btn-close-modal');
     const btnCancelModal = document.getElementById('btn-cancel-modal');
 
+    
+    window.refreshTimeDropdown = function(dateStr, timeSelectContainer) {
+        if (!timeSelectContainer) return;
+        const times = ['--:-- (Vacío)'];
+        
+        let isToday = false;
+        const now = new Date();
+        if (dateStr && dateStr.includes('/')) {
+            const parts = dateStr.split('/');
+            if (parts.length === 3) {
+                const selectedDate = new Date(parts[2], parseInt(parts[1]) - 1, parts[0]);
+                if (selectedDate.getFullYear() === now.getFullYear() && 
+                    selectedDate.getMonth() === now.getMonth() && 
+                    selectedDate.getDate() === now.getDate()) {
+                    isToday = true;
+                }
+            }
+        } else {
+            isToday = true;
+        }
+
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
+
+        for (let h = 9; h <= 20; h++) {
+            for (let m of ['00', '30']) {
+                if (h === 20 && m === '30') continue;
+                
+                if (isToday) {
+                    const minVal = m === '00' ? 0 : 30;
+                    if (h < currentHour || (h === currentHour && minVal <= currentMinute)) {
+                        continue; // Block past times
+                    }
+                }
+                times.push(`${h.toString().padStart(2, '0')}:${m}`);
+            }
+        }
+        window.populateDropdown(timeSelectContainer, times, '--:--');
+    };
+
     window.populateDropdown = function(selectContainer, optionsArray, defaultValue) {
         if (!selectContainer) return;
         const optionsDiv = selectContainer.querySelector('.custom-select-options');
@@ -208,21 +248,41 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputCliente = modalNuevaCita.querySelector('input[placeholder*="Buscar por nombre"]');
             if (inputCliente) {
                 inputCliente.value = prefilledClientName || '';
+                if (window.attachClientAutocomplete && !inputCliente.hasAttribute('data-ac-bound')) {
+                    window.attachClientAutocomplete(inputCliente);
+                    inputCliente.setAttribute('data-ac-bound', 'true');
+                }
             }
 
+            
+            const inputsTextCalendar = modalNuevaCita.querySelectorAll('input[type="text"]');
+            if (inputsTextCalendar.length > 1) {
+                const dateInput = inputsTextCalendar[1];
+                
+                // Pre-fill with today's date if empty or invalid
+                if (!dateInput.value || !dateInput.value.includes('/')) {
+                    const now = new Date();
+                    
+                    // Check if there are hours available today.
+                    // The last slot is 20:00. If we are past 20:00, move to tomorrow.
+                    if (now.getHours() > 20 || (now.getHours() === 20 && now.getMinutes() > 0)) {
+                        now.setDate(now.getDate() + 1);
+                    }
+                    
+                    dateInput.value = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth()+1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+                }
+                
+                if (window.attachMiniCalendar) {
+                    window.attachMiniCalendar(dateInput);
+                }
+            }
+            
             const selects = modalNuevaCita.querySelectorAll('.custom-select-container');
             if (selects.length >= 3 && window.populateDropdown) {
-                if (!window.timeOptionsLoaded) {
-                    const times = ['--:-- (Vacío)'];
-                    for (let h = 9; h <= 20; h++) {
-                        for (let m of ['00', '30']) {
-                            if (h === 20 && m === '30') continue;
-                            times.push(`${h.toString().padStart(2, '0')}:${m}`);
-                        }
-                    }
-                    window.populateDropdown(selects[0], times, '--:--');
-                    window.timeOptionsLoaded = true;
-                }
+                // Time: ALWAYS refresh based on current date
+                const dateStr = inputsTextCalendar.length > 1 ? inputsTextCalendar[1].value : null;
+                window.refreshTimeDropdown(dateStr, selects[0]);
+
 
                 if (!window.serviceOptionsLoaded) {
                     const services = ['-- Seleccionar --', 'Corte Clásico', 'Corte + Barba', 'Tinte y Mechas', 'Manicura Semipermanente', 'Masaje Relajante', 'Tratamiento Facial'];
@@ -263,6 +323,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnCancelModal) {
         btnCancelModal.addEventListener('click', closeModal);
+    }
+
+    
+    const btnAddClientFromModal = document.querySelector('.btn-add-client-modal');
+    if (btnAddClientFromModal) {
+        btnAddClientFromModal.addEventListener('click', () => {
+            closeModal();
+            if (window.openNuevoClienteModal) {
+                window.openNuevoClienteModal(true);
+            }
+        });
     }
 
     if (modalNuevaCita) {
@@ -355,3 +426,238 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+// --- Lógica del Mini Calendario ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Crear el contenedor del popover
+    const calendarPopover = document.createElement('div');
+    calendarPopover.className = 'mini-calendar-popover';
+    document.body.appendChild(calendarPopover);
+
+    let currentTargetInput = null;
+    let currentDate = new Date(); // Mes y año visualizados
+    let selectedDate = new Date(); // Fecha real seleccionada
+
+    function renderCalendar() {
+        calendarPopover.innerHTML = '';
+
+        const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        
+        // Header
+        const header = document.createElement('div');
+        header.className = 'mc-header';
+        
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'mc-btn';
+        prevBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>';
+        prevBtn.onclick = (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); };
+        
+        const monthYear = document.createElement('div');
+        monthYear.className = 'mc-month-year';
+        monthYear.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+        
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'mc-btn';
+        nextBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+        nextBtn.onclick = (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); };
+        
+        header.appendChild(prevBtn);
+        header.appendChild(monthYear);
+        header.appendChild(nextBtn);
+        calendarPopover.appendChild(header);
+
+        // Weekdays
+        const weekdays = document.createElement('div');
+        weekdays.className = 'mc-weekdays';
+        ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'].forEach(day => {
+            const d = document.createElement('div');
+            d.textContent = day;
+            weekdays.appendChild(d);
+        });
+        calendarPopover.appendChild(weekdays);
+
+        // Days Grid
+        const daysGrid = document.createElement('div');
+        daysGrid.className = 'mc-days';
+
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        
+        const firstDay = new Date(year, month, 1).getDay(); // 0 = Sun, 1 = Mon...
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        // Adjust for Monday start (0 becomes 6, 1 becomes 0)
+        let startOffset = firstDay === 0 ? 6 : firstDay - 1;
+
+        // Empty slots
+        for (let i = 0; i < startOffset; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'mc-day empty';
+            daysGrid.appendChild(empty);
+        }
+
+        const today = new Date();
+
+        // Actual days
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'mc-day';
+            dayDiv.textContent = i;
+            
+            // Check if it's today
+            if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
+                dayDiv.classList.add('today');
+            }
+
+            // Check if selected
+            if (year === selectedDate.getFullYear() && month === selectedDate.getMonth() && i === selectedDate.getDate()) {
+                dayDiv.classList.add('selected');
+            }
+
+            // Disable past days
+            const thisDayDate = new Date(year, month, i);
+            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            if (thisDayDate < todayStart) {
+                dayDiv.classList.add('empty');
+                dayDiv.style.opacity = '0.3';
+            } else {
+                dayDiv.onclick = (e) => {
+                    e.stopPropagation();
+                    selectedDate = new Date(year, month, i);
+                    
+                    // Update input
+                    if (currentTargetInput) {
+                        const dStr = i.toString().padStart(2, '0');
+                        const mStr = (month + 1).toString().padStart(2, '0');
+                        currentTargetInput.value = `${dStr}/${mStr}/${year}`;
+                        
+                        // Refresh time dropdown to block past times if today is selected
+                        if (window.refreshTimeDropdown) {
+                            const modal = currentTargetInput.closest('.modal-container');
+                            if (modal) {
+                                const timeSelect = modal.querySelectorAll('.custom-select-container')[0];
+                                window.refreshTimeDropdown(currentTargetInput.value, timeSelect);
+                            }
+                        }
+                    }
+                    
+                    calendarPopover.classList.remove('active');
+                };
+            }
+            daysGrid.appendChild(dayDiv);
+        }
+
+        calendarPopover.appendChild(daysGrid);
+    }
+
+    // Attach to inputs
+    window.attachMiniCalendar = function(inputElement) {
+        if (!inputElement) return;
+        
+        // Prevent default text editing if desired, or let them type. We'll make it readonly to ensure perfect formatting.
+        inputElement.setAttribute('readonly', 'true');
+        inputElement.style.cursor = 'pointer';
+
+        inputElement.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentTargetInput = inputElement;
+            
+            // Parse current value if exists
+            if (inputElement.value && inputElement.value.includes('/')) {
+                const parts = inputElement.value.split('/');
+                if (parts.length === 3) {
+                    selectedDate = new Date(parts[2], parseInt(parts[1]) - 1, parts[0]);
+                    currentDate = new Date(selectedDate);
+                }
+            } else {
+                selectedDate = new Date();
+                currentDate = new Date();
+            }
+
+            renderCalendar();
+
+            // Position Popover
+            const rect = inputElement.getBoundingClientRect();
+            calendarPopover.style.left = rect.left + 'px';
+            calendarPopover.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+            calendarPopover.classList.add('active');
+        });
+    };
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!calendarPopover.contains(e.target) && e.target !== currentTargetInput) {
+            calendarPopover.classList.remove('active');
+        }
+    });
+});
+
+
+// --- Lógica del Buscador de Cliente (Autocomplete) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const autocompletePopover = document.createElement('div');
+    autocompletePopover.className = 'autocomplete-popover';
+    document.body.appendChild(autocompletePopover);
+
+    let currentInput = null;
+    let debounceTimer;
+
+    window.attachClientAutocomplete = function(inputElement) {
+        if (!inputElement) return;
+
+        inputElement.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            currentInput = inputElement;
+
+            if (query.length < 2) {
+                autocompletePopover.classList.remove('active');
+                return;
+            }
+
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(async () => {
+                if (!window.MockAPI) return;
+                try {
+                    const clients = await window.MockAPI.getClients();
+                    
+                    const filtered = clients.filter(c => 
+                        c.name.toLowerCase().includes(query) || 
+                        (c.phone && c.phone.includes(query))
+                    );
+
+                    if (filtered.length === 0) {
+                        autocompletePopover.innerHTML = '<div class="autocomplete-item" style="cursor:default;"><span class="ac-phone">No se encontraron clientes</span></div>';
+                    } else {
+                        autocompletePopover.innerHTML = '';
+                        filtered.forEach(client => {
+                            const div = document.createElement('div');
+                            div.className = 'autocomplete-item';
+                            div.innerHTML = `<span class="ac-name">${client.name}</span><span class="ac-phone">${client.phone}</span>`;
+                            div.onclick = (ev) => {
+                                ev.stopPropagation();
+                                inputElement.value = client.name;
+                                autocompletePopover.classList.remove('active');
+                            };
+                            autocompletePopover.appendChild(div);
+                        });
+                    }
+
+                    const rect = inputElement.getBoundingClientRect();
+                    autocompletePopover.style.width = rect.width + 'px';
+                    autocompletePopover.style.left = rect.left + 'px';
+                    autocompletePopover.style.top = (rect.bottom + window.scrollY + 4) + 'px';
+                    autocompletePopover.classList.add('active');
+                } catch(e) {
+                    console.error('Error fetching clients for autocomplete', e);
+                }
+            }, 300);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target !== currentInput && !autocompletePopover.contains(e.target)) {
+                autocompletePopover.classList.remove('active');
+            }
+        });
+    };
+});
+
