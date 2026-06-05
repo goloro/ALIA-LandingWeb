@@ -59,7 +59,7 @@
 }
 
 .btn-nuevo-cliente {
-    background-color: #4800B2; /* Purple from design */
+    background: linear-gradient(135deg, #6028ff, #4711e6);
     color: white;
     border: none;
     border-radius: 20px;
@@ -74,7 +74,8 @@
 }
 
 .btn-nuevo-cliente:hover {
-    background-color: #3b0091;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(96, 40, 255, 0.4);
 }
 
 .clientes-table td {
@@ -228,7 +229,7 @@
 }
 
 .page-btn.active {
-    background-color: #4800B2;
+    background: linear-gradient(135deg, #6028ff, #4711e6);
     color: white;
 }
 
@@ -264,7 +265,7 @@
 
 /* Tarjeta Morada (Nuevos Clientes) */
 .c-stat-purple {
-    background: linear-gradient(135deg, #4800B2 0%, #6d28d9 100%); /* Adjust gradient */
+    background: linear-gradient(135deg, #6028ff, #4711e6);
     color: white;
 }
 

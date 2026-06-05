@@ -18,18 +18,35 @@
 .eq-stat-card {
     background-color: #ffffff;
     border-radius: 16px;
-    padding: 24px 32px;
+    padding: 24px 32px 24px 38px; /* Adjusted left padding for absolute border */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     min-width: 220px;
     border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.eq-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 6px;
 }
 
 .eq-stat-card.border-purple {
-    border-left: 6px solid #4f46e5;
+    border-left: none;
+}
+.eq-stat-card.border-purple::before {
+    background: linear-gradient(135deg, #6028ff, #4711e6);
 }
 
 .eq-stat-card.border-green {
-    border-left: 6px solid #10b981;
+    border-left: none;
+}
+.eq-stat-card.border-green::before {
+    background-color: #10b981;
 }
 
 .eq-stat-label {
@@ -244,13 +261,14 @@
 }
 
 .insight-cyan {
-    background-color: #ecfeff;
-    border: 1px solid #cffafe;
+    background: linear-gradient(135deg, rgba(0, 103, 125, 0.1), rgba(34, 211, 238, 0.1));
+    border: 1px solid rgba(0, 103, 125, 0.2);
 }
 
 .insight-purple {
-    background-color: #f3e8ff;
-    border: 1px solid #e9d5ff;
+    background: linear-gradient(135deg, rgba(96, 40, 255, 0.1), rgba(71, 17, 230, 0.1));
+    border: 1px solid rgba(96, 40, 255, 0.2);
+    color: inherit;
 }
 
 .insight-icon {
@@ -264,11 +282,12 @@
 }
 
 .insight-cyan .insight-icon {
-    background-color: #06b6d4;
+    background: linear-gradient(135deg, #00677D 0%, #22d3ee 100%);
 }
 
 .insight-purple .insight-icon {
-    background-color: #7e22ce;
+    background: linear-gradient(135deg, #6028ff, #4711e6);
+    color: white;
 }
 
 .insight-info {
@@ -284,11 +303,11 @@
 }
 
 .insight-cyan .insight-label {
-    color: #0891b2;
+    color: #00677D;
 }
 
 .insight-purple .insight-label {
-    color: #6b21a8;
+    color: #6028ff;
 }
 
 .insight-value {
@@ -297,11 +316,11 @@
 }
 
 .insight-cyan .insight-value {
-    color: #0f766e;
+    color: #00677D;
 }
 
 .insight-purple .insight-value {
-    color: #4c1d95;
+    color: #4711e6;
 }
 
 /* Invitaciones */
