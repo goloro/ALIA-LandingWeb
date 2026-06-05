@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Dra. Laura Gmez",
+    "role": "Especialista Principal",
+    "retention": "92%",
+    "attendance": "98%",
+    "appointments": 45,
+    "avatarUrl": "https://i.pravatar.cc/150?u=laura"
+  },
+  {
+    "id": 2,
+    "name": "Dr. Javier Ruiz",
+    "role": "Terapista Asociado",
+    "retention": "88%",
+    "attendance": "95%",
+    "appointments": 32,
+    "avatarUrl": "https://i.pravatar.cc/150?u=javier"
+  }
+]

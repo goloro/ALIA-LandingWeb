@@ -1,4 +1,251 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Mock Backend: Carga de Clientes y Paginación ---
+    let currentPage = 1;
+    const itemsPerPage = 8;
+    
+    async function loadClients() {
+        const tbody = document.querySelector('.clientes-table tbody');
+        if (!tbody) return;
+        
+        // 1. Mostrar estado de carga (Skeleton)
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 48px 0;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; color: #64748b;">
+                        <svg class="spinner" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg>
+                        <span style="font-size: 1rem; font-weight: 500;">Cargando clientes...</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+        
+        // Animación spinner (estilos en línea rápidos)
+        if (!document.getElementById('spinner-style')) {
+            const style = document.createElement('style');
+            style.id = 'spinner-style';
+            style.innerHTML = '@keyframes spin { 100% { transform: rotate(360deg); } }';
+            document.head.appendChild(style);
+        }
+
+        try {
+            // 2. Obtener datos de la API simulada
+            const clients = await window.MockAPI.getClients();
+            
+            // 3. Paginación
+            const totalItems = clients.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+            
+            // Asegurar que la página actual es válida tras borrar un cliente
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const paginatedClients = clients.slice(startIndex, startIndex + itemsPerPage);
+            
+            // 4. Renderizar tabla
+            tbody.innerHTML = ''; // Limpiar
+            
+            if (paginatedClients.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 48px 0; color: #64748b;">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <span style="font-size: 1rem; font-weight: 500;">No hay clientes registrados</span>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                paginatedClients.forEach(c => {
+                    const tr = document.createElement('tr');
+                    tr.style.cursor = 'pointer';
+                    
+                    let formattedLastAppt = c.lastAppt;
+                    if (formattedLastAppt && formattedLastAppt.includes('-')) {
+                        const parts = formattedLastAppt.split('-');
+                        if (parts.length === 3) formattedLastAppt = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                    }
+
+                    tr.innerHTML = `
+                        <td style="font-weight: 500; color: var(--portal-text-main);">${c.name}</td>
+                        <td style="color: #64748b;">${c.email || '<span style="opacity:0.5">-</span>'}</td>
+                        <td style="color: #64748b;">${c.phone}</td>
+                        <td style="color: #64748b;">${formattedLastAppt || '-'}</td>
+                        <td style="font-weight: 600; text-align: center;">${c.totalAppts}</td>
+                        <td class="table-actions">
+                            <button class="btn-action btn-edit" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <button class="btn-action btn-delete" title="Eliminar" data-id="${c.id}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                        </td>
+                    `;
+                    
+                    tr.addEventListener('click', () => {
+                        openClientDetails(c);
+                    });
+                    
+                    tbody.appendChild(tr);
+                });
+
+                // Attach edit/delete events with stopPropagation
+                const editBtns = tbody.querySelectorAll('.btn-edit');
+                editBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Evitar abrir el panel
+                        // Aqu ira la lgica de editar
+                        alert("Botn editar pulsado");
+                    });
+                });
+                
+                const deleteBtns = tbody.querySelectorAll('.btn-delete');
+                deleteBtns.forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        btn.innerHTML = '<svg class="spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg>';
+                        await window.MockAPI.deleteClient(id);
+                        loadClients(); // Reload
+                    });
+                });
+                
+                // Re-attach panel events if fn exists
+                if (typeof attachClientEvents === 'function') attachClientEvents();
+            }
+
+            // Update Pagination info
+            const paginationInfo = document.querySelector('.pagination-info');
+            if (paginationInfo) {
+                const endItem = Math.min(startIndex + itemsPerPage, totalItems);
+                const startDisplay = totalItems === 0 ? 0 : startIndex + 1;
+                paginationInfo.innerHTML = `Mostrando <strong>${startDisplay} a ${endItem}</strong> de ${totalItems} clientes`;
+            }
+            
+            // Update Pagination controls
+            const paginationControls = document.querySelector('.pagination-controls');
+            if (paginationControls) {
+                let html = '';
+                // Prev arrow
+                html += `<button class="page-btn page-arrow btn-prev-page" ${currentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>`;
+                
+                // Page numbers (simple loop for now)
+                for (let i = 1; i <= totalPages; i++) {
+                    html += `<button class="page-btn page-num ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+                }
+                
+                // Next arrow
+                html += `<button class="page-btn page-arrow btn-next-page" ${currentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>`;
+                
+                paginationControls.innerHTML = html;
+                
+                // Attach pagination events
+                const prevBtn = paginationControls.querySelector('.btn-prev-page');
+                if (prevBtn) prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; loadClients(); } });
+                
+                const nextBtn = paginationControls.querySelector('.btn-next-page');
+                if (nextBtn) nextBtn.addEventListener('click', () => { if (currentPage < totalPages) { currentPage++; loadClients(); } });
+                
+                const numBtns = paginationControls.querySelectorAll('.page-num');
+                numBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        currentPage = parseInt(btn.getAttribute('data-page'));
+                        loadClients();
+                    });
+                });
+            }
+            
+            // Update Dashboard stats
+            const totalClientsStat = document.querySelector('.c-stat-purple .c-stat-value');
+            if (totalClientsStat) totalClientsStat.textContent = totalItems;
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // Call initially
+    if (window.MockAPI) loadClients();
+
+    // Evento para el botón "+ Nuevo Cliente" (Abre el modal)
+    const btnNuevoCliente = document.querySelector('.btn-nuevo-cliente');
+    const modalNuevoCliente = document.getElementById('modal-nuevo-cliente');
+    const btnCloseCliente = document.getElementById('btn-close-modal-cliente');
+    const btnCancelCliente = document.getElementById('btn-cancel-modal-cliente');
+    const btnSaveCliente = document.getElementById('btn-save-cliente');
+    
+    function closeClienteModal() {
+        if (modalNuevoCliente) modalNuevoCliente.classList.remove('active');
+        // Reset form
+        const nameInput = document.getElementById('new-client-name');
+        const emailInput = document.getElementById('new-client-email');
+        const phoneInput = document.getElementById('new-client-phone');
+        if (nameInput) nameInput.value = '';
+        if (emailInput) emailInput.value = '';
+        if (phoneInput) phoneInput.value = '';
+    }
+
+    if (btnNuevoCliente && modalNuevoCliente) {
+        btnNuevoCliente.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalNuevoCliente.classList.add('active');
+        });
+        
+        if (btnCloseCliente) btnCloseCliente.addEventListener('click', closeClienteModal);
+        if (btnCancelCliente) btnCancelCliente.addEventListener('click', closeClienteModal);
+        
+        // Cerrar al hacer click fuera
+        modalNuevoCliente.addEventListener('click', (e) => {
+            if (e.target === modalNuevoCliente) closeClienteModal();
+        });
+        
+        // Guardar Cliente Real
+        if (btnSaveCliente) {
+            btnSaveCliente.addEventListener('click', async () => {
+                const nameInput = document.getElementById('new-client-name');
+                const emailInput = document.getElementById('new-client-email');
+                const phoneInput = document.getElementById('new-client-phone');
+                
+                const nameVal = nameInput ? nameInput.value.trim() : '';
+                const emailVal = emailInput ? emailInput.value.trim() : '';
+                const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+                
+                if (!nameVal) {
+                    alert('El nombre es obligatorio');
+                    return;
+                }
+                
+                // Basic validation for email if provided
+                if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+                    alert('Por favor, introduce un correo electrónico válido');
+                    return;
+                }
+                
+                // Basic validation for phone if provided (allows +, spaces, dashes, digits)
+                if (phoneVal && !/^[\d\+\s\-]+$/.test(phoneVal)) {
+                    alert('Por favor, introduce un número de teléfono válido');
+                    return;
+                }
+                
+                // Estado de carga en el botón guardar
+                const originalContent = btnSaveCliente.innerHTML;
+                btnSaveCliente.innerHTML = '<svg class="spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg> Guardando...';
+                btnSaveCliente.style.pointerEvents = 'none';
+
+                await window.MockAPI.addClient({
+                    name: nameVal,
+                    email: emailVal,
+                    phone: phoneVal || '-',
+                    lastAppt: null
+                });
+
+                // Restaurar y cerrar
+                btnSaveCliente.innerHTML = originalContent;
+                btnSaveCliente.style.pointerEvents = 'auto';
+                closeClienteModal();
+                currentPage = 1; // Volver a la primera página para ver el nuevo
+                loadClients();
+            });
+        }
+    }
+
     // --- Lógica de Navegación del Portal ---
     const navItems = document.querySelectorAll('.nav-item');
     const pageSections = document.querySelectorAll('.page-section');
@@ -780,5 +1027,174 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleSwitch.classList.toggle('active');
         });
     }
-
+    // --- Client Details Panel Logic ---
+    function openClientDetails(client) {
+        const panel = document.getElementById('client-details-panel');
+        const backdrop = document.querySelector('.client-details-backdrop');
+        
+        if (!panel || !backdrop) return;
+        
+        // Rellenar datos
+        const nameEl = panel.querySelector('.cd-name');
+        if (nameEl) nameEl.textContent = client.name;
+        
+        const avatarEl = panel.querySelector('.cd-avatar');
+        if (avatarEl) avatarEl.textContent = client.name.charAt(0).toUpperCase();
+        
+        const contactItems = panel.querySelectorAll('.cd-contact-item');
+        if (contactItems.length >= 2) {
+            contactItems[0].innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> ${client.email || 'Sin correo'}`;
+            contactItems[1].innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> ${client.phone}`;
+        }
+        
+        const statVals = panel.querySelectorAll('.cd-stat-val');
+        if (statVals.length >= 3) {
+            let formattedLastAppt = client.lastAppt;
+            if (formattedLastAppt && formattedLastAppt.includes('-')) {
+                const parts = formattedLastAppt.split('-');
+                if (parts.length === 3) formattedLastAppt = `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+            statVals[0].textContent = formattedLastAppt || '-';
+            statVals[1].textContent = client.totalAppts || '0';
+            
+            // Calcular tasa de asistencia real basada en el historial
+            let completed = 0;
+            let totalEvaluated = 0;
+            if (client.history && client.history.length > 0) {
+                client.history.forEach(item => {
+                    if (item.status === 'completed') {
+                        completed++;
+                        totalEvaluated++;
+                    } else if (item.status === 'noshow') {
+                        totalEvaluated++;
+                    }
+                });
+            }
+            let attendanceRate = '0%';
+            if (totalEvaluated > 0) {
+                attendanceRate = Math.round((completed / totalEvaluated) * 100) + '%';
+            }
+            statVals[2].textContent = attendanceRate; 
+        }
+        
+        const regDateEl = panel.querySelector('.cd-reg-date');
+        if (regDateEl) {
+            let dateStr = client.registeredAt;
+            if (dateStr && dateStr.includes('-')) {
+                const parts = dateStr.split('-');
+                if (parts.length === 3) {
+                    dateStr = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                }
+            }
+            regDateEl.textContent = dateStr || '-';
+        }
+        
+        // Renderizar Historial
+        const timelineContainer = panel.querySelector('.history-timeline');
+        if (timelineContainer && client.history) {
+            timelineContainer.innerHTML = ''; // Limpiar previo
+            if (client.history.length === 0) {
+                timelineContainer.innerHTML = '<div style="padding: 24px; text-align: center; color: #64748b;">No hay historial registrado.</div>';
+            } else {
+                client.history.forEach(item => {
+                    let markerColor = 'marker-blue';
+                    let markerIcon = '<line x1="5" y1="12" x2="19" y2="12"></line>';
+                    let badgeClass = 'badge-pending';
+                    let badgeText = 'Pendiente';
+                    
+                    if (item.status === 'completed') {
+                        markerColor = 'marker-green';
+                        markerIcon = '<polyline points="20 6 9 17 4 12"></polyline>';
+                        badgeClass = 'badge-completed';
+                        badgeText = 'Completado';
+                    } else if (item.status === 'noshow') {
+                        markerColor = 'marker-red';
+                        markerIcon = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+                        badgeClass = 'badge-noshow';
+                        badgeText = 'No Show';
+                    }
+                    
+                    const itemHTML = `
+                        <div class="history-item">
+                            <div class="history-marker ${markerColor}">
+                                <div class="marker-dot">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">${markerIcon}</svg>
+                                </div>
+                                <div class="marker-line"></div>
+                            </div>
+                            <div class="history-content">
+                                <div class="history-header">
+                                    <span class="history-date">${item.date}</span>
+                                    <span class="history-badge ${badgeClass}">${badgeText}</span>
+                                </div>
+                                <div class="history-service">${item.service}</div>
+                                <div class="history-prof">
+                                    <span>Atendido por <strong>${item.prof}</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    timelineContainer.insertAdjacentHTML('beforeend', itemHTML);
+                });
+            }
+        }
+        
+        // Renderizar Notas
+        const notesEl = panel.querySelector('.notes-text');
+        if (notesEl) {
+            notesEl.textContent = client.notes || 'No hay notas internas registradas para este cliente.';
+        }
+        
+        // Resetear a la pestaña Historial por defecto
+        const tabs = panel.querySelectorAll('.cd-tab');
+        const historyContent = panel.querySelector('.cd-history-content');
+        const notesContent = panel.querySelector('.cd-notes-content');
+        if (tabs.length >= 2 && historyContent && notesContent) {
+            tabs.forEach(t => t.classList.remove('active'));
+            tabs[0].classList.add('active'); // Seleccionar historial
+            historyContent.style.display = 'block';
+            notesContent.style.display = 'none';
+        }
+        
+        // Abrir panel
+        panel.classList.add('active');
+        backdrop.classList.add('active');
+        
+        // Asignar botn cerrar
+        const closeBtn = document.getElementById('btn-close-client-panel');
+        if (closeBtn) {
+            closeBtn.onclick = () => {
+                panel.classList.remove('active');
+                backdrop.classList.remove('active');
+            };
+        }
+        
+        // Cerrar haciendo click en el fondo
+        backdrop.onclick = () => {
+            panel.classList.remove('active');
+            backdrop.classList.remove('active');
+        };
+    }
+    
+    // Configurar lógica de pestañas (Tabs)
+    const tabs = document.querySelectorAll('.cd-tab');
+    const historyContent = document.querySelector('.cd-history-content');
+    const notesContent = document.querySelector('.cd-notes-content');
+    
+    if (tabs.length >= 2 && historyContent && notesContent) {
+        tabs[0].addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tabs[0].classList.add('active');
+            historyContent.style.display = 'block';
+            notesContent.style.display = 'none';
+        });
+        
+        tabs[1].addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tabs[1].classList.add('active');
+            historyContent.style.display = 'none';
+            notesContent.style.display = 'block';
+        });
+    }
 });
+

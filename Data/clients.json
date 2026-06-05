@@ -1,0 +1,49 @@
+[
+    {
+        "id": 1,
+        "name": "Marta García",
+        "email": "marta.garcia@example.com",
+        "phone": "+34 612 345 678",
+        "lastAppt": "2023-10-15",
+        "totalAppts": 4,
+        "registeredAt": "2023-01-10",
+        "notes": "Prefiere citas por la mañana. Alérgica a algunos productos con amoníaco.",
+        "history": [
+            { "date": "15 OCT 2023, 10:00", "status": "completed", "service": "Corte y peinado", "prof": "Laura Gómez" },
+            { "date": "10 SEP 2023, 11:30", "status": "completed", "service": "Tinte y mechas", "prof": "Laura Gómez" },
+            { "date": "05 MAY 2023, 10:00", "status": "completed", "service": "Corte y peinado", "prof": "Laura Gómez" },
+            { "date": "15 ENE 2023, 12:00", "status": "completed", "service": "Corte", "prof": "Laura Gómez" }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Carlos López",
+        "email": "carlos.l@example.com",
+        "phone": "+34 698 765 432",
+        "lastAppt": "2023-10-10",
+        "totalAppts": 5,
+        "registeredAt": "2022-11-05",
+        "notes": "Cliente VIP. Siempre pide a Javier. Le gusta el café solo mientras espera.",
+        "history": [
+            { "date": "10 OCT 2023, 18:00", "status": "completed", "service": "Corte de caballero + Barba", "prof": "Javier Ruiz" },
+            { "date": "05 SEP 2023, 18:30", "status": "noshow", "service": "Corte de caballero", "prof": "Javier Ruiz" },
+            { "date": "20 AGO 2023, 17:00", "status": "completed", "service": "Corte de caballero", "prof": "Javier Ruiz" },
+            { "date": "15 MAR 2023, 18:00", "status": "completed", "service": "Corte de caballero + Barba", "prof": "Javier Ruiz" },
+            { "date": "10 ENE 2023, 17:30", "status": "completed", "service": "Corte de caballero", "prof": "Javier Ruiz" }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Ana Martínez",
+        "email": "",
+        "phone": "+34 655 443 322",
+        "lastAppt": "2023-09-28",
+        "totalAppts": 2,
+        "registeredAt": "2023-09-01",
+        "notes": "Primera visita reciente. Mostró interés en tratamientos capilares.",
+        "history": [
+            { "date": "20 NOV 2026, 16:00", "status": "pending", "service": "Tratamiento capilar", "prof": "Laura Gómez" },
+            { "date": "28 SEP 2023, 16:00", "status": "completed", "service": "Lavado y marcado", "prof": "Laura Gómez" }
+        ]
+    }
+]
