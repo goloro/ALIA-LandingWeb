@@ -300,6 +300,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCancelCliente = document.getElementById('btn-cancel-modal-cliente');
     const btnSaveCliente = document.getElementById('btn-save-cliente');
     
+    window.openNuevoClienteModal = function(returnToAppt = false) {
+        window.returnToApptModal = returnToAppt;
+        if (modalNuevoCliente) modalNuevoCliente.classList.add('active');
+    };
+
     function closeClienteModal() {
         if (modalNuevoCliente) modalNuevoCliente.classList.remove('active');
         // Reset form
@@ -374,6 +379,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeClienteModal();
                 currentPage = 1; // Volver a la primera página para ver el nuevo
                 loadClients();
+                
+                if (window.returnToApptModal) {
+                    window.returnToApptModal = false;
+                    if (window.openNuevaCitaModal) {
+                        window.openNuevaCitaModal(nameVal);
+                    }
+                }
             });
         }
     }

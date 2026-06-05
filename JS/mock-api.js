@@ -89,6 +89,45 @@ class MockAPI {
         return null;
     }
 
+    async addAppointment(clientQuery, apptData) {
+        await this.init();
+        await this._simulateDelay(600);
+        
+        // Find client by name or phone
+        const query = clientQuery.toLowerCase().trim();
+        let client = this.state.clients.find(c => c.name.toLowerCase() === query || c.phone === query);
+        
+        if (!client) {
+            // Create a temporary client if not found so the appt is still saved
+            const newClient = {
+                id: Date.now(),
+                name: clientQuery,
+                phone: "-",
+                email: "",
+                totalAppts: 0,
+                registeredAt: new Date().toISOString().split('T')[0],
+                notes: "",
+                history: []
+            };
+            this.state.clients.unshift(newClient);
+            client = newClient;
+        }
+
+        client.totalAppts = (client.totalAppts || 0) + 1;
+        client.lastAppt = apptData.rawDate; // e.g. "2026-05-01" or whatever format
+        client.history = client.history || [];
+        
+        // Format date beautifully for history: "01 MAY 2026, 10:00"
+        client.history.unshift({
+            date: apptData.formattedDate, 
+            service: apptData.service,
+            prof: apptData.prof,
+            status: 'pending'
+        });
+        
+        return { success: true, client };
+    }
+
     // --- TEAM ---
     async getTeam() {
         await this.init();

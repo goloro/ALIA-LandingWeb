@@ -170,12 +170,76 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseModal = document.getElementById('btn-close-modal');
     const btnCancelModal = document.getElementById('btn-cancel-modal');
 
-    window.openNuevaCitaModal = function(prefilledClientName = '') {
+    window.populateDropdown = function(selectContainer, optionsArray, defaultValue) {
+        if (!selectContainer) return;
+        const optionsDiv = selectContainer.querySelector('.custom-select-options');
+        const selectedValueSpan = selectContainer.querySelector('.selected-value');
+        if (!optionsDiv || !selectedValueSpan) return;
+
+        let html = '';
+        optionsArray.forEach(opt => {
+            html += `<div class="custom-option">${opt}</div>`;
+        });
+        optionsDiv.innerHTML = html;
+
+        if (defaultValue !== undefined) {
+            selectedValueSpan.textContent = defaultValue;
+            selectedValueSpan.style.color = defaultValue.includes('--') ? '#94a3b8' : 'var(--portal-text-main)';
+        }
+
+        const newOptions = optionsDiv.querySelectorAll('.custom-option');
+        newOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectedValueSpan.textContent = option.textContent;
+                if (option.textContent.includes('--')) {
+                    selectedValueSpan.style.color = '#94a3b8';
+                } else {
+                    selectedValueSpan.style.color = 'var(--portal-text-main)';
+                }
+                selectContainer.classList.remove('open');
+            });
+        });
+    };
+
+    window.openNuevaCitaModal = async function(prefilledClientName = '') {
         if (modalNuevaCita) {
             modalNuevaCita.classList.add('active');
             const inputCliente = modalNuevaCita.querySelector('input[placeholder*="Buscar por nombre"]');
             if (inputCliente) {
                 inputCliente.value = prefilledClientName || '';
+            }
+
+            const selects = modalNuevaCita.querySelectorAll('.custom-select-container');
+            if (selects.length >= 3 && window.populateDropdown) {
+                if (!window.timeOptionsLoaded) {
+                    const times = ['--:-- (Vacío)'];
+                    for (let h = 9; h <= 20; h++) {
+                        for (let m of ['00', '30']) {
+                            if (h === 20 && m === '30') continue;
+                            times.push(`${h.toString().padStart(2, '0')}:${m}`);
+                        }
+                    }
+                    window.populateDropdown(selects[0], times, '--:--');
+                    window.timeOptionsLoaded = true;
+                }
+
+                if (!window.serviceOptionsLoaded) {
+                    const services = ['-- Seleccionar --', 'Corte Clásico', 'Corte + Barba', 'Tinte y Mechas', 'Manicura Semipermanente', 'Masaje Relajante', 'Tratamiento Facial'];
+                    window.populateDropdown(selects[1], services, '-- Seleccionar --');
+                    window.serviceOptionsLoaded = true;
+                }
+
+                if (!window.teamOptionsLoaded && window.MockAPI) {
+                    try {
+                        const team = await window.MockAPI.getTeam();
+                        const teamNames = ['Cualquier Disponible', ...team.map(t => t.name)];
+                        window.populateDropdown(selects[2], teamNames, 'Cualquier Disponible');
+                        window.teamOptionsLoaded = true;
+                    } catch (e) {
+                        console.error('Error loading team for dropdown', e);
+                    }
+                }
             }
         }
     };
