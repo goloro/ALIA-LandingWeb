@@ -29,7 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // 2. Obtener datos de la API simulada
-            const clients = await window.MockAPI.getClients();
+            const allClients = await window.MockAPI.getClients();
+            let clients = [...allClients];
+            
+            // Filtro de búsqueda de la barra superior
+            const searchInput = document.getElementById('topbar-client-search');
+            if (searchInput) {
+                const query = searchInput.value.toLowerCase().trim();
+                if (query) {
+                    clients = clients.filter(c => 
+                        (c.name && c.name.toLowerCase().includes(query)) || 
+                        (c.phone && c.phone.toLowerCase().includes(query)) ||
+                        (c.email && c.email.toLowerCase().includes(query))
+                    );
+                }
+            }
             
             // 3. Paginación
             const totalItems = clients.length;
@@ -167,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const monthlyAppts = {};
             const monthNames = { 'ENE': '01', 'FEB': '02', 'MAR': '03', 'ABR': '04', 'MAY': '05', 'JUN': '06', 'JUL': '07', 'AGO': '08', 'SEP': '09', 'OCT': '10', 'NOV': '11', 'DIC': '12' };
 
-            clients.forEach(c => {
+            allClients.forEach(c => {
                 // Nuevos Clientes
                 if (c.registeredAt && c.registeredAt.startsWith(currentMonthStr)) {
                     nuevosClientes++;
@@ -209,7 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
-            const retentionRate = totalItems > 0 ? Math.round((retainedClients / totalItems) * 100) : 0;
+            const globalTotalItems = allClients.length;
+            const retentionRate = globalTotalItems > 0 ? Math.round((retainedClients / globalTotalItems) * 100) : 0;
             const attendanceRate = totalPastAppts > 0 ? Math.round((attendedAppts / totalPastAppts) * 100) : 0;
             
             // Update Dashboard stats
@@ -1432,6 +1447,16 @@ document.addEventListener('DOMContentLoaded', () => {
             closeEditClientModal();
             btn.innerHTML = originalText;
             btn.disabled = false;
+        });
+    }
+    
+    // Búsqueda de clientes en la barra superior
+    const topbarClientSearch = document.getElementById('topbar-client-search');
+    if (topbarClientSearch) {
+        topbarClientSearch.addEventListener('input', () => {
+            // Resetear paginación al buscar
+            if (typeof currentPage !== 'undefined') currentPage = 1;
+            if (typeof loadClients === 'function') loadClients();
         });
     }
 });
