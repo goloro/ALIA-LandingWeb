@@ -1262,6 +1262,17 @@ document.addEventListener('DOMContentLoaded', () => {
             notesContent.style.display = 'none';
         }
         
+        // Asignar botón eliminar
+        const deleteClientBtn = panel.querySelector('.btn-delete-client');
+        if (deleteClientBtn) {
+            deleteClientBtn.onclick = () => {
+                window.clientToDeleteId = client.id;
+                window.clientToDeleteBtn = deleteClientBtn;
+                const modalConfirmDelete = document.getElementById('modal-confirm-delete');
+                if (modalConfirmDelete) modalConfirmDelete.classList.add('active');
+            };
+        }
+        
         // Abrir panel
         panel.classList.add('active');
         backdrop.classList.add('active');
@@ -1318,11 +1329,22 @@ document.addEventListener('DOMContentLoaded', () => {
         btnConfirmDelete.addEventListener('click', async () => {
             if (window.clientToDeleteId && window.clientToDeleteBtn) {
                 const btn = window.clientToDeleteBtn;
+                const originalHtml = btn.innerHTML;
                 btn.innerHTML = '<svg class="spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg>';
                 
                 modalConfirmDelete.classList.remove('active');
                 await window.MockAPI.deleteClient(window.clientToDeleteId);
                 loadClients(); // Reload
+                
+                // Si estamos borrando desde el panel, cerrarlo
+                const clientPanel = document.getElementById('client-details-panel');
+                const clientBackdrop = document.getElementById('client-details-backdrop');
+                if (clientPanel && clientPanel.classList.contains('active')) {
+                    clientPanel.classList.remove('active');
+                    if(clientBackdrop) clientBackdrop.classList.remove('active');
+                    // Restaurar HTML del botón del panel por si se vuelve a abrir
+                    btn.innerHTML = originalHtml;
+                }
                 
                 window.clientToDeleteId = null;
                 window.clientToDeleteBtn = null;
