@@ -381,6 +381,17 @@ document.addEventListener('DOMContentLoaded', () => {
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
+            
+            // Limpiar buscador si el usuario navega manualmente
+            if (e.isTrusted) {
+                const searchInput = document.getElementById('topbar-client-search');
+                if (searchInput && searchInput.value !== '') {
+                    searchInput.value = '';
+                    if (typeof currentPage !== 'undefined') currentPage = 1;
+                    if (typeof loadClients === 'function') loadClients();
+                }
+            }
+            
             const targetId = item.getAttribute('data-target');
             if (!targetId) return;
 
