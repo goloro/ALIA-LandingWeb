@@ -160,6 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let totalPastAppts = 0;
             let attendedAppts = 0;
             
+            // Map for monthly attendance
+            const monthlyAppts = {};
+            const monthNames = { 'ENE': '01', 'FEB': '02', 'MAR': '03', 'ABR': '04', 'MAY': '05', 'JUN': '06', 'JUL': '07', 'AGO': '08', 'SEP': '09', 'OCT': '10', 'NOV': '11', 'DIC': '12' };
+
             clients.forEach(c => {
                 // Nuevos Clientes
                 if (c.registeredAt && c.registeredAt.startsWith(currentMonthStr)) {
@@ -178,6 +182,24 @@ document.addEventListener('DOMContentLoaded', () => {
                             totalPastAppts++;
                             if (appt.status === 'completed') {
                                 attendedAppts++;
+                            }
+                            
+                            // Parse date "15 OCT 2023, 10:00"
+                            const parts = appt.date.split(' ');
+                            if (parts.length >= 3) {
+                                const monthText = parts[1].toUpperCase();
+                                const year = parts[2].replace(',', '');
+                                const monthNum = monthNames[monthText];
+                                if (monthNum) {
+                                    const ym = `${year}-${monthNum}`;
+                                    if (!monthlyAppts[ym]) {
+                                        monthlyAppts[ym] = { total: 0, completed: 0 };
+                                    }
+                                    monthlyAppts[ym].total++;
+                                    if (appt.status === 'completed') {
+                                        monthlyAppts[ym].completed++;
+                                    }
+                                }
                             }
                         }
                     });
@@ -198,6 +220,46 @@ document.addEventListener('DOMContentLoaded', () => {
             const progressFill = document.querySelector('.c-progress-fill');
             if (progressFill) {
                 progressFill.style.width = `${retentionRate}%`;
+            }
+            
+            // Update Attendance SVG Curve
+            const sortedMonths = Object.keys(monthlyAppts).sort();
+            const last6Months = sortedMonths.slice(-6); // Take up to 6 last months
+            
+            if (last6Months.length > 1) {
+                const svgCurve = document.querySelector('.c-chart-curve');
+                if (svgCurve) {
+                    const paths = svgCurve.querySelectorAll('path');
+                    if (paths.length >= 2) {
+                        const width = 300;
+                        const step = width / (last6Months.length - 1);
+                        
+                        let strokePathD = '';
+                        let fillPathD = '';
+                        
+                        last6Months.forEach((ym, index) => {
+                            const data = monthlyAppts[ym];
+                            const rate = data.total > 0 ? (data.completed / data.total) : 0;
+                            const x = index * step;
+                            // y varies between 10 (100%) and 78 (0%)
+                            const y = 78 - (rate * 68);
+                            
+                            if (index === 0) {
+                                strokePathD += `M ${x} ${y} `;
+                                fillPathD += `M ${x} ${y} `;
+                            } else {
+                                strokePathD += `L ${x} ${y} `;
+                                fillPathD += `L ${x} ${y} `;
+                            }
+                        });
+                        
+                        fillPathD += `L ${width} 80 L 0 80 Z`;
+                        
+                        // Update paths
+                        paths[0].setAttribute('d', fillPathD);
+                        paths[1].setAttribute('d', strokePathD);
+                    }
+                }
             }
 
         } catch (error) {
