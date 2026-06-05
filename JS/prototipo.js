@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td style="color: #64748b;">${formattedLastAppt || '-'}</td>
                         <td style="font-weight: 600; text-align: center;">${c.totalAppts}</td>
                         <td class="table-actions">
-                            <button class="btn-action btn-edit" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <button class="btn-action btn-edit" title="Editar" data-id="${c.id}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
                             <button class="btn-action btn-delete" title="Eliminar" data-id="${c.id}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
                         </td>
                     `;
@@ -91,8 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 editBtns.forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         e.stopPropagation(); // Evitar abrir el panel
-                        // Aqu ira la lgica de editar
-                        alert("Botn editar pulsado");
+                        const clientId = parseInt(btn.getAttribute('data-id'));
+                        const client = clients.find(cl => cl.id === clientId);
+                        if (client && typeof window.openEditClientModal === 'function') {
+                            window.openEditClientModal(client);
+                        }
                     });
                 });
                 
@@ -1273,6 +1276,17 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
         
+        // Asignar botón editar
+        const editClientBtn = panel.querySelector('.btn-edit-cd');
+        if (editClientBtn) {
+            editClientBtn.onclick = (e) => {
+                e.stopPropagation();
+                if (typeof window.openEditClientModal === 'function') {
+                    window.openEditClientModal(client);
+                }
+            };
+        }
+        
         // Abrir panel
         panel.classList.add('active');
         backdrop.classList.add('active');
@@ -1349,6 +1363,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.clientToDeleteId = null;
                 window.clientToDeleteBtn = null;
             }
+        });
+    }
+    
+    // --- Lógica del Modal Editar Cliente ---
+    const modalEditarCliente = document.getElementById('modal-editar-cliente');
+    const btnCloseModalEditCliente = document.getElementById('btn-close-modal-edit-cliente');
+    const btnCancelModalEditCliente = document.getElementById('btn-cancel-modal-edit-cliente');
+    const btnSaveEditCliente = document.getElementById('btn-save-edit-cliente');
+    
+    window.openEditClientModal = function(client) {
+        if (!modalEditarCliente) return;
+        
+        window.clientToEditId = client.id;
+        
+        document.getElementById('edit-client-name').value = client.name || '';
+        document.getElementById('edit-client-email').value = client.email || '';
+        document.getElementById('edit-client-phone').value = client.phone || '';
+        document.getElementById('edit-client-notes').value = client.notes || '';
+        
+        modalEditarCliente.classList.add('active');
+    };
+    
+    function closeEditClientModal() {
+        if (modalEditarCliente) {
+            modalEditarCliente.classList.remove('active');
+            window.clientToEditId = null;
+        }
+    }
+    
+    if (btnCloseModalEditCliente) btnCloseModalEditCliente.addEventListener('click', closeEditClientModal);
+    if (btnCancelModalEditCliente) btnCancelModalEditCliente.addEventListener('click', closeEditClientModal);
+    
+    if (btnSaveEditCliente) {
+        btnSaveEditCliente.addEventListener('click', async () => {
+            const btn = btnSaveEditCliente;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Guardando...';
+            btn.disabled = true;
+            
+            const name = document.getElementById('edit-client-name').value.trim();
+            const email = document.getElementById('edit-client-email').value.trim();
+            const phone = document.getElementById('edit-client-phone').value.trim();
+            const notes = document.getElementById('edit-client-notes').value.trim();
+            
+            if (!name) {
+                alert('El nombre es obligatorio');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                return;
+            }
+            
+            const updatedData = { name, email, phone, notes };
+            await window.MockAPI.editClient(window.clientToEditId, updatedData);
+            
+            loadClients(); // Recargar tabla
+            
+            // Si el panel de cliente está abierto, actualizarlo
+            const clientPanel = document.getElementById('client-details-panel');
+            if (clientPanel && clientPanel.classList.contains('active')) {
+                const clientsList = await window.MockAPI.getClients();
+                const updatedClient = clientsList.find(c => c.id === window.clientToEditId);
+                if (updatedClient) {
+                    openClientDetails(updatedClient);
+                }
+            }
+            
+            closeEditClientModal();
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         });
     }
 });

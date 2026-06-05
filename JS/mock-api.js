@@ -77,6 +77,18 @@ class MockAPI {
         return { success: true };
     }
 
+    async editClient(id, updatedData) {
+        await this.init();
+        await this._simulateDelay(600); // Simulate saving delay
+        
+        const index = this.state.clients.findIndex(c => c.id === id);
+        if (index !== -1) {
+            this.state.clients[index] = { ...this.state.clients[index], ...updatedData };
+            return this.state.clients[index];
+        }
+        return null;
+    }
+
     // --- TEAM ---
     async getTeam() {
         await this.init();

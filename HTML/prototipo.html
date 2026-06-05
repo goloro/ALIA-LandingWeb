@@ -1579,6 +1579,51 @@
                         </div>
                     </div>
                     
+                    <div class="modal-overlay" id="modal-editar-cliente">
+                        <div class="modal-container">
+                            <button class="modal-close" id="btn-close-modal-edit-cliente">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                            
+                            <h2 class="modal-title">Editar Cliente</h2>
+                            <p class="modal-subtitle">Modifique los datos de este cliente.</p>
+                            
+                            <div class="form-group">
+                                <label class="form-label">NOMBRE COMPLETO</label>
+                                <div class="input-with-icon">
+                                    <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    <input type="text" class="form-control" id="edit-client-name" placeholder="Ej. Ana Martínez">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">CORREO ELECTRÓNICO <span style="color:#94a3b8; font-weight:normal; text-transform:none;">(Opcional)</span></label>
+                                <div class="input-with-icon">
+                                    <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                    <input type="email" class="form-control" id="edit-client-email" placeholder="Ej. ana@ejemplo.com">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">TELÉFONO</label>
+                                <div class="input-with-icon">
+                                    <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    <input type="text" class="form-control" id="edit-client-phone" placeholder="+34 600 000 000">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">NOTAS INTERNAS</label>
+                                <textarea class="form-control" id="edit-client-notes" placeholder="Preferencias, alergias..." rows="3" style="resize:vertical;"></textarea>
+                            </div>
+                            
+                            <div class="modal-actions">
+                                <button class="btn-cancel" id="btn-cancel-modal-edit-cliente">Cancelar</button>
+                                <button class="btn-save" id="btn-save-edit-cliente">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Popover: Notificaciones -->
                     <div class="popover-notificaciones" id="modal-notificaciones">
                         <div class="notif-header">
