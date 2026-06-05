@@ -1454,6 +1454,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const topbarClientSearch = document.getElementById('topbar-client-search');
     if (topbarClientSearch) {
         topbarClientSearch.addEventListener('input', () => {
+            // Cambiar a la pestaña de clientes automáticamente
+            const btnClientes = document.querySelector('.nav-item[data-target="page-clientes"]');
+            if (btnClientes && !btnClientes.classList.contains('active')) {
+                btnClientes.click();
+            }
+            
             // Resetear paginación al buscar
             if (typeof currentPage !== 'undefined') currentPage = 1;
             if (typeof loadClients === 'function') loadClients();
