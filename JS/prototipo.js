@@ -151,9 +151,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             
+            // Calculate dynamic stats
+            const now = new Date();
+            const currentMonthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            
+            let nuevosClientes = 0;
+            let retainedClients = 0;
+            let totalPastAppts = 0;
+            let attendedAppts = 0;
+            
+            clients.forEach(c => {
+                // Nuevos Clientes
+                if (c.registeredAt && c.registeredAt.startsWith(currentMonthStr)) {
+                    nuevosClientes++;
+                }
+                
+                // Retención (> 1 cita)
+                if (c.totalAppts > 1) {
+                    retainedClients++;
+                }
+                
+                // Asistencia
+                if (c.history && c.history.length > 0) {
+                    c.history.forEach(appt => {
+                        if (appt.status === 'completed' || appt.status === 'noshow') {
+                            totalPastAppts++;
+                            if (appt.status === 'completed') {
+                                attendedAppts++;
+                            }
+                        }
+                    });
+                }
+            });
+            
+            const retentionRate = totalItems > 0 ? Math.round((retainedClients / totalItems) * 100) : 0;
+            const attendanceRate = totalPastAppts > 0 ? Math.round((attendedAppts / totalPastAppts) * 100) : 0;
+            
             // Update Dashboard stats
-            const totalClientsStat = document.querySelector('.c-stat-purple .c-stat-value');
-            if (totalClientsStat) totalClientsStat.textContent = totalItems;
+            const statValues = document.querySelectorAll('.clientes-stats-grid .c-stat-value');
+            if (statValues.length >= 3) {
+                statValues[0].textContent = nuevosClientes;
+                statValues[1].textContent = `${retentionRate}%`;
+                statValues[2].textContent = `${attendanceRate}%`;
+            }
+            
+            const progressFill = document.querySelector('.c-progress-fill');
+            if (progressFill) {
+                progressFill.style.width = `${retentionRate}%`;
+            }
 
         } catch (error) {
             console.error(error);
