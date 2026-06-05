@@ -1,4 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Toast Notifications System ---
+    window.showToast = function(title, message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+
+        let iconSvg = '';
+        if (type === 'success') {
+            iconSvg = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>';
+        } else if (type === 'error') {
+            iconSvg = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>';
+        } else if (type === 'warning') {
+            iconSvg = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+        } else {
+            iconSvg = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+        }
+
+        toast.innerHTML = `
+            <div class="toast-icon">${iconSvg}</div>
+            <div class="toast-content">
+                <h4 class="toast-title">${title}</h4>
+                <p class="toast-message">${message}</p>
+            </div>
+            <button class="toast-close">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        `;
+
+        container.appendChild(toast);
+
+        const autoRemoveTimeout = setTimeout(() => {
+            toast.classList.add('fade-out');
+            setTimeout(() => toast.remove(), 300);
+        }, 5000); // 5 seconds
+
+        const closeBtn = toast.querySelector('.toast-close');
+        closeBtn.addEventListener('click', () => {
+            clearTimeout(autoRemoveTimeout);
+            toast.classList.add('fade-out');
+            setTimeout(() => toast.remove(), 300);
+        });
+    };
+
     // --- Mock Backend: Carga de Clientes y Paginación ---
     let currentPage = 1;
     const itemsPerPage = 8;
@@ -315,11 +360,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btnCloseCliente) btnCloseCliente.addEventListener('click', closeClienteModal);
         if (btnCancelCliente) btnCancelCliente.addEventListener('click', closeClienteModal);
         
-        // Cerrar al hacer click fuera
-        modalNuevoCliente.addEventListener('click', (e) => {
-            if (e.target === modalNuevoCliente) closeClienteModal();
-        });
-        
         // Guardar Cliente Real
         if (btnSaveCliente) {
             btnSaveCliente.addEventListener('click', async () => {
@@ -331,20 +371,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const emailVal = emailInput ? emailInput.value.trim() : '';
                 const phoneVal = phoneInput ? phoneInput.value.trim() : '';
                 
-                if (!nameVal) {
-                    alert('El nombre es obligatorio');
+                if (!nameVal || nameVal.trim().length < 3) {
+                    if (window.showToast) window.showToast('Error de Validación', 'El nombre es obligatorio y debe tener al menos 3 caracteres.', 'error');
                     return;
                 }
                 
-                // Basic validation for email if provided
-                if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-                    alert('Por favor, introduce un correo electrónico válido');
+                // Email is optional but must be valid
+                if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailVal)) {
+                    if (window.showToast) window.showToast('Error de Validación', 'El formato del correo electrónico no es válido.', 'error');
                     return;
                 }
                 
-                // Basic validation for phone if provided (allows +, spaces, dashes, digits)
-                if (phoneVal && !/^[\d\+\s\-]+$/.test(phoneVal)) {
-                    alert('Por favor, introduce un número de teléfono válido');
+                // Phone is mandatory and needs at least 9 digits
+                const phoneDigits = phoneVal ? phoneVal.replace(/\D/g, '') : '';
+                if (!phoneVal || phoneDigits.length < 9) {
+                    if (window.showToast) window.showToast('Error de Validación', 'El número de teléfono es obligatorio y debe contener al menos 9 dígitos.', 'error');
                     return;
                 }
                 
@@ -353,12 +394,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnSaveCliente.innerHTML = '<svg class="spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg> Guardando...';
                 btnSaveCliente.style.pointerEvents = 'none';
 
+                let finalPhone = phoneVal || '-';
+                if (finalPhone !== '-' && !finalPhone.startsWith('+')) {
+                    finalPhone = '+34 ' + finalPhone;
+                }
+
                 await window.MockAPI.addClient({
                     name: nameVal,
                     email: emailVal,
-                    phone: phoneVal || '-',
+                    phone: finalPhone,
                     lastAppt: null
                 });
+                
+                if (window.showToast) window.showToast('Éxito', 'Cliente registrado correctamente en el sistema.', 'success');
 
                 // Restaurar y cerrar
                 btnSaveCliente.innerHTML = originalContent;
@@ -1374,6 +1422,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 modalConfirmDelete.classList.remove('active');
                 await window.MockAPI.deleteClient(window.clientToDeleteId);
+                if (window.showToast) window.showToast('Cliente Eliminado', 'El cliente ha sido eliminado permanentemente del sistema.', 'error');
                 loadClients(); // Reload
                 
                 // Si estamos borrando desde el panel, cerrarlo
@@ -1433,8 +1482,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const phone = document.getElementById('edit-client-phone').value.trim();
             const notes = document.getElementById('edit-client-notes').value.trim();
             
-            if (!name) {
-                alert('El nombre es obligatorio');
+            if (!name || name.trim().length < 3) {
+                if (window.showToast) window.showToast('Error de Validación', 'El nombre es obligatorio y debe tener al menos 3 caracteres.', 'error');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                return;
+            }
+            
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+                if (window.showToast) window.showToast('Error de Validación', 'El formato del correo electrónico no es válido.', 'error');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                return;
+            }
+            
+            const editPhoneDigits = phone ? phone.replace(/\D/g, '') : '';
+            if (!phone || editPhoneDigits.length < 9) {
+                if (window.showToast) window.showToast('Error de Validación', 'El número de teléfono es obligatorio y debe contener al menos 9 dígitos.', 'error');
                 btn.innerHTML = originalText;
                 btn.disabled = false;
                 return;
@@ -1442,6 +1506,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const updatedData = { name, email, phone, notes };
             await window.MockAPI.editClient(window.clientToEditId, updatedData);
+            
+            if (window.showToast) window.showToast('Éxito', 'Datos del cliente actualizados correctamente.', 'success');
             
             loadClients(); // Recargar tabla
             

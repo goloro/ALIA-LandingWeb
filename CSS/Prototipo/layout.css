@@ -621,3 +621,123 @@
 .notif-view-all:hover {
     text-decoration: underline;
 }
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none; /* Let clicks pass through container */
+}
+
+.toast {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 320px;
+    pointer-events: auto; /* Enable clicks on toast itself */
+    animation: slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid transparent;
+}
+
+.toast.fade-out {
+    animation: fadeOutRight 0.3s ease-in forwards;
+}
+
+.toast-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.toast-content {
+    flex: 1;
+}
+
+.toast-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: var(--portal-text-main);
+}
+
+.toast-message {
+    font-size: 0.85rem;
+    color: var(--portal-text-muted);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 8px;
+    transition: color 0.2s;
+}
+
+.toast-close:hover {
+    color: var(--portal-text-main);
+}
+
+/* Tipos de Toasts */
+.toast-success {
+    border-left-color: #22c55e;
+}
+.toast-success .toast-icon {
+    color: #22c55e;
+}
+
+.toast-error {
+    border-left-color: #ef4444;
+}
+.toast-error .toast-icon {
+    color: #ef4444;
+}
+
+.toast-warning {
+    border-left-color: #f59e0b;
+}
+.toast-warning .toast-icon {
+    color: #f59e0b;
+}
+
+.toast-info {
+    border-left-color: #3b82f6;
+}
+.toast-info .toast-icon {
+    color: #3b82f6;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}

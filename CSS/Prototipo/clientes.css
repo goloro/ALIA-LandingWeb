@@ -339,6 +339,11 @@
     color: #039BE5;
 }
 
+.icon-purple {
+    background-color: #EFE9FF;
+    color: #6028ff;
+}
+
 .icon-green {
     background-color: rgba(0, 97, 41, 0.1); /* light green */
     color: #3FE374; /* actually in image it's a solid green icon #2CF865 */
@@ -356,8 +361,9 @@
 
 .c-progress-fill {
     height: 100%;
-    background-color: #00677D;
+    background-color: #6028ff;
     border-radius: 4px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .c-chart-curve {
