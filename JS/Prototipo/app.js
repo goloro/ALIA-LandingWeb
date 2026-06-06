@@ -285,8 +285,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
                 if (!window.serviceOptionsLoaded) {
-                    const services = ['-- Seleccionar --', 'Corte Clásico', 'Corte + Barba', 'Tinte y Mechas', 'Manicura Semipermanente', 'Masaje Relajante', 'Tratamiento Facial'];
-                    window.populateDropdown(selects[1], services, '-- Seleccionar --');
+                    const services = (window.BusinessSettings && window.BusinessSettings.services) 
+                        ? window.BusinessSettings.services 
+                        : [];
+                    window.populateDropdown(selects[1], services, 'Elige un servicio...');
                     window.serviceOptionsLoaded = true;
                 }
 
@@ -332,6 +334,77 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
             if (window.openNuevoClienteModal) {
                 window.openNuevoClienteModal(true);
+            }
+        });
+    }
+
+
+    const btnSaveNewAppt = modalNuevaCita.querySelector('.btn-save');
+    if (btnSaveNewAppt && !btnSaveNewAppt.hasAttribute('data-bound')) {
+        btnSaveNewAppt.setAttribute('data-bound', 'true');
+        btnSaveNewAppt.addEventListener('click', async () => {
+            const inputCliente = modalNuevaCita.querySelector('input[placeholder*="Buscar por nombre"]');
+            const inputsText = modalNuevaCita.querySelectorAll('input[type="text"]');
+            const selects = modalNuevaCita.querySelectorAll('.selected-value');
+
+            const clientName = inputCliente ? inputCliente.value.trim() : '';
+            const rawDate = inputsText.length > 1 ? inputsText[1].value.trim() : '';
+            const timeStr = selects.length > 0 ? selects[0].textContent.trim() : '';
+            const service = selects.length > 1 ? selects[1].textContent.trim() : '';
+            const prof = selects.length > 2 ? selects[2].textContent.trim() : '';
+
+            if (!clientName) {
+                if (window.showToast) window.showToast('Error de Validación', 'Debes especificar un cliente.', 'error');
+                return;
+            }
+
+            if (!rawDate || timeStr.includes('--') || timeStr.includes('Vacío')) {
+                if (window.showToast) window.showToast('Error de Validación', 'Debes especificar la fecha y hora de la cita.', 'error');
+                return;
+            }
+
+            if (!service || service.includes('Elige un servicio') || service.includes('--')) {
+                if (window.showToast) window.showToast('Error de Validación', 'Debes seleccionar un servicio.', 'error');
+                return;
+            }
+
+            const originalText = btnSaveNewAppt.innerHTML;
+            btnSaveNewAppt.innerHTML = '<svg class="spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite; margin-right: 8px;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg> Guardando...';
+            btnSaveNewAppt.disabled = true;
+
+            const monthNames = { '01': 'ENE', '02': 'FEB', '03': 'MAR', '04': 'ABR', '05': 'MAY', '06': 'JUN', '07': 'JUL', '08': 'AGO', '09': 'SEP', '10': 'OCT', '11': 'NOV', '12': 'DIC' };
+            let formattedDate = rawDate + ', ' + timeStr;
+            if (rawDate.includes('/')) {
+                const parts = rawDate.split('/');
+                if (parts.length === 3) {
+                    const m = monthNames[parts[1]] || parts[1];
+                    formattedDate = `${parts[0]} ${m} ${parts[2]}, ${timeStr}`;
+                }
+            }
+
+            try {
+                if (window.MockAPI && window.MockAPI.addAppointment) {
+                    await window.MockAPI.addAppointment(clientName, {
+                        rawDate: rawDate,
+                        formattedDate: formattedDate,
+                        service: service,
+                        prof: prof
+                    });
+                }
+
+                if (window.showToast) window.showToast('Éxito', 'La cita se ha programado correctamente.', 'success');
+                if (typeof closeModal === 'function') closeModal();
+
+                // Clear fields
+                if (inputCliente) inputCliente.value = '';
+                
+                // Refresh current view (Clientes)
+                if (typeof window.resetClientSearch === 'function') window.resetClientSearch();
+            } catch(e) {
+                if (window.showToast) window.showToast('Error', 'Hubo un problema al guardar la cita.', 'error');
+            } finally {
+                btnSaveNewAppt.innerHTML = originalText;
+                btnSaveNewAppt.disabled = false;
             }
         });
     }
@@ -514,12 +587,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 dayDiv.classList.add('selected');
             }
 
-            // Disable past days
+            // Disable past days AND closed days
             const thisDayDate = new Date(year, month, i);
             const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-            if (thisDayDate < todayStart) {
+            
+            const isPast = thisDayDate < todayStart;
+            const isClosed = window.BusinessSettings && window.BusinessSettings.closedDays.includes(thisDayDate.getDay());
+
+            if (isPast || isClosed) {
                 dayDiv.classList.add('empty');
-                dayDiv.style.opacity = '0.3';
+                if (isClosed && !isPast) {
+                    dayDiv.classList.add('closed-day');
+                } else {
+                    dayDiv.style.opacity = '0.3';
+                }
+                if (isClosed) dayDiv.title = 'Día cerrado';
             } else {
                 dayDiv.onclick = (e) => {
                     e.stopPropagation();
@@ -661,3 +743,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 });
 
+
+document.addEventListener('DOMContentLoaded', async () => {
+    window.BusinessSettings = { closedDays: [0] }; // Default: Closed on Sunday
+    if (window.MockAPI) {
+        try {
+            window.BusinessSettings = await window.MockAPI.getSettings();
+        } catch(e) {
+            console.error("Error fetching settings", e);
+        }
+    }
+});

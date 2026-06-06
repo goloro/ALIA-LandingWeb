@@ -7,7 +7,10 @@ class MockAPI {
         // Estado en memoria
         this.state = {
             clients: [],
-            team: []
+            team: [],
+            settings: {
+                closedDays: [0] // 0 = Domingo, 1 = Lunes, etc.
+            }
         };
         this.initialized = false;
         
@@ -27,6 +30,16 @@ class MockAPI {
             
             this.state.clients = await clientsRes.json();
             this.state.team = await teamRes.json();
+
+            // Cargar ajustes si existe el archivo
+            try {
+                const settingsRes = await fetch('../data/settings.json');
+                if (settingsRes.ok) {
+                    this.state.settings = await settingsRes.json();
+                }
+            } catch(e) {
+                console.log("Settings no encontradas, usando valores por defecto", e);
+            }
             
             this.initialized = true;
         } catch (error) {
@@ -133,6 +146,20 @@ class MockAPI {
         await this.init();
         await this._simulateDelay();
         return [...this.state.team];
+    }
+
+    // --- BUSINESS SETTINGS ---
+    async getSettings() {
+        await this.init();
+        await this._simulateDelay(200);
+        return { ...this.state.settings };
+    }
+
+    async updateSettings(newSettings) {
+        await this.init();
+        await this._simulateDelay(400);
+        this.state.settings = { ...this.state.settings, ...newSettings };
+        return this.state.settings;
     }
 }
 

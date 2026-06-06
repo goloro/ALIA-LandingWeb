@@ -897,3 +897,15 @@
     background-color: #cbd5e1;
     border-radius: 10px;
 }
+/* CSS para días cerrados en el calendario */
+.mc-day.closed-day {
+    color: #ef4444 !important; /* Rojo 500 de Tailwind */
+    background-color: #fef2f2 !important; /* Rojo clarito para fondo */
+    text-decoration: line-through;
+    opacity: 0.6 !important;
+    cursor: not-allowed;
+    border: 1px dashed #fca5a5;
+}
+.mc-day.closed-day:hover {
+    background-color: #fee2e2 !important;
+}
