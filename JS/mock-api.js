@@ -12,7 +12,8 @@ class MockAPI {
             settings: {
                 closedDays: [0], // 0 = Domingo
                 openHours: { start: '10:00', end: '19:00' } // 9 hours open
-            }
+            },
+            chats: {}
         };
         this.initialized = false;
         
@@ -142,10 +143,64 @@ class MockAPI {
                     notes: "Cliente autogenerado por el prototipo para la cita de hoy/mañana.",
                     history: [
                         { date: appt.rawDate + ", " + appt.time, status: appt.status, service: appt.service, prof: appt.prof }
-                    ]
+                    ],
+                    source: 'Alia'
                 });
             }
         });
+
+        // Add potential clients (leads who spoke to Alia but haven't booked)
+        this.state.clients.push({
+            id: 901,
+            name: "Marta Sánchez",
+            email: "marta.s@ejemplo.com",
+            phone: "+34 600 000 90",
+            lastAppt: null,
+            totalAppts: 0,
+            registeredAt: new Date().toISOString().split('T')[0],
+            notes: "Lead generado ayer. Interesada en tratamiento facial.",
+            history: [],
+            source: 'Alia'
+        });
+
+        this.state.clients.push({
+            id: 902,
+            name: "Ricardo Mendoza",
+            email: "ricardo.m@ejemplo.com",
+            phone: "+34 600 000 91",
+            lastAppt: null,
+            totalAppts: 0,
+            registeredAt: new Date().toISOString().split('T')[0],
+            notes: "Interesado en decoloración gris plata.",
+            history: [],
+            source: 'Alia'
+        });
+
+        // Initialize Chat Data
+        // Ricardo Mendoza (id: 902) gets the specific Frame 7 mock messages
+        this.state.chats = {
+            902: {
+                unread: 1,
+                messages: [
+                    { sender: 'client', text: 'Hola, quería pedir cita. Quiero teñirme el pelo de gris plata o blanco.', time: '10:15 AM' },
+                    { sender: 'alia', text: '¡Hola Ricardo! 👋 Soy ALIA, el asistente virtual de la peluquería ALIA. Estaré encantada de ayudarte. Para un cambio a gris plata, ¿tienes preferencia por algún barbero o estilista de nuestro equipo, o te busco el primer hueco disponible?', time: '10:15 AM' },
+                    { sender: 'client', text: 'Me da igual quién me lo haga. Pero antes de ir necesito saber exactamente cuánto me va a costar y cuánto vais a tardar. Tengo el pelo castaño muy oscuro, casi negro, y bastante fino.', time: '10:17 AM' },
+                    { sender: 'alia', text: 'Entiendo. Para llegar a un gris plata o blanco desde una base tan oscura, se necesita un proceso de decoloración intenso. El precio base de la decoloración más el matiz es de 55€, pero el tiempo y el precio final varían según las sesiones que necesite tu cabello para aclarar. Lo ideal sería agendar una cita de valoración gratuita de 15 minutos. ¿Te busco hueco para que un especialista lo vea?', time: '10:17 AM' },
+                    { sender: 'client', text: 'Es que trabajo hasta tarde y no tengo tiempo para ir dos veces. Necesito que me deis un precio cerrado por aquí y saber si se me va a quemar o caer el pelo por decolorarlo tanto. Si la broma sube de 90€ decídmelo ya y busco otro sitio.', time: '10:20 AM' },
+                    { sender: 'alia', text: 'Entiendo perfectamente tu situación, Ricardo. Como se trata de un proceso químico muy fuerte sobre cabello fino y oscuro, prefiero que un especialista valore tus dudas directamente para no darte un presupuesto incorrecto ni arriesgar la salud de tu pelo o tu cuero cabelludo.\\n⏸️ Pauso mi asistencia automática. En unos minutos uno de nuestros estilistas leerá esto y te responderá por aquí mismo. ¡Dame un momento!', time: '10:20 AM' },
+                    { sender: 'system', text: 'ASISTENTE ALIA PAUSADA • INTERVENCIÓN HUMANA REQUERIDA', time: '' },
+                    { sender: 'profesional', text: 'Hola Ricardo, soy Marcos, especialista colorista de la peluquería. Haces muy bien en preguntar. Pasar de oscuro a gris plata en pelo fino casi siempre requiere dos decoloraciones suaves para no romper la fibra capilar, además del matiz. Darte un precio cerrado por WhatsApp sin hacer una prueba de mechón es arriesgado, pero calcula que rondará los 85–100€ y tardaremos unas 3 horas. Si te encaja, te busco un hueco largo esta semana.', time: '10:25 AM', profName: 'PROFESIONAL MARCOS GÓMEZ' }
+                ]
+            },
+            901: {
+                unread: 1,
+                messages: [
+                    { sender: 'client', text: 'Hola, quería informarme sobre los precios del tratamiento facial.', time: '09:00' },
+                    { sender: 'alia', text: '¡Hola Marta! El tratamiento facial cuesta 60€ y dura unos 90 minutos. Incluye limpieza profunda e hidratación. ¿Te gustaría agendar una cita?', time: '09:01' },
+                    { sender: 'client', text: 'Me lo pienso y te digo, gracias.', time: '09:30' }
+                ]
+            }
+        };
 
         this.state.appointments = seedAppts;
     }
@@ -266,7 +321,8 @@ class MockAPI {
                 totalAppts: 0,
                 registeredAt: new Date().toISOString().split('T')[0],
                 notes: "",
-                history: []
+                history: [],
+                source: 'Manual'
             };
             this.state.clients.unshift(newClient);
             client = newClient;
@@ -346,6 +402,54 @@ class MockAPI {
         await this._simulateDelay(400);
         this.state.settings = { ...this.state.settings, ...newSettings };
         return this.state.settings;
+    }
+
+    // --- CHATS ---
+    async getChats() {
+        await this.init();
+        await this._simulateDelay(200);
+        // Returns clients with source 'Alia', mapped with their last message
+        const chatClients = this.state.clients.filter(c => c.source === 'Alia');
+        
+        return chatClients.map(client => {
+            const chatData = this.state.chats[client.id] || { unread: 0, messages: [] };
+            const lastMessage = chatData.messages.length > 0 ? chatData.messages[chatData.messages.length - 1] : null;
+            return {
+                client: client,
+                unread: chatData.unread,
+                lastMessage: lastMessage
+            };
+        });
+    }
+
+    async getChatMessages(clientId) {
+        await this.init();
+        await this._simulateDelay(200);
+        
+        // Mark as read when fetching
+        if (this.state.chats[clientId]) {
+            this.state.chats[clientId].unread = 0;
+        }
+        
+        const chatData = this.state.chats[clientId] || { unread: 0, messages: [] };
+        return chatData.messages;
+    }
+
+    async addChatMessage(clientId, text, sender = 'alia') {
+        await this.init();
+        await this._simulateDelay(400); // Network delay
+
+        if (!this.state.chats[clientId]) {
+            this.state.chats[clientId] = { unread: 0, messages: [] };
+        }
+        
+        const now = new Date();
+        const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+        
+        const newMsg = { sender: sender, text: text, time: timeStr };
+        this.state.chats[clientId].messages.push(newMsg);
+        
+        return newMsg;
     }
 }
 

@@ -68,6 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = item.getAttribute('data-target');
             if (!targetId) return;
 
+            // Cerrar el panel de detalles de cita si estuviera abierto
+            const appointmentPanel = document.getElementById('appointment-details-panel');
+            const appointmentBackdrop = document.getElementById('appointment-details-backdrop');
+            if (appointmentPanel) appointmentPanel.classList.remove('active');
+            if (appointmentBackdrop) appointmentBackdrop.classList.remove('active');
+
             // Quitar active de todos los nav items
             navItems.forEach(n => n.classList.remove('active'));
             // Poner active al clickeado
