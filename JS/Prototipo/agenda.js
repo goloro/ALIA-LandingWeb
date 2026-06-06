@@ -350,6 +350,64 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // --- Draw Current Time Line ---
+        function renderCurrentTimeLine() {
+            const existingLine = colsWrapper.querySelector('.current-time-line');
+            if (existingLine) existingLine.remove();
+
+            const now = new Date();
+            const h = now.getHours();
+            const m = now.getMinutes();
+
+            // Calendar hours are 10:00 to 20:00
+            if (h >= 10 && h < 20) {
+                let shouldDraw = false;
+                if (selectedViewToggle === 'Día') {
+                    if (formatYMD(currentDate) === formatYMD(now)) shouldDraw = true;
+                } else if (selectedViewToggle === 'Semana') {
+                    const start = getStartOfWeek(currentDate);
+                    const end = new Date(start);
+                    end.setDate(end.getDate() + 6);
+                    if (formatYMD(now) >= formatYMD(start) && formatYMD(now) <= formatYMD(end)) {
+                        shouldDraw = true;
+                    }
+                }
+
+                if (shouldDraw) {
+                    const startMins = (h * 60 + m) - (10 * 60);
+                    const topPx = startMins * (48 / 30);
+                    
+                    const timeLine = document.createElement('div');
+                    timeLine.className = 'current-time-line';
+                    timeLine.style.position = 'absolute';
+                    timeLine.style.left = '0';
+                    timeLine.style.right = '0';
+                    timeLine.style.height = '2px';
+                    timeLine.style.backgroundColor = '#6028ff'; // Brand purple
+                    timeLine.style.zIndex = '10';
+                    timeLine.style.pointerEvents = 'none';
+                    timeLine.style.top = `${topPx}px`;
+
+                    const dot = document.createElement('div');
+                    dot.style.position = 'absolute';
+                    dot.style.left = '-4px';
+                    dot.style.top = '-4px';
+                    dot.style.width = '10px';
+                    dot.style.height = '10px';
+                    dot.style.borderRadius = '50%';
+                    dot.style.backgroundColor = '#6028ff';
+                    
+                    timeLine.appendChild(dot);
+                    colsWrapper.appendChild(timeLine);
+                }
+            }
+        }
+        
+        renderCurrentTimeLine();
+        
+        if (window.currentTimeInterval) clearInterval(window.currentTimeInterval);
+        window.currentTimeInterval = setInterval(renderCurrentTimeLine, 60000); // update every minute
+
         attachAppointmentEvents();
     }
 
