@@ -262,29 +262,29 @@
     text-transform: uppercase;
 }
 
-/* Pink Switch */
-.switch-pink {
+/* Switch IA */
+.switch-ia {
     position: relative;
     display: inline-block;
     width: 44px;
     height: 24px;
 }
 
-.switch-pink input {
+.switch-ia input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.switch-pink .slider {
+.switch-ia .slider {
     position: absolute;
     cursor: pointer;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #cbd5e1;
+    background-color: #f43f5e; /* Red when OFF */
     transition: .4s;
 }
 
-.switch-pink .slider:before {
+.switch-ia .slider:before {
     position: absolute;
     content: "";
     height: 18px;
@@ -295,18 +295,18 @@
     transition: .4s;
 }
 
-.switch-pink input:checked + .slider {
-    background-color: #f43f5e; /* pink-500 */
+.switch-ia input:checked + .slider {
+    background-color: #0097a7; /* Teal when ON */
 }
 
-.switch-pink input:checked + .slider:before {
+.switch-ia input:checked + .slider:before {
     transform: translateX(20px);
 }
 
-.switch-pink .slider.round {
+.switch-ia .slider.round {
     border-radius: 24px;
 }
-.switch-pink .slider.round:before {
+.switch-ia .slider.round:before {
     border-radius: 50%;
 }
 
@@ -427,17 +427,24 @@
 }
 
 .cm-system-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
     background-color: #fef2f2; /* red-50 */
-    border: 1px solid #fecaca; /* red-200 */
     color: #ef4444; /* red-500 */
+    border: 1px solid #fecaca; /* red-200 */
     padding: 6px 16px;
     border-radius: 20px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
-    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    align-self: center;
+    margin: 16px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.cm-system-pill.success {
+    background-color: #e0f2f1; /* teal-50 */
+    color: #00838f; /* teal-800 */
+    border-color: #b2dfdb; /* teal-200 */
 }
 
 /* Input Area */

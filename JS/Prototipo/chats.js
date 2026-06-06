@@ -97,13 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class="cm-client-name">${client ? client.name : 'Cliente'}</h3>
                 </div>
                 <div class="cm-header-actions">
-                    <div class="cm-toggle-ia">
-                        <span class="cm-toggle-label">IA ACTIVA</span>
-                        <label class="switch-pink">
-                            <input type="checkbox" id="ia-toggle" checked>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
+                      <div class="cm-toggle-ia">
+                          <span class="cm-toggle-label">IA ACTIVA</span>
+                          <label class="switch-ia">
+                              <input type="checkbox" id="ia-toggle" checked>
+                              <span class="slider round"></span>
+                          </label>
+                      </div>
                     <button class="btn-control-manual">Tomar Control Manual</button>
                 </div>
             </div>
@@ -139,7 +139,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (clientId === 902) {
             toggleIa.checked = false;
         }
-        
+
+        // Listener para inyectar mensaje de sistema al cambiar el estado de la IA
+        toggleIa.addEventListener('change', async (e) => {
+            const isIaActive = e.target.checked;
+            const text = isIaActive ? 'ASISTENTE ALIA REACTIVADA' : 'ASISTENTE ALIA PAUSADA • INTERVENCIÓN HUMANA REQUERIDA';
+            const sysMsg = { sender: 'system', text: text, time: '', sysType: isIaActive ? 'success' : 'error' };
+            
+            appendMessageBubble(messagesArea, sysMsg, client.name);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            // Guardar en MockAPI
+            if (window.MockAPI && typeof window.MockAPI.addChatMessage === 'function') {
+                await window.MockAPI.addChatMessage(clientId, text, 'system');
+            }
+        });
+
         // Renderizar burbujas
         if (messages.length > 0) {
             messages.forEach(msg => {
@@ -178,9 +193,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (msg.sender === 'system') {
             const sysDiv = document.createElement('div');
             sysDiv.className = 'cm-system-divider';
+            
+            const isSuccess = (msg.sysType && msg.sysType === 'success') || msg.text.includes('REACTIVADA');
+            const pillClass = isSuccess ? 'cm-system-pill success' : 'cm-system-pill';
+            const iconSvg = isSuccess 
+                ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+                : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+
             sysDiv.innerHTML = `
-                <div class="cm-system-pill">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <div class="${pillClass}" style="display: flex; align-items: center; gap: 8px;">
+                    ${iconSvg}
                     ${msg.text}
                 </div>
             `;
