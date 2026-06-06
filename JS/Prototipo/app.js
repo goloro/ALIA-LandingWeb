@@ -78,6 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mostrar la sección target
             const targetSection = document.getElementById(targetId);
             if (targetSection) targetSection.classList.add('active');
+            
+            // Refrescar clientes si se entra a su sección
+            if (targetId === 'page-clientes' && typeof window.loadClients === 'function') {
+                window.loadClients();
+            }
 
             // Cambiar el título de la barra superior
             const topbarTitle = document.querySelector('.topbar-title');
@@ -92,12 +97,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (targetId === 'page-chats') {
                     pageContent.classList.add('no-scroll-chats');
                     pageContent.classList.remove('no-scroll-soporte');
+                    pageContent.classList.remove('no-scroll-agenda');
                 } else if (targetId === 'page-soporte') {
                     pageContent.classList.add('no-scroll-soporte');
                     pageContent.classList.remove('no-scroll-chats');
+                    pageContent.classList.remove('no-scroll-agenda');
+                } else if (targetId === 'page-agenda-semanal') {
+                    pageContent.classList.add('no-scroll-agenda');
+                    pageContent.classList.remove('no-scroll-chats');
+                    pageContent.classList.remove('no-scroll-soporte');
                 } else {
                     pageContent.classList.remove('no-scroll-chats');
                     pageContent.classList.remove('no-scroll-soporte');
+                    pageContent.classList.remove('no-scroll-agenda');
                 }
             }
         });

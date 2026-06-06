@@ -293,6 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call initially
     if (window.MockAPI) loadClients();
 
+    window.loadClients = loadClients;
+
     // Evento para el botón "+ Nuevo Cliente" (Abre el modal)
     const btnNuevoCliente = document.querySelector('.btn-nuevo-cliente');
     const modalNuevoCliente = document.getElementById('modal-nuevo-cliente');
@@ -686,15 +688,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCancelModalEditCliente = document.getElementById('btn-cancel-modal-edit-cliente');
     const btnSaveEditCliente = document.getElementById('btn-save-edit-cliente');
     
-    window.openEditClientModal = function(client) {
+    window.openEditClientModal = function(client, readonlyFields = false) {
         if (!modalEditarCliente) return;
         
         window.clientToEditId = client.id;
         
-        document.getElementById('edit-client-name').value = client.name || '';
-        document.getElementById('edit-client-email').value = client.email || '';
-        document.getElementById('edit-client-phone').value = client.phone || '';
-        document.getElementById('edit-client-notes').value = client.notes || '';
+        const nameInput = document.getElementById('edit-client-name');
+        const emailInput = document.getElementById('edit-client-email');
+        const phoneInput = document.getElementById('edit-client-phone');
+        const notesInput = document.getElementById('edit-client-notes');
+
+        nameInput.value = client.name || '';
+        emailInput.value = client.email || '';
+        phoneInput.value = client.phone || '';
+        notesInput.value = client.notes || '';
+
+        if (readonlyFields) {
+            nameInput.setAttribute('readonly', 'true');
+            emailInput.setAttribute('readonly', 'true');
+            phoneInput.setAttribute('readonly', 'true');
+            nameInput.style.opacity = '0.6';
+            emailInput.style.opacity = '0.6';
+            phoneInput.style.opacity = '0.6';
+        } else {
+            nameInput.removeAttribute('readonly');
+            emailInput.removeAttribute('readonly');
+            phoneInput.removeAttribute('readonly');
+            nameInput.style.opacity = '1';
+            emailInput.style.opacity = '1';
+            phoneInput.style.opacity = '1';
+        }
+        
+        window.openedFromAgendaPanel = readonlyFields;
         
         modalEditarCliente.classList.add('active');
     };
@@ -758,6 +783,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (updatedClient) {
                     openClientDetails(updatedClient);
                 }
+            }
+
+            // Si se abrió desde la agenda, actualizar el texto de notas del panel
+            if (window.openedFromAgendaPanel) {
+                const notesText = document.querySelector('.notes-text');
+                if (notesText) notesText.textContent = notes || "No hay notas registradas para este cliente.";
             }
             
             closeEditClientModal();

@@ -472,6 +472,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (clientPhone) clientPhone.textContent = client.phone || "Sin teléfono";
                     if (notesText) notesText.textContent = client.notes || "No hay notas registradas para este cliente.";
                     
+                    // Bind Edit Notes link
+                    const editNotesBtn = document.querySelector('.section-header-flex .edit-link');
+                    if (editNotesBtn) {
+                        editNotesBtn.onclick = () => {
+                            if (typeof window.openEditClientModal === 'function') {
+                                window.openEditClientModal(client, true);
+                            }
+                        };
+                    }
+                    
                     if (historyTimeline) {
                         historyTimeline.innerHTML = '';
                         if (!client.history || client.history.length === 0) {
@@ -517,6 +527,88 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                         }
                     }
+                }
+                
+                // Action buttons
+                const btnNoShow = document.querySelector('.btn-footer-outline');
+                const btnComplete = document.querySelector('.btn-footer-solid');
+                const panelFooter = document.querySelector('.panel-footer');
+
+                const apptDateStr = `${appt.rawDate}T${appt.time}:00`;
+                const apptTime = new Date(apptDateStr);
+                const durationMs = (appt.duration || 30) * 60000;
+                const apptEndTime = new Date(apptTime.getTime() + durationMs);
+                const now = new Date();
+
+                const isPending = appt.status === 'pending';
+                const isTimePassed = now >= apptEndTime;
+
+                if (panelFooter) {
+                    if (!isPending) {
+                        panelFooter.style.display = 'none';
+                    } else {
+                        panelFooter.style.display = 'flex';
+                    }
+                }
+
+                if (btnNoShow) {
+                    btnNoShow.style.display = 'block';
+                    if (!isTimePassed) {
+                        btnNoShow.style.opacity = '0.5';
+                        btnNoShow.style.cursor = 'not-allowed';
+                        btnNoShow.title = 'Aún no ha finalizado la cita';
+                    } else {
+                        btnNoShow.style.opacity = '1';
+                        btnNoShow.style.cursor = 'pointer';
+                        btnNoShow.title = '';
+                    }
+                    
+                    btnNoShow.onclick = async () => {
+                        if (!isTimePassed) return;
+                        if (window.MockAPI && appt.id) {
+                            btnNoShow.innerText = 'Cargando...';
+                            try {
+                                await window.MockAPI.updateAppointmentStatus(appt.id, 'noshow');
+                                if (window.showToast) window.showToast('Actualizado', 'La cita se ha marcado como No-Show', 'error');
+                                closeAppointmentPanel();
+                                renderGrid();
+                            } catch(e) {
+                                console.error(e);
+                            } finally {
+                                btnNoShow.innerText = 'MARCAR NO-SHOW';
+                            }
+                        }
+                    };
+                }
+
+                if (btnComplete) {
+                    btnComplete.style.display = 'block';
+                    if (!isTimePassed) {
+                        btnComplete.style.opacity = '0.5';
+                        btnComplete.style.cursor = 'not-allowed';
+                        btnComplete.title = 'Aún no ha finalizado la cita';
+                    } else {
+                        btnComplete.style.opacity = '1';
+                        btnComplete.style.cursor = 'pointer';
+                        btnComplete.title = '';
+                    }
+
+                    btnComplete.onclick = async () => {
+                        if (!isTimePassed) return;
+                        if (window.MockAPI && appt.id) {
+                            btnComplete.innerText = 'Cargando...';
+                            try {
+                                await window.MockAPI.updateAppointmentStatus(appt.id, 'completed');
+                                if (window.showToast) window.showToast('Completado', 'La cita se ha marcado como finalizada', 'success');
+                                closeAppointmentPanel();
+                                renderGrid();
+                            } catch(e) {
+                                console.error(e);
+                            } finally {
+                                btnComplete.innerText = 'FINALIZAR CITA';
+                            }
+                        }
+                    };
                 }
             }
         } catch (e) {

@@ -190,6 +190,37 @@ class MockAPI {
         return null;
     }
 
+    async updateAppointmentStatus(id, newStatus) {
+        await this._simulateDelay(200);
+        const apptIndex = this.state.appointments.findIndex(a => a.id === id);
+        if (apptIndex === -1) throw new Error("Cita no encontrada");
+        
+        // Update appointment status
+        this.state.appointments[apptIndex].status = newStatus;
+        
+        // Also try to update it in the client's history
+        const clientId = this.state.appointments[apptIndex].clientId;
+        const client = this.state.clients.find(c => c.id === clientId);
+        if (client && client.history) {
+            // Usually the time/date match or we can find by service/prof/time, but since it's a mock let's just find the first pending history item that matches service and prof
+            // Or better, we should really give history items an ID. But since we didn't, let's just match by date & service.
+            const targetAppt = this.state.appointments[apptIndex];
+            const historyItem = client.history.find(h => 
+                (h.date === targetAppt.rawDate + ", " + targetAppt.time || h.date === targetAppt.formattedDate) && 
+                h.service === targetAppt.service
+            );
+            if (historyItem) {
+                historyItem.status = newStatus;
+            } else {
+                // fallback: update the first pending one
+                const pendingHist = client.history.find(h => h.status === 'pending');
+                if (pendingHist) pendingHist.status = newStatus;
+            }
+        }
+        
+        return this.state.appointments[apptIndex];
+    }
+
     async addAppointment(clientQuery, apptData) {
         await this.init();
         await this._simulateDelay(600);
