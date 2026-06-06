@@ -400,16 +400,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     timeLine.appendChild(dot);
                     colsWrapper.appendChild(timeLine);
 
-                    // Auto-scroll on first load
-                    if (!window.hasScrolledToTime) {
-                        setTimeout(() => {
-                            timeLine.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                            window.hasScrolledToTime = true;
-                        }, 100);
-                    }
+                    // Auto-scroll whenever the line is rendered (on load, filter change, etc.)
+                    setTimeout(() => {
+                        timeLine.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }, 100);
                 }
             }
         }

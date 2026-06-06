@@ -106,6 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     pageContent.classList.add('no-scroll-agenda');
                     pageContent.classList.remove('no-scroll-chats');
                     pageContent.classList.remove('no-scroll-soporte');
+                    
+                    // Hacer autoscroll a la línea de tiempo actual al entrar a la pestaña
+                    setTimeout(() => {
+                        const timeLine = document.querySelector('.current-time-line');
+                        if (timeLine) timeLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
                 } else {
                     pageContent.classList.remove('no-scroll-chats');
                     pageContent.classList.remove('no-scroll-soporte');
