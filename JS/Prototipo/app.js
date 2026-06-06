@@ -171,43 +171,170 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCancelModal = document.getElementById('btn-cancel-modal');
 
     
-    window.refreshTimeDropdown = function(dateStr, timeSelectContainer) {
-        if (!timeSelectContainer) return;
-        const times = ['--:-- (Vacío)'];
+    
+    window.calculateAvailableTimes = async function(dateStr, durationMinutes, profName) {
+        const times = [];
         
         let isToday = false;
         const now = new Date();
-        if (dateStr && dateStr.includes('/')) {
-            const parts = dateStr.split('/');
-            if (parts.length === 3) {
-                const selectedDate = new Date(parts[2], parseInt(parts[1]) - 1, parts[0]);
-                if (selectedDate.getFullYear() === now.getFullYear() && 
-                    selectedDate.getMonth() === now.getMonth() && 
-                    selectedDate.getDate() === now.getDate()) {
-                    isToday = true;
-                }
-            }
-        } else {
+        const parts = dateStr.split('/');
+        const selectedDate = new Date(parts[2], parseInt(parts[1]) - 1, parts[0]);
+        if (selectedDate.getFullYear() === now.getFullYear() && 
+            selectedDate.getMonth() === now.getMonth() && 
+            selectedDate.getDate() === now.getDate()) {
             isToday = true;
         }
 
         const currentHour = now.getHours();
         const currentMinute = now.getMinutes();
 
-        for (let h = 9; h <= 20; h++) {
-            for (let m of ['00', '30']) {
-                if (h === 20 && m === '30') continue;
+        // Get appointments for this prof on this date
+        let appts = [];
+        if (window.MockAPI && window.MockAPI.getAppointmentsByProfessional && profName && profName !== 'Cualquier Disponible') {
+            appts = await window.MockAPI.getAppointmentsByProfessional(profName, dateStr);
+        }
+
+        for (let h = 9; h <= 19; h++) {
+            for (let m of [0, 30]) {
+                if (h === 19 && m === 30) continue; // Last slot starts at 19:00 for 60 min, or 19:30 for 30 min. Wait, let's keep 19:30 as valid slot start.
                 
                 if (isToday) {
-                    const minVal = m === '00' ? 0 : 30;
-                    if (h < currentHour || (h === currentHour && minVal <= currentMinute)) {
+                    if (h < currentHour || (h === currentHour && m <= currentMinute)) {
                         continue; // Block past times
                     }
                 }
-                times.push(`${h.toString().padStart(2, '0')}:${m}`);
+                
+                // Calculate end time
+                let endH = h;
+                let endM = m + durationMinutes;
+                while (endM >= 60) {
+                    endH += 1;
+                    endM -= 60;
+                }
+                
+                // If service ends after 20:00, it cannot start at this slot
+                if (endH > 20 || (endH === 20 && endM > 0)) continue;
+                
+                // Check overlaps
+                let overlap = false;
+                for (let appt of appts) {
+                    if (!appt.time) continue;
+                    const aParts = appt.time.split(':');
+                    const aH = parseInt(aParts[0]);
+                    const aM = parseInt(aParts[1]);
+                    
+                    // Estimate appointment duration based on service name
+                    let aDuration = 30; // default
+                    if (window.BusinessSettings && window.BusinessSettings.services) {
+                        const srv = window.BusinessSettings.services.find(s => s.name === appt.service);
+                        if (srv && srv.duration) aDuration = srv.duration;
+                    }
+                    
+                    let aEndH = aH;
+                    let aEndM = aM + aDuration;
+                    while (aEndM >= 60) {
+                        aEndH += 1;
+                        aEndM -= 60;
+                    }
+                    
+                    // Start of slot: h:m, End: endH:endM
+                    // Appt start: aH:aM, End: aEndH:aEndM
+                    const slotStart = h * 60 + m;
+                    const slotEnd = endH * 60 + endM;
+                    const apptStart = aH * 60 + aM;
+                    const apptEnd = aEndH * 60 + aEndM;
+                    
+                    if (slotStart < apptEnd && slotEnd > apptStart) {
+                        overlap = true;
+                        break;
+                    }
+                }
+                
+                if (!overlap) {
+                    times.push(`${h.toString().padStart(2, '0')}:${m === 0 ? '00' : '30'}`);
+                }
             }
         }
-        window.populateDropdown(timeSelectContainer, times, '--:--');
+        return times;
+    };
+
+    window.updateSmartCalendar = async function() {
+        const modal = document.getElementById('modal-nueva-cita');
+        if (!modal) return;
+        const selects = modal.querySelectorAll('.selected-value');
+        if (selects.length < 3) return;
+        
+        const timeSelectContainer = modal.querySelectorAll('.custom-select-container')[0];
+        const serviceName = selects[1].textContent.trim();
+        const profName = selects[2].textContent.trim();
+        
+        if (serviceName.includes('Elige un') || !profName) return;
+
+        let duration = 30; // default
+        if (window.BusinessSettings && window.BusinessSettings.services) {
+            const srv = window.BusinessSettings.services.find(s => s.name === serviceName);
+            if (srv && srv.duration) duration = srv.duration;
+        }
+        
+        const inputsTextCalendar = modal.querySelectorAll('input[type="text"]');
+        const dateInput = inputsTextCalendar.length > 1 ? inputsTextCalendar[1] : null;
+        if (!dateInput) return;
+        
+        let currentDate = new Date();
+        if (dateInput.value && dateInput.value.includes('/')) {
+            const parts = dateInput.value.split('/');
+            currentDate = new Date(parts[2], parseInt(parts[1]) - 1, parts[0]);
+        }
+        
+        let foundDate = false;
+        let finalTimes = [];
+        
+        for (let i = 0; i < 30; i++) {
+            const checkDate = new Date(currentDate);
+            checkDate.setDate(currentDate.getDate() + i);
+            
+            if (window.BusinessSettings && window.BusinessSettings.closedDays.includes(checkDate.getDay())) {
+                continue;
+            }
+            
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            if (checkDate < today) continue;
+            
+            const dateStr = `${checkDate.getDate().toString().padStart(2, '0')}/${(checkDate.getMonth()+1).toString().padStart(2, '0')}/${checkDate.getFullYear()}`;
+            
+            const availableTimes = await window.calculateAvailableTimes(dateStr, duration, profName);
+            if (availableTimes.length > 0) {
+                if (dateInput.value !== dateStr) {
+                    dateInput.value = dateStr;
+                }
+                foundDate = true;
+                finalTimes = availableTimes;
+                break;
+            }
+        }
+        
+        // Update Time Dropdown
+        if (finalTimes.length === 0) finalTimes = ['--:-- (Vacío)'];
+        window.populateDropdown(timeSelectContainer, finalTimes, finalTimes[0]);
+    };
+
+    window.refreshTimeDropdown = async function(dateStr, timeSelectContainer) {
+        if (!timeSelectContainer) return;
+        const modal = document.getElementById('modal-nueva-cita');
+        const selects = modal ? modal.querySelectorAll('.selected-value') : [];
+        const serviceName = selects.length > 1 ? selects[1].textContent.trim() : '';
+        const profName = selects.length > 2 ? selects[2].textContent.trim() : '';
+        
+        let duration = 30;
+        if (window.BusinessSettings && window.BusinessSettings.services) {
+            const srv = window.BusinessSettings.services.find(s => s.name === serviceName);
+            if (srv && srv.duration) duration = srv.duration;
+        }
+        
+        const times = await window.calculateAvailableTimes(dateStr, duration, profName);
+        if (times.length === 0) times.push('--:-- (Vacío)');
+        window.populateDropdown(timeSelectContainer, times, times[0]);
     };
 
     window.populateDropdown = function(selectContainer, optionsArray, defaultValue) {
@@ -279,16 +406,26 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const selects = modalNuevaCita.querySelectorAll('.custom-select-container');
             if (selects.length >= 3 && window.populateDropdown) {
-                // Time: ALWAYS refresh based on current date
+                // Bind listeners to Service and Prof to trigger Smart Calendar
+                if (!selects[1].hasAttribute('data-smart-bound')) {
+                    selects[1].addEventListener('dropdownChange', window.updateSmartCalendar);
+                    selects[1].setAttribute('data-smart-bound', 'true');
+                }
+                if (!selects[2].hasAttribute('data-smart-bound')) {
+                    selects[2].addEventListener('dropdownChange', window.updateSmartCalendar);
+                    selects[2].setAttribute('data-smart-bound', 'true');
+                }
+                
+                // Initial refresh based on current date
                 const dateStr = inputsTextCalendar.length > 1 ? inputsTextCalendar[1].value : null;
                 window.refreshTimeDropdown(dateStr, selects[0]);
 
 
                 if (!window.serviceOptionsLoaded) {
-                    const services = (window.BusinessSettings && window.BusinessSettings.services) 
-                        ? window.BusinessSettings.services 
+                    const servicesList = (window.BusinessSettings && window.BusinessSettings.services) 
+                        ? window.BusinessSettings.services.map(s => s.name) 
                         : [];
-                    window.populateDropdown(selects[1], services, 'Elige un servicio...');
+                    window.populateDropdown(selects[1], servicesList, 'Elige un servicio...');
                     window.serviceOptionsLoaded = true;
                 }
 

@@ -8,6 +8,7 @@ class MockAPI {
         this.state = {
             clients: [],
             team: [],
+            appointments: [],
             settings: {
                 closedDays: [0] // 0 = Domingo, 1 = Lunes, etc.
             }
@@ -30,6 +31,15 @@ class MockAPI {
             
             this.state.clients = await clientsRes.json();
             this.state.team = await teamRes.json();
+            
+            try {
+                const apptsRes = await fetch('../data/appointments.json');
+                if (apptsRes.ok) {
+                    this.state.appointments = await apptsRes.json();
+                }
+            } catch(e) {
+                console.log("Error loading appointments.json", e);
+            }
 
             // Cargar ajustes si existe el archivo
             try {
@@ -130,15 +140,41 @@ class MockAPI {
         client.lastAppt = apptData.rawDate; // e.g. "2026-05-01" or whatever format
         client.history = client.history || [];
         
-        // Format date beautifully for history: "01 MAY 2026, 10:00"
-        client.history.unshift({
+        // Extract time from formattedDate or assume it's passed in apptData
+        let timeStr = apptData.time || '';
+        if (!timeStr && apptData.formattedDate) {
+            const parts = apptData.formattedDate.split(', ');
+            if (parts.length > 1) timeStr = parts[1];
+        }
+
+        const newAppt = {
+            id: Date.now(),
+            clientId: client.id,
+            clientName: client.name,
             date: apptData.formattedDate, 
+            rawDate: apptData.rawDate,
+            time: timeStr,
             service: apptData.service,
             prof: apptData.prof,
             status: 'pending'
-        });
+        };
+        
+        client.history.unshift(newAppt);
+        this.state.appointments.unshift(newAppt);
         
         return { success: true, client };
+    }
+
+
+    async getAppointmentsByProfessional(profName, rawDate) {
+        await this.init();
+        await this._simulateDelay(100);
+        
+        return this.state.appointments.filter(appt => 
+            appt.prof === profName && 
+            appt.rawDate === rawDate && 
+            appt.status !== 'cancelled'
+        );
     }
 
     // --- TEAM ---
