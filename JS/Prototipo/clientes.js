@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const last6Months = sortedMonths.slice(-6); // Take up to 6 last months
             
             if (last6Months.length > 1) {
-                const svgCurve = document.querySelector('.c-chart-curve');
+                const svgCurve = document.querySelector('#chart-asistencia');
                 if (svgCurve) {
                     const paths = svgCurve.querySelectorAll('path');
                     if (paths.length >= 2) {
@@ -264,8 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             const data = monthlyAppts[ym];
                             const rate = data.total > 0 ? (data.completed / data.total) : 0;
                             const x = index * step;
-                            // y varies between 10 (100%) and 78 (0%)
-                            const y = 78 - (rate * 68);
+                            // y varies between 40 (100%) and 78 (0%) to not overlap text
+                            const y = 78 - (rate * 38);
                             
                             if (index === 0) {
                                 strokePathD += `M ${x} ${y} `;

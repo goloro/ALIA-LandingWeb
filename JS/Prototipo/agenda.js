@@ -87,9 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
         profFiltersContainer.appendChild(btnTodos);
         
         const btnMiAgenda = document.createElement('button');
-        btnMiAgenda.className = 'prof-filter-btn' + (selectedProfFilter === 'Mi Agenda' ? ' active' : '');
-        btnMiAgenda.textContent = 'Mi Agenda';
-        btnMiAgenda.dataset.fullName = 'Mi Agenda';
+        btnMiAgenda.className = 'prof-filter-btn' + (selectedProfFilter === 'Propietario' ? ' active' : '');
+        btnMiAgenda.textContent = 'Propietario';
+        btnMiAgenda.dataset.fullName = 'Propietario';
         profFiltersContainer.appendChild(btnMiAgenda);
         
         teamData.forEach(prof => {
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 weekHeadersWrapper.style.display = 'none';
                 headersWrapper.innerHTML = '';
                 
-                const displayTeam = [{ name: "Mi Agenda", avatarUrl: "../Images/Logos/LogoPeluqueríaNegro.png" }, ...teamData];
+                const displayTeam = [{ name: "Propietario", avatarUrl: "../Images/Logos/LogoPeluqueríaNegro.png" }, ...teamData];
                 numCols = displayTeam.length;
                 
                 displayTeam.forEach(prof => {
@@ -321,10 +321,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetCol) {
                 const [h, m] = (appt.time || '10:00').split(':').map(Number);
                 const startMins = (h * 60 + m) - (10 * 60); 
-                const topPx = startMins * (48 / 30); 
+                // Add 2px to topPx so the 4px gap is centered (2px top, 2px bottom)
+                const topPx = (startMins * (48 / 30)) + 2; 
                 const duration = appt.duration || 60;
-                const heightPx = duration * (48 / 30);
-
+                // Subtract 4px from height to create a nice visual gap between consecutive appointments
+                const heightPx = (duration * (48 / 30)) - 4;
+                
                 const eventEl = document.createElement('div');
                 eventEl.className = 'agenda-event event-blue';
                 eventEl.style.top = `${topPx}px`;

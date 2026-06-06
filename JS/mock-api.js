@@ -85,7 +85,7 @@ class MockAPI {
 
         const prof1 = this.state.team[0]?.name || "Dra. Laura Gómez";
         const prof2 = this.state.team[1]?.name || "Dr. Javier Ruiz";
-        const myAgenda = "Mi Agenda";
+        const myAgenda = "Propietario";
 
         const seedAppts = [
             { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: todayStr, formattedDate: "Hoy", time: "10:30", duration: 60, service: "Corte y Lavado", prof: prof1, status: "completed" },

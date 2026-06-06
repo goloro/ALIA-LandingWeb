@@ -185,6 +185,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     window.calculateAvailableTimes = async function(dateStr, durationMinutes, profName) {
+        if (profName === 'Cualquier Disponible' && window.MockAPI) {
+            const team = await window.MockAPI.getTeam();
+            let allAvailableTimes = new Set();
+            for (let t of [...team, {name: 'Propietario'}]) {
+                const times = await window.calculateAvailableTimes(dateStr, durationMinutes, t.name);
+                times.forEach(time => allAvailableTimes.add(time));
+            }
+            return Array.from(allAvailableTimes).sort();
+        }
+
         const times = [];
         
         let isToday = false;
@@ -203,7 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get appointments for this prof on this date
         let appts = [];
         if (window.MockAPI && window.MockAPI.getAppointmentsByProfessional && profName && profName !== 'Cualquier Disponible') {
-            appts = await window.MockAPI.getAppointmentsByProfessional(profName, dateStr);
+            const apiDateStr = `${parts[2]}-${parts[1]}-${parts[0]}`;
+            appts = await window.MockAPI.getAppointmentsByProfessional(profName, apiDateStr);
         }
 
         for (let h = 9; h <= 19; h++) {
@@ -539,13 +550,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (srv && srv.duration) duration = srv.duration;
             }
 
+            let finalProf = prof;
+            if (finalProf === 'Cualquier Disponible' && window.MockAPI) {
+                const team = await window.MockAPI.getTeam();
+                let foundProf = null;
+                for (let t of [...team, {name: 'Propietario'}]) {
+                    const times = await window.calculateAvailableTimes(rawDate, duration, t.name);
+                    if (times.includes(timeStr)) {
+                        foundProf = t.name;
+                        break;
+                    }
+                }
+                if (foundProf) {
+                    finalProf = foundProf;
+                } else {
+                    if (window.showToast) window.showToast('Error', 'No hay ningún profesional disponible en ese horario.', 'error');
+                    btnSaveNewAppt.innerHTML = originalText;
+                    btnSaveNewAppt.disabled = false;
+                    return;
+                }
+            }
+
             try {
                 if (window.MockAPI && window.MockAPI.addAppointment) {
                     await window.MockAPI.addAppointment(clientName, {
                         rawDate: apiRawDate,
                         formattedDate: formattedDate,
                         service: service,
-                        prof: prof,
+                        prof: finalProf,
                         duration: duration
                     });
                 }

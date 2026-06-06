@@ -315,8 +315,8 @@
                                             
                                             <div class="agenda-prof-headers-wrapper" style="display: contents;">
                                                 <div class="agenda-prof-header">
-                                                    <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Mi Agenda" class="prof-avatar">
-                                                    <span class="prof-name">Mi Agenda</span>
+                                                    <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Propietario" class="prof-avatar">
+                                                    <span class="prof-name">Propietario</span>
                                                 </div>
                                             </div>
 
@@ -568,7 +568,7 @@
                                     </div>
                                     
                                     <!-- Card 2: Retención -->
-                                    <div class="c-stat-card c-stat-white">
+                                    <div class="c-stat-card c-stat-white" style="position:relative;">
                                         <div class="c-stat-header">
                                             <div class="c-icon-circle icon-purple">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
@@ -577,10 +577,18 @@
                                         <div class="c-stat-body">
                                             <div class="c-stat-value">0%</div>
                                             <div class="c-stat-label">Tasa de Retención</div>
-                                            <div class="c-progress-track">
-                                                <div class="c-progress-fill" style="width: 0%;"></div>
-                                            </div>
                                         </div>
+                                        <!-- Chart Curve SVG simulated -->
+                                        <svg id="chart-retencion" class="c-chart-curve" viewBox="0 0 300 80" preserveAspectRatio="none">
+                                            <defs>
+                                                <linearGradient id="grad-retencion" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                    <stop offset="0%" style="stop-color:#6028ff;stop-opacity:0.2" />
+                                                    <stop offset="100%" style="stop-color:#6028ff;stop-opacity:0" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path d="M0 78 L 50 72 L 100 75 L 150 65 L 200 68 L 250 58 L 300 50 L 300 80 Z" fill="url(#grad-retencion)"></path>
+                                            <path d="M0 78 L 50 72 L 100 75 L 150 65 L 200 68 L 250 58 L 300 50" fill="none" stroke="#6028ff" stroke-width="3"></path>
+                                        </svg>
                                     </div>
                                     
                                     <!-- Card 3: Asistencia -->
@@ -595,7 +603,7 @@
                                             <div class="c-stat-label">Tasa de Asistencia</div>
                                         </div>
                                         <!-- Chart Curve SVG simulated -->
-                                        <svg class="c-chart-curve" viewBox="0 0 300 80" preserveAspectRatio="none">
+                                        <svg id="chart-asistencia" class="c-chart-curve" viewBox="0 0 300 80" preserveAspectRatio="none">
                                             <defs>
                                                 <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
                                                     <stop offset="0%" style="stop-color:#6028ff;stop-opacity:0.2" />

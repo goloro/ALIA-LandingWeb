@@ -97,10 +97,10 @@
 }
 
 .prof-filter-btn.active {
-    background: #5b21b6; /* Deep vibrant purple */
+    background: linear-gradient(135deg, #6028ff, #4711e6);
     color: white;
-    border-color: #5b21b6;
-    box-shadow: 0 4px 12px rgba(91, 33, 182, 0.2);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(96, 40, 255, 0.2);
 }
 
 .agenda-view-toggles {
