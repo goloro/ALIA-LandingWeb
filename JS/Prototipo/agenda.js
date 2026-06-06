@@ -399,6 +399,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     timeLine.appendChild(dot);
                     colsWrapper.appendChild(timeLine);
+
+                    // Auto-scroll on first load
+                    if (!window.hasScrolledToTime) {
+                        setTimeout(() => {
+                            timeLine.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                            window.hasScrolledToTime = true;
+                        }, 100);
+                    }
                 }
             }
         }
