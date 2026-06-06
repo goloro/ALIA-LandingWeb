@@ -10,7 +10,8 @@ class MockAPI {
             team: [],
             appointments: [],
             settings: {
-                closedDays: [0] // 0 = Domingo, 1 = Lunes, etc.
+                closedDays: [0], // 0 = Domingo
+                openHours: { start: '10:00', end: '19:00' } // 9 hours open
             }
         };
         this.initialized = false;
@@ -62,8 +63,8 @@ class MockAPI {
             // Fallback empty if fetch fails
             this.state.clients = [];
             this.state.team = [
-                { id: 1, name: "Dra. Laura Gómez", role: "Especialista" },
-                { id: 2, name: "Dr. Javier Ruiz", role: "Terapista" }
+                { id: 1, name: "Dra. Laura Gómez", role: "Especialista", dayOff: 2, lunchBreak: "13:30" },
+                { id: 2, name: "Dr. Javier Ruiz", role: "Terapista", dayOff: 3, lunchBreak: "14:30" }
             ];
             this._seedMockAppointments();
             this.initialized = true;

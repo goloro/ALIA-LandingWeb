@@ -292,6 +292,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         colsWrapper.appendChild(bgGrid);
 
+        // Fetch settings and team to handle dayOff, lunchBreak, and closedDays
+        let settings = { closedDays: [0], openHours: { start: '10:00', end: '19:00' } };
+        if (window.MockAPI) {
+            try { settings = await window.MockAPI.getSettings(); } catch(e){}
+        }
+        const fullTeam = [{name: 'Propietario', dayOff: 1, lunchBreak: '14:00'}, ...(typeof teamData !== 'undefined' ? teamData : [])];
+
         // Create Columns
         const domCols = [];
         colIds.forEach(c => {
@@ -300,6 +307,43 @@ document.addEventListener('DOMContentLoaded', () => {
             col.dataset.id = c.id;
             if (c.prof) col.dataset.prof = c.prof;
             if (c.date) col.dataset.date = c.date;
+            
+            // Determine date and professional for this column
+            let colDate = currentDate;
+            let colProf = c.prof;
+            if (selectedViewToggle === 'Semana') {
+                const parts = c.date.split('-');
+                colDate = new Date(parts[0], parseInt(parts[1]) - 1, parts[2]);
+                if (selectedProfFilter !== 'Todos') {
+                    const btn = Array.from(profFiltersContainer.children).find(b => b.textContent.trim() === selectedProfFilter);
+                    if (btn && btn.dataset.fullName) colProf = btn.dataset.fullName;
+                }
+            } else {
+                if (selectedProfFilter !== 'Todos' && !colProf) {
+                    const btn = Array.from(profFiltersContainer.children).find(b => b.textContent.trim() === selectedProfFilter);
+                    if (btn && btn.dataset.fullName) colProf = btn.dataset.fullName;
+                }
+            }
+
+            const dayOfWeek = colDate.getDay();
+            const profObj = fullTeam.find(t => t.name === colProf);
+
+            if (settings.closedDays && settings.closedDays.includes(dayOfWeek)) {
+                // Business closed
+                col.innerHTML = `<div style="position: absolute; inset: 0; background: rgba(241, 245, 249, 0.8); z-index: 5; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #64748b; font-size: 14px;">NEGOCIO CERRADO</div>`;
+            } else if (profObj && profObj.dayOff === dayOfWeek) {
+                // Professional day off
+                col.innerHTML = `<div style="position: absolute; inset: 0; background: rgba(241, 245, 249, 0.6); z-index: 5; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #94a3b8; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">DÍA DE DESCANSO</div>`;
+            } else if (profObj && profObj.lunchBreak) {
+                // Lunch break block
+                const [lh, lm] = profObj.lunchBreak.split(':').map(Number);
+                const startMins = (lh * 60 + lm) - 10 * 60; // relative to 10:00 start
+                const topPx = (startMins * (48 / 30)) + 2;
+                const heightPx = (60 * (48 / 30)) - 4; // 1 hour lunch
+                // Removed 'agenda-event' class so it doesn't trigger appointment clicks, and used pointer-events: none
+                col.innerHTML = `<div style="position: absolute; left: 4px; right: 4px; top: ${topPx}px; height: ${heightPx}px; background-color: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; z-index: 1; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 12px; font-weight: 600; pointer-events: none;">Pausa Almuerzo</div>`;
+            }
+            
             colsWrapper.appendChild(col);
             domCols.push(col);
         });
@@ -423,6 +467,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!monthGridBody || !window.MockAPI) return;
         monthGridBody.innerHTML = '';
         
+        let settings = { closedDays: [0], openHours: { start: '10:00', end: '19:00' } };
+        try { settings = await window.MockAPI.getSettings(); } catch(e){}
+        const fullTeam = [{name: 'Propietario', dayOff: 1, lunchBreak: '14:00'}, ...(typeof teamData !== 'undefined' ? teamData : [])];
+        
         const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
         let firstDayOfWeek = firstDayOfMonth.getDay();
         if (firstDayOfWeek === 0) firstDayOfWeek = 7;
@@ -439,9 +487,13 @@ document.addEventListener('DOMContentLoaded', () => {
             endDate: formatYMD(new Date(startDate.getTime() + (cellsToGenerate * 24*60*60*1000)))
         };
         
+        let colProf = null;
         if (selectedProfFilter !== 'Todos') {
             const btn = Array.from(profFiltersContainer.children).find(b => b.textContent.trim() === selectedProfFilter);
-            if (btn && btn.dataset.fullName) targetFilters.prof = btn.dataset.fullName;
+            if (btn && btn.dataset.fullName) {
+                targetFilters.prof = btn.dataset.fullName;
+                colProf = btn.dataset.fullName;
+            }
         }
 
         const appts = await window.MockAPI.getAppointments(targetFilters);
@@ -456,6 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cellDate = new Date(startDate);
             cellDate.setDate(startDate.getDate() + i);
             const dateStr = formatYMD(cellDate);
+            const dayOfWeek = cellDate.getDay();
             
             const cellDiv = document.createElement('div');
             cellDiv.className = 'month-cell';
@@ -467,8 +520,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 cellDiv.classList.add('today-cell');
             }
             
+            let isClosed = settings.closedDays && settings.closedDays.includes(dayOfWeek);
+            let isDayOff = false;
+            
+            if (!isClosed && colProf) {
+                const profObj = fullTeam.find(t => t.name === colProf);
+                if (profObj && profObj.dayOff === dayOfWeek) {
+                    isDayOff = true;
+                }
+            }
+
+            if (isClosed) {
+                cellDiv.style.backgroundColor = '#f1f5f9';
+                cellDiv.style.color = '#94a3b8';
+            } else if (isDayOff) {
+                cellDiv.style.backgroundColor = '#f8fafc';
+                cellDiv.style.color = '#94a3b8';
+            }
+            
             const count = apptsByDate[dateStr] || 0;
-            const indicators = count > 0 ? `<div style="margin-top: 8px; font-size:12px; color:#0f766e; font-weight:600;">${count} cita(s)</div>` : '';
+            let indicators = '';
+            if (isClosed) {
+                indicators = `<div style="margin-top: 8px; font-size:11px; font-weight:600; text-align: center; color:#94a3b8;">CERRADO</div>`;
+            } else if (isDayOff) {
+                indicators = `<div style="margin-top: 8px; font-size:11px; font-weight:600; text-align: center; color:#94a3b8;">DESCANSO</div>`;
+            } else if (count > 0) {
+                indicators = `<div style="margin-top: 8px; font-size:12px; color:#0f766e; font-weight:600;">${count} cita(s)</div>`;
+            }
 
             const numStr = String(cellDate.getDate()).padStart(2, '0');
             cellDiv.innerHTML = `<span class="month-day-num">${numStr}</span>${indicators}`;

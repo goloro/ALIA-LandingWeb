@@ -188,25 +188,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseModal = document.getElementById('btn-close-modal');
     const btnCancelModal = document.getElementById('btn-cancel-modal');
 
-    
-    
     window.calculateAvailableTimes = async function(dateStr, durationMinutes, profName) {
-        if (profName === 'Cualquier Disponible' && window.MockAPI) {
+        let settings = { closedDays: [0], openHours: { start: '10:00', end: '19:00' } };
+        let fullTeam = [{ name: 'Propietario', dayOff: 1, lunchBreak: '14:00' }];
+        
+        if (window.MockAPI) {
+            try { settings = await window.MockAPI.getSettings(); } catch(e) {}
             const team = await window.MockAPI.getTeam();
+            fullTeam = [...team, { name: 'Propietario', dayOff: 1, lunchBreak: '14:00' }];
+        }
+
+        if (profName === 'Cualquier Disponible') {
             let allAvailableTimes = new Set();
-            for (let t of [...team, {name: 'Propietario'}]) {
+            for (let t of fullTeam) {
                 const times = await window.calculateAvailableTimes(dateStr, durationMinutes, t.name);
                 times.forEach(time => allAvailableTimes.add(time));
             }
             return Array.from(allAvailableTimes).sort();
         }
 
+        const parts = dateStr.split('/');
+        const selectedDate = new Date(parts[2], parseInt(parts[1]) - 1, parts[0]);
+        
+        // 1. Check if business is closed
+        const dayOfWeek = selectedDate.getDay();
+        if (settings.closedDays && settings.closedDays.includes(dayOfWeek)) {
+            return []; // Business is closed
+        }
+
+        // 2. Check professional's day off
+        const profObj = fullTeam.find(t => t.name === profName);
+        if (profObj && profObj.dayOff === dayOfWeek) {
+            return []; // Professional's day off
+        }
+
         const times = [];
         
         let isToday = false;
         const now = new Date();
-        const parts = dateStr.split('/');
-        const selectedDate = new Date(parts[2], parseInt(parts[1]) - 1, parts[0]);
         if (selectedDate.getFullYear() === now.getFullYear() && 
             selectedDate.getMonth() === now.getMonth() && 
             selectedDate.getDate() === now.getDate()) {
@@ -218,15 +237,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Get appointments for this prof on this date
         let appts = [];
-        if (window.MockAPI && window.MockAPI.getAppointmentsByProfessional && profName && profName !== 'Cualquier Disponible') {
+        if (window.MockAPI && window.MockAPI.getAppointmentsByProfessional && profName) {
             const apiDateStr = `${parts[2]}-${parts[1]}-${parts[0]}`;
             appts = await window.MockAPI.getAppointmentsByProfessional(profName, apiDateStr);
         }
 
-        for (let h = 9; h <= 19; h++) {
+        const startHour = parseInt(settings.openHours.start.split(':')[0]);
+        const endHour = parseInt(settings.openHours.end.split(':')[0]);
+        const endMin = parseInt(settings.openHours.end.split(':')[1] || 0);
+
+        for (let h = startHour; h <= endHour; h++) {
             for (let m of [0, 30]) {
-                if (h === 19 && m === 30) continue; // Last slot starts at 19:00 for 60 min, or 19:30 for 30 min. Wait, let's keep 19:30 as valid slot start.
-                
                 if (isToday) {
                     if (h < currentHour || (h === currentHour && m <= currentMinute)) {
                         continue; // Block past times
@@ -241,9 +262,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     endM -= 60;
                 }
                 
-                // If service ends after 20:00, it cannot start at this slot
-                if (endH > 20 || (endH === 20 && endM > 0)) continue;
+                // If service ends after business hours, it cannot start at this slot
+                if (endH > endHour || (endH === endHour && endM > endMin)) continue;
                 
+                const slotStartMins = h * 60 + m;
+                const slotEndMins = endH * 60 + endM;
+
+                // Check lunch break
+                let isLunch = false;
+                if (profObj && profObj.lunchBreak) {
+                    const [lh, lm] = profObj.lunchBreak.split(':').map(Number);
+                    const lunchStartMins = lh * 60 + lm;
+                    const lunchEndMins = lunchStartMins + 60; // 1 hour lunch
+                    
+                    if (slotStartMins < lunchEndMins && slotEndMins > lunchStartMins) {
+                        isLunch = true;
+                    }
+                }
+                if (isLunch) continue;
+
                 // Check overlaps
                 let overlap = false;
                 for (let appt of appts) {
@@ -252,9 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const aH = parseInt(aParts[0]);
                     const aM = parseInt(aParts[1]);
                     
-                    // Estimate appointment duration based on service name
-                    let aDuration = 30; // default
-                    if (window.BusinessSettings && window.BusinessSettings.services) {
+                    let aDuration = appt.duration || 30;
+                    if (!appt.duration && window.BusinessSettings && window.BusinessSettings.services) {
                         const srv = window.BusinessSettings.services.find(s => s.name === appt.service);
                         if (srv && srv.duration) aDuration = srv.duration;
                     }
@@ -266,24 +302,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         aEndM -= 60;
                     }
                     
-                    // Start of slot: h:m, End: endH:endM
-                    // Appt start: aH:aM, End: aEndH:aEndM
-                    const slotStart = h * 60 + m;
-                    const slotEnd = endH * 60 + endM;
-                    const apptStart = aH * 60 + aM;
-                    const apptEnd = aEndH * 60 + aEndM;
+                    const apptStartMins = aH * 60 + aM;
+                    const apptEndMins = aEndH * 60 + aEndM;
                     
-                    if (slotStart < apptEnd && slotEnd > apptStart) {
+                    if (slotStartMins < apptEndMins && slotEndMins > apptStartMins) {
                         overlap = true;
                         break;
                     }
                 }
                 
                 if (!overlap) {
-                    times.push(`${h.toString().padStart(2, '0')}:${m === 0 ? '00' : '30'}`);
+                    const timeStr = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+                    times.push(timeStr);
                 }
             }
         }
+        
         return times;
     };
 
