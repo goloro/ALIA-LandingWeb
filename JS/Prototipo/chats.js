@@ -98,13 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="cm-header-actions">
                       <div class="cm-toggle-ia">
-                          <span class="cm-toggle-label">IA ACTIVA</span>
+                          <span class="cm-toggle-label">ALIA ACTIVA</span>
                           <label class="switch-ia">
                               <input type="checkbox" id="ia-toggle" checked>
                               <span class="slider round"></span>
                           </label>
                       </div>
-                    <button class="btn-control-manual">Tomar Control Manual</button>
                 </div>
             </div>
 
@@ -133,16 +132,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const messagesArea = chatsMain.querySelector('.cm-history');
         const inputField = document.getElementById('chat-input-text');
         const btnSend = document.getElementById('chat-btn-send');
+        const btnAttach = chatsMain.querySelector('.btn-attach');
         const toggleIa = document.getElementById('ia-toggle');
+        const toggleLabel = chatsMain.querySelector('.cm-toggle-label');
+
+        // Función para habilitar/deshabilitar input y actualizar UI
+        const updateInputState = () => {
+            const isIaActive = toggleIa.checked;
+            inputField.disabled = isIaActive;
+            btnSend.disabled = isIaActive;
+            if (btnAttach) btnAttach.disabled = isIaActive;
+            
+            if (toggleLabel) {
+                toggleLabel.textContent = isIaActive ? 'ALIA ACTIVA' : 'ALIA DESACTIVADA';
+            }
+
+            if (isIaActive) {
+                inputField.placeholder = "ALIA está gestionando este chat...";
+                inputField.style.opacity = '0.5';
+                inputField.style.cursor = 'not-allowed';
+                btnSend.style.opacity = '0.5';
+                btnSend.style.cursor = 'not-allowed';
+            } else {
+                inputField.placeholder = "Escribe un mensaje...";
+                inputField.style.opacity = '1';
+                inputField.style.cursor = 'text';
+                btnSend.style.opacity = '1';
+                btnSend.style.cursor = 'pointer';
+            }
+        };
 
         // Si es Ricardo Mendoza (902), desmarcar el toggle por el estado pausado
         if (clientId === 902) {
             toggleIa.checked = false;
         }
 
+        // Estado inicial
+        updateInputState();
+
         // Listener para inyectar mensaje de sistema al cambiar el estado de la IA
         toggleIa.addEventListener('change', async (e) => {
             const isIaActive = e.target.checked;
+            updateInputState();
+            
             const text = isIaActive ? 'ASISTENTE ALIA REACTIVADA' : 'ASISTENTE ALIA PAUSADA • INTERVENCIÓN HUMANA REQUERIDA';
             const sysMsg = { sender: 'system', text: text, time: '', sysType: isIaActive ? 'success' : 'error' };
             
@@ -164,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const sendMessage = async () => {
+            if (btnSend.disabled) return;
             const text = inputField.value.trim();
             if (!text) return;
             inputField.value = '';
@@ -185,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         btnSend.addEventListener('click', sendMessage);
         inputField.addEventListener('keypress', (e) => {
+            if (inputField.disabled) return;
             if (e.key === 'Enter') sendMessage();
         });
     }

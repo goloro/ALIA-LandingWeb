@@ -99,15 +99,15 @@
     border-color: #6028ff;
 }
 
-.cs-filter-btn.outline-green {
-    border-color: #10b981;
-    color: #10b981;
+.cs-filter-btn.outline-warning {
+    border-color: #f59e0b; /* amber-500 */
+    color: #f59e0b;
 }
 
-.cs-filter-btn.outline-green.active {
-    background-color: #10b981;
+.cs-filter-btn.outline-warning.active {
+    background-color: #f59e0b;
     color: #ffffff;
-    border-color: #10b981;
+    border-color: #f59e0b;
 }
 
 .cs-list {
