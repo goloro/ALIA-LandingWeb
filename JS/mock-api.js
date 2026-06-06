@@ -51,14 +51,76 @@ class MockAPI {
                 console.log("Settings no encontradas, usando valores por defecto", e);
             }
             
+            // Seed mock appointments if empty so prototype looks good
+            if (this.state.appointments.length === 0 && this.state.team.length > 0) {
+                this._seedMockAppointments();
+            }
+
             this.initialized = true;
         } catch (error) {
             console.error("MockAPI Init Error:", error);
             // Fallback empty if fetch fails
             this.state.clients = [];
-            this.state.team = [];
+            this.state.team = [
+                { id: 1, name: "Dra. Laura Gómez", role: "Especialista" },
+                { id: 2, name: "Dr. Javier Ruiz", role: "Terapista" }
+            ];
+            this._seedMockAppointments();
             this.initialized = true;
         }
+    }
+
+    _seedMockAppointments() {
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const dd = String(now.getDate()).padStart(2, '0');
+        const todayStr = `${yyyy}-${mm}-${dd}`;
+
+        const tomorrow = new Date(now);
+        tomorrow.setDate(now.getDate() + 1);
+        const tm_mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const tm_dd = String(tomorrow.getDate()).padStart(2, '0');
+        const tomorrowStr = `${yyyy}-${tm_mm}-${tm_dd}`;
+
+        const prof1 = this.state.team[0]?.name || "Dra. Laura Gómez";
+        const prof2 = this.state.team[1]?.name || "Dr. Javier Ruiz";
+        const myAgenda = "Mi Agenda";
+
+        const seedAppts = [
+            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: todayStr, formattedDate: "Hoy", time: "10:30", duration: 60, service: "Corte y Lavado", prof: prof1, status: "completed" },
+            { id: 102, clientId: 102, clientName: "Ana López", rawDate: todayStr, formattedDate: "Hoy", time: "12:00", duration: 90, service: "Coloración", prof: prof1, status: "pending" },
+            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: todayStr, formattedDate: "Hoy", time: "16:00", duration: 30, service: "Arreglo Barba", prof: prof2, status: "pending" },
+            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: tomorrowStr, formattedDate: "Mañana", time: "11:00", duration: 60, service: "Peinado", prof: prof1, status: "pending" },
+            { id: 105, clientId: 105, clientName: "David R.", rawDate: tomorrowStr, formattedDate: "Mañana", time: "13:30", duration: 30, service: "Corte Express", prof: prof2, status: "pending" },
+            
+            // Mi Agenda appointments
+            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: todayStr, formattedDate: "Hoy", time: "11:30", duration: 45, service: "Revisión Equipo", prof: myAgenda, status: "pending" },
+            { id: 107, clientId: 107, clientName: "Elena V.", rawDate: todayStr, formattedDate: "Hoy", time: "17:00", duration: 60, service: "Entrevista Staff", prof: myAgenda, status: "pending" },
+            { id: 108, clientId: 108, clientName: "Admin", rawDate: tomorrowStr, formattedDate: "Mañana", time: "10:00", duration: 120, service: "Gestión Proveedores", prof: myAgenda, status: "completed" }
+        ];
+
+        // Añadir estos clientes a la base de datos simulada para que salgan en la pestaña de clientes
+        seedAppts.forEach(appt => {
+            const existingClient = this.state.clients.find(c => c.id === appt.clientId);
+            if (!existingClient) {
+                this.state.clients.push({
+                    id: appt.clientId,
+                    name: appt.clientName,
+                    email: appt.clientName.replace(' ', '.').toLowerCase() + "@ejemplo.com",
+                    phone: "+34 600 000 " + (appt.clientId - 100).toString().padStart(2, '0'),
+                    lastAppt: appt.rawDate,
+                    totalAppts: 1,
+                    registeredAt: appt.rawDate,
+                    notes: "Cliente autogenerado por el prototipo para la cita de hoy/mañana.",
+                    history: [
+                        { date: appt.rawDate + ", " + appt.time, status: appt.status, service: appt.service, prof: appt.prof }
+                    ]
+                });
+            }
+        });
+
+        this.state.appointments = seedAppts;
     }
 
     // Helper to simulate network latency
@@ -73,6 +135,22 @@ class MockAPI {
         await this.init();
         await this._simulateDelay();
         return [...this.state.clients]; // Return a copy
+    }
+
+    async getClientById(id) {
+        await this.init();
+        await this._simulateDelay(100);
+        let client = this.state.clients.find(c => c.id == id);
+        if (!client) {
+            client = {
+                id: id,
+                name: "Cliente Desconocido",
+                phone: "+34 600 000 000",
+                notes: "Cliente nuevo. No hay historial ni notas adicionales disponibles.",
+                history: []
+            };
+        }
+        return client;
     }
 
     async addClient(clientData) {
@@ -156,6 +234,7 @@ class MockAPI {
             time: timeStr,
             service: apptData.service,
             prof: apptData.prof,
+            duration: apptData.duration || 30,
             status: 'pending'
         };
         
@@ -166,15 +245,28 @@ class MockAPI {
     }
 
 
-    async getAppointmentsByProfessional(profName, rawDate) {
+    async getAppointments(filters = {}) {
         await this.init();
         await this._simulateDelay(100);
         
-        return this.state.appointments.filter(appt => 
-            appt.prof === profName && 
-            appt.rawDate === rawDate && 
-            appt.status !== 'cancelled'
-        );
+        return this.state.appointments.filter(appt => {
+            if (appt.status === 'cancelled') return false;
+            if (filters.prof && appt.prof !== filters.prof) return false;
+            
+            if (filters.startDate && appt.rawDate < filters.startDate) return false;
+            if (filters.endDate && appt.rawDate > filters.endDate) return false;
+            if (filters.date && appt.rawDate !== filters.date) return false;
+            
+            return true;
+        });
+    }
+
+    async getAppointmentsByProfessional(profName, rawDate) {
+        return this.getAppointments({ prof: profName, date: rawDate });
+    }
+
+    async getAppointmentsByDate(rawDate) {
+        return this.getAppointments({ date: rawDate });
     }
 
     // --- TEAM ---

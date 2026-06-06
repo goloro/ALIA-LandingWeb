@@ -1,247 +1,425 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Lógica de Filtros y Vistas de la Agenda ---
-    const profFilters = document.querySelectorAll('.prof-filter-btn');
-    const viewToggles = document.querySelectorAll('.view-toggle-btn');
     
+    // Globals
+    let currentDate = new Date();
+    let selectedProfFilter = 'Todos';
+    let selectedViewToggle = 'Día';
+    let teamData = [];
+
+    const profFiltersContainer = document.querySelector('.agenda-prof-filters');
+    const viewTogglesContainer = document.querySelector('.agenda-view-toggles');
+    const dateTitle = document.querySelector('.agenda-date-title');
+    const agendaGrid = document.querySelector('.agenda-grid');
+    const agendaMonthGrid = document.querySelector('.agenda-month-grid');
+    const colsWrapper = document.querySelector('.agenda-prof-cols-wrapper');
+    const headersWrapper = document.querySelector('.agenda-prof-headers-wrapper');
+    const weekHeadersWrapper = document.querySelector('.agenda-week-headers-wrapper');
+    const headerRow = document.querySelector('.agenda-grid-header-row');
+    const monthGridBody = document.querySelector('.month-grid-body');
+
+    // Utils
+    const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
+    const getMonthName = d => capitalize(d.toLocaleDateString('es-ES', { month: 'long' }));
+    const getDayName = d => capitalize(d.toLocaleDateString('es-ES', { weekday: 'long' }));
+
+    function getStartOfWeek(date) {
+        const d = new Date(date);
+        let day = d.getDay();
+        if (day === 0) day = 7;
+        d.setDate(d.getDate() - day + 1);
+        d.setHours(0,0,0,0);
+        return d;
+    }
+
+    function formatDateForTitle(date, view) {
+        if (view === 'Día') {
+            return `${getDayName(date)} ${date.getDate()} ${getMonthName(date)} ${date.getFullYear()}`;
+        } else if (view === 'Semana') {
+            const start = getStartOfWeek(date);
+            const end = new Date(start);
+            end.setDate(end.getDate() + 6);
+            if (start.getMonth() === end.getMonth()) {
+                return `${getMonthName(start)} ${start.getDate()} - ${end.getDate()}, ${end.getFullYear()}`;
+            } else {
+                return `${getMonthName(start)} ${start.getDate()} - ${getMonthName(end)} ${end.getDate()}, ${end.getFullYear()}`;
+            }
+        } else if (view === 'Mes') {
+            return `${getMonthName(date)} ${date.getFullYear()}`;
+        }
+    }
+
+    function formatYMD(date) {
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
+    }
+
+    async function loadAgendaData() {
+        if (!window.MockAPI) return;
+        try {
+            teamData = await window.MockAPI.getTeam();
+            buildFilters();
+            attachViewTogglesEvents();
+            
+            // Set current active from DOM or defaults
+            const activeFilter = document.querySelector('.prof-filter-btn.active');
+            if (activeFilter) selectedProfFilter = activeFilter.textContent.trim();
+            
+            const activeToggle = document.querySelector('.view-toggle-btn.active');
+            if (activeToggle) selectedViewToggle = activeToggle.textContent.trim();
+            
+            updateViewTogglesState();
+            await renderGrid();
+        } catch (e) {
+            console.error("Error loading agenda data:", e);
+        }
+    }
+
+    function buildFilters() {
+        if (!profFiltersContainer) return;
+        profFiltersContainer.innerHTML = '';
+        profFiltersContainer.style.display = 'flex';
+        
+        const btnTodos = document.createElement('button');
+        btnTodos.className = 'prof-filter-btn' + (selectedProfFilter === 'Todos' ? ' active' : '');
+        btnTodos.textContent = 'Todos';
+        profFiltersContainer.appendChild(btnTodos);
+        
+        const btnMiAgenda = document.createElement('button');
+        btnMiAgenda.className = 'prof-filter-btn' + (selectedProfFilter === 'Mi Agenda' ? ' active' : '');
+        btnMiAgenda.textContent = 'Mi Agenda';
+        btnMiAgenda.dataset.fullName = 'Mi Agenda';
+        profFiltersContainer.appendChild(btnMiAgenda);
+        
+        teamData.forEach(prof => {
+            const shortName = prof.name.split(' ')[1] || prof.name;
+            const btn = document.createElement('button');
+            btn.className = 'prof-filter-btn' + (selectedProfFilter === shortName ? ' active' : '');
+            btn.textContent = shortName;
+            btn.dataset.fullName = prof.name;
+            profFiltersContainer.appendChild(btn);
+        });
+
+        const btns = profFiltersContainer.querySelectorAll('.prof-filter-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', async () => {
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedProfFilter = btn.textContent.trim();
+                
+                updateViewTogglesState();
+                await renderGrid();
+            });
+        });
+    }
+
     function updateViewTogglesState() {
-        const activeFilter = document.querySelector('.prof-filter-btn.active');
-        const filterName = activeFilter ? activeFilter.textContent.trim() : 'Todos';
-        const isTodos = filterName === 'Todos';
+        if (!viewTogglesContainer) return;
+        const viewBtns = viewTogglesContainer.querySelectorAll('.view-toggle-btn');
         
-        viewToggles.forEach(toggle => {
-            const isDay = toggle.textContent.trim() === 'Day';
-            if (isTodos && !isDay) {
-                // Bloquear Week y Month
-                toggle.classList.add('disabled');
-                toggle.disabled = true;
-                // Si estaba activo, cambiar a Day
-                if (toggle.classList.contains('active')) {
-                    toggle.classList.remove('active');
-                    const dayToggle = Array.from(viewToggles).find(t => t.textContent.trim() === 'Day');
-                    if (dayToggle) dayToggle.classList.add('active');
+        if (selectedProfFilter === 'Todos') {
+            viewBtns.forEach(btn => {
+                if (btn.textContent.trim() !== 'Día') {
+                    btn.classList.add('disabled');
+                    btn.disabled = true;
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
                 }
-            } else {
-                // Desbloquear
-                toggle.classList.remove('disabled');
-                toggle.disabled = false;
+            });
+            
+            if (selectedViewToggle !== 'Día') {
+                viewBtns.forEach(b => b.classList.remove('active'));
+                const dayBtn = Array.from(viewBtns).find(b => b.textContent.trim() === 'Día');
+                if (dayBtn) dayBtn.classList.add('active');
+                selectedViewToggle = 'Día';
             }
+        } else {
+            viewBtns.forEach(btn => {
+                btn.classList.remove('disabled');
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            });
+        }
+    }
+
+    function attachViewTogglesEvents() {
+        if (!viewTogglesContainer) return;
+        const btns = viewTogglesContainer.querySelectorAll('.view-toggle-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (btn.disabled || btn.classList.contains('disabled')) return;
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedViewToggle = btn.textContent.trim();
+                await renderGrid();
+            });
         });
 
-        // Actualizar el layout de la agenda
-        const agendaGrid = document.querySelector('.agenda-grid');
-        const agendaMonthGrid = document.querySelector('.agenda-month-grid');
-        const profCols = document.querySelectorAll('.agenda-prof-col');
-        const activeToggle = document.querySelector('.view-toggle-btn.active');
-        const activeToggleText = activeToggle ? activeToggle.textContent.trim() : 'Day';
-        const isWeekView = activeToggleText === 'Week';
-        const isMonthView = activeToggleText === 'Month';
-        
-        const profHeaders = document.querySelector('.agenda-prof-headers-wrapper');
-        const weekHeaders = document.querySelector('.agenda-week-headers-wrapper');
-        const timeZoneLabel = document.querySelector('.time-zone-label');
-        const weekOnlyBgCols = document.querySelectorAll('.bg-col.week-only');
-        
-        if (agendaMonthGrid) {
-            if (isMonthView) {
-                if (agendaGrid) agendaGrid.style.display = 'none';
+        // Navigation arrows
+        const arrows = document.querySelectorAll('.agenda-arrows button');
+        if (arrows.length >= 2) {
+            arrows[0].addEventListener('click', async () => { navigateDate(-1); });
+            arrows[1].addEventListener('click', async () => { navigateDate(1); });
+        }
+    }
+
+    async function navigateDate(dir) {
+        if (selectedViewToggle === 'Día') {
+            currentDate.setDate(currentDate.getDate() + dir);
+        } else if (selectedViewToggle === 'Semana') {
+            currentDate.setDate(currentDate.getDate() + (dir * 7));
+        } else if (selectedViewToggle === 'Mes') {
+            currentDate.setMonth(currentDate.getMonth() + dir);
+        }
+        await renderGrid();
+    }
+
+    async function renderGrid() {
+        if (dateTitle) {
+            dateTitle.textContent = formatDateForTitle(currentDate, selectedViewToggle);
+        }
+
+        if (selectedViewToggle === 'Mes') {
+            if (agendaGrid) agendaGrid.style.display = 'none';
+            if (agendaMonthGrid) {
                 agendaMonthGrid.style.display = 'flex';
-            } else {
-                if (agendaGrid) agendaGrid.style.display = 'flex';
-                agendaMonthGrid.style.display = 'none';
+                await renderMonthGrid();
             }
+            return;
         }
+
+        // Day or Week View
+        if (agendaGrid) agendaGrid.style.display = 'flex';
+        if (agendaMonthGrid) agendaMonthGrid.style.display = 'none';
+
+        // Clear existing bg-grid to recreate
+        const oldBgGrid = colsWrapper.querySelector('.agenda-bg-grid');
+        if (oldBgGrid) oldBgGrid.remove();
+        colsWrapper.innerHTML = ''; // clear all cols
+
+        agendaGrid.classList.remove('single-prof-view', 'week-view');
         
-        // Call dynamic dates update
-        if (typeof updateAgendaDynamicDates === 'function') {
-            updateAgendaDynamicDates();
-        }
-        
-        if (agendaGrid && profCols.length >= 4 && !isMonthView) {
-            // Reiniciar estados
-            agendaGrid.classList.remove('single-prof-view', 'week-view');
-            if(profHeaders) profHeaders.style.display = 'none';
-            if(weekHeaders) weekHeaders.style.display = 'none';
-            if(timeZoneLabel) timeZoneLabel.style.display = 'none';
-            weekOnlyBgCols.forEach(c => c.style.display = 'none');
+        let targetFilters = {};
+        let numCols = 1;
+        let colIds = [];
+
+        if (selectedViewToggle === 'Semana') {
+            // WEEK VIEW
+            agendaGrid.classList.add('week-view');
+            headersWrapper.style.display = 'none';
+            weekHeadersWrapper.style.display = 'contents';
+            numCols = 7;
             
-            if (isWeekView) {
-                // Configurar Vista Semanal
-                agendaGrid.classList.add('week-view');
-                if(weekHeaders) weekHeaders.style.display = 'contents';
-                if(timeZoneLabel) timeZoneLabel.style.display = 'block';
-                weekOnlyBgCols.forEach(c => c.style.display = 'block');
-                
-                // Mostramos las 7 columnas
-                profCols.forEach(col => col.style.display = 'block');
-                
-            } else {
-                // Configurar Vista Diaria
-                if (isTodos) {
-                    // Vista Todos (4 columnas de profesionales)
-                    if(profHeaders) profHeaders.style.display = 'contents';
-                    
-                    profCols.forEach(col => {
-                        if (col.classList.contains('week-only')) {
-                            col.style.display = 'none';
-                        } else {
-                            col.style.display = 'block';
-                        }
-                    });
-                } else {
-                    // Vista 1 profesional (1 columna)
-                    agendaGrid.classList.add('single-prof-view');
-                    profCols.forEach(col => col.style.display = 'none');
-                    
-                    let targetIndex = 0;
-                    if (filterName === 'Marcos') targetIndex = 1;
-                    else if (filterName === 'Sofía') targetIndex = 2;
-                    else if (filterName === 'Elena') targetIndex = 3;
-                    
-                    if (profCols[targetIndex]) {
-                        profCols[targetIndex].style.display = 'block';
-                    }
-                }
+            const start = getStartOfWeek(currentDate);
+            targetFilters.startDate = formatYMD(start);
+            const end = new Date(start);
+            end.setDate(end.getDate() + 6);
+            targetFilters.endDate = formatYMD(end);
+            
+            if (selectedProfFilter !== 'Todos') {
+                const btn = Array.from(profFiltersContainer.children).find(b => b.textContent.trim() === selectedProfFilter);
+                if (btn && btn.dataset.fullName) targetFilters.prof = btn.dataset.fullName;
             }
-        }
-    }
 
-    if (profFilters.length > 0 && viewToggles.length > 0) {
-        profFilters.forEach(btn => {
-            btn.addEventListener('click', () => {
-                profFilters.forEach(f => f.classList.remove('active'));
-                btn.classList.add('active');
-                updateViewTogglesState();
-            });
-        });
-
-        viewToggles.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (btn.disabled) return;
-                viewToggles.forEach(t => t.classList.remove('active'));
-                btn.classList.add('active');
-                updateViewTogglesState();
-            });
-        });
-
-        // Inicializar estado
-        updateViewTogglesState();
-    }
-
-    // --- Lógica de Agenda Dinámica ---
-    function updateAgendaDynamicDates() {
-        const dateTitle = document.querySelector('.agenda-date-title');
-        if (!dateTitle) return;
-
-        const now = new Date();
-        const activeToggle = document.querySelector('.view-toggle-btn.active');
-        const viewMode = activeToggle ? activeToggle.textContent.trim() : 'Day';
-
-        // Helpers
-        const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
-        const getMonthName = d => capitalize(d.toLocaleDateString('es-ES', { month: 'long' }));
-        const getDayName = d => capitalize(d.toLocaleDateString('es-ES', { weekday: 'long' }));
-
-        // Día de la semana (Lunes = 1, Domingo = 7)
-        let dayOfWeek = now.getDay();
-        if (dayOfWeek === 0) dayOfWeek = 7; 
-        
-        // Calcular inicio de semana (Lunes)
-        const startOfWeek = new Date(now);
-        startOfWeek.setDate(now.getDate() - dayOfWeek + 1);
-
-        if (viewMode === 'Day' || !activeToggle) {
-            // ej: "20 de Abril de 2026"
-            dateTitle.textContent = `${now.getDate()} de ${getMonthName(now)} de ${now.getFullYear()}`;
-        } else if (viewMode === 'Week') {
-            const endOfWeek = new Date(startOfWeek);
-            endOfWeek.setDate(startOfWeek.getDate() + 6);
-            if (startOfWeek.getMonth() === endOfWeek.getMonth()) {
-                dateTitle.textContent = `${startOfWeek.getDate()} - ${endOfWeek.getDate()} de ${getMonthName(startOfWeek)} de ${endOfWeek.getFullYear()}`;
-            } else {
-                dateTitle.textContent = `${startOfWeek.getDate()} de ${getMonthName(startOfWeek)} - ${endOfWeek.getDate()} de ${getMonthName(endOfWeek)} de ${endOfWeek.getFullYear()}`;
-            }
-        } else if (viewMode === 'Month') {
-            dateTitle.textContent = `${getMonthName(now)} de ${now.getFullYear()}`;
-        }
-
-        // Actualizar Cabeceras de Semana
-        const weekHeaders = document.querySelectorAll('.agenda-week-header');
-        if (weekHeaders.length === 7) {
+            // Setup Week Headers
+            weekHeadersWrapper.innerHTML = '';
             for (let i = 0; i < 7; i++) {
-                const headerDate = new Date(startOfWeek);
-                headerDate.setDate(startOfWeek.getDate() + i);
-                const dayNumEl = weekHeaders[i].querySelector('.day-num');
-                if (dayNumEl) {
-                    dayNumEl.textContent = headerDate.getDate();
-                }
-                // Resaltar día actual
-                if (headerDate.toDateString() === now.toDateString()) {
-                    weekHeaders[i].classList.add('active');
-                } else {
-                    weekHeaders[i].classList.remove('active');
-                }
+                const d = new Date(start);
+                d.setDate(start.getDate() + i);
+                const isToday = formatYMD(d) === formatYMD(new Date());
+                colIds.push({ id: formatYMD(d), date: formatYMD(d) });
+                
+                weekHeadersWrapper.innerHTML += `
+                    <div class="agenda-week-header ${isToday ? 'active' : ''}">
+                        <span class="day-name">${getDayName(d).toUpperCase()}</span>
+                        <span class="day-num">${d.getDate()}</span>
+                    </div>
+                `;
+            }
+
+        } else {
+            // DAY VIEW
+            const dateStr = formatYMD(currentDate);
+            targetFilters.date = dateStr;
+
+            if (selectedProfFilter === 'Todos') {
+                // All professionals
+                headersWrapper.style.display = 'contents';
+                weekHeadersWrapper.style.display = 'none';
+                headersWrapper.innerHTML = '';
+                
+                const displayTeam = [{ name: "Mi Agenda", avatarUrl: "../Images/Logos/LogoPeluqueríaNegro.png" }, ...teamData];
+                numCols = displayTeam.length;
+                
+                displayTeam.forEach(prof => {
+                    colIds.push({ id: prof.name, prof: prof.name });
+                    headersWrapper.innerHTML += `
+                        <div class="agenda-prof-header">
+                            <img src="${prof.avatarUrl || '../Images/Logos/LogoPeluqueríaNegro.png'}" alt="${prof.name}" class="prof-avatar">
+                            <span class="prof-name">${prof.name}</span>
+                        </div>
+                    `;
+                });
+            } else {
+                // Single professional
+                agendaGrid.classList.add('single-prof-view');
+                headersWrapper.style.display = 'none';
+                weekHeadersWrapper.style.display = 'none';
+                
+                const btn = Array.from(profFiltersContainer.children).find(b => b.textContent.trim() === selectedProfFilter);
+                if (btn && btn.dataset.fullName) targetFilters.prof = btn.dataset.fullName;
+                
+                numCols = 1;
+                colIds.push({ id: 'single', prof: targetFilters.prof });
             }
         }
 
-        // Generar Cuadrícula del Mes
-        const monthGridBody = document.querySelector('.month-grid-body');
-        if (monthGridBody) {
-            monthGridBody.innerHTML = '';
-            
-            // Primer día del mes
-            const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-            let firstDayOfWeek = firstDayOfMonth.getDay();
-            if (firstDayOfWeek === 0) firstDayOfWeek = 7;
-            
-            // Fecha inicio (puede ser del mes anterior)
-            const startDate = new Date(firstDayOfMonth);
-            startDate.setDate(firstDayOfMonth.getDate() - firstDayOfWeek + 1);
-            
-            // Calcular cuantas semanas necesitamos para mostrar todo el mes
-            // Generalmente 5 semanas (35 dias) o 6 (42 dias) dependiendo del dia 1
-            const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-            const totalDaysSpan = firstDayOfWeek - 1 + lastDayOfMonth.getDate();
-            const cellsToGenerate = totalDaysSpan > 35 ? 42 : 35;
-            
-            for (let i = 0; i < cellsToGenerate; i++) {
-                const cellDate = new Date(startDate);
-                cellDate.setDate(startDate.getDate() + i);
-                
-                const cellDiv = document.createElement('div');
-                cellDiv.className = 'month-cell';
-                
-                if (cellDate.getMonth() !== now.getMonth()) {
-                    cellDiv.classList.add('other-month');
-                }
-                if (cellDate.toDateString() === now.toDateString()) {
-                    cellDiv.classList.add('today-cell');
-                }
-                
-                const numStr = String(cellDate.getDate()).padStart(2, '0');
-                cellDiv.innerHTML = `<span class="month-day-num">${numStr}</span>`;
-                monthGridBody.appendChild(cellDiv);
+        // Setup CSS Grid
+        const gridColumnsTemplate = `repeat(${numCols}, 1fr)`;
+        if (headerRow && !agendaGrid.classList.contains('single-prof-view')) {
+            headerRow.style.gridTemplateColumns = `80px ${gridColumnsTemplate}`;
+        }
+        colsWrapper.style.gridTemplateColumns = gridColumnsTemplate;
+
+        // Create bg grid
+        const bgGrid = document.createElement('div');
+        bgGrid.className = 'agenda-bg-grid';
+        bgGrid.style.gridTemplateColumns = gridColumnsTemplate;
+        for (let i = 0; i < numCols; i++) {
+            bgGrid.innerHTML += `<div class="bg-col"></div>`;
+        }
+        colsWrapper.appendChild(bgGrid);
+
+        // Create Columns
+        const domCols = [];
+        colIds.forEach(c => {
+            const col = document.createElement('div');
+            col.className = 'agenda-prof-col';
+            col.dataset.id = c.id;
+            if (c.prof) col.dataset.prof = c.prof;
+            if (c.date) col.dataset.date = c.date;
+            colsWrapper.appendChild(col);
+            domCols.push(col);
+        });
+
+        // Fetch & Render Appointments
+        if (!window.MockAPI) return;
+        const appts = await window.MockAPI.getAppointments(targetFilters);
+
+        appts.forEach(appt => {
+            let targetCol = null;
+            if (selectedViewToggle === 'Semana') {
+                targetCol = domCols.find(c => c.dataset.date === appt.rawDate);
+            } else if (selectedProfFilter === 'Todos') {
+                targetCol = domCols.find(c => c.dataset.prof === appt.prof);
+            } else {
+                targetCol = domCols[0];
             }
+
+            if (targetCol) {
+                const [h, m] = (appt.time || '10:00').split(':').map(Number);
+                const startMins = (h * 60 + m) - (10 * 60); 
+                const topPx = startMins * (48 / 30); 
+                const duration = appt.duration || 60;
+                const heightPx = duration * (48 / 30);
+
+                const eventEl = document.createElement('div');
+                eventEl.className = 'agenda-event event-blue';
+                eventEl.style.top = `${topPx}px`;
+                eventEl.style.height = `${heightPx}px`;
+                eventEl.dataset.appt = JSON.stringify(appt);
+                
+                // Truncate text if block is too small
+                const serviceLabel = duration <= 30 ? '' : `<div style="font-size:11px; opacity:0.9; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${appt.service}</div>`;
+                const profLabel = selectedViewToggle === 'Semana' && selectedProfFilter === 'Todos' ? `<span style="font-size:10px; opacity:0.8;"> - ${appt.prof.split(' ')[1] || appt.prof}</span>` : '';
+
+                eventEl.innerHTML = `
+                    <div style="display:flex; flex-direction:column; gap:2px; height:100%; width:100%; overflow:hidden;">
+                        <div style="font-weight:600; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                            ${appt.time} - ${appt.clientName} ${profLabel}
+                        </div>
+                        ${serviceLabel}
+                    </div>
+                `;
+
+                targetCol.appendChild(eventEl);
+            }
+        });
+
+        attachAppointmentEvents();
+    }
+
+    async function renderMonthGrid() {
+        if (!monthGridBody || !window.MockAPI) return;
+        monthGridBody.innerHTML = '';
+        
+        const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        let firstDayOfWeek = firstDayOfMonth.getDay();
+        if (firstDayOfWeek === 0) firstDayOfWeek = 7;
+        
+        const startDate = new Date(firstDayOfMonth);
+        startDate.setDate(firstDayOfMonth.getDate() - firstDayOfWeek + 1);
+        
+        const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        const totalDaysSpan = firstDayOfWeek - 1 + lastDayOfMonth.getDate();
+        const cellsToGenerate = totalDaysSpan > 35 ? 42 : 35;
+        
+        const targetFilters = {
+            startDate: formatYMD(startDate),
+            endDate: formatYMD(new Date(startDate.getTime() + (cellsToGenerate * 24*60*60*1000)))
+        };
+        
+        if (selectedProfFilter !== 'Todos') {
+            const btn = Array.from(profFiltersContainer.children).find(b => b.textContent.trim() === selectedProfFilter);
+            if (btn && btn.dataset.fullName) targetFilters.prof = btn.dataset.fullName;
+        }
+
+        const appts = await window.MockAPI.getAppointments(targetFilters);
+        // group by date
+        const apptsByDate = {};
+        appts.forEach(a => {
+            if(!apptsByDate[a.rawDate]) apptsByDate[a.rawDate] = 0;
+            apptsByDate[a.rawDate]++;
+        });
+
+        for (let i = 0; i < cellsToGenerate; i++) {
+            const cellDate = new Date(startDate);
+            cellDate.setDate(startDate.getDate() + i);
+            const dateStr = formatYMD(cellDate);
+            
+            const cellDiv = document.createElement('div');
+            cellDiv.className = 'month-cell';
+            
+            if (cellDate.getMonth() !== currentDate.getMonth()) {
+                cellDiv.classList.add('other-month');
+            }
+            if (dateStr === formatYMD(new Date())) {
+                cellDiv.classList.add('today-cell');
+            }
+            
+            const count = apptsByDate[dateStr] || 0;
+            const indicators = count > 0 ? `<div style="margin-top: 8px; font-size:12px; color:#0f766e; font-weight:600;">${count} cita(s)</div>` : '';
+
+            const numStr = String(cellDate.getDate()).padStart(2, '0');
+            cellDiv.innerHTML = `<span class="month-day-num">${numStr}</span>${indicators}`;
+            monthGridBody.appendChild(cellDiv);
         }
     }
 
-    // Initialize date dynamically on start
-    updateAgendaDynamicDates();
-
-    // --- Lógica del Panel Lateral de Detalles de Cita ---
+    // --- Panel Lateral ---
     const appointmentPanel = document.getElementById('appointment-details-panel');
     const appointmentBackdrop = document.getElementById('appointment-details-backdrop');
     const btnCloseAppointmentPanel = document.getElementById('btn-close-appointment-panel');
     
-    // Función para abrir el panel
     function openAppointmentPanel() {
         if (appointmentPanel && appointmentBackdrop) {
             appointmentPanel.classList.add('active');
             appointmentBackdrop.classList.add('active');
-            // Opcional: Podríamos rellenar dinámicamente los datos aquí
         }
     }
 
-    // Función para cerrar el panel
     function closeAppointmentPanel() {
         if (appointmentPanel && appointmentBackdrop) {
             appointmentPanel.classList.remove('active');
@@ -249,32 +427,123 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Eventos para cerrar
-    if (btnCloseAppointmentPanel) {
-        btnCloseAppointmentPanel.addEventListener('click', closeAppointmentPanel);
-    }
-    
-    if (appointmentBackdrop) {
-        appointmentBackdrop.addEventListener('click', closeAppointmentPanel);
+    if (btnCloseAppointmentPanel) btnCloseAppointmentPanel.addEventListener('click', closeAppointmentPanel);
+    if (appointmentBackdrop) appointmentBackdrop.addEventListener('click', closeAppointmentPanel);
+
+    // Expose to window so other scripts (like app.js) can refresh the grid
+    window.refreshAgenda = renderGrid;
+
+    async function populateAppointmentPanel(apptStr) {
+        try {
+            const appt = JSON.parse(apptStr);
+            const panelTime = document.querySelector('.panel-time');
+            const panelDate = document.querySelector('.panel-date');
+            const clientAvatar = document.querySelector('.client-avatar');
+            const clientName = document.querySelector('.client-name');
+            const clientPhone = document.querySelector('.client-phone');
+            const panelTitle = document.querySelector('.panel-title');
+            const notesText = document.querySelector('.notes-text');
+            const historyTimeline = document.querySelector('.history-timeline');
+
+            if (panelTitle) panelTitle.textContent = appt.service || 'Detalles de la cita';
+
+            if (panelTime) {
+                const [h, m] = (appt.time || '10:00').split(':').map(Number);
+                const start = new Date(); start.setHours(h, m);
+                const end = new Date(start.getTime() + (appt.duration || 60) * 60000);
+                const endH = String(end.getHours()).padStart(2, '0');
+                const endM = String(end.getMinutes()).padStart(2, '0');
+                panelTime.textContent = `${appt.time} - ${endH}:${endM}`;
+            }
+
+            if (panelDate) {
+                const parts = appt.rawDate.split('-');
+                const d = new Date(parts[0], parts[1] - 1, parts[2]);
+                panelDate.textContent = `${d.getDate()} ${getMonthName(d)} ${d.getFullYear()}`;
+            }
+
+            if (clientName) clientName.textContent = appt.clientName || 'Cliente';
+            if (clientAvatar && appt.clientName) clientAvatar.textContent = appt.clientName.charAt(0).toUpperCase();
+
+            // Lógica asíncrona para obtener info del cliente
+            if (window.MockAPI) {
+                const client = await window.MockAPI.getClientById(appt.clientId);
+                if (client) {
+                    if (clientPhone) clientPhone.textContent = client.phone || "Sin teléfono";
+                    if (notesText) notesText.textContent = client.notes || "No hay notas registradas para este cliente.";
+                    
+                    if (historyTimeline) {
+                        historyTimeline.innerHTML = '';
+                        if (!client.history || client.history.length === 0) {
+                            historyTimeline.innerHTML = '<p style="font-size:12px; color:#64748b; margin-left:24px;">No hay historial previo.</p>';
+                        } else {
+                            client.history.forEach((hist, index) => {
+                                const isCompleted = hist.status === 'completed';
+                                const isPending = hist.status === 'pending';
+                                
+                                const statusColor = isCompleted ? 'marker-green' : (isPending ? 'marker-blue' : 'marker-red');
+                                const badgeClass = isCompleted ? 'badge-completed' : (isPending ? 'badge-pending' : 'badge-noshow');
+                                const statusText = isCompleted ? 'Completado' : (isPending ? 'Pendiente' : 'No Show');
+                                
+                                let markerContent = `<div class="marker-inner-dot"></div>`;
+                                if (isCompleted) {
+                                    markerContent = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                                } else if (!isPending) {
+                                    markerContent = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+                                }
+                                    
+                                const markerLine = index < client.history.length - 1 ? `<div class="marker-line"></div>` : '';
+
+                                historyTimeline.innerHTML += `
+                                    <div class="history-item">
+                                        <div class="history-marker ${statusColor}">
+                                            <div class="marker-dot">
+                                                ${markerContent}
+                                            </div>
+                                            ${markerLine}
+                                        </div>
+                                        <div class="history-content">
+                                            <div class="history-header">
+                                                <span class="history-date">${hist.date}</span>
+                                                <span class="history-badge ${badgeClass}">${statusText}</span>
+                                            </div>
+                                            <div class="history-service">${hist.service}</div>
+                                            <div class="history-prof">
+                                                <span>Atendido por <strong>${hist.prof}</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            console.error("Error parsing appointment data", e);
+        }
     }
 
-    // Evento para abrir al hacer clic en cualquier cita de la agenda
     function attachAppointmentEvents() {
-        // Excluimos explícitamente los bloques de almuerzo (.event-lunch)
         const events = document.querySelectorAll('.agenda-event:not(.event-lunch)');
         events.forEach(event => {
-            // Eliminar listener previo por si se re-renderiza
-            event.removeEventListener('click', openAppointmentPanel);
-            event.addEventListener('click', (e) => {
-                e.stopPropagation(); // Evita conflictos con otros clics
+            const clickHandler = (e) => {
+                e.stopPropagation();
+                if (event.dataset.appt) {
+                    populateAppointmentPanel(event.dataset.appt);
+                }
                 openAppointmentPanel();
-            });
+            };
+            
+            // Usar clonación para evitar listeners duplicados en caso de re-render
+            const newEvent = event.cloneNode(true);
+            event.parentNode.replaceChild(newEvent, event);
+            
+            newEvent.addEventListener('click', clickHandler);
         });
     }
 
-    // Adjuntar los eventos inicialmente
-    attachAppointmentEvents();
-
-    // Si la agenda se reconstruye dinámicamente, habría que llamar a attachAppointmentEvents() de nuevo
+    // Inicializar
+    loadAgendaData();
 
 });

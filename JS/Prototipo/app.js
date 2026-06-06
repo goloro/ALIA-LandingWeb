@@ -511,21 +511,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const monthNames = { '01': 'ENE', '02': 'FEB', '03': 'MAR', '04': 'ABR', '05': 'MAY', '06': 'JUN', '07': 'JUL', '08': 'AGO', '09': 'SEP', '10': 'OCT', '11': 'NOV', '12': 'DIC' };
             let formattedDate = rawDate + ', ' + timeStr;
+            let apiRawDate = rawDate;
             if (rawDate.includes('/')) {
                 const parts = rawDate.split('/');
                 if (parts.length === 3) {
                     const m = monthNames[parts[1]] || parts[1];
                     formattedDate = `${parts[0]} ${m} ${parts[2]}, ${timeStr}`;
+                    apiRawDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
                 }
+            }
+
+            let duration = 30;
+            if (window.BusinessSettings && window.BusinessSettings.services) {
+                const srv = window.BusinessSettings.services.find(s => s.name === service);
+                if (srv && srv.duration) duration = srv.duration;
             }
 
             try {
                 if (window.MockAPI && window.MockAPI.addAppointment) {
                     await window.MockAPI.addAppointment(clientName, {
-                        rawDate: rawDate,
+                        rawDate: apiRawDate,
                         formattedDate: formattedDate,
                         service: service,
-                        prof: prof
+                        prof: prof,
+                        duration: duration
                     });
                 }
 
@@ -537,6 +546,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Refresh current view (Clientes)
                 if (typeof window.resetClientSearch === 'function') window.resetClientSearch();
+                // Refresh Agenda
+                if (typeof window.refreshAgenda === 'function') window.refreshAgenda();
             } catch(e) {
                 if (window.showToast) window.showToast('Error', 'Hubo un problema al guardar la cita.', 'error');
             } finally {
