@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCancelModal = document.getElementById('btn-cancel-modal');
 
     window.calculateAvailableTimes = async function(dateStr, durationMinutes, profName) {
+        if (!dateStr || typeof dateStr !== 'string' || !dateStr.includes('/')) return [];
         let settings = { closedDays: [0], openHours: { start: '10:00', end: '19:00' } };
         let fullTeam = [{ name: 'Propietario', dayOff: 1, lunchBreak: '14:00' }];
         
@@ -242,9 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
             appts = await window.MockAPI.getAppointmentsByProfessional(profName, apiDateStr);
         }
 
-        const startHour = parseInt(settings.openHours.start.split(':')[0]);
-        const endHour = parseInt(settings.openHours.end.split(':')[0]);
-        const endMin = parseInt(settings.openHours.end.split(':')[1] || 0);
+        const openStart = (settings.openHours && settings.openHours.start) ? settings.openHours.start : '10:00';
+        const openEnd = (settings.openHours && settings.openHours.end) ? settings.openHours.end : '19:00';
+        
+        const startHour = parseInt(openStart.split(':')[0]);
+        const endHour = parseInt(openEnd.split(':')[0]);
+        const endMin = parseInt(openEnd.split(':')[1] || 0);
 
         for (let h = startHour; h <= endHour; h++) {
             for (let m of [0, 30]) {
@@ -428,6 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     selectedValueSpan.style.color = 'var(--portal-text-main)';
                 }
                 selectContainer.classList.remove('open');
+                selectContainer.dispatchEvent(new Event('dropdownChange'));
             });
         });
     };
@@ -451,11 +456,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Pre-fill with today's date if empty or invalid
                 if (!dateInput.value || !dateInput.value.includes('/')) {
-                    const now = new Date();
+                    let now = new Date();
                     
                     // Check if there are hours available today.
-                    // The last slot is 20:00. If we are past 20:00, move to tomorrow.
-                    if (now.getHours() > 20 || (now.getHours() === 20 && now.getMinutes() > 0)) {
+                    const openEnd = window.BusinessSettings && window.BusinessSettings.openHours ? parseInt(window.BusinessSettings.openHours.end.split(':')[0]) : 19;
+                    if (now.getHours() >= openEnd) {
+                        now.setDate(now.getDate() + 1);
+                    }
+                    
+                    // Skip closed days
+                    const closedDays = window.BusinessSettings ? window.BusinessSettings.closedDays : [0];
+                    while (closedDays.includes(now.getDay())) {
                         now.setDate(now.getDate() + 1);
                     }
                     
@@ -471,11 +482,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selects.length >= 3 && window.populateDropdown) {
                 // Bind listeners to Service and Prof to trigger Smart Calendar
                 if (!selects[1].hasAttribute('data-smart-bound')) {
-                    selects[1].addEventListener('dropdownChange', window.updateSmartCalendar);
+                    selects[1].addEventListener('dropdownChange', () => {
+                        window.updateSmartCalendar();
+                        if (window.refreshMiniCalendar) window.refreshMiniCalendar();
+                    });
                     selects[1].setAttribute('data-smart-bound', 'true');
                 }
                 if (!selects[2].hasAttribute('data-smart-bound')) {
-                    selects[2].addEventListener('dropdownChange', window.updateSmartCalendar);
+                    selects[2].addEventListener('dropdownChange', () => {
+                        window.updateSmartCalendar();
+                        if (window.refreshMiniCalendar) window.refreshMiniCalendar();
+                    });
                     selects[2].setAttribute('data-smart-bound', 'true');
                 }
                 
@@ -485,9 +502,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
                 if (!window.serviceOptionsLoaded) {
-                    const servicesList = (window.BusinessSettings && window.BusinessSettings.services) 
+                    let servicesList = (window.BusinessSettings && window.BusinessSettings.services) 
                         ? window.BusinessSettings.services.map(s => s.name) 
                         : [];
+                    if (servicesList.length === 0) {
+                        servicesList = ["Corte Clásico", "Corte + Barba", "Tinte y Mechas", "Manicura Semipermanente", "Masaje Relajante", "Tratamiento Facial"];
+                    }
                     window.populateDropdown(selects[1], servicesList, 'Elige un servicio...');
                     window.serviceOptionsLoaded = true;
                 }
@@ -720,6 +740,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 container.classList.remove('open');
+                container.dispatchEvent(new Event('dropdownChange'));
             });
         });
     });
@@ -742,6 +763,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTargetInput = null;
     let currentDate = new Date(); // Mes y año visualizados
     let selectedDate = new Date(); // Fecha real seleccionada
+
+    window.refreshMiniCalendar = function() {
+        if (calendarPopover.classList.contains('active')) {
+            renderCalendar();
+        }
+    };
 
     function renderCalendar() {
         calendarPopover.innerHTML = '';

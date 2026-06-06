@@ -46,7 +46,8 @@ class MockAPI {
             try {
                 const settingsRes = await fetch('../data/settings.json');
                 if (settingsRes.ok) {
-                    this.state.settings = await settingsRes.json();
+                    const loadedSettings = await settingsRes.json();
+                    this.state.settings = { ...this.state.settings, ...loadedSettings };
                 }
             } catch(e) {
                 console.log("Settings no encontradas, usando valores por defecto", e);
