@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Estado vacío inicial
     const emptyStateHTML = `
-        <div style="text-align: center; color: #94a3b8; width: 100%;">
+        <div style="text-align: center; color: #94a3b8; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px; opacity: 0.5;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            <h3 style="font-size: 1.1rem; color: #64748b;">No hay chat seleccionado</h3>
-            <p style="font-size: 0.9rem; margin-top: 8px;">Selecciona una conversación de la lista para leer los mensajes.</p>
+            <h3 style="font-size: 1.1rem; color: #64748b; margin: 0 0 8px 0;">No hay chat seleccionado</h3>
+            <p style="font-size: 0.9rem; margin: 0;">Selecciona una conversación de la lista para leer los mensajes.</p>
         </div>
     `;
 
@@ -215,12 +215,47 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(bubbleWrap);
     }
 
-    // Buscador
+    // Filtros y Buscador
+    let currentFilter = 'all';
+
+    const filterBtns = document.querySelectorAll('.cs-filter-btn');
+    if (filterBtns.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Quitar active de todos
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Añadir al clickeado
+                e.target.classList.add('active');
+
+                // Determinar filtro
+                if (e.target.textContent.trim() === 'Todas') {
+                    currentFilter = 'all';
+                } else if (e.target.textContent.trim() === 'Requieren Ayuda') {
+                    currentFilter = 'help';
+                }
+                
+                renderChatList(getFilteredChats());
+            });
+        });
+    }
+
     function getFilteredChats() {
-        if (!searchInput) return allChats;
-        const q = searchInput.value.toLowerCase().trim();
-        if (!q) return allChats;
-        return allChats.filter(c => c.client.name.toLowerCase().includes(q));
+        let filtered = allChats;
+
+        // Filtro por texto
+        if (searchInput) {
+            const q = searchInput.value.toLowerCase().trim();
+            if (q) {
+                filtered = filtered.filter(c => c.client.name.toLowerCase().includes(q));
+            }
+        }
+
+        // Filtro por estado (Todas / Requieren Ayuda)
+        if (currentFilter === 'help') {
+            filtered = filtered.filter(c => c.client.id === 902); // Mock: solo Ricardo Mendoza necesita ayuda
+        }
+
+        return filtered;
     }
 
     if (searchInput) {
@@ -246,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (resetView) {
                 activeChatId = null;
                 if (chatsMain) {
+                    chatsMain.style.cssText = ''; // Limpiar estilos inline
                     chatsMain.innerHTML = emptyStateHTML;
                 }
             }
