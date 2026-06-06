@@ -73,32 +73,57 @@ class MockAPI {
 
     _seedMockAppointments() {
         const now = new Date();
-        const yyyy = now.getFullYear();
-        const mm = String(now.getMonth() + 1).padStart(2, '0');
-        const dd = String(now.getDate()).padStart(2, '0');
-        const todayStr = `${yyyy}-${mm}-${dd}`;
+        
+        const getNextValidDate = (startDate, profObj) => {
+            let d = new Date(startDate);
+            const closedDays = this.state.settings?.closedDays || [0];
+            while (true) {
+                if (!closedDays.includes(d.getDay())) {
+                    if (!profObj || profObj.dayOff !== d.getDay()) {
+                        return d;
+                    }
+                }
+                d.setDate(d.getDate() + 1);
+            }
+        };
 
-        const tomorrow = new Date(now);
-        tomorrow.setDate(now.getDate() + 1);
-        const tm_mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
-        const tm_dd = String(tomorrow.getDate()).padStart(2, '0');
-        const tomorrowStr = `${yyyy}-${tm_mm}-${tm_dd}`;
+        const prof1Obj = this.state.team[0] || { name: "Dra. Laura Gómez", dayOff: 2 };
+        const prof2Obj = this.state.team[1] || { name: "Dr. Javier Ruiz", dayOff: 3 };
+        const myAgendaObj = { name: "Propietario", dayOff: 1 };
 
-        const prof1 = this.state.team[0]?.name || "Dra. Laura Gómez";
-        const prof2 = this.state.team[1]?.name || "Dr. Javier Ruiz";
-        const myAgenda = "Propietario";
+        const p1_date1 = getNextValidDate(now, prof1Obj);
+        const p1_date2 = getNextValidDate(new Date(p1_date1.getTime() + 86400000), prof1Obj);
+        
+        const p2_date1 = getNextValidDate(now, prof2Obj);
+        const p2_date2 = getNextValidDate(new Date(p2_date1.getTime() + 86400000), prof2Obj);
+        
+        const my_date1 = getNextValidDate(now, myAgendaObj);
+        const my_date2 = getNextValidDate(new Date(my_date1.getTime() + 86400000), myAgendaObj);
+
+        const formatD = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        const formatLabel = (d) => {
+            const today = new Date();
+            const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+            if (d.toDateString() === today.toDateString()) return "Hoy";
+            if (d.toDateString() === tomorrow.toDateString()) return "Mañana";
+            return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+        };
+
+        const prof1 = prof1Obj.name;
+        const prof2 = prof2Obj.name;
+        const myAgenda = myAgendaObj.name;
 
         const seedAppts = [
-            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: todayStr, formattedDate: "Hoy", time: "10:30", duration: 60, service: "Corte y Lavado", prof: prof1, status: "completed" },
-            { id: 102, clientId: 102, clientName: "Ana López", rawDate: todayStr, formattedDate: "Hoy", time: "12:00", duration: 90, service: "Coloración", prof: prof1, status: "pending" },
-            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: todayStr, formattedDate: "Hoy", time: "16:00", duration: 30, service: "Arreglo Barba", prof: prof2, status: "pending" },
-            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: tomorrowStr, formattedDate: "Mañana", time: "11:00", duration: 60, service: "Peinado", prof: prof1, status: "pending" },
-            { id: 105, clientId: 105, clientName: "David R.", rawDate: tomorrowStr, formattedDate: "Mañana", time: "13:30", duration: 30, service: "Corte Express", prof: prof2, status: "pending" },
+            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "10:30", duration: 60, service: "Corte y Lavado", prof: prof1, status: "completed" },
+            { id: 102, clientId: 102, clientName: "Ana López", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "12:00", duration: 90, service: "Coloración", prof: prof1, status: "pending" },
+            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: formatD(p2_date1), formattedDate: formatLabel(p2_date1), time: "16:00", duration: 30, service: "Arreglo Barba", prof: prof2, status: "pending" },
+            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: formatD(p1_date2), formattedDate: formatLabel(p1_date2), time: "11:00", duration: 60, service: "Peinado", prof: prof1, status: "pending" },
+            { id: 105, clientId: 105, clientName: "David R.", rawDate: formatD(p2_date2), formattedDate: formatLabel(p2_date2), time: "13:30", duration: 30, service: "Corte Express", prof: prof2, status: "pending" },
             
             // Mi Agenda appointments
-            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: todayStr, formattedDate: "Hoy", time: "11:30", duration: 45, service: "Revisión Equipo", prof: myAgenda, status: "pending" },
-            { id: 107, clientId: 107, clientName: "Elena V.", rawDate: todayStr, formattedDate: "Hoy", time: "17:00", duration: 60, service: "Entrevista Staff", prof: myAgenda, status: "pending" },
-            { id: 108, clientId: 108, clientName: "Admin", rawDate: tomorrowStr, formattedDate: "Mañana", time: "10:00", duration: 120, service: "Gestión Proveedores", prof: myAgenda, status: "completed" }
+            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", prof: myAgenda, status: "pending" },
+            { id: 107, clientId: 107, clientName: "Elena V.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:00", duration: 60, service: "Entrevista Staff", prof: myAgenda, status: "pending" },
+            { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", prof: myAgenda, status: "completed" }
         ];
 
         // Añadir estos clientes a la base de datos simulada para que salgan en la pestaña de clientes

@@ -824,16 +824,33 @@ document.addEventListener('DOMContentLoaded', () => {
             const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             
             const isPast = thisDayDate < todayStart;
-            const isClosed = window.BusinessSettings && window.BusinessSettings.closedDays.includes(thisDayDate.getDay());
+            let isClosed = window.BusinessSettings && window.BusinessSettings.closedDays.includes(thisDayDate.getDay());
+            let isDayOff = false;
 
-            if (isPast || isClosed) {
+            // Check professional day off
+            if (!isClosed && window.BusinessTeam && currentTargetInput) {
+                const modal = currentTargetInput.closest('.modal-container');
+                if (modal) {
+                    const selects = modal.querySelectorAll('.selected-value');
+                    const profName = selects.length > 2 ? selects[2].textContent.trim() : '';
+                    if (profName && profName !== 'Cualquier Disponible' && !profName.includes('Elige')) {
+                        const profObj = window.BusinessTeam.find(t => t.name === profName);
+                        if (profObj && profObj.dayOff === thisDayDate.getDay()) {
+                            isDayOff = true;
+                        }
+                    }
+                }
+            }
+
+            if (isPast || isClosed || isDayOff) {
                 dayDiv.classList.add('empty');
-                if (isClosed && !isPast) {
+                if ((isClosed || isDayOff) && !isPast) {
                     dayDiv.classList.add('closed-day');
                 } else {
                     dayDiv.style.opacity = '0.3';
                 }
                 if (isClosed) dayDiv.title = 'Día cerrado';
+                if (isDayOff) dayDiv.title = 'Día de descanso del profesional';
             } else {
                 dayDiv.onclick = (e) => {
                     e.stopPropagation();
@@ -978,11 +995,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', async () => {
     window.BusinessSettings = { closedDays: [0] }; // Default: Closed on Sunday
+    window.BusinessTeam = [];
     if (window.MockAPI) {
         try {
             window.BusinessSettings = await window.MockAPI.getSettings();
+            const team = await window.MockAPI.getTeam();
+            window.BusinessTeam = [{name: 'Propietario', dayOff: 1, lunchBreak: '14:00'}, ...team];
         } catch(e) {
-            console.error("Error fetching settings", e);
+            console.error("Error fetching settings or team", e);
         }
     }
 });
