@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (window.MockAPI) {
             await window.MockAPI.init();
             renderAbsencesList();
+            renderCalendar(); // Refrescar calendario con los datos cargados
+            updateVacationDaysRemaining(); // Actualizar contador de vacaciones
         } else {
             setTimeout(checkAPI, 50);
         }
@@ -62,8 +64,11 @@ function setupForm() {
             // Limpiar textarea opcional
             if (comentarios) comentarios.value = '';
             
-            // Recargar el calendario si hubiera lógica dinámica
-            // renderCalendar();
+            // Recargar el calendario para mostrar los nuevos días marcados
+            renderCalendar();
+            
+            // Actualizar el contador de días de vacaciones
+            updateVacationDaysRemaining();
         });
     }
 }
@@ -167,6 +172,37 @@ function renderCalendar() {
     const today = new Date();
     const isCurrentMonth = today.getMonth() === displayMonth && today.getFullYear() === displayYear;
 
+    // Pre-calcular fechas de ausencias
+    let absenceRanges = [];
+    if (window.MockAPI && window.MockAPI.state && window.MockAPI.state.absences) {
+        const parseDate = (dStr) => {
+            if (!dStr) return null;
+            if (dStr.includes('/')) {
+                const p = dStr.split('/');
+                if (p.length === 3) return new Date(p[2], parseInt(p[1])-1, p[0]);
+            }
+            const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+            const p = dStr.split(' ');
+            if (p.length >= 2) {
+                const d = parseInt(p[0]);
+                const mStr = p[1].toLowerCase();
+                let m = months.findIndex(x => mStr.startsWith(x));
+                const y = p.length >= 3 ? parseInt(p[2]) : new Date().getFullYear();
+                if (m !== -1 && !isNaN(d)) return new Date(y, m, d);
+            }
+            return null;
+        };
+
+        window.MockAPI.state.absences.forEach(abs => {
+            if (abs.status === 'Rechazada') return; // Ignorar rechazadas
+            const sDate = parseDate(abs.startDate);
+            const eDate = parseDate(abs.endDate) || sDate;
+            if (sDate && eDate) {
+                absenceRanges.push({ start: sDate.getTime(), end: eDate.getTime(), type: abs.type });
+            }
+        });
+    }
+
     // Días del mes actual
     for (let i = 1; i <= totalDays; i++) {
         const div = document.createElement('div');
@@ -180,6 +216,19 @@ function renderCalendar() {
         // Simular domingos como cerrados
         if (dayOfWeek === 0) {
             div.classList.add('cerrado');
+        }
+
+        // Marcar ausencias
+        const curTime = currentDayDate.getTime();
+        for (let r of absenceRanges) {
+            if (curTime >= r.start && curTime <= r.end) {
+                div.classList.add('vacas');
+                if (r.type.toLowerCase().includes('baja')) {
+                    div.style.backgroundColor = '#faeaea';
+                    div.style.color = '#b91c1c';
+                }
+                break;
+            }
         }
 
         // Marcar el día de hoy solo si es el mes actual
@@ -285,3 +334,63 @@ function renderAbsencesList() {
         listContainer.appendChild(item);
     });
 }
+
+
+function updateVacationDaysRemaining() {
+    const statNumber = document.querySelector('.card-purple-stats .stat-number');
+    if (!statNumber) return;
+
+    const parseDate = (dStr) => {
+        if (!dStr) return null;
+        if (dStr.includes('/')) {
+            const p = dStr.split('/');
+            if (p.length === 3) return new Date(p[2], parseInt(p[1])-1, p[0]);
+        }
+        const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+        const p = dStr.split(' ');
+        if (p.length >= 2) {
+            const d = parseInt(p[0]);
+            const mStr = p[1].toLowerCase();
+            let m = months.findIndex(x => mStr.startsWith(x));
+            const y = p.length >= 3 ? parseInt(p[2]) : new Date().getFullYear();
+            if (m !== -1 && !isNaN(d)) return new Date(y, m, d);
+        }
+        return null;
+    };
+
+    let totalVacationDaysTaken = 0;
+    const currentYear = new Date().getFullYear();
+
+    if (window.MockAPI && window.MockAPI.state && window.MockAPI.state.absences) {
+        window.MockAPI.state.absences.forEach(abs => {
+            if (abs.type === 'Vacaciones' && abs.status !== 'Rechazada') {
+                const sDate = parseDate(abs.startDate);
+                const eDate = parseDate(abs.endDate) || sDate;
+                
+                if (sDate && eDate) {
+                    // Iterar día por día para no contar los fines de semana
+                    let currentDate = new Date(sDate);
+                    currentDate.setHours(0,0,0,0);
+                    let endDate = new Date(eDate);
+                    endDate.setHours(0,0,0,0);
+                    
+                    while (currentDate <= endDate) {
+                        const dayOfWeek = currentDate.getDay();
+                        // Si no es sábado (6) ni domingo (0), cuenta como día gastado
+                        if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                            totalVacationDaysTaken++;
+                        }
+                        // Avanzar al siguiente día
+                        currentDate.setDate(currentDate.getDate() + 1);
+                    }
+                }
+            }
+        });
+    }
+
+    const totalAvailable = 22;
+    const remaining = totalAvailable - totalVacationDaysTaken;
+    
+    statNumber.textContent = remaining >= 0 ? remaining : 0;
+}
+
