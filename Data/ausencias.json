@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "profName": "Dra. Laura Gómez",
+    "type": "Vacaciones",
+    "startDate": "15 Ago 2026",
+    "endDate": "22 Ago 2026",
+    "comments": "Vacaciones Verano",
+    "status": "Aprobado"
+  },
+  {
+    "id": 2,
+    "profName": "Dra. Laura Gómez",
+    "type": "Baja Médica",
+    "startDate": "19 Oct 2026",
+    "endDate": "19 Oct 2026",
+    "comments": "Baja Médica (Gripe)",
+    "status": "Finalizado"
+  }
+]

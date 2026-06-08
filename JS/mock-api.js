@@ -9,6 +9,7 @@ class MockAPI {
             clients: [],
             team: [],
             appointments: [],
+            absences: [],
             settings: {
                 closedDays: [0], // 0 = Domingo
                 openHours: { start: '10:00', end: '19:00' } // 9 hours open
@@ -26,13 +27,15 @@ class MockAPI {
         
         try {
             // Cargar desde JSON estático
-            const clientsRes = await fetch('../data/clients.json');
-            const teamRes = await fetch('../data/team.json');
-            
-            if (!clientsRes.ok || !teamRes.ok) throw new Error("Error loading JSON data");
-            
-            this.state.clients = await clientsRes.json();
-            this.state.team = await teamRes.json();
+            try {
+                const clientsRes = await fetch('../data/clients.json');
+                if (clientsRes.ok) this.state.clients = await clientsRes.json();
+            } catch(e) { console.log("Error loading clients.json"); }
+
+            try {
+                const teamRes = await fetch('../data/team.json');
+                if (teamRes.ok) this.state.team = await teamRes.json();
+            } catch(e) { console.log("Error loading team.json"); }
             
             try {
                 const apptsRes = await fetch('../data/appointments.json');
@@ -41,6 +44,15 @@ class MockAPI {
                 }
             } catch(e) {
                 console.log("Error loading appointments.json", e);
+            }
+
+            try {
+                const absRes = await fetch('../data/ausencias.json');
+                if (absRes.ok) {
+                    this.state.absences = await absRes.json();
+                }
+            } catch(e) {
+                console.log("Error loading ausencias.json", e);
             }
 
             // Cargar ajustes si existe el archivo
@@ -301,6 +313,18 @@ class MockAPI {
         }
         
         return this.state.appointments[apptIndex];
+    }
+
+    async addAbsence(absenceData) {
+        await this.init();
+        await this._simulateDelay(500);
+        
+        const newAbsence = {
+            id: this.state.absences.length + 1,
+            ...absenceData
+        };
+        this.state.absences.push(newAbsence);
+        return newAbsence;
     }
 
     async addAppointment(clientQuery, apptData) {

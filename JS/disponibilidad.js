@@ -2,13 +2,92 @@ let currentDateObj = new Date();
 let displayMonth = currentDateObj.getMonth();
 let displayYear = currentDateObj.getFullYear();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     initCalendar();
     setupCalendarNavigation();
     setupDatePickers();
+    setupForm();
+    
+    // Cargar inicial: Esperar a que app.js inicialice MockAPI
+    const checkAPI = async () => {
+        if (window.MockAPI) {
+            await window.MockAPI.init();
+            renderAbsencesList();
+        } else {
+            setTimeout(checkAPI, 50);
+        }
+    };
+    checkAPI();
 });
 
+function setupForm() {
+    const btnGuardar = document.querySelector('.btn-guardar-disp');
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', async () => {
+            const tipoAusencia = document.getElementById('tipo-ausencia');
+            const desdeInput = document.getElementById('desde-input');
+            const hastaInput = document.getElementById('hasta-input');
+            const comentarios = document.querySelector('.disp-textarea');
+
+            // Simular botón cargando
+            const originalText = btnGuardar.innerHTML;
+            btnGuardar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite; margin-right: 8px;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg> Guardando...';
+            btnGuardar.disabled = true;
+
+            const nuevaAusencia = {
+                profName: "Profesional Actual", // En un entorno real se obtendría del estado
+                type: tipoAusencia ? tipoAusencia.value : 'Vacaciones',
+                startDate: desdeInput ? desdeInput.value : '',
+                endDate: hastaInput ? hastaInput.value : '',
+                comments: comentarios ? comentarios.value : ''
+            };
+
+            // Guardar en la DB simulada (MockAPI)
+            if (window.MockAPI) {
+                await window.MockAPI.addAbsence(nuevaAusencia);
+            }
+
+            // Mostrar toast de éxito
+            if (window.showToast) {
+                window.showToast('¡Guardado!', 'La ausencia se ha registrado correctamente.', 'success');
+            }
+
+            // Actualizar la lista en tiempo real
+            renderAbsencesList();
+
+            // Restaurar botón
+            btnGuardar.innerHTML = originalText;
+            btnGuardar.disabled = false;
+
+            // Limpiar textarea opcional
+            if (comentarios) comentarios.value = '';
+            
+            // Recargar el calendario si hubiera lógica dinámica
+            // renderCalendar();
+        });
+    }
+}
+
 function setupDatePickers() {
+    const desdeInput = document.getElementById('desde-input');
+    const hastaInput = document.getElementById('hasta-input');
+
+    if (desdeInput && hastaInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowD = tomorrow.getDate().toString().padStart(2, '0');
+        const tomorrowM = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+        const tomorrowY = tomorrow.getFullYear();
+        desdeInput.value = `${tomorrowD}/${tomorrowM}/${tomorrowY}`;
+
+        const dayAfter = new Date();
+        dayAfter.setDate(dayAfter.getDate() + 2);
+        const dayAfterD = dayAfter.getDate().toString().padStart(2, '0');
+        const dayAfterM = (dayAfter.getMonth() + 1).toString().padStart(2, '0');
+        const dayAfterY = dayAfter.getFullYear();
+        hastaInput.value = `${dayAfterD}/${dayAfterM}/${dayAfterY}`;
+    }
+
     const inputs = document.querySelectorAll('.date-picker-input');
     inputs.forEach(input => {
         if (window.attachMiniCalendar) {
@@ -102,11 +181,6 @@ function renderCalendar() {
         if (dayOfWeek === 0) {
             div.classList.add('cerrado');
         }
-        
-        // Mantener algunos días de vacaciones para el prototipo
-        if (i === 10 || i === 11 || i === 12) {
-            div.classList.add('vacas');
-        }
 
         // Marcar el día de hoy solo si es el mes actual
         if (isCurrentMonth && i === today.getDate()) {
@@ -130,4 +204,84 @@ function renderCalendar() {
         // Evitar que pase de 6 filas (42 días)
         if (calendarGrid.children.length - 7 >= 42) break;
     }
+}
+
+function renderAbsencesList() {
+    const listContainer = document.querySelector('.solicitud-list');
+    if (!listContainer) return;
+
+    // Actualizar estilo del título para que coincida con el diseño (ÚLTIMAS SOLICITUDES)
+    const cardTitle = listContainer.closest('.disp-card')?.querySelector('.card-title-small');
+    if (cardTitle) {
+        cardTitle.textContent = 'ÚLTIMAS SOLICITUDES';
+        cardTitle.style.textTransform = 'uppercase';
+        cardTitle.style.color = '#006064';
+        cardTitle.style.letterSpacing = '1px';
+        cardTitle.style.fontWeight = '700';
+        cardTitle.style.fontSize = '0.9rem';
+        cardTitle.style.marginBottom = '24px';
+    }
+
+    if (!window.MockAPI || !window.MockAPI.state.absences || window.MockAPI.state.absences.length === 0) {
+        listContainer.innerHTML = `
+            <div style="padding: 32px 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+                No hay solicitudes recientes
+            </div>
+        `;
+        return;
+    }
+
+    listContainer.innerHTML = '';
+    const absences = window.MockAPI.state.absences.slice().reverse(); // Mostrar las más recientes primero
+
+    const formatNiceDate = (dateStr) => {
+        if (!dateStr) return '';
+        // Si ya tiene letras (como "15 Ago 2026"), lo dejamos
+        if (/[a-zA-Z]/.test(dateStr)) return dateStr;
+        
+        // Si es formato DD/MM/YYYY
+        const parts = dateStr.split('/');
+        if (parts.length === 3) {
+            const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            const monthIndex = parseInt(parts[1], 10) - 1;
+            const monthStr = months[monthIndex] || parts[1];
+            return `${parts[0]} ${monthStr} ${parts[2]}`;
+        }
+        return dateStr;
+    };
+
+    absences.forEach(abs => {
+        const item = document.createElement('div');
+        item.style.cssText = "display: flex; align-items: center; gap: 16px; margin-bottom: 24px;";
+        
+        let iconHtml = '';
+        let iconBgColor = '';
+        let iconColor = '';
+        let isMedical = abs.type.toLowerCase().includes('baja');
+
+        if (isMedical) {
+            iconBgColor = '#faeaea'; // Fondo rojo claro
+            iconColor = '#b91c1c'; // Icono rojo oscuro
+            iconHtml = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>`;
+        } else {
+            iconBgColor = '#e6f3f0'; // Fondo teal claro
+            iconColor = '#006064'; // Icono teal oscuro
+            iconHtml = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+        }
+
+        let titleText = abs.comments ? abs.comments : abs.type;
+        let niceStart = formatNiceDate(abs.startDate);
+        let niceEnd = formatNiceDate(abs.endDate);
+        
+        item.innerHTML = `
+            <div style="width: 48px; height: 48px; border-radius: 14px; background-color: ${iconBgColor}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                ${iconHtml}
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+                <span style="font-size: 1rem; font-weight: 700; color: #1e293b;">${titleText}</span>
+                <span style="font-size: 0.85rem; color: #64748b;">${abs.status || 'Pendiente'} &bull; ${niceStart} - ${niceEnd}</span>
+            </div>
+        `;
+        listContainer.appendChild(item);
+    });
 }

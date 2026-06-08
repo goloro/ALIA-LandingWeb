@@ -785,10 +785,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const header = document.createElement('div');
         header.className = 'mc-header';
         
+        const today = new Date();
+
         const prevBtn = document.createElement('button');
         prevBtn.className = 'mc-btn';
         prevBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>';
-        prevBtn.onclick = (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); };
+        
+        // Bloquear ir a meses en el pasado si estamos en el actual
+        if (currentDate.getFullYear() === today.getFullYear() && currentDate.getMonth() === today.getMonth()) {
+            prevBtn.style.opacity = '0.3';
+            prevBtn.style.cursor = 'default';
+        } else {
+            prevBtn.onclick = (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); };
+        }
         
         const monthYear = document.createElement('div');
         monthYear.className = 'mc-month-year';
@@ -834,8 +843,6 @@ document.addEventListener('DOMContentLoaded', () => {
             daysGrid.appendChild(empty);
         }
 
-        const today = new Date();
-
         // Actual days
         for (let i = 1; i <= daysInMonth; i++) {
             const dayDiv = document.createElement('div');
@@ -854,8 +861,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Disable past days AND closed days
             const thisDayDate = new Date(year, month, i);
-            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            let todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             
+            // Si hay un input de referencia para la fecha mínima
+            if (currentTargetInput) {
+                if (currentTargetInput.hasAttribute('data-disable-today')) {
+                    // Mover la fecha de inicio a mañana para bloquear hoy
+                    todayStart.setDate(todayStart.getDate() + 1);
+                }
+
+                const minDateSelector = currentTargetInput.getAttribute('data-min-date-input');
+                if (minDateSelector) {
+                    const minInput = document.querySelector(minDateSelector);
+                    if (minInput && minInput.value && minInput.value.includes('/')) {
+                        const parts = minInput.value.split('/');
+                        if (parts.length === 3) {
+                            const minDateVal = new Date(parts[2], parseInt(parts[1]) - 1, parts[0]);
+                            if (minDateVal > todayStart) todayStart = minDateVal;
+                        }
+                    }
+                }
+            }
+
             const isPast = thisDayDate < todayStart;
             let isClosed = window.BusinessSettings && window.BusinessSettings.closedDays.includes(thisDayDate.getDay());
             let isDayOff = false;
