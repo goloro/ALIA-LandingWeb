@@ -5,7 +5,17 @@ let displayYear = currentDateObj.getFullYear();
 document.addEventListener('DOMContentLoaded', () => {
     initCalendar();
     setupCalendarNavigation();
+    setupDatePickers();
 });
+
+function setupDatePickers() {
+    const inputs = document.querySelectorAll('.date-picker-input');
+    inputs.forEach(input => {
+        if (window.attachMiniCalendar) {
+            window.attachMiniCalendar(input);
+        }
+    });
+}
 
 function setupCalendarNavigation() {
     const navBtns = document.querySelectorAll('.cal-nav-btn');
