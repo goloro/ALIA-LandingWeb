@@ -31,6 +31,45 @@ function setupForm() {
             const hastaInput = document.getElementById('hasta-input');
             const comentarios = document.querySelector('.disp-textarea');
 
+            // --- VALIDACIÓN DE SOLAPAMIENTO ---
+            const parseDateLocal = (dStr) => {
+                if (!dStr) return null;
+                if (dStr.includes('/')) {
+                    const p = dStr.split('/');
+                    if (p.length === 3) return new Date(p[2], parseInt(p[1])-1, p[0]);
+                }
+                const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+                const p = dStr.split(' ');
+                if (p.length >= 2) {
+                    const d = parseInt(p[0]);
+                    const mStr = p[1].toLowerCase();
+                    let m = months.findIndex(x => mStr.startsWith(x));
+                    const y = p.length >= 3 ? parseInt(p[2]) : new Date().getFullYear();
+                    if (m !== -1 && !isNaN(d)) return new Date(y, m, d);
+                }
+                return null;
+            };
+
+            const newStart = parseDateLocal(desdeInput ? desdeInput.value : '');
+            const newEnd = parseDateLocal(hastaInput ? hastaInput.value : '');
+
+            if (newStart && newEnd && window.MockAPI && window.MockAPI.state && window.MockAPI.state.absences) {
+                const hasOverlap = window.MockAPI.state.absences.some(abs => {
+                    if (abs.status === 'Rechazada') return false;
+                    const eStart = parseDateLocal(abs.startDate);
+                    const eEnd = parseDateLocal(abs.endDate) || eStart;
+                    if (!eStart || !eEnd) return false;
+                    // Si las fechas se cruzan en cualquier punto
+                    return (newStart <= eEnd && newEnd >= eStart);
+                });
+
+                if (hasOverlap) {
+                    if (window.showToast) window.showToast('Fechas no válidas', 'Ya existe una ausencia registrada que coincide con estos días.', 'error');
+                    return; // Abortar guardado
+                }
+            }
+            // ----------------------------------
+
             // Simular botón cargando
             const originalText = btnGuardar.innerHTML;
             btnGuardar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite; margin-right: 8px;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg> Guardando...';
