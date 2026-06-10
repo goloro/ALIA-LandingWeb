@@ -338,9 +338,24 @@ function renderCalendar() {
             }
         }
 
-        // Aplicar estilos según prioridad: Cerrado > Baja Médica > Vacaciones
+        // Obtener el día de libranza del profesional actual (por defecto 1 = Lunes para Propietario)
+        let dayOff = -1;
+        if (window.BusinessTeam && window.BusinessTeam.length > 0) {
+            // Asumimos el primer elemento del equipo como el usuario actual para la demo
+            dayOff = window.BusinessTeam[0].dayOff;
+        } else {
+            dayOff = 1; // Fallback al Lunes
+        }
+        
+        const isLibranza = dayOfWeek === dayOff;
+
+        // Aplicar estilos según prioridad: Cerrado > Libranza > Baja Médica > Vacaciones
         if (dayOfWeek === 0) { // Domingo = Negocio Cerrado
             div.classList.add('cerrado');
+        } else if (isLibranza) { // Día de libranza
+            div.classList.add('libranza');
+            div.style.backgroundColor = '#f1f5f9'; // gris claro
+            div.style.color = '#64748b'; // texto gris oscuro
         } else if (isBaja) {
             div.classList.add('vacas');
             div.style.backgroundColor = '#fef3c7';
