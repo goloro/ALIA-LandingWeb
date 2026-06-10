@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (window.MockAPI) {
             await window.MockAPI.init();
             renderAbsencesList();
+            if (typeof renderProfessionalAbsences === 'function') renderProfessionalAbsences();
             renderCalendar(); // Refrescar calendario con los datos cargados
             updateVacationDaysRemaining(); // Actualizar contador de vacaciones
         } else {
@@ -96,6 +97,7 @@ function setupForm() {
 
             // Actualizar la lista en tiempo real
             renderAbsencesList();
+            if (typeof renderProfessionalAbsences === 'function') renderProfessionalAbsences();
 
             // Restaurar botón
             btnGuardar.innerHTML = originalText;
@@ -467,6 +469,243 @@ function renderAbsencesList() {
             </div>
         `;
         listContainer.appendChild(item);
+    });
+}
+
+function renderProfessionalAbsences() {
+    const tableBody = document.querySelector('.disp-table tbody');
+    if (!tableBody) return;
+
+    if (!window.MockAPI || !window.MockAPI.state.absences) return;
+
+    // Filtrar las que no son del Propietario y están en estado Pendiente
+    const profAbsences = window.MockAPI.state.absences.filter(a => a.profName !== 'Propietario' && a.status === 'Pendiente');
+    
+    if (profAbsences.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 48px 0; color: #64748b;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        <span style="font-size: 1rem; font-weight: 500;">No hay solicitudes de ausencia</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+        const footer = document.querySelector('.disp-table-footer');
+        if (footer) footer.innerHTML = `Mostrando <strong>0</strong> solicitudes`;
+        return;
+    }
+
+    tableBody.innerHTML = '';
+
+    const formatNiceDate = (dateStr) => {
+        if (!dateStr) return '';
+        if (/[a-zA-Z]/.test(dateStr)) return dateStr;
+        const parts = dateStr.split('/');
+        if (parts.length === 3) {
+            const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            const monthIndex = parseInt(parts[1], 10) - 1;
+            const monthStr = months[monthIndex] || parts[1];
+            return `${parts[0]} ${monthStr} ${parts[2]}`;
+        }
+        return dateStr;
+    };
+
+    profAbsences.forEach(abs => {
+        const isMedical = abs.type.toLowerCase().includes('baja');
+        let iconHtml = isMedical 
+            ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>`
+            : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#006064" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+
+        let statusPill = '';
+        if (abs.status === 'Aprobado') {
+            statusPill = `<span style="display:inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; background-color: #dcfce7; color: #166534;">Aprobado</span>`;
+        } else if (abs.status === 'Pendiente') {
+            statusPill = `<span style="display:inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; background-color: #fef9c3; color: #854d0e;">Pendiente</span>`;
+        } else {
+            statusPill = `<span style="display:inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; background-color: #fee2e2; color: #991b1b;">${abs.status || 'Rechazada'}</span>`;
+        }
+
+        let avatarContent = `<div style="width: 32px; height: 32px; border-radius: 50%; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #475569;">
+            ${abs.profName.charAt(0)}
+        </div>`;
+
+        let profImage = null;
+        if (window.BusinessTeam) {
+            const prof = window.BusinessTeam.find(p => p.name === abs.profName);
+            if (prof && prof.avatarUrl) profImage = prof.avatarUrl;
+        }
+        if (!profImage && window.MockAPI && window.MockAPI.state && window.MockAPI.state.team) {
+            const prof = window.MockAPI.state.team.find(p => p.name === abs.profName);
+            if (prof && prof.avatarUrl) profImage = prof.avatarUrl;
+        }
+
+        if (profImage) {
+            avatarContent = `<img src="${profImage}" alt="${abs.profName}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">`;
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    ${avatarContent}
+                    <span style="font-weight: 500; color: #1e293b;">${abs.profName}</span>
+                </div>
+            </td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    ${iconHtml}
+                    <span>${abs.type}</span>
+                </div>
+            </td>
+            <td style="color: #64748b;">
+                ${formatNiceDate(abs.startDate)} - ${formatNiceDate(abs.endDate)}
+            </td>
+            <td>
+                ${statusPill}
+            </td>
+            <td>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn-icon-disp action-btn-approve" data-id="${abs.id}" data-name="${abs.profName}" data-type="${abs.type}" title="Aprobar" style="background: none; border: none; cursor: pointer; color: #10b981; padding: 4px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
+                    <button class="btn-icon-disp action-btn-reject" data-id="${abs.id}" data-name="${abs.profName}" data-type="${abs.type}" title="Rechazar" style="background: none; border: none; cursor: pointer; color: #ef4444; padding: 4px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                </div>
+            </td>
+        `;
+        tableBody.appendChild(tr);
+    });
+
+    const footer = document.querySelector('.disp-table-footer');
+    if (footer) footer.innerHTML = `Mostrando <strong>${profAbsences.length}</strong> solicitudes`;
+
+    // Añadir event listeners a los botones de aprobar y rechazar
+    document.querySelectorAll('.action-btn-approve').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.getAttribute('data-id'));
+            const name = btn.getAttribute('data-name');
+            const type = btn.getAttribute('data-type');
+            showConfirmModal(id, 'Aprobado', name, type);
+        });
+    });
+
+    document.querySelectorAll('.action-btn-reject').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.getAttribute('data-id'));
+            const name = btn.getAttribute('data-name');
+            const type = btn.getAttribute('data-type');
+            showConfirmModal(id, 'Rechazada', name, type);
+        });
+    });
+}
+
+function showConfirmModal(absId, newStatus, profName, absType) {
+    const existingModal = document.getElementById('confirm-action-modal');
+    if (existingModal) existingModal.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'confirm-action-modal';
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.backgroundColor = 'rgba(15, 23, 42, 0.6)';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.zIndex = '9999';
+
+    const actionText = newStatus === 'Aprobado' ? 'aprobar' : 'rechazar';
+    const titleText = newStatus === 'Aprobado' ? '¿Aprobar solicitud?' : '¿Rechazar solicitud?';
+    const btnText = newStatus === 'Aprobado' ? 'Sí, Aprobar' : 'Sí, Rechazar';
+    
+    // Iconos limpios (sin fondo circular)
+    const iconHtml = newStatus === 'Aprobado' 
+        ? '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' 
+        : '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+
+    const modal = document.createElement('div');
+    modal.style.backgroundColor = '#ffffff';
+    modal.style.borderRadius = '20px';
+    modal.style.padding = '40px 32px';
+    modal.style.width = '90%';
+    modal.style.maxWidth = '380px';
+    modal.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)';
+    modal.style.textAlign = 'center';
+
+    modal.innerHTML = `
+        ${iconHtml}
+        <h3 style="margin: 0 0 12px 0; font-size: 1.25rem; color: #0f172a; font-weight: 700;">${titleText}</h3>
+        <p style="margin: 0 0 32px 0; color: #64748b; font-size: 0.85rem; line-height: 1.5; padding: 0 10px;">
+            Estás a punto de ${actionText} la solicitud de ${absType} de ${profName}. ¿Deseas continuar?
+        </p>
+        <div style="display: flex; gap: 24px; justify-content: center; align-items: center;">
+            <button id="btn-cancel-action" style="background: transparent; border: none; color: #0097a7; font-weight: 700; font-size: 0.9rem; cursor: pointer; padding: 10px;">Cancelar</button>
+            <button id="btn-confirm-action" style="padding: 12px 32px; border-radius: 9999px; border: none; background: linear-gradient(135deg, #159EBA 0%, #0097a7 100%); color: #ffffff; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0, 151, 167, 0.2), 0 2px 4px -1px rgba(0, 151, 167, 0.1); transition: transform 0.2s;">${btnText}</button>
+        </div>
+    `;
+
+    overlay.appendChild(modal);
+
+    const portalContainer = document.querySelector('.portal-container');
+    if (portalContainer) {
+        if (window.getComputedStyle(portalContainer).position === 'static') {
+            portalContainer.style.position = 'relative';
+        }
+        overlay.style.position = 'absolute';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.borderRadius = window.getComputedStyle(portalContainer).borderRadius;
+        portalContainer.appendChild(overlay);
+    } else {
+        document.body.appendChild(overlay);
+    }
+
+    document.getElementById('btn-cancel-action').addEventListener('click', () => {
+        overlay.remove();
+    });
+
+    document.getElementById('btn-confirm-action').addEventListener('click', () => {
+        if (window.MockAPI && window.MockAPI.state && window.MockAPI.state.absences) {
+            const absIndex = window.MockAPI.state.absences.findIndex(a => a.id === absId);
+            if (absIndex !== -1) {
+                window.MockAPI.state.absences[absIndex].status = newStatus;
+            }
+        }
+        
+        overlay.remove();
+        
+        if (typeof renderProfessionalAbsences === 'function') renderProfessionalAbsences();
+        
+        // Mostrar notificación toast
+        if (window.showToast) {
+            const title = newStatus === 'Aprobado' ? 'Solicitud Aprobada' : 'Solicitud Rechazada';
+            const msg = `La solicitud de ${absType.toLowerCase()} de ${profName} ha sido ${newStatus === 'Aprobado' ? 'aprobada' : 'rechazada'}.`;
+            const type = newStatus === 'Aprobado' ? 'success' : 'error';
+            window.showToast(title, msg, type);
+        } else {
+            // Fallback nativo por si acaso
+            const alertBg = newStatus === 'Aprobado' ? '#10b981' : '#ef4444';
+            const nativeToast = document.createElement('div');
+            nativeToast.style.position = 'fixed';
+            nativeToast.style.bottom = '24px';
+            nativeToast.style.right = '24px';
+            nativeToast.style.backgroundColor = alertBg;
+            nativeToast.style.color = '#ffffff';
+            nativeToast.style.padding = '16px 24px';
+            nativeToast.style.borderRadius = '8px';
+            nativeToast.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+            nativeToast.style.fontWeight = '600';
+            nativeToast.style.zIndex = '99999';
+            nativeToast.style.transition = 'opacity 0.3s ease';
+            nativeToast.textContent = `La solicitud de ${profName} ha sido ${newStatus === 'Aprobado' ? 'aprobada' : 'rechazada'}`;
+            
+            document.body.appendChild(nativeToast);
+            setTimeout(() => {
+                nativeToast.style.opacity = '0';
+                setTimeout(() => nativeToast.remove(), 300);
+            }, 3000);
+        }
     });
 }
 function updateVacationDaysRemaining() {
