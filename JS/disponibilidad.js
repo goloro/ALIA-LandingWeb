@@ -198,6 +198,40 @@ function changeMonth(direction) {
         displayYear++;
     }
     renderCalendar();
+
+    // Sincronizar fechas del formulario con el nuevo mes
+    const desdeInput = document.getElementById('desde-input');
+    const hastaInput = document.getElementById('hasta-input');
+    
+    if (desdeInput && hastaInput) {
+        const today = new Date();
+        const isCurrentMonth = displayMonth === today.getMonth() && displayYear === today.getFullYear();
+        
+        if (isCurrentMonth) {
+            // Si volvemos al mes actual, poner mañana y pasado mañana
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const d1 = tomorrow.getDate().toString().padStart(2, '0');
+            const m1 = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+            const y1 = tomorrow.getFullYear();
+            
+            const dayAfterTomorrow = new Date(today);
+            dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+            const d2 = dayAfterTomorrow.getDate().toString().padStart(2, '0');
+            const m2 = (dayAfterTomorrow.getMonth() + 1).toString().padStart(2, '0');
+            const y2 = dayAfterTomorrow.getFullYear();
+            
+            desdeInput.value = `${d1}/${m1}/${y1}`;
+            hastaInput.value = `${d2}/${m2}/${y2}`;
+        } else {
+            // Si es un mes distinto, poner el día 01 y 02
+            const mStr = (displayMonth + 1).toString().padStart(2, '0');
+            const yStr = displayYear;
+            
+            desdeInput.value = `01/${mStr}/${yStr}`;
+            hastaInput.value = `02/${mStr}/${yStr}`;
+        }
+    }
 }
 
 function initCalendar() {
