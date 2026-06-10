@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "profName": "Dra. Laura Gómez",
+    "profName": "Propietario",
     "type": "Vacaciones",
     "startDate": "15 Ago 2026",
     "endDate": "22 Ago 2026",
@@ -10,11 +10,38 @@
   },
   {
     "id": 2,
-    "profName": "Dra. Laura Gómez",
+    "profName": "Propietario",
     "type": "Baja Médica",
     "startDate": "12 Feb 2026",
     "endDate": "14 Feb 2026",
     "comments": "Baja Médica",
     "status": "Aprobado"
+  },
+  {
+    "id": 3,
+    "profName": "Dr. Javier Ruiz",
+    "type": "Vacaciones",
+    "startDate": "05 Oct 2026",
+    "endDate": "12 Oct 2026",
+    "comments": "Viaje familiar",
+    "status": "Aprobado"
+  },
+  {
+    "id": 4,
+    "profName": "Dr. Javier Ruiz",
+    "type": "Baja Médica",
+    "startDate": "20 May 2026",
+    "endDate": "23 May 2026",
+    "comments": "Gripe",
+    "status": "Pendiente"
+  },
+  {
+    "id": 5,
+    "profName": "Dra. Laura Gómez",
+    "type": "Vacaciones",
+    "startDate": "24 Dic 2026",
+    "endDate": "02 Ene 2027",
+    "comments": "Vacaciones de Navidad",
+    "status": "Pendiente"
   }
 ]

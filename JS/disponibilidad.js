@@ -415,41 +415,8 @@ function renderAbsencesList() {
 
     listContainer.innerHTML = '';
     
-    const parseDateLocalList = (dStr) => {
-        if (!dStr) return null;
-        if (dStr.includes('/')) {
-            const p = dStr.split('/');
-            if (p.length === 3) return new Date(p[2], parseInt(p[1])-1, p[0]);
-        }
-        const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-        const p = dStr.split(' ');
-        if (p.length >= 2) {
-            const d = parseInt(p[0]);
-            const mStr = p[1].toLowerCase();
-            let m = months.findIndex(x => mStr.startsWith(x));
-            const y = p.length >= 3 ? parseInt(p[2]) : new Date().getFullYear();
-            if (m !== -1 && !isNaN(d)) return new Date(y, m, d);
-        }
-        return null;
-    };
-
-    const todayList = new Date();
-    todayList.setHours(0,0,0,0);
-
-    const mappedAbsences = window.MockAPI.state.absences.map(abs => {
-        const d = parseDateLocalList(abs.startDate) || new Date();
-        return { ...abs, parsedDate: d };
-    });
-
-    const upcoming = mappedAbsences.filter(a => a.parsedDate >= todayList);
-    const past = mappedAbsences.filter(a => a.parsedDate < todayList);
-
-    // Próximas: más pronto primero
-    upcoming.sort((a, b) => a.parsedDate - b.parsedDate);
-    // Pasadas: más reciente pasado primero
-    past.sort((a, b) => b.parsedDate - a.parsedDate);
-
-    const absences = [...upcoming, ...past];
+    // Mostrar las más recientes (últimas añadidas) primero
+    const absences = window.MockAPI.state.absences.slice().reverse();
 
     const formatNiceDate = (dateStr) => {
         if (!dateStr) return '';
@@ -530,13 +497,19 @@ function updateVacationDaysRemaining() {
     const currentYear = new Date().getFullYear();
 
     if (window.MockAPI && window.MockAPI.state && window.MockAPI.state.absences) {
+        let dayOff = -1;
+        if (window.BusinessTeam && window.BusinessTeam.length > 0) {
+            dayOff = window.BusinessTeam[0].dayOff;
+        } else {
+            dayOff = 1;
+        }
+
         window.MockAPI.state.absences.forEach(abs => {
             if (abs.type === 'Vacaciones' && abs.status !== 'Rechazada') {
                 const sDate = parseDate(abs.startDate);
                 const eDate = parseDate(abs.endDate) || sDate;
                 
                 if (sDate && eDate) {
-                    // Iterar día por día para no contar los fines de semana
                     let currentDate = new Date(sDate);
                     currentDate.setHours(0,0,0,0);
                     let endDate = new Date(eDate);
@@ -544,11 +517,29 @@ function updateVacationDaysRemaining() {
                     
                     while (currentDate <= endDate) {
                         const dayOfWeek = currentDate.getDay();
-                        // Si no es sábado (6) ni domingo (0), cuenta como día gastado
-                        if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                        
+                        // Comprobar si hay baja médica en este día
+                        let isBaja = false;
+                        const curTime = currentDate.getTime();
+                        window.MockAPI.state.absences.forEach(bajaAbs => {
+                            if (bajaAbs.type.toLowerCase().includes('baja') && bajaAbs.status !== 'Rechazada') {
+                                const bStart = parseDate(bajaAbs.startDate);
+                                const bEnd = parseDate(bajaAbs.endDate) || bStart;
+                                if (bStart && bEnd) {
+                                    const bStartTime = bStart.getTime();
+                                    const bEndTime = bEnd.getTime();
+                                    if (curTime >= bStartTime && curTime <= bEndTime) {
+                                        isBaja = true;
+                                    }
+                                }
+                            }
+                        });
+
+                        // Cuenta como día verde (vacaciones) si NO es domingo, NO es libranza y NO es baja médica
+                        if (dayOfWeek !== 0 && dayOfWeek !== dayOff && !isBaja) {
                             totalVacationDaysTaken++;
                         }
-                        // Avanzar al siguiente día
+                        
                         currentDate.setDate(currentDate.getDate() + 1);
                     }
                 }
