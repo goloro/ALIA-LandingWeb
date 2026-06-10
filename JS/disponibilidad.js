@@ -394,18 +394,7 @@ function renderAbsencesList() {
     const listContainer = document.querySelector('.solicitud-list');
     if (!listContainer) return;
 
-    // Actualizar estilo del título para que coincida con el diseño (ÚLTIMAS SOLICITUDES)
-    const cardTitle = listContainer.closest('.disp-card')?.querySelector('.card-title-small');
-    if (cardTitle) {
-        cardTitle.textContent = 'ÚLTIMAS SOLICITUDES';
-        cardTitle.style.textTransform = 'uppercase';
-        cardTitle.style.color = '#006064';
-        cardTitle.style.letterSpacing = '1px';
-        cardTitle.style.fontWeight = '700';
-        cardTitle.style.fontSize = '0.9rem';
-        cardTitle.style.marginBottom = '24px';
-    }
-
+    // Se eliminó el override de estilo para Últimas Solicitudes para que mantenga el estilo base
     if (!window.MockAPI || !window.MockAPI.state.absences || window.MockAPI.state.absences.length === 0) {
         listContainer.innerHTML = `
             <div style="padding: 32px 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
