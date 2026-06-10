@@ -26,7 +26,7 @@ function setupForm() {
     const btnGuardar = document.querySelector('.btn-guardar-disp');
     if (btnGuardar) {
         btnGuardar.addEventListener('click', async () => {
-            const tipoAusencia = document.getElementById('tipo-ausencia');
+            const tipoAusenciaSpan = document.querySelector('#tipo-ausencia').parentElement.querySelector('.selected-value');
             const desdeInput = document.getElementById('desde-input');
             const hastaInput = document.getElementById('hasta-input');
             const comentarios = document.querySelector('.disp-textarea');
@@ -38,10 +38,11 @@ function setupForm() {
 
             const nuevaAusencia = {
                 profName: "Profesional Actual", // En un entorno real se obtendría del estado
-                type: tipoAusencia ? tipoAusencia.value : 'Vacaciones',
+                type: tipoAusenciaSpan ? tipoAusenciaSpan.textContent.trim() : 'Vacaciones',
                 startDate: desdeInput ? desdeInput.value : '',
                 endDate: hastaInput ? hastaInput.value : '',
-                comments: comentarios ? comentarios.value : ''
+                comments: comentarios ? comentarios.value : '',
+                status: 'Aprobado'
             };
 
             // Guardar en la DB simulada (MockAPI)
@@ -91,6 +92,45 @@ function setupDatePickers() {
         const dayAfterM = (dayAfter.getMonth() + 1).toString().padStart(2, '0');
         const dayAfterY = dayAfter.getFullYear();
         hastaInput.value = `${dayAfterD}/${dayAfterM}/${dayAfterY}`;
+
+        const parseDateLocal = (dStr) => {
+            if (!dStr) return null;
+            if (dStr.includes('/')) {
+                const p = dStr.split('/');
+                if (p.length === 3) return new Date(p[2], parseInt(p[1])-1, p[0]);
+            }
+            return null;
+        };
+
+        const ensureValidDates = (changed) => {
+            const startD = parseDateLocal(desdeInput.value);
+            const endD = parseDateLocal(hastaInput.value);
+            
+            if (startD && endD) {
+                if (endD < startD) {
+                    if (changed === 'desde') {
+                        const nextDay = new Date(startD);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        const d = nextDay.getDate().toString().padStart(2, '0');
+                        const m = (nextDay.getMonth() + 1).toString().padStart(2, '0');
+                        const y = nextDay.getFullYear();
+                        hastaInput.value = `${d}/${m}/${y}`;
+                    } else if (changed === 'hasta') {
+                        const prevDay = new Date(endD);
+                        prevDay.setDate(prevDay.getDate() - 1);
+                        const d = prevDay.getDate().toString().padStart(2, '0');
+                        const m = (prevDay.getMonth() + 1).toString().padStart(2, '0');
+                        const y = prevDay.getFullYear();
+                        desdeInput.value = `${d}/${m}/${y}`;
+                    }
+                }
+            }
+        };
+
+        desdeInput.addEventListener('change', () => ensureValidDates('desde'));
+        desdeInput.addEventListener('blur', () => ensureValidDates('desde'));
+        hastaInput.addEventListener('change', () => ensureValidDates('hasta'));
+        hastaInput.addEventListener('blur', () => ensureValidDates('hasta'));
     }
 
     const inputs = document.querySelectorAll('.date-picker-input');
@@ -213,22 +253,27 @@ function renderCalendar() {
         const currentDayDate = new Date(displayYear, displayMonth, i);
         const dayOfWeek = currentDayDate.getDay(); // 0 is Sunday
         
-        // Simular domingos como cerrados
-        if (dayOfWeek === 0) {
-            div.classList.add('cerrado');
-        }
-
-        // Marcar ausencias
+        // Analizar qué ausencias caen en este día
         const curTime = currentDayDate.getTime();
+        let isBaja = false;
+        let isVacas = false;
+
         for (let r of absenceRanges) {
             if (curTime >= r.start && curTime <= r.end) {
-                div.classList.add('vacas');
-                if (r.type.toLowerCase().includes('baja')) {
-                    div.style.backgroundColor = '#faeaea';
-                    div.style.color = '#b91c1c';
-                }
-                break;
+                if (r.type.toLowerCase().includes('baja')) isBaja = true;
+                else isVacas = true;
             }
+        }
+
+        // Aplicar estilos según prioridad: Cerrado > Baja Médica > Vacaciones
+        if (dayOfWeek === 0) { // Domingo = Negocio Cerrado
+            div.classList.add('cerrado');
+        } else if (isBaja) {
+            div.classList.add('vacas');
+            div.style.backgroundColor = '#fef3c7';
+            div.style.color = '#d97706';
+        } else if (isVacas) {
+            div.classList.add('vacas');
         }
 
         // Marcar el día de hoy solo si es el mes actual
@@ -281,7 +326,42 @@ function renderAbsencesList() {
     }
 
     listContainer.innerHTML = '';
-    const absences = window.MockAPI.state.absences.slice().reverse(); // Mostrar las más recientes primero
+    
+    const parseDateLocalList = (dStr) => {
+        if (!dStr) return null;
+        if (dStr.includes('/')) {
+            const p = dStr.split('/');
+            if (p.length === 3) return new Date(p[2], parseInt(p[1])-1, p[0]);
+        }
+        const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+        const p = dStr.split(' ');
+        if (p.length >= 2) {
+            const d = parseInt(p[0]);
+            const mStr = p[1].toLowerCase();
+            let m = months.findIndex(x => mStr.startsWith(x));
+            const y = p.length >= 3 ? parseInt(p[2]) : new Date().getFullYear();
+            if (m !== -1 && !isNaN(d)) return new Date(y, m, d);
+        }
+        return null;
+    };
+
+    const todayList = new Date();
+    todayList.setHours(0,0,0,0);
+
+    const mappedAbsences = window.MockAPI.state.absences.map(abs => {
+        const d = parseDateLocalList(abs.startDate) || new Date();
+        return { ...abs, parsedDate: d };
+    });
+
+    const upcoming = mappedAbsences.filter(a => a.parsedDate >= todayList);
+    const past = mappedAbsences.filter(a => a.parsedDate < todayList);
+
+    // Próximas: más pronto primero
+    upcoming.sort((a, b) => a.parsedDate - b.parsedDate);
+    // Pasadas: más reciente pasado primero
+    past.sort((a, b) => b.parsedDate - a.parsedDate);
+
+    const absences = [...upcoming, ...past];
 
     const formatNiceDate = (dateStr) => {
         if (!dateStr) return '';
@@ -309,8 +389,8 @@ function renderAbsencesList() {
         let isMedical = abs.type.toLowerCase().includes('baja');
 
         if (isMedical) {
-            iconBgColor = '#faeaea'; // Fondo rojo claro
-            iconColor = '#b91c1c'; // Icono rojo oscuro
+            iconBgColor = '#fef3c7'; // Fondo naranja claro
+            iconColor = '#d97706'; // Icono naranja oscuro
             iconHtml = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>`;
         } else {
             iconBgColor = '#e6f3f0'; // Fondo teal claro

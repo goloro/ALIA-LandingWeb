@@ -921,13 +921,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dStr = i.toString().padStart(2, '0');
                         const mStr = (month + 1).toString().padStart(2, '0');
                         currentTargetInput.value = `${dStr}/${mStr}/${year}`;
+                        currentTargetInput.dispatchEvent(new Event('change'));
                         
                         // Refresh time dropdown to block past times if today is selected
                         if (window.refreshTimeDropdown) {
                             const modal = currentTargetInput.closest('.modal-container');
                             if (modal) {
                                 const timeSelect = modal.querySelectorAll('.custom-select-container')[0];
-                                window.refreshTimeDropdown(currentTargetInput.value, timeSelect);
+                                if (timeSelect) {
+                                    window.refreshTimeDropdown(currentTargetInput.value, timeSelect);
+                                }
                             }
                         }
                     }
