@@ -55,7 +55,7 @@ function setupForm() {
 
             if (newStart && newEnd && window.MockAPI && window.MockAPI.state && window.MockAPI.state.absences) {
                 const hasOverlap = window.MockAPI.state.absences.some(abs => {
-                    if (abs.status === 'Rechazada') return false;
+                    if (abs.status === 'Rechazada' || abs.profName !== 'Propietario') return false;
                     const eStart = parseDateLocal(abs.startDate);
                     const eEnd = parseDateLocal(abs.endDate) || eStart;
                     if (!eStart || !eEnd) return false;
@@ -76,7 +76,7 @@ function setupForm() {
             btnGuardar.disabled = true;
 
             const nuevaAusencia = {
-                profName: "Profesional Actual", // En un entorno real se obtendría del estado
+                profName: "Propietario", // En un entorno real se obtendría del estado
                 type: tipoAusenciaSpan ? tipoAusenciaSpan.textContent.trim() : 'Vacaciones',
                 startDate: desdeInput ? desdeInput.value : '',
                 endDate: hastaInput ? hastaInput.value : '',
@@ -307,7 +307,7 @@ function renderCalendar() {
         };
 
         window.MockAPI.state.absences.forEach(abs => {
-            if (abs.status === 'Rechazada') return; // Ignorar rechazadas
+            if (abs.status === 'Rechazada' || abs.profName !== 'Propietario') return; // Solo propietario y no rechazadas
             const sDate = parseDate(abs.startDate);
             const eDate = parseDate(abs.endDate) || sDate;
             if (sDate && eDate) {
@@ -415,8 +415,8 @@ function renderAbsencesList() {
 
     listContainer.innerHTML = '';
     
-    // Mostrar las más recientes (últimas añadidas) primero
-    const absences = window.MockAPI.state.absences.slice().reverse();
+    // Mostrar las más recientes (últimas añadidas) primero, solo del Propietario
+    const absences = window.MockAPI.state.absences.filter(a => a.profName === 'Propietario').slice().reverse();
 
     const formatNiceDate = (dateStr) => {
         if (!dateStr) return '';
@@ -469,8 +469,6 @@ function renderAbsencesList() {
         listContainer.appendChild(item);
     });
 }
-
-
 function updateVacationDaysRemaining() {
     const statNumber = document.querySelector('.card-purple-stats .stat-number');
     if (!statNumber) return;
@@ -505,7 +503,7 @@ function updateVacationDaysRemaining() {
         }
 
         window.MockAPI.state.absences.forEach(abs => {
-            if (abs.type === 'Vacaciones' && abs.status !== 'Rechazada') {
+            if (abs.type === 'Vacaciones' && abs.status !== 'Rechazada' && abs.profName === 'Propietario') {
                 const sDate = parseDate(abs.startDate);
                 const eDate = parseDate(abs.endDate) || sDate;
                 
@@ -522,7 +520,7 @@ function updateVacationDaysRemaining() {
                         let isBaja = false;
                         const curTime = currentDate.getTime();
                         window.MockAPI.state.absences.forEach(bajaAbs => {
-                            if (bajaAbs.type.toLowerCase().includes('baja') && bajaAbs.status !== 'Rechazada') {
+                            if (bajaAbs.type.toLowerCase().includes('baja') && bajaAbs.status !== 'Rechazada' && bajaAbs.profName === 'Propietario') {
                                 const bStart = parseDate(bajaAbs.startDate);
                                 const bEnd = parseDate(bajaAbs.endDate) || bStart;
                                 if (bStart && bEnd) {
