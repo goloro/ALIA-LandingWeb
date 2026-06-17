@@ -97,3 +97,55 @@ body {
 .phone-container.prototype-phone::before {
     display: none;
 }
+
+/* Pill Checkboxes para Modal */
+.day-pill-checkbox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.day-pill-checkbox input {
+    display: none;
+}
+.day-pill-checkbox:has(input:checked) {
+    background-color: #0891b2;
+    color: white;
+    border-color: #0891b2;
+}
+.day-pill-checkbox:has(input:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f1f5f9;
+}
+/* Time inputs para Modal */
+.time-input-clean {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #334155;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.time-input-clean:focus {
+    border-color: #0891b2;
+}
+
+
+.pill-no\\ activo { background-color: #f1f5f9; color: #64748b; }
+.pill-no\\ activo::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background-color: #94a3b8; }
+
+.pill-inactivo { background-color: #f1f5f9; color: #64748b; }
+.pill-inactivo::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background-color: #94a3b8; }

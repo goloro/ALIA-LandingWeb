@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pageSections.forEach(sec => sec.classList.remove('active'));
             } else {
                 // Fallback si pageSections no está definido en este scope
-                document.querySelectorAll('.dashboard-page').forEach(sec => sec.classList.remove('active'));
+                document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             }
             // Mostrar página añadir
             pageAddProfesional.classList.add('active');
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof pageSections !== 'undefined') {
                 pageSections.forEach(sec => sec.classList.remove('active'));
             } else {
-                document.querySelectorAll('.dashboard-page').forEach(sec => sec.classList.remove('active'));
+                document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             }
             pageMiEquipo.classList.add('active');
         }
@@ -48,8 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!tbody) return;
         
         let teamData = [];
+        let closedDays = [];
         if (window.MockAPI) {
             teamData = await window.MockAPI.getTeam();
+            if (window.MockAPI.state.businessInfo && window.MockAPI.state.businessInfo.closedDays) {
+                closedDays = window.MockAPI.state.businessInfo.closedDays;
+            }
         }
         
         const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
@@ -57,13 +61,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentUserEmail = window.MockAPI?.state?.currentUser?.email || 'propietario@alia.com';
         
         const fullTeam = [
-            { name: currentUserName, role: 'Propietario', email: currentUserEmail, avatarUrl: currentUserAvatar, status: 'ACTIVO', isMe: true },
+            { name: currentUserName, role: 'Propietario', email: currentUserEmail, avatarUrl: currentUserAvatar, status: 'ACTIVO', isMe: true, diasLibres: [1] },
             ...teamData
         ];
+        
+        const totalStaff = fullTeam.length;
+        let activosHoy = 0;
+        const currentDayOfWeek = new Date().getDay();
         
         tbody.innerHTML = '';
         
         fullTeam.forEach(prof => {
+            let isActive = true;
+            if (closedDays.includes(currentDayOfWeek)) {
+                isActive = false;
+            } else if (prof.diasLibres && prof.diasLibres.includes(currentDayOfWeek)) {
+                isActive = false;
+            } else if (prof.dayOff === currentDayOfWeek) {
+                isActive = false;
+            }
+            
+            if (isActive) activosHoy++;
+            prof.status = isActive ? 'Activo' : 'No activo';
             const tr = document.createElement('tr');
             
             const initial = prof.name ? prof.name.charAt(0).toUpperCase() : 'U';
@@ -73,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             const profNameDisplay = prof.isMe ? `${prof.name} (Tú)` : prof.name;
-            const statusDisplay = prof.status || 'ACTIVO';
+            const statusDisplay = prof.status || 'Activo';
+            const statusClass = isActive ? 'pill-activo' : 'pill-inactivo';
             const emailDisplay = prof.email || `${prof.name.toLowerCase().replace(/[^a-z]/g, '')}@peluqueriaalia.com`;
             
             tr.innerHTML = `
@@ -87,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </td>
                 <td><span class="eq-spec">${prof.role || 'Estilista'}</span></td>
-                <td><span class="pill-status pill-${statusDisplay.toLowerCase()}">${statusDisplay}</span></td>
-                <td>
+                <td><span class="pill-status ${statusClass}">${statusDisplay}</span></td>
+                <td style="display: flex; justify-content: center; align-items: center; padding-right: 0;">
                     <button class="btn-icon btn-config-prof" data-prof-name="${prof.name}" title="Gestionar Horario/Disponibilidad" style="background: none; border: none; cursor: pointer; color: #64748b; padding: 4px;">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     </button>
@@ -106,6 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        // Actualizar tarjetas de estadísticas
+        const elTotal = document.getElementById('total-staff-val');
+        if (elTotal) elTotal.textContent = totalStaff;
+        const elActivos = document.getElementById('activos-hoy-val');
+        if (elActivos) elActivos.textContent = activosHoy;
     }
 
     // Call render once mockAPI is ready
@@ -130,20 +156,32 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Cargar datos actuales
         let profData = null;
+        let closedDays = [];
         if (window.MockAPI) {
             const team = window.MockAPI.state.team;
             profData = team.find(t => t.name === profName);
+            if (window.MockAPI.state.businessInfo && window.MockAPI.state.businessInfo.closedDays) {
+                closedDays = window.MockAPI.state.businessInfo.closedDays;
+            }
             
             // Fallback for current user
             const currentUserName = window.MockAPI.state.currentUser?.name || 'Propietario';
             if (profName === currentUserName || profName.includes('(Tú)')) {
                 profData = { name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' } };
-                // Actually, current user config is hardcoded in BusinessTeam right now, but let's assume it could be here.
             }
         }
         
         // Reset checkboxes
-        checkboxesDias.forEach(cb => cb.checked = false);
+        checkboxesDias.forEach(cb => {
+            cb.checked = false;
+            cb.disabled = false;
+            
+            // Pre-seleccionar y bloquear los días de cierre del negocio
+            if (closedDays.includes(parseInt(cb.value))) {
+                cb.checked = true;
+                cb.disabled = true;
+            }
+        });
         
         if (profData) {
             if (profData.diasLibres) {

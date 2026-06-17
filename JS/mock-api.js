@@ -71,6 +71,18 @@ class MockAPI {
             }
 
             try {
+                const businessRes = await fetch('../data/business.json');
+                if (businessRes.ok) {
+                    this.state.businessInfo = await businessRes.json();
+                } else {
+                    this.state.businessInfo = { closedDays: [0] };
+                }
+            } catch(e) {
+                console.log("Error loading business.json", e);
+                this.state.businessInfo = { closedDays: [0] };
+            }
+
+            try {
                 const absRes = await fetch('../data/ausencias.json');
                 if (absRes.ok) {
                     this.state.absences = await absRes.json();
