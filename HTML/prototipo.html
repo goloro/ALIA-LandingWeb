@@ -849,7 +849,7 @@
                                     </div>
                                     <div class="insight-info">
                                         <span class="insight-label">Horas esta semana</span>
-                                        <span class="insight-value">0 hrs</span>
+                                        <span class="insight-value" id="equipo-horas-semana">0 hrs</span>
                                     </div>
                                 </div>
                                 <div class="insight-card insight-purple">
@@ -858,7 +858,7 @@
                                     </div>
                                     <div class="insight-info">
                                         <span class="insight-label">Top Performer</span>
-                                        <span class="insight-value">-</span>
+                                        <span class="insight-value" id="equipo-top-performer">-</span>
                                     </div>
                                 </div>
                             </div>
@@ -1991,11 +1991,47 @@
                 <div style="display: flex; gap: 16px;">
                     <div style="flex: 1;">
                         <label class="form-label" style="font-size: 12px; color: #94a3b8;">Inicio</label>
-                        <input type="time" id="config-almuerzo-start" class="time-input-clean" value="14:00">
+                        <div class="custom-select-container" id="config-almuerzo-start" style="position: relative; width: 100%;">
+                            <div class="custom-select-trigger time-input-clean" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                                <span class="selected-value">14:00</span>
+                                <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                            <div class="custom-select-options" style="top: 100%; left: 0; right: 0; z-index: 10; max-height: 150px; overflow-y: auto;">
+                                <div class="custom-option">12:00</div>
+                                <div class="custom-option">12:30</div>
+                                <div class="custom-option">13:00</div>
+                                <div class="custom-option">13:30</div>
+                                <div class="custom-option">14:00</div>
+                                <div class="custom-option">14:30</div>
+                                <div class="custom-option">15:00</div>
+                                <div class="custom-option">15:30</div>
+                                <div class="custom-option">16:00</div>
+                                <div class="custom-option">16:30</div>
+                                <div class="custom-option">17:00</div>
+                            </div>
+                        </div>
                     </div>
                     <div style="flex: 1;">
                         <label class="form-label" style="font-size: 12px; color: #94a3b8;">Fin</label>
-                        <input type="time" id="config-almuerzo-end" class="time-input-clean" value="15:00">
+                        <div class="custom-select-container" id="config-almuerzo-end" style="position: relative; width: 100%;">
+                            <div class="custom-select-trigger time-input-clean" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                                <span class="selected-value">15:00</span>
+                                <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                            <div class="custom-select-options" style="top: 100%; left: 0; right: 0; z-index: 10; max-height: 150px; overflow-y: auto;">
+                                <div class="custom-option">13:00</div>
+                                <div class="custom-option">13:30</div>
+                                <div class="custom-option">14:00</div>
+                                <div class="custom-option">14:30</div>
+                                <div class="custom-option">15:00</div>
+                                <div class="custom-option">15:30</div>
+                                <div class="custom-option">16:00</div>
+                                <div class="custom-option">16:30</div>
+                                <div class="custom-option">17:00</div>
+                                <div class="custom-option">17:30</div>
+                                <div class="custom-option">18:00</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

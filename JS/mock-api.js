@@ -48,17 +48,21 @@ class MockAPI {
             }
 
             try {
-                const userRes = await fetch('../data/user.json');
-                if (userRes.ok) {
-                    this.state.currentUser = await userRes.json();
+                const cachedUser = localStorage.getItem('currentUserData');
+                if (cachedUser) {
+                    this.state.currentUser = JSON.parse(cachedUser);
                 } else {
-                    // Fallback in case of failure
-                    this.state.currentUser = {
-                        "id": 0,
-                        "name": "Propietario",
-                        "role": "Owner",
-                        "avatar": "../Images/Logos/LogoPeluqueríaNegro.png"
-                    };
+                    const userRes = await fetch('../data/user.json');
+                    if (userRes.ok) {
+                        this.state.currentUser = await userRes.json();
+                    } else {
+                        this.state.currentUser = {
+                            "id": 0,
+                            "name": "Propietario",
+                            "role": "Owner",
+                            "avatar": "../Images/Logos/LogoPeluqueríaNegro.png"
+                        };
+                    }
                 }
             } catch(e) {
                 console.log("Error loading user.json", e);

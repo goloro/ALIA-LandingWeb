@@ -132,6 +132,69 @@ document.addEventListener('DOMContentLoaded', () => {
         if (elTotal) elTotal.textContent = totalStaff;
         const elActivos = document.getElementById('activos-hoy-val');
         if (elActivos) elActivos.textContent = activosHoy;
+        
+        // Actualizar tarjetas de estadísticas avanzadas (Horas y Top Performer)
+        if (window.MockAPI && window.MockAPI.state && window.MockAPI.state.appointments) {
+            const appointments = window.MockAPI.state.appointments;
+            const now = new Date();
+            
+            // Lógica para semana actual
+            const dayOfWeek = now.getDay() === 0 ? 7 : now.getDay();
+            const startOfWeek = new Date(now);
+            startOfWeek.setDate(now.getDate() - dayOfWeek + 1);
+            startOfWeek.setHours(0, 0, 0, 0);
+            
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+            endOfWeek.setHours(23, 59, 59, 999);
+            
+            // Lógica para mes actual
+            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+            
+            let horasSemanaMins = 0;
+            const profMonthHours = {};
+            
+            appointments.forEach(appt => {
+                if (appt.status === 'cancelled') return;
+                
+                // MockAPI guarda rawDate en YYYY-MM-DD
+                const apptDate = new Date(appt.rawDate + "T00:00:00");
+                const duration = appt.duration || 60; // 60 mins por defecto si no hay
+                
+                // Semana actual
+                if (apptDate >= startOfWeek && apptDate <= endOfWeek) {
+                    horasSemanaMins += duration;
+                }
+                
+                // Mes actual
+                if (apptDate >= startOfMonth && apptDate <= endOfMonth) {
+                    const prof = appt.prof || 'Desconocido';
+                    profMonthHours[prof] = (profMonthHours[prof] || 0) + duration;
+                }
+            });
+            
+            const horasSemana = Math.round(horasSemanaMins / 60);
+            
+            let topPerformer = '-';
+            let maxMins = 0;
+            for (const prof in profMonthHours) {
+                if (profMonthHours[prof] > maxMins) {
+                    maxMins = profMonthHours[prof];
+                    topPerformer = prof;
+                }
+            }
+            
+            if (topPerformer !== '-') {
+                topPerformer = topPerformer.split(' ').slice(0, 2).join(' '); // Coger solo el nombre o título+nombre
+            }
+            
+            const elHoras = document.getElementById('equipo-horas-semana');
+            if (elHoras) elHoras.textContent = `${horasSemana} hrs`;
+            
+            const elTop = document.getElementById('equipo-top-performer');
+            if (elTop) elTop.textContent = topPerformer;
+        }
     }
 
     // Call render once mockAPI is ready
@@ -167,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fallback for current user
             const currentUserName = window.MockAPI.state.currentUser?.name || 'Propietario';
             if (profName === currentUserName || profName.includes('(Tú)')) {
-                profData = { name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' } };
+                profData = window.MockAPI.state.currentUser;
             }
         }
         
@@ -195,18 +258,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             if (profData.pausaAlmuerzo) {
-                inputAlmuerzoStart.value = profData.pausaAlmuerzo.start || '14:00';
-                inputAlmuerzoEnd.value = profData.pausaAlmuerzo.end || '15:00';
+                inputAlmuerzoStart.querySelector('.selected-value').textContent = profData.pausaAlmuerzo.start || '14:00';
+                inputAlmuerzoEnd.querySelector('.selected-value').textContent = profData.pausaAlmuerzo.end || '15:00';
             } else if (profData.lunchBreak) {
-                inputAlmuerzoStart.value = profData.lunchBreak;
+                inputAlmuerzoStart.querySelector('.selected-value').textContent = profData.lunchBreak;
                 // calculate 1 hour end
                 const [lh, lm] = profData.lunchBreak.split(':').map(Number);
                 const endH = (lh + 1).toString().padStart(2, '0');
                 const endM = lm.toString().padStart(2, '0');
-                inputAlmuerzoEnd.value = `${endH}:${endM}`;
+                inputAlmuerzoEnd.querySelector('.selected-value').textContent = `${endH}:${endM}`;
             } else {
-                inputAlmuerzoStart.value = '14:00';
-                inputAlmuerzoEnd.value = '15:00';
+                inputAlmuerzoStart.querySelector('.selected-value').textContent = '14:00';
+                inputAlmuerzoEnd.querySelector('.selected-value').textContent = '15:00';
             }
         }
         
@@ -221,6 +284,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnCloseConfig) btnCloseConfig.addEventListener('click', closeConfigModal);
     if (btnCancelConfig) btnCancelConfig.addEventListener('click', closeConfigModal);
+    
+    // Hacer que los días libres funcionen como radio buttons (solo uno seleccionable, salvo los bloqueados por cierre)
+    checkboxesDias.forEach(cb => {
+        cb.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                checkboxesDias.forEach(otherCb => {
+                    if (otherCb !== e.target && !otherCb.disabled) {
+                        otherCb.checked = false;
+                    }
+                });
+            }
+        });
+    });
+
     if (btnSaveConfig) {
         btnSaveConfig.addEventListener('click', () => {
             if (!currentConfigProf || !window.MockAPI) return;
@@ -229,13 +306,26 @@ document.addEventListener('DOMContentLoaded', () => {
                                       .filter(cb => cb.checked)
                                       .map(cb => parseInt(cb.value));
                                       
-            const lunchStart = inputAlmuerzoStart.value;
-            const lunchEnd = inputAlmuerzoEnd.value;
+            const lunchStart = inputAlmuerzoStart.querySelector('.selected-value').textContent;
+            const lunchEnd = inputAlmuerzoEnd.querySelector('.selected-value').textContent;
             
             const teamIndex = window.MockAPI.state.team.findIndex(t => t.name === currentConfigProf);
             if (teamIndex >= 0) {
                 window.MockAPI.state.team[teamIndex].diasLibres = selectedDays;
                 window.MockAPI.state.team[teamIndex].pausaAlmuerzo = { start: lunchStart, end: lunchEnd };
+            }
+            
+            const currentUserName = window.MockAPI.state.currentUser?.name || 'Propietario';
+            if (currentConfigProf === currentUserName || currentConfigProf.includes('(Tú)')) {
+                if (window.MockAPI.updateCurrentUser) {
+                    window.MockAPI.updateCurrentUser({
+                        diasLibres: selectedDays,
+                        pausaAlmuerzo: { start: lunchStart, end: lunchEnd }
+                    });
+                } else {
+                    window.MockAPI.state.currentUser.diasLibres = selectedDays;
+                    window.MockAPI.state.currentUser.pausaAlmuerzo = { start: lunchStart, end: lunchEnd };
+                }
             }
             
             // Also update global BusinessTeam so it reflects immediately
