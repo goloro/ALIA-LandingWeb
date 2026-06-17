@@ -197,12 +197,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.calculateAvailableTimes = async function(dateStr, durationMinutes, profName) {
         if (!dateStr || typeof dateStr !== 'string' || !dateStr.includes('/')) return [];
         let settings = { closedDays: [0], openHours: { start: '10:00', end: '19:00' } };
-        let fullTeam = [{ name: 'Propietario', dayOff: 1, lunchBreak: '14:00' }];
+        const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+        let fullTeam = [{ name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' } }];
         
         if (window.MockAPI) {
             try { settings = await window.MockAPI.getSettings(); } catch(e) {}
             const team = await window.MockAPI.getTeam();
-            fullTeam = [...team, { name: 'Propietario', dayOff: 1, lunchBreak: '14:00' }];
+            const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+            fullTeam = [...team, { name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' } }];
         }
 
         if (profName === 'Cualquier Disponible') {
@@ -225,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Check professional's day off
         const profObj = fullTeam.find(t => t.name === profName);
-        if (profObj && profObj.dayOff === dayOfWeek) {
+        if (profObj && profObj.diasLibres && profObj.diasLibres.includes(dayOfWeek)) {
             return []; // Professional's day off
         }
 
@@ -280,10 +282,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Check lunch break
                 let isLunch = false;
-                if (profObj && profObj.lunchBreak) {
-                    const [lh, lm] = profObj.lunchBreak.split(':').map(Number);
+                if (profObj && profObj.pausaAlmuerzo && profObj.pausaAlmuerzo.start && profObj.pausaAlmuerzo.end) {
+                    const [lh, lm] = profObj.pausaAlmuerzo.start.split(':').map(Number);
                     const lunchStartMins = lh * 60 + lm;
-                    const lunchEndMins = lunchStartMins + 60; // 1 hour lunch
+                    const [leh, lem] = profObj.pausaAlmuerzo.end.split(':').map(Number);
+                    const lunchEndMins = leh * 60 + lem;
                     
                     if (slotStartMins < lunchEndMins && slotEndMins > lunchStartMins) {
                         isLunch = true;
@@ -620,7 +623,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (finalProf === 'Cualquier Disponible' && window.MockAPI) {
                 const team = await window.MockAPI.getTeam();
                 let foundProf = null;
-                for (let t of [...team, {name: 'Propietario'}]) {
+                const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+                for (let t of [...team, {name: currentUserName}]) {
                     const times = await window.calculateAvailableTimes(rawDate, duration, t.name);
                     if (times.includes(timeStr)) {
                         foundProf = t.name;
@@ -895,7 +899,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const profName = selects.length > 2 ? selects[2].textContent.trim() : '';
                     if (profName && profName !== 'Cualquier Disponible' && !profName.includes('Elige')) {
                         const profObj = window.BusinessTeam.find(t => t.name === profName);
-                        if (profObj && profObj.dayOff === thisDayDate.getDay()) {
+                        if (profObj && profObj.diasLibres && profObj.diasLibres.includes(thisDayDate.getDay())) {
                             isDayOff = true;
                         }
                     }
@@ -1063,7 +1067,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             window.BusinessSettings = await window.MockAPI.getSettings();
             const team = await window.MockAPI.getTeam();
-            window.BusinessTeam = [{name: 'Propietario', dayOff: 1, lunchBreak: '14:00'}, ...team];
+            const currentUser = window.MockAPI?.state?.currentUser;
+            const currentUserName = currentUser?.name || 'Propietario';
+            const currentUserAvatar = currentUser?.avatar || '../Images/Logos/LogoPeluqueríaNegro.png';
+            
+            window.BusinessTeam = [{name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' }}, ...team];
+
+            // Update UI elements representing the current user
+            // Update "Mi Equipo" self user
+            const eqProfName = document.querySelector('.eq-prof-name');
+            if (eqProfName && eqProfName.textContent.includes('(Tú)')) {
+                eqProfName.textContent = currentUserName + ' (Tú)';
+            }
+            const eqProfEmail = document.querySelector('.eq-prof-email');
+            if (eqProfEmail && eqProfEmail.textContent.includes('usuario@')) {
+                eqProfEmail.textContent = currentUser?.email || 'propietario@alia.com';
+            }
+            
+            // Note: Agenda headers are generated dynamically in agenda.js using BusinessTeam and displayTeam.
         } catch(e) {
             console.error("Error fetching settings or team", e);
         }

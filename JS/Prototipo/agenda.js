@@ -87,9 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         profFiltersContainer.appendChild(btnTodos);
         
         const btnMiAgenda = document.createElement('button');
-        btnMiAgenda.className = 'prof-filter-btn' + (selectedProfFilter === 'Propietario' ? ' active' : '');
-        btnMiAgenda.textContent = 'Propietario';
-        btnMiAgenda.dataset.fullName = 'Propietario';
+        const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+        btnMiAgenda.className = 'prof-filter-btn' + (selectedProfFilter === currentUserName ? ' active' : '');
+        btnMiAgenda.textContent = currentUserName;
+        btnMiAgenda.dataset.fullName = currentUserName;
         profFiltersContainer.appendChild(btnMiAgenda);
         
         teamData.forEach(prof => {
@@ -250,7 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 weekHeadersWrapper.style.display = 'none';
                 headersWrapper.innerHTML = '';
                 
-                const displayTeam = [{ name: "Propietario", avatarUrl: "../Images/Logos/LogoPeluqueríaNegro.png" }, ...teamData];
+                const currentUserName = window.MockAPI?.state?.currentUser?.name || "Propietario";
+                const currentUserAvatar = window.MockAPI?.state?.currentUser?.avatar || "../Images/Logos/LogoPeluqueríaNegro.png";
+                const displayTeam = [{ name: currentUserName, avatarUrl: currentUserAvatar }, ...teamData];
                 numCols = displayTeam.length;
                 
                 displayTeam.forEach(prof => {
@@ -297,7 +300,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.MockAPI) {
             try { settings = await window.MockAPI.getSettings(); } catch(e){}
         }
-        const fullTeam = [{name: 'Propietario', dayOff: 1, lunchBreak: '14:00'}, ...(typeof teamData !== 'undefined' ? teamData : [])];
+        const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+        const fullTeam = [{name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' }}, ...(typeof teamData !== 'undefined' ? teamData : [])];
 
         // Create Columns
         const domCols = [];
@@ -331,17 +335,27 @@ document.addEventListener('DOMContentLoaded', () => {
             if (settings.closedDays && settings.closedDays.includes(dayOfWeek)) {
                 // Business closed
                 col.innerHTML = `<div style="position: absolute; inset: 0; background: rgba(241, 245, 249, 0.8); z-index: 5; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #64748b; font-size: 14px;">NEGOCIO CERRADO</div>`;
-            } else if (profObj && profObj.dayOff === dayOfWeek) {
+            } else if (profObj && profObj.diasLibres && profObj.diasLibres.includes(dayOfWeek)) {
                 // Professional day off
                 col.innerHTML = `<div style="position: absolute; inset: 0; background: rgba(241, 245, 249, 0.6); z-index: 5; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #94a3b8; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">DÍA DE DESCANSO</div>`;
-            } else if (profObj && profObj.lunchBreak) {
+            } else if (profObj && profObj.pausaAlmuerzo && profObj.pausaAlmuerzo.start && profObj.pausaAlmuerzo.end) {
                 // Lunch break block
-                const [lh, lm] = profObj.lunchBreak.split(':').map(Number);
+                const [lh, lm] = profObj.pausaAlmuerzo.start.split(':').map(Number);
                 const startMins = (lh * 60 + lm) - 10 * 60; // relative to 10:00 start
                 const topPx = (startMins * (48 / 30)) + 2;
-                const heightPx = (60 * (48 / 30)) - 4; // 1 hour lunch
-                // Removed 'agenda-event' class so it doesn't trigger appointment clicks, and used pointer-events: none
-                col.innerHTML = `<div style="position: absolute; left: 4px; right: 4px; top: ${topPx}px; height: ${heightPx}px; background-color: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; z-index: 1; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 12px; font-weight: 600; pointer-events: none;">Pausa Almuerzo</div>`;
+                
+                const [leh, lem] = profObj.pausaAlmuerzo.end.split(':').map(Number);
+                const endMins = (leh * 60 + lem) - 10 * 60;
+                const heightPx = ((endMins - startMins) * (48 / 30)) - 4;
+                
+                const lunchBlock = document.createElement('div');
+                lunchBlock.className = 'appt-card status-completada';
+                lunchBlock.style.cssText = `position: absolute; top: ${topPx}px; height: ${heightPx}px; left: 4px; right: 4px; background-color: #f1f5f9; border: 1px dashed #cbd5e1; border-left: 3px solid #cbd5e1; display: flex; align-items: center; justify-content: center; flex-direction: column; opacity: 0.8; z-index: 5;`;
+                lunchBlock.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 4px;"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                    <span style="font-size: 11px; font-weight: 600; color: #94a3b8;">PAUSA ALMUERZO</span>
+                `;
+                col.appendChild(lunchBlock);
             }
             
             colsWrapper.appendChild(col);
@@ -469,7 +483,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let settings = { closedDays: [0], openHours: { start: '10:00', end: '19:00' } };
         try { settings = await window.MockAPI.getSettings(); } catch(e){}
-        const fullTeam = [{name: 'Propietario', dayOff: 1, lunchBreak: '14:00'}, ...(typeof teamData !== 'undefined' ? teamData : [])];
+        const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+        const fullTeam = [{name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' }}, ...(typeof teamData !== 'undefined' ? teamData : [])];
         
         const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
         let firstDayOfWeek = firstDayOfMonth.getDay();
@@ -525,7 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (!isClosed && colProf) {
                 const profObj = fullTeam.find(t => t.name === colProf);
-                if (profObj && profObj.dayOff === dayOfWeek) {
+                if (profObj && profObj.diasLibres && profObj.diasLibres.includes(dayOfWeek)) {
                     isDayOff = true;
                 }
             }

@@ -56,7 +56,8 @@ function setupForm() {
 
             if (newStart && newEnd && window.MockAPI && window.MockAPI.state && window.MockAPI.state.absences) {
                 const hasOverlap = window.MockAPI.state.absences.some(abs => {
-                    if (abs.status === 'Rechazada' || abs.profName !== 'Propietario') return false;
+                    const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+                    if (abs.status === 'Rechazada' || abs.profName !== currentUserName) return false;
                     const eStart = parseDateLocal(abs.startDate);
                     const eEnd = parseDateLocal(abs.endDate) || eStart;
                     if (!eStart || !eEnd) return false;
@@ -77,7 +78,7 @@ function setupForm() {
             btnGuardar.disabled = true;
 
             const nuevaAusencia = {
-                profName: "Propietario", // En un entorno real se obtendría del estado
+                profName: window.MockAPI?.state?.currentUser?.name || 'Propietario', // Obtenido del estado
                 type: tipoAusenciaSpan ? tipoAusenciaSpan.textContent.trim() : 'Vacaciones',
                 startDate: desdeInput ? desdeInput.value : '',
                 endDate: hastaInput ? hastaInput.value : '',
@@ -309,7 +310,8 @@ function renderCalendar() {
         };
 
         window.MockAPI.state.absences.forEach(abs => {
-            if (abs.status === 'Rechazada' || abs.profName !== 'Propietario') return; // Solo propietario y no rechazadas
+            const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+            if (abs.status === 'Rechazada' || abs.profName !== currentUserName) return; // Solo propietario y no rechazadas
             const sDate = parseDate(abs.startDate);
             const eDate = parseDate(abs.endDate) || sDate;
             if (sDate && eDate) {
@@ -406,8 +408,9 @@ function renderAbsencesList() {
 
     listContainer.innerHTML = '';
     
-    // Mostrar las más recientes (últimas añadidas) primero, solo del Propietario
-    const absences = window.MockAPI.state.absences.filter(a => a.profName === 'Propietario').slice().reverse();
+    // Mostrar las más recientes (últimas añadidas) primero, solo del currentUser
+    const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+    const absences = window.MockAPI.state.absences.filter(a => a.profName === currentUserName).slice().reverse();
 
     const formatNiceDate = (dateStr) => {
         if (!dateStr) return '';
@@ -467,8 +470,9 @@ function renderProfessionalAbsences() {
 
     if (!window.MockAPI || !window.MockAPI.state.absences) return;
 
-    // Filtrar las que no son del Propietario y están en estado Pendiente
-    const profAbsences = window.MockAPI.state.absences.filter(a => a.profName !== 'Propietario' && a.status === 'Pendiente');
+    // Filtrar las que no son del currentUser y están en estado Pendiente
+    const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+    const profAbsences = window.MockAPI.state.absences.filter(a => a.profName !== currentUserName && a.status === 'Pendiente');
     
     if (profAbsences.length === 0) {
         tableBody.innerHTML = `
@@ -731,7 +735,8 @@ function updateVacationDaysRemaining() {
         }
 
         window.MockAPI.state.absences.forEach(abs => {
-            if (abs.type === 'Vacaciones' && abs.status !== 'Rechazada' && abs.profName === 'Propietario') {
+            const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+            if (abs.type === 'Vacaciones' && abs.status !== 'Rechazada' && abs.profName === currentUserName) {
                 const sDate = parseDate(abs.startDate);
                 const eDate = parseDate(abs.endDate) || sDate;
                 
@@ -748,7 +753,8 @@ function updateVacationDaysRemaining() {
                         let isBaja = false;
                         const curTime = currentDate.getTime();
                         window.MockAPI.state.absences.forEach(bajaAbs => {
-                            if (bajaAbs.type.toLowerCase().includes('baja') && bajaAbs.status !== 'Rechazada' && bajaAbs.profName === 'Propietario') {
+                            const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+                            if (bajaAbs.type.toLowerCase().includes('baja') && bajaAbs.status !== 'Rechazada' && bajaAbs.profName === currentUserName) {
                                 const bStart = parseDate(bajaAbs.startDate);
                                 const bEnd = parseDate(bajaAbs.endDate) || bStart;
                                 if (bStart && bEnd) {

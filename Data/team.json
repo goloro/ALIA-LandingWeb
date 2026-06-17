@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "id": 1,
     "name": "Dra. Laura Gómez",
@@ -7,8 +7,8 @@
     "attendance": "98%",
     "appointments": 45,
     "avatarUrl": "https://i.pravatar.cc/150?u=laura",
-    "dayOff": 2,
-    "lunchBreak": "13:30"
+    "diasLibres": [2],
+    "pausaAlmuerzo": {"start": "13:30", "end": "14:30"}
   },
   {
     "id": 2,
@@ -18,7 +18,7 @@
     "attendance": "95%",
     "appointments": 32,
     "avatarUrl": "https://i.pravatar.cc/150?u=javier",
-    "dayOff": 3,
-    "lunchBreak": "14:30"
+    "diasLibres": [3],
+    "pausaAlmuerzo": {"start": "14:30", "end": "15:30"}
   }
 ]

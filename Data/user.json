@@ -1,0 +1,9 @@
+{
+    "id": 0,
+    "name": "Propietario ALIA",
+    "role": "Owner",
+    "email": "propietario@alia.com",
+    "phone": "+34 600 000 000",
+    "avatar": "../Images/Logos/LogoPeluqueríaNegro.png",
+    "permissions": ["admin", "manage_team", "manage_schedule"]
+}

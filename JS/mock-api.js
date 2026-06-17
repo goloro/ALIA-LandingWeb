@@ -10,6 +10,7 @@ class MockAPI {
             team: [],
             appointments: [],
             absences: [],
+            currentUser: null,
             settings: {
                 closedDays: [0], // 0 = Domingo
                 openHours: { start: '10:00', end: '19:00' } // 9 hours open
@@ -44,6 +45,29 @@ class MockAPI {
                 }
             } catch(e) {
                 console.log("Error loading appointments.json", e);
+            }
+
+            try {
+                const userRes = await fetch('../data/user.json');
+                if (userRes.ok) {
+                    this.state.currentUser = await userRes.json();
+                } else {
+                    // Fallback in case of failure
+                    this.state.currentUser = {
+                        "id": 0,
+                        "name": "Propietario",
+                        "role": "Owner",
+                        "avatar": "../Images/Logos/LogoPeluqueríaNegro.png"
+                    };
+                }
+            } catch(e) {
+                console.log("Error loading user.json", e);
+                this.state.currentUser = {
+                    "id": 0,
+                    "name": "Propietario",
+                    "role": "Owner",
+                    "avatar": "../Images/Logos/LogoPeluqueríaNegro.png"
+                };
             }
 
             try {
