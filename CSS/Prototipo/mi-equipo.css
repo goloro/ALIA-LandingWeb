@@ -223,6 +223,43 @@
 
 
 
+/* Nuevas Píldoras de Estado (Equipo) */
+.pill-inactivo {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+.pill-inactivo::before {
+    background-color: #ef4444;
+}
+.pill-descanso {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+.pill-descanso::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #94a3b8;
+}
+
+.pill-pausa {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.pill-pausa::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #f59e0b;
+}
+
 /* Secciones de Título */
 .section-heading {
     display: flex;

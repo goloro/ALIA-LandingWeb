@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Definición de Enumeración de Estados para Profesionales
+    const PROFESSIONAL_STATUS = {
+        ACTIVE: { id: 'active', label: 'Activo', class: 'pill-activo' },
+        INACTIVE: { id: 'inactive', label: 'No activo', class: 'pill-inactivo' },
+        DAY_OFF: { id: 'day_off', label: 'Descansa hoy', class: 'pill-descanso' },
+        LUNCH_BREAK: { id: 'lunch_break', label: 'En pausa', class: 'pill-pausa' }
+    };
+
     // --- Lógica de la página Añadir Profesional ---
     const btnAddProf = document.querySelector('.btn-add-prof');
     const pageMiEquipo = document.getElementById('page-mi-equipo');
@@ -67,22 +75,64 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const totalStaff = fullTeam.length;
         let activosHoy = 0;
-        const currentDayOfWeek = new Date().getDay();
         
         tbody.innerHTML = '';
         
         fullTeam.forEach(prof => {
-            let isActive = true;
-            if (closedDays.includes(currentDayOfWeek)) {
-                isActive = false;
-            } else if (prof.diasLibres && prof.diasLibres.includes(currentDayOfWeek)) {
-                isActive = false;
-            } else if (prof.dayOff === currentDayOfWeek) {
-                isActive = false;
+            const today = new Date().getDay() || 7; // 1-7
+            
+            // Determinar estado actual
+            let currentStatus = PROFESSIONAL_STATUS.ACTIVE;
+            
+            // 1. Check Días Libres / Cerrado
+            if ((prof.diasLibres && prof.diasLibres.includes(today)) || 
+                prof.dayOff === today || 
+                closedDays.includes(today)) {
+                currentStatus = PROFESSIONAL_STATUS.DAY_OFF;
+            } else {
+                // Check Horarios (Si no es día libre)
+                const now = new Date();
+                const currentH = now.getHours();
+                const currentM = now.getMinutes();
+                const currentTimeVal = currentH + currentM / 60;
+                
+                // Horario de apertura negocio
+                let bizStart = 9, bizEnd = 20; // Default 09:00 - 20:00
+                if (window.MockAPI?.state?.businessInfo?.businessHours) {
+                    const bh = window.MockAPI.state.businessInfo.businessHours;
+                    if (bh.start) bizStart = parseInt(bh.start.split(':')[0]) + parseInt(bh.start.split(':')[1])/60;
+                    if (bh.end) bizEnd = parseInt(bh.end.split(':')[0]) + parseInt(bh.end.split(':')[1])/60;
+                }
+                
+                // 2. Check Fuera de horario
+                if (currentTimeVal < bizStart || currentTimeVal >= bizEnd) {
+                    currentStatus = PROFESSIONAL_STATUS.INACTIVE;
+                } else {
+                    // 3. Check Pausa de Almuerzo
+                    let lunchStartVal = null, lunchEndVal = null;
+                    if (prof.pausaAlmuerzo && prof.pausaAlmuerzo.start && prof.pausaAlmuerzo.end) {
+                        const [sh, sm] = prof.pausaAlmuerzo.start.split(':').map(Number);
+                        const [eh, em] = prof.pausaAlmuerzo.end.split(':').map(Number);
+                        lunchStartVal = sh + sm/60;
+                        lunchEndVal = eh + em/60;
+                    } else if (prof.lunchBreak) {
+                        const [sh, sm] = prof.lunchBreak.split(':').map(Number);
+                        lunchStartVal = sh + sm/60;
+                        lunchEndVal = lunchStartVal + 1; // 1 hora por defecto
+                    }
+                    
+                    if (lunchStartVal !== null && currentTimeVal >= lunchStartVal && currentTimeVal < lunchEndVal) {
+                        currentStatus = PROFESSIONAL_STATUS.LUNCH_BREAK;
+                    }
+                }
             }
             
-            if (isActive) activosHoy++;
-            prof.status = isActive ? 'Activo' : 'No activo';
+            if (currentStatus.id !== 'day_off') {
+                activosHoy++; // Todos los que trabajan hoy, independientemente de la hora actual
+            }
+            
+            prof.statusObj = currentStatus;
+            
             const tr = document.createElement('tr');
             
             const initial = prof.name ? prof.name.charAt(0).toUpperCase() : 'U';
@@ -92,8 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             const profNameDisplay = prof.isMe ? `${prof.name} (Tú)` : prof.name;
-            const statusDisplay = prof.status || 'Activo';
-            const statusClass = isActive ? 'pill-activo' : 'pill-inactivo';
+            const statusDisplay = prof.statusObj.label;
+            const statusClass = prof.statusObj.class;
             const emailDisplay = prof.email || `${prof.name.toLowerCase().replace(/[^a-z]/g, '')}@peluqueriaalia.com`;
             
             let deleteBtnHtml = '';
@@ -116,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </td>
                 <td><span class="eq-spec">${prof.role || 'Estilista'}</span></td>
-                <td><span class="pill-status ${statusClass}">${statusDisplay}</span></td>
+                <td style="text-align: center;"><span class="pill-status ${statusClass}">${statusDisplay}</span></td>
                 <td style="display: flex; justify-content: center; align-items: center; padding-right: 0; gap: 8px;">
                     <button class="btn-action btn-config-prof" data-prof-name="${prof.name}" title="Gestionar Horario/Disponibilidad" style="background-color: #f1f5f9; color: #64748b;">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><path d="M17.5 17.5 16 16.25V14"/><circle cx="16" cy="16" r="6"/></svg>
