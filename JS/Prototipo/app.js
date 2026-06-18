@@ -1109,6 +1109,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             window.BusinessTeam = [{name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' }}, ...team];
 
             // Update UI elements representing the current user
+            
+            // Update Avatar images
+            const cardAvatar = document.querySelector('#btn-mi-cuenta img');
+            if (cardAvatar) cardAvatar.src = currentUserAvatar;
+            
+            const miCuentaAvatar = document.querySelector('.avatar-image');
+            if (miCuentaAvatar) miCuentaAvatar.src = currentUserAvatar;
+
             // Update "Mi Equipo" self user
             const eqProfName = document.querySelector('.eq-prof-name');
             if (eqProfName && eqProfName.textContent.includes('(Tú)')) {
