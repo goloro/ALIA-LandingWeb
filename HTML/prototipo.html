@@ -1990,7 +1990,7 @@
                 <label class="form-label">Pausa de Almuerzo</label>
                 <div style="display: flex; gap: 16px;">
                     <div style="flex: 1;">
-                        <label class="form-label" style="font-size: 12px; color: #94a3b8;">Inicio</label>
+                        <label style="display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; color: #94a3b8; margin-bottom: 6px; letter-spacing: 0.5px;">Inicio</label>
                         <div class="custom-select-container" id="config-almuerzo-start" style="position: relative; width: 100%;">
                             <div class="custom-select-trigger time-input-clean" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
                                 <span class="selected-value">14:00</span>
@@ -2004,33 +2004,13 @@
                                 <div class="custom-option">14:00</div>
                                 <div class="custom-option">14:30</div>
                                 <div class="custom-option">15:00</div>
-                                <div class="custom-option">15:30</div>
-                                <div class="custom-option">16:00</div>
-                                <div class="custom-option">16:30</div>
-                                <div class="custom-option">17:00</div>
                             </div>
                         </div>
                     </div>
                     <div style="flex: 1;">
-                        <label class="form-label" style="font-size: 12px; color: #94a3b8;">Fin</label>
-                        <div class="custom-select-container" id="config-almuerzo-end" style="position: relative; width: 100%;">
-                            <div class="custom-select-trigger time-input-clean" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
-                                <span class="selected-value">15:00</span>
-                                <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                            </div>
-                            <div class="custom-select-options" style="top: 100%; left: 0; right: 0; z-index: 10; max-height: 150px; overflow-y: auto;">
-                                <div class="custom-option">13:00</div>
-                                <div class="custom-option">13:30</div>
-                                <div class="custom-option">14:00</div>
-                                <div class="custom-option">14:30</div>
-                                <div class="custom-option">15:00</div>
-                                <div class="custom-option">15:30</div>
-                                <div class="custom-option">16:00</div>
-                                <div class="custom-option">16:30</div>
-                                <div class="custom-option">17:00</div>
-                                <div class="custom-option">17:30</div>
-                                <div class="custom-option">18:00</div>
-                            </div>
+                        <label style="display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; color: #94a3b8; margin-bottom: 6px; letter-spacing: 0.5px;">Fin</label>
+                        <div id="config-almuerzo-end" class="time-input-clean" style="display: flex; align-items: center; justify-content: space-between; background-color: #f1f5f9; color: #94a3b8; cursor: not-allowed;">
+                            <span class="selected-value">15:00</span>
                         </div>
                     </div>
                 </div>

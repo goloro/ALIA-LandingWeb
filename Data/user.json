@@ -5,5 +5,7 @@
     "email": "propietario@alia.com",
     "phone": "+34 600 000 000",
     "avatar": "../Images/Logos/LogoPeluqueríaNegro.png",
-    "permissions": ["admin", "manage_team", "manage_schedule"]
+    "permissions": ["admin", "manage_team", "manage_schedule"],
+    "diasLibres": [1],
+    "pausaAlmuerzo": { "start": "14:00", "end": "15:00" }
 }

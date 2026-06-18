@@ -210,6 +210,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputAlmuerzoStart = document.getElementById('config-almuerzo-start');
     const inputAlmuerzoEnd = document.getElementById('config-almuerzo-end');
     
+    // Auto-update end time based on start time (1 hour later)
+    if (inputAlmuerzoStart && inputAlmuerzoEnd) {
+        const optionsDiv = inputAlmuerzoStart.querySelector('.custom-select-options');
+        if (optionsDiv) {
+            optionsDiv.addEventListener('click', (e) => {
+                if (e.target.classList.contains('custom-option')) {
+                    const startStr = e.target.textContent;
+                    const [h, m] = startStr.split(':').map(Number);
+                    const endH = (h + 1).toString().padStart(2, '0');
+                    const endM = m.toString().padStart(2, '0');
+                    inputAlmuerzoEnd.querySelector('.selected-value').textContent = `${endH}:${endM}`;
+                }
+            }, true); // true para capture phase, ya que app.js usa stopPropagation
+        }
+    }
+    
     let currentConfigProf = null;
 
     window.openConfigModal = function(profName) {
@@ -258,8 +274,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             if (profData.pausaAlmuerzo) {
-                inputAlmuerzoStart.querySelector('.selected-value').textContent = profData.pausaAlmuerzo.start || '14:00';
-                inputAlmuerzoEnd.querySelector('.selected-value').textContent = profData.pausaAlmuerzo.end || '15:00';
+                const startStr = profData.pausaAlmuerzo.start || '14:00';
+                inputAlmuerzoStart.querySelector('.selected-value').textContent = startStr;
+                const [h, m] = startStr.split(':').map(Number);
+                const endH = (h + 1).toString().padStart(2, '0');
+                const endM = m.toString().padStart(2, '0');
+                inputAlmuerzoEnd.querySelector('.selected-value').textContent = `${endH}:${endM}`;
             } else if (profData.lunchBreak) {
                 inputAlmuerzoStart.querySelector('.selected-value').textContent = profData.lunchBreak;
                 // calculate 1 hour end

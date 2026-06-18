@@ -58,9 +58,11 @@ class MockAPI {
                     } else {
                         this.state.currentUser = {
                             "id": 0,
-                            "name": "Propietario",
+                            "name": "Propietario ALIA",
                             "role": "Owner",
-                            "avatar": "../Images/Logos/LogoPeluqueríaNegro.png"
+                            "avatar": "../Images/Logos/LogoPeluqueríaNegro.png",
+                            "diasLibres": [1],
+                            "pausaAlmuerzo": { "start": "14:00", "end": "15:00" }
                         };
                     }
                 }
@@ -68,9 +70,11 @@ class MockAPI {
                 console.log("Error loading user.json", e);
                 this.state.currentUser = {
                     "id": 0,
-                    "name": "Propietario",
+                    "name": "Propietario ALIA",
                     "role": "Owner",
-                    "avatar": "../Images/Logos/LogoPeluqueríaNegro.png"
+                    "avatar": "../Images/Logos/LogoPeluqueríaNegro.png",
+                    "diasLibres": [1],
+                    "pausaAlmuerzo": { "start": "14:00", "end": "15:00" }
                 };
             }
 
