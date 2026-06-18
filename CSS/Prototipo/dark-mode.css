@@ -1,0 +1,235 @@
+/* 
+  DARK MODE THEME
+  Aplicado únicamente al contenedor del portal (.portal-container.dark-theme)
+*/
+
+.portal-container.dark-theme {
+    /* Variables base de layout.css redefinidas para tema oscuro */
+    --portal-bg: #0f172a;
+    --portal-sidebar-bg: #1e293b;
+    --portal-sidebar-border: #334155;
+    --portal-text-main: #f8fafc;
+    --portal-text-muted: #94a3b8;
+    --portal-icon-inactive: #64748b;
+    --portal-icon-active-bg: #38bdf8;
+    --portal-icon-active: #ffffff;
+    --portal-accent: #38bdf8;
+    
+    /* Variables extra para overrides estáticos */
+    --dark-card-bg: #1e293b;
+    --dark-border: #334155;
+    --dark-input-bg: #0f172a;
+    --dark-hover-bg: #334155;
+    
+    background-color: var(--portal-bg);
+    color: var(--portal-text-main);
+}
+
+/* ==========================================================================
+   GENERIC OVERRIDES (Tarjetas, Botones secundarios, Inputs)
+   ========================================================================== */
+.portal-container.dark-theme .dashboard-card,
+.portal-container.dark-theme .ajustes-card,
+.portal-container.dark-theme .ajustes-panel,
+.portal-container.dark-theme .ajustes-card-link,
+.portal-container.dark-theme .mi-cuenta-panel,
+.portal-container.dark-theme .pn-card,
+.portal-container.dark-theme .add-prof-card,
+.portal-container.dark-theme .soporte-card,
+.portal-container.dark-theme .chart-area-placeholder,
+.portal-container.dark-theme .clientes-table-wrapper,
+.portal-container.dark-theme .clientes-table th,
+.portal-container.dark-theme .clientes-table tbody tr,
+.portal-container.dark-theme .clientes-table tbody td,
+.portal-container.dark-theme .c-stat-card,
+.portal-container.dark-theme .disp-container,
+.portal-container.dark-theme .disp-panel,
+.portal-container.dark-theme .chat-sidebar,
+.portal-container.dark-theme .chat-window,
+.portal-container.dark-theme .chat-message.system,
+.portal-container.dark-theme .team-table-wrapper,
+.portal-container.dark-theme .team-table th,
+.portal-container.dark-theme .team-table tbody tr,
+.portal-container.dark-theme .team-table tbody td,
+.portal-container.dark-theme .notif-panel,
+.portal-container.dark-theme .notif-item.unread,
+.portal-container.dark-theme .notif-item,
+.portal-container.dark-theme .metric-card,
+.portal-container.dark-theme .chart-card,
+.portal-container.dark-theme .team-card,
+.portal-container.dark-theme .mini-stat-card,
+.portal-container.dark-theme .appointment-card,
+.portal-container.dark-theme .calendar-grid,
+.portal-container.dark-theme .calendar-day,
+.portal-container.dark-theme .agenda-view-toggle,
+.portal-container.dark-theme .filter-btn,
+.portal-container.dark-theme .client-details-panel,
+.portal-container.dark-theme .stat-card,
+.portal-container.dark-theme .invitations-list,
+.portal-container.dark-theme .empty-chat-state,
+.portal-container.dark-theme .chat-input-wrapper,
+.portal-container.dark-theme .calendar-container,
+.portal-container.dark-theme .requests-container,
+.portal-container.dark-theme .upload-area,
+.portal-container.dark-theme .file-drop-zone,
+.portal-container.dark-theme .notifications-popover,
+.portal-container.dark-theme .phone-container,
+.portal-container.dark-theme .phone-screen,
+.portal-container.dark-theme .chat-header,
+.portal-container.dark-theme .chat-footer {
+    background-color: var(--dark-card-bg) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--portal-text-main) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+.portal-container.dark-theme .card-title,
+.portal-container.dark-theme h1,
+.portal-container.dark-theme h2,
+.portal-container.dark-theme h3,
+.portal-container.dark-theme .section-label,
+.portal-container.dark-theme .setting-info span {
+    color: var(--portal-text-main) !important;
+}
+
+.portal-container.dark-theme p,
+.portal-container.dark-theme .card-subtitle,
+.portal-container.dark-theme .fc-desc,
+.portal-container.dark-theme .faq-answer {
+    color: var(--portal-text-muted) !important;
+}
+
+.portal-container.dark-theme .btn-secondary,
+.portal-container.dark-theme .btn-cancel,
+.portal-container.dark-theme .btn-cancel-clean,
+.portal-container.dark-theme .btn-support-action,
+.portal-container.dark-theme .btn-back-mi-cuenta,
+.portal-container.dark-theme .btn-topbar-icon {
+    background-color: transparent !important;
+    border-color: var(--dark-border) !important;
+    color: var(--portal-text-main) !important;
+}
+
+.portal-container.dark-theme .btn-secondary:hover,
+.portal-container.dark-theme .btn-cancel:hover,
+.portal-container.dark-theme .btn-cancel-clean:hover,
+.portal-container.dark-theme .btn-back-mi-cuenta:hover,
+.portal-container.dark-theme .btn-topbar-icon:hover {
+    background-color: var(--dark-hover-bg) !important;
+}
+
+/* ==========================================================================
+   INPUTS & FORMS
+   ========================================================================== */
+.portal-container.dark-theme input[type="text"],
+.portal-container.dark-theme input[type="email"],
+.portal-container.dark-theme textarea,
+.portal-container.dark-theme .mi-cuenta-input,
+.portal-container.dark-theme .pn-input,
+.portal-container.dark-theme .pn-textarea,
+.portal-container.dark-theme .search-box input {
+    background-color: var(--dark-input-bg) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--portal-text-main) !important;
+}
+
+.portal-container.dark-theme .form-group-clean label,
+.portal-container.dark-theme .mi-cuenta-label,
+.portal-container.dark-theme .pn-label {
+    color: var(--portal-text-muted) !important;
+}
+
+.portal-container.dark-theme .custom-select-trigger,
+.portal-container.dark-theme .custom-select-options,
+.portal-container.dark-theme .custom-option {
+    background-color: var(--dark-input-bg) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--portal-text-main) !important;
+}
+
+.portal-container.dark-theme .custom-option:hover {
+    background-color: var(--dark-hover-bg) !important;
+}
+
+/* ==========================================================================
+   SPECIFIC COMPONENTS
+   ========================================================================== */
+/* Agenda Grid */
+.portal-container.dark-theme .agenda-grid {
+    background-color: var(--dark-card-bg);
+}
+
+.portal-container.dark-theme .agenda-grid-header-row,
+.portal-container.dark-theme .agenda-time-col-header,
+.portal-container.dark-theme .agenda-slot-row,
+.portal-container.dark-theme .agenda-time-label,
+.portal-container.dark-theme .agenda-prof-header {
+    border-color: var(--dark-border) !important;
+}
+
+.portal-container.dark-theme .agenda-prof-header {
+    background-color: var(--portal-sidebar-bg) !important;
+}
+
+/* Tables */
+.portal-container.dark-theme .eq-table th,
+.portal-container.dark-theme .clientes-table th,
+.portal-container.dark-theme .team-table th {
+    background-color: var(--dark-hover-bg) !important;
+    color: var(--portal-text-muted) !important;
+    border-bottom: 2px solid var(--dark-border) !important;
+}
+
+.portal-container.dark-theme .eq-table td,
+.portal-container.dark-theme .clientes-table td,
+.portal-container.dark-theme .team-table td {
+    border-bottom: 1px solid var(--dark-border) !important;
+    color: var(--portal-text-main) !important;
+}
+
+.portal-container.dark-theme .eq-table tr:hover td,
+.portal-container.dark-theme .clientes-table tr:hover td,
+.portal-container.dark-theme .team-table tr:hover td,
+.portal-container.dark-theme .clientes-table tbody tr:hover,
+.portal-container.dark-theme .team-table tbody tr:hover {
+    background-color: var(--dark-hover-bg) !important;
+}
+
+/* Header & Topbar */
+.portal-container.dark-theme .portal-topbar {
+    border-bottom: 1px solid var(--dark-border) !important;
+}
+
+/* Sidebar fixes */
+.portal-container.dark-theme .portal-sidebar {
+    background-color: var(--portal-sidebar-bg) !important;
+    border-right: 1px solid var(--portal-sidebar-border) !important;
+}
+
+.portal-container.dark-theme .sidebar-nav .nav-item {
+    color: var(--portal-icon-inactive);
+}
+.portal-container.dark-theme .sidebar-nav .nav-item:hover {
+    background-color: var(--dark-hover-bg);
+    color: var(--portal-text-main);
+}
+.portal-container.dark-theme .sidebar-nav .nav-item.active {
+    background-color: var(--portal-icon-active-bg);
+    color: var(--portal-icon-active);
+}
+
+/* Segmented Control Theme Selector */
+.portal-container.dark-theme .segmented-control {
+    background-color: var(--dark-input-bg) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+.portal-container.dark-theme .segmented-control .segment.active {
+    background-color: var(--portal-accent) !important;
+    color: white !important;
+}
+
+/* Avatar wrappers */
+.portal-container.dark-theme .card-icon-wrapper {
+    background-color: var(--dark-input-bg) !important;
+}

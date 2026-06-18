@@ -1170,4 +1170,58 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }, true);
     }
+
+    // ==========================================
+    // THEME (DARK MODE) LOGIC
+    // ==========================================
+    const themeControl = document.getElementById('theme-segmented-control');
+    const portalContainer = document.querySelector('.portal-container');
+    
+    if (themeControl && portalContainer) {
+        const segments = themeControl.querySelectorAll('.segment');
+        
+        const applyTheme = (themeName) => {
+            let isDark = false;
+            if (themeName === 'oscuro') {
+                isDark = true;
+            } else if (themeName === 'sistema') {
+                isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+
+            if (isDark) {
+                portalContainer.classList.add('dark-theme');
+            } else {
+                portalContainer.classList.remove('dark-theme');
+            }
+            
+            // Update UI
+            segments.forEach(seg => {
+                if (seg.dataset.theme === themeName) {
+                    seg.classList.add('active');
+                } else {
+                    seg.classList.remove('active');
+                }
+            });
+            
+            localStorage.setItem('alia_theme', themeName);
+        };
+
+        // Escuchar clics en los segmentos
+        segments.forEach(segment => {
+            segment.addEventListener('click', () => {
+                applyTheme(segment.dataset.theme);
+            });
+        });
+
+        // Cargar preferencia guardada o sistema por defecto
+        const savedTheme = localStorage.getItem('alia_theme') || 'claro';
+        applyTheme(savedTheme);
+
+        // Escuchar cambios a nivel sistema operativo
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (localStorage.getItem('alia_theme') === 'sistema') {
+                applyTheme('sistema');
+            }
+        });
+    }
 });
