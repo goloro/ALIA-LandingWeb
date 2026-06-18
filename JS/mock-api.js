@@ -1,4 +1,4 @@
-class MockAPI {
+﻿class MockAPI {
     constructor() {
         if (MockAPI.instance) {
             return MockAPI.instance;

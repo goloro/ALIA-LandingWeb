@@ -316,6 +316,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
+        const setLunchUI = (startStr) => {
+            inputAlmuerzoStart.querySelector('.selected-value').textContent = startStr;
+            const options = inputAlmuerzoStart.querySelectorAll('.custom-option');
+            options.forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.textContent === startStr) opt.classList.add('active');
+            });
+            const [h, m] = startStr.split(':').map(Number);
+            const endH = (h + 1).toString().padStart(2, '0');
+            const endM = m.toString().padStart(2, '0');
+            inputAlmuerzoEnd.querySelector('.selected-value').textContent = `${endH}:${endM}`;
+        };
+
         if (profData) {
             if (profData.diasLibres) {
                 profData.diasLibres.forEach(day => {
@@ -327,24 +340,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cb) cb.checked = true;
             }
             
-            if (profData.pausaAlmuerzo) {
-                const startStr = profData.pausaAlmuerzo.start || '14:00';
-                inputAlmuerzoStart.querySelector('.selected-value').textContent = startStr;
-                const [h, m] = startStr.split(':').map(Number);
-                const endH = (h + 1).toString().padStart(2, '0');
-                const endM = m.toString().padStart(2, '0');
-                inputAlmuerzoEnd.querySelector('.selected-value').textContent = `${endH}:${endM}`;
+            if (profData.pausaAlmuerzo && profData.pausaAlmuerzo.start) {
+                setLunchUI(profData.pausaAlmuerzo.start);
             } else if (profData.lunchBreak) {
-                inputAlmuerzoStart.querySelector('.selected-value').textContent = profData.lunchBreak;
-                // calculate 1 hour end
-                const [lh, lm] = profData.lunchBreak.split(':').map(Number);
-                const endH = (lh + 1).toString().padStart(2, '0');
-                const endM = lm.toString().padStart(2, '0');
-                inputAlmuerzoEnd.querySelector('.selected-value').textContent = `${endH}:${endM}`;
+                setLunchUI(profData.lunchBreak);
             } else {
-                inputAlmuerzoStart.querySelector('.selected-value').textContent = '14:00';
-                inputAlmuerzoEnd.querySelector('.selected-value').textContent = '15:00';
+                setLunchUI('14:00');
             }
+        } else {
+            setLunchUI('14:00');
         }
         
         modalConfigEquipo.classList.add('active');
