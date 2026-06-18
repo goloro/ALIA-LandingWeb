@@ -118,11 +118,6 @@
     border-bottom: none;
 }
 
-.eq-table th:nth-child(1) { width: 35%; }
-.eq-table th:nth-child(2) { width: 30%; }
-.eq-table th:nth-child(3) { width: 20%; }
-.eq-table th:nth-child(4) { width: 15%; text-align: right; }
-.eq-table td:nth-child(4) { display: flex; justify-content: flex-end; align-items: center; }
 
 .eq-prof-cell {
     display: flex;

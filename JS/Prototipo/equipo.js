@@ -174,10 +174,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const today = new Date();
             const dateStr = today.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
             
+            // Generar ID secuencial: uno más que el último ID de la lista
+            const maxId = window.MockAPI.state.invitations.reduce((max, inv) => {
+                const currentId = typeof inv.id === 'number' ? inv.id : 0;
+                return Math.max(max, currentId);
+            }, 0);
+            const newId = maxId + 1;
+            
             window.MockAPI.state.invitations.push({
+                id: newId,
                 name: name,
                 email: email,
+                phone: phone,
+                dob: dob,
+                address: address,
                 role: role,
+                ssn: ssn,
+                dni: dni,
+                hireDate: hireDate,
                 date: dateStr,
                 status: 'Pendiente'
             });
@@ -219,10 +233,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <table class="eq-table">
                 <thead>
                     <tr>
-                        <th style="width: 40%;">NOMBRE / EMAIL</th>
-                        <th style="width: 25%;">ROL</th>
-                        <th style="width: 20%; text-align: center;">ESTADO</th>
-                        <th style="width: 15%; text-align: center;">ACCIONES</th>
+                        <th style="width: 35%;">NOMBRE / EMAIL</th>
+                        <th style="width: 20%;">ROL</th>
+                        <th style="width: 20%;">FECHA ALTA</th>
+                        <th style="width: 15%; text-align: center;">ESTADO</th>
+                        <th style="width: 10%; text-align: center;">ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -230,6 +245,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         invitations.forEach((inv, index) => {
             const initial = inv.name.charAt(0).toUpperCase();
+            
+            // Hack para el caso de María: siempre mostrar Hoy + 4 días si es la invitación de prueba (ID 1)
+            let displayHireDate = inv.hireDate || 'No definida';
+            if (inv.id === 1) {
+                const futureDate = new Date();
+                futureDate.setDate(futureDate.getDate() + 4);
+                displayHireDate = futureDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            }
+
             html += `
                 <tr>
                     <td>
@@ -242,13 +266,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </td>
                     <td><span class="eq-spec">${inv.role}</span></td>
+                    <td><span style="color: var(--portal-text-main); font-weight: 500;">${displayHireDate}</span></td>
                     <td style="text-align: center;">
                         <span class="pill-status" style="background-color: #fef3c7; color: #d97706;">${inv.status}</span>
                     </td>
-                    <td style="display: flex; justify-content: center; align-items: center; gap: 8px;">
-                        <button class="btn-action btn-delete btn-cancel-inv" data-index="${index}" title="Cancelar Invitación" style="background-color: #fee2e2; color: #ef4444;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                        </button>
+                    <td style="text-align: center;">
+                        <div style="display: inline-flex; justify-content: center; align-items: center; gap: 8px;">
+                            <button class="btn-action btn-delete btn-cancel-inv" data-index="${index}" title="Cancelar Invitación" style="background-color: #fee2e2; color: #ef4444;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             `;
@@ -266,15 +293,42 @@ document.addEventListener('DOMContentLoaded', () => {
         container.querySelectorAll('.btn-cancel-inv').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const idx = e.currentTarget.dataset.index;
-                window.MockAPI.state.invitations.splice(idx, 1);
-                renderInvitations();
-                if (window.showToast) window.showToast('Cancelada', 'Invitación cancelada con éxito', 'info');
+                const modal = document.getElementById('modal-confirm-delete-inv');
+                
+                if (modal) {
+                    modal.style.display = 'flex';
+                    
+                    const btnCancel = document.getElementById('btn-cancel-delete-inv');
+                    const btnConfirm = document.getElementById('btn-confirm-delete-inv');
+                    
+                    // Clonar botones para limpiar listeners anteriores
+                    const newBtnCancel = btnCancel.cloneNode(true);
+                    btnCancel.parentNode.replaceChild(newBtnCancel, btnCancel);
+                    
+                    const newBtnConfirm = btnConfirm.cloneNode(true);
+                    btnConfirm.parentNode.replaceChild(newBtnConfirm, btnConfirm);
+                    
+                    newBtnCancel.addEventListener('click', () => {
+                        modal.style.display = 'none';
+                    });
+                    
+                    newBtnConfirm.addEventListener('click', () => {
+                        window.MockAPI.state.invitations.splice(idx, 1);
+                        renderInvitations();
+                        modal.style.display = 'none';
+                        if (window.showToast) window.showToast('Cancelada', 'Invitación anulada con éxito', 'success');
+                    });
+                } else {
+                    // Fallback
+                    window.MockAPI.state.invitations.splice(idx, 1);
+                    renderInvitations();
+                    if (window.showToast) window.showToast('Cancelada', 'Invitación cancelada con éxito', 'success');
+                }
             });
         });
     }
 
-    // Call renderInvitations on load
-    renderInvitations();
+    // (renderInvitations se llama al final tras cargar datos)
 
     // --- Lógica de la tabla Mi Equipo ---
     async function renderTeamTable() {
@@ -702,19 +756,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Populate Roles from settings.json
+    // Populate Roles from settings.json and render invitations
     setTimeout(async () => {
-        if (window.MockAPI && window.populateDropdown) {
-            try {
-                const settings = await window.MockAPI.getSettings();
-                if (settings && settings.roles && settings.roles.length > 0) {
-                    const roleSelect = document.getElementById('add-prof-role');
-                    if (roleSelect) {
-                        window.populateDropdown(roleSelect, settings.roles, settings.roles[0]);
+        if (window.MockAPI) {
+            // Asegurarnos de que el MockAPI está inicializado para tener las invitaciones
+            if (window.MockAPI.getTeam) await window.MockAPI.getTeam();
+            renderInvitations();
+            
+            if (window.populateDropdown) {
+                try {
+                    const settings = await window.MockAPI.getSettings();
+                    if (settings && settings.roles && settings.roles.length > 0) {
+                        const roleSelect = document.getElementById('add-prof-role');
+                        if (roleSelect) {
+                            window.populateDropdown(roleSelect, settings.roles, settings.roles[0]);
+                        }
                     }
+                } catch (e) {
+                    console.error("Error loading roles:", e);
                 }
-            } catch (e) {
-                console.error("Error loading roles:", e);
             }
         }
     }, 500);
