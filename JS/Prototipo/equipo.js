@@ -42,13 +42,239 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnAddProf) btnAddProf.addEventListener('click', showAddProfPage);
     if (btnBackMiEquipo) btnBackMiEquipo.addEventListener('click', hideAddProfPage);
-    if (btnCancelProf) btnCancelProf.addEventListener('click', hideAddProfPage);
-    if (btnSaveProf) {
-        btnSaveProf.addEventListener('click', () => {
-            // Aquí iría la lógica de guardado
+    const cancelModal = document.getElementById('modal-confirm-cancel-add-prof');
+    const btnCancelCancel = document.getElementById('btn-cancel-cancel-add-prof');
+    const btnConfirmCancel = document.getElementById('btn-confirm-cancel-add-prof');
+
+    if (btnCancelProf) {
+        btnCancelProf.addEventListener('click', () => {
+            if (cancelModal) cancelModal.style.display = 'flex';
+            else hideAddProfPage();
+        });
+    }
+
+    if (btnCancelCancel) {
+        btnCancelCancel.addEventListener('click', () => {
+            if (cancelModal) cancelModal.style.display = 'none';
+        });
+    }
+
+    if (btnConfirmCancel) {
+        btnConfirmCancel.addEventListener('click', () => {
+            if (cancelModal) cancelModal.style.display = 'none';
             hideAddProfPage();
         });
     }
+    
+    const dobInput = document.getElementById('add-prof-dob');
+    if (dobInput) {
+        dobInput.addEventListener('input', (e) => {
+            // Remove anything that is not a digit, slash, or dash
+            e.target.value = e.target.value.replace(/[^\d\/\-]/g, '');
+        });
+    }
+
+    const phoneInputProto = document.getElementById('add-prof-phone');
+    if (phoneInputProto) {
+        phoneInputProto.addEventListener('input', (e) => {
+            // Solo números, +, -, y espacios
+            e.target.value = e.target.value.replace(/[^\d\+\-\s]/g, '');
+        });
+    }
+
+    const ssnInputProto = document.getElementById('add-prof-ssn');
+    if (ssnInputProto) {
+        ssnInputProto.addEventListener('input', (e) => {
+            // Solo números
+            e.target.value = e.target.value.replace(/[^\d]/g, '');
+        });
+    }
+
+    const dniInputProto = document.getElementById('add-prof-dni');
+    if (dniInputProto) {
+        dniInputProto.addEventListener('input', (e) => {
+            // Permitimos números y letras, bloqueando símbolos y espacios
+            e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+        });
+    }
+
+    if (btnSaveProf) {
+        btnSaveProf.addEventListener('click', () => {
+            const nameInput = document.getElementById('add-prof-name');
+            const emailInput = document.getElementById('add-prof-email');
+            const phoneInput = document.getElementById('add-prof-phone');
+            const dobInput = document.getElementById('add-prof-dob');
+            const addressInput = document.getElementById('add-prof-address');
+            const roleContainer = document.getElementById('add-prof-role');
+            const ssnInput = document.getElementById('add-prof-ssn');
+            const dniInput = document.getElementById('add-prof-dni');
+            const hireDateInput = document.getElementById('add-prof-hire-date');
+            
+            const name = nameInput ? nameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const phone = phoneInput ? phoneInput.value.trim() : '';
+            const dob = dobInput ? dobInput.value.trim() : '';
+            const address = addressInput ? addressInput.value.trim() : '';
+            const role = roleContainer ? roleContainer.querySelector('.selected-value').textContent : 'Estilista';
+            const ssn = ssnInput ? ssnInput.value.trim() : '';
+            const dni = dniInput ? dniInput.value.trim() : '';
+            const hireDate = hireDateInput ? hireDateInput.value.trim() : '';
+            
+            // Validate generic empty fields
+            if (!name || !address || !ssn || !dni || !hireDate) {
+                if (window.showToast) window.showToast('Campos Incompletos', 'Por favor, rellene todos los campos obligatorios', 'error');
+                else alert('Por favor, rellene todos los campos obligatorios');
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                if (window.showToast) window.showToast('Error de Validación', 'Debe introducir un correo electrónico válido', 'error');
+                else alert('Debe introducir un correo electrónico válido');
+                return;
+            }
+            
+            // Validar teléfono (obligatorio, al menos 9 caracteres y permitir +, -, espacios)
+            const phoneRegex = /^[0-9\+\s\-]{9,}$/;
+            if (!phone || !phoneRegex.test(phone)) {
+                if (window.showToast) window.showToast('Error de Validación', 'El teléfono es obligatorio y debe contener al menos 9 dígitos', 'error');
+                else alert('El teléfono es obligatorio y debe contener al menos 9 dígitos');
+                return;
+            }
+            
+            // Validar fecha de nacimiento (obligatorio, formato DD/MM/YYYY o DD-MM-YYYY)
+            const dobRegex = /^(0[1-9]|[12][0-9]|3[01])[- \/.](0[1-9]|1[012])[- \/.](19|20)\d\d$/;
+            if (!dob || !dobRegex.test(dob)) {
+                if (window.showToast) window.showToast('Error de Validación', 'La fecha de nacimiento es obligatoria (formato DD/MM/YYYY)', 'error');
+                else alert('La fecha de nacimiento es obligatoria (formato DD/MM/YYYY)');
+                return;
+            }
+            
+            // Comprobar mayoría de edad (18 años)
+            const parts = dob.split(/[- \/.]/);
+            const birthDate = new Date(parts[2], parts[1] - 1, parts[0]);
+            const todayDate = new Date();
+            let age = todayDate.getFullYear() - birthDate.getFullYear();
+            const m = todayDate.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && todayDate.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            if (age < 18) {
+                if (window.showToast) window.showToast('Error de Validación', 'El profesional debe tener al menos 18 años', 'error');
+                else alert('El profesional debe tener al menos 18 años');
+                return;
+            }
+            
+            // Add invitation
+            if (!window.MockAPI.state.invitations) {
+                window.MockAPI.state.invitations = [];
+            }
+            
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+            
+            window.MockAPI.state.invitations.push({
+                name: name,
+                email: email,
+                role: role,
+                date: dateStr,
+                status: 'Pendiente'
+            });
+            
+            // Clear inputs
+            if (nameInput) nameInput.value = '';
+            if (emailInput) emailInput.value = '';
+            if (phoneInput) phoneInput.value = '';
+            if (dobInput) dobInput.value = '';
+            if (addressInput) addressInput.value = '';
+            if (ssnInput) ssnInput.value = '';
+            if (dniInput) dniInput.value = '';
+            if (hireDateInput) hireDateInput.value = '';
+            
+            renderInvitations();
+            
+            if (window.showToast) window.showToast('Éxito', 'Invitación enviada correctamente', 'success');
+            hideAddProfPage();
+        });
+    }
+
+    function renderInvitations() {
+        const container = document.getElementById('invitations-container');
+        if (!container) return;
+        
+        const invitations = window.MockAPI?.state?.invitations || [];
+        
+        if (invitations.length === 0) {
+            container.innerHTML = `
+                <div class="invitation-card" style="display: flex; align-items: center; justify-content: center; padding: 24px; color: #94a3b8;">
+                    <span style="font-size: 0.95rem;">No hay invitaciones enviadas</span>
+                </div>
+            `;
+            return;
+        }
+        
+        let html = `
+        <div class="eq-table-wrapper" style="margin-top: 16px;">
+            <table class="eq-table">
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">NOMBRE / EMAIL</th>
+                        <th style="width: 25%;">ROL</th>
+                        <th style="width: 20%; text-align: center;">ESTADO</th>
+                        <th style="width: 15%; text-align: center;">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+        
+        invitations.forEach((inv, index) => {
+            const initial = inv.name.charAt(0).toUpperCase();
+            html += `
+                <tr>
+                    <td>
+                        <div class="eq-prof-cell">
+                            <div class="eq-avatar avatar-j" style="background-color: #cbd5e1; color: white;">${initial}</div>
+                            <div class="eq-prof-info">
+                                <span class="eq-prof-name">${inv.name}</span>
+                                <span class="eq-prof-email">${inv.email}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="eq-spec">${inv.role}</span></td>
+                    <td style="text-align: center;">
+                        <span class="pill-status" style="background-color: #fef3c7; color: #d97706;">${inv.status}</span>
+                    </td>
+                    <td style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+                        <button class="btn-action btn-delete btn-cancel-inv" data-index="${index}" title="Cancelar Invitación" style="background-color: #fee2e2; color: #ef4444;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        
+        html += `
+                </tbody>
+            </table>
+        </div>
+        `;
+        
+        container.innerHTML = html;
+        
+        // Add listeners for cancel buttons
+        container.querySelectorAll('.btn-cancel-inv').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = e.currentTarget.dataset.index;
+                window.MockAPI.state.invitations.splice(idx, 1);
+                renderInvitations();
+                if (window.showToast) window.showToast('Cancelada', 'Invitación cancelada con éxito', 'info');
+            });
+        });
+    }
+
+    // Call renderInvitations on load
+    renderInvitations();
 
     // --- Lógica de la tabla Mi Equipo ---
     async function renderTeamTable() {
@@ -475,5 +701,22 @@ document.addEventListener('DOMContentLoaded', () => {
             closeConfigModal();
         });
     }
+
+    // Populate Roles from settings.json
+    setTimeout(async () => {
+        if (window.MockAPI && window.populateDropdown) {
+            try {
+                const settings = await window.MockAPI.getSettings();
+                if (settings && settings.roles && settings.roles.length > 0) {
+                    const roleSelect = document.getElementById('add-prof-role');
+                    if (roleSelect) {
+                        window.populateDropdown(roleSelect, settings.roles, settings.roles[0]);
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading roles:", e);
+            }
+        }
+    }, 500);
 
 });

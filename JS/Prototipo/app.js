@@ -795,8 +795,10 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn.className = 'mc-btn';
         prevBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>';
         
-        // Bloquear ir a meses en el pasado si estamos en el actual
-        if (currentDate.getFullYear() === today.getFullYear() && currentDate.getMonth() === today.getMonth()) {
+        // Bloquear ir a meses en el pasado si estamos en el actual y no se permite el pasado
+        const allowPast = currentTargetInput && currentTargetInput.hasAttribute('data-allow-past');
+        
+        if (!allowPast && currentDate.getFullYear() === today.getFullYear() && currentDate.getMonth() === today.getMonth()) {
             prevBtn.style.opacity = '0.3';
             prevBtn.style.cursor = 'default';
         } else {
@@ -810,7 +812,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextBtn = document.createElement('button');
         nextBtn.className = 'mc-btn';
         nextBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>';
-        nextBtn.onclick = (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); };
+        
+        let maxAllowedDate = null;
+        if (currentTargetInput && currentTargetInput.getAttribute('data-max-date') === '18-years-ago') {
+            maxAllowedDate = new Date();
+            maxAllowedDate.setFullYear(today.getFullYear() - 18);
+        }
+
+        if (maxAllowedDate && currentDate.getFullYear() === maxAllowedDate.getFullYear() && currentDate.getMonth() === maxAllowedDate.getMonth()) {
+            nextBtn.style.opacity = '0.3';
+            nextBtn.style.cursor = 'default';
+        } else {
+            nextBtn.onclick = (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); };
+        }
         
         header.appendChild(prevBtn);
         header.appendChild(monthYear);
@@ -887,7 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            const isPast = thisDayDate < todayStart;
+            let isPast = thisDayDate < todayStart;
             let isClosed = window.BusinessSettings && window.BusinessSettings.closedDays.includes(thisDayDate.getDay());
             let isDayOff = false;
 
@@ -902,6 +916,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (profObj && profObj.diasLibres && profObj.diasLibres.includes(thisDayDate.getDay())) {
                             isDayOff = true;
                         }
+                    }
+                }
+            }
+            
+            // Override locks if input allows them
+            if (currentTargetInput) {
+                if (currentTargetInput.hasAttribute('data-allow-past')) {
+                    isPast = false;
+                }
+                if (currentTargetInput.hasAttribute('data-allow-all-days')) {
+                    isClosed = false;
+                    isDayOff = false;
+                }
+                if (currentTargetInput.getAttribute('data-max-date') === '18-years-ago') {
+                    let maxAllowedDate = new Date();
+                    maxAllowedDate.setFullYear(new Date().getFullYear() - 18);
+                    if (thisDayDate > maxAllowedDate) {
+                        isPast = true; // Use the same empty class logic
                     }
                 }
             }
@@ -969,7 +1001,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } else {
                 selectedDate = new Date();
-                currentDate = new Date();
+                if (inputElement.hasAttribute('data-disable-today')) {
+                    selectedDate.setDate(selectedDate.getDate() + 1);
+                }
+                currentDate = new Date(selectedDate);
             }
 
             renderCalendar();

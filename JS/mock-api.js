@@ -1,4 +1,4 @@
-﻿class MockAPI {
+class MockAPI {
     constructor() {
         if (MockAPI.instance) {
             return MockAPI.instance;
@@ -8,6 +8,7 @@
         this.state = {
             clients: [],
             team: [],
+            invitations: [],
             appointments: [],
             absences: [],
             currentUser: null,
@@ -108,6 +109,16 @@
                 }
             } catch(e) {
                 console.log("Settings no encontradas, usando valores por defecto", e);
+            }
+
+            // Cargar invitaciones
+            try {
+                const invRes = await fetch('../data/invitations.json');
+                if (invRes.ok) {
+                    this.state.invitations = await invRes.json();
+                }
+            } catch(e) {
+                console.log("Error loading invitations.json", e);
             }
             
             // Seed mock appointments if empty so prototype looks good

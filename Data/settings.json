@@ -1,11 +1,39 @@
 {
-    "closedDays": [0],
+    "closedDays": [
+        0
+    ],
     "services": [
-        { "name": "Corte Clásico", "duration": 30 },
-        { "name": "Corte + Barba", "duration": 45 },
-        { "name": "Tinte y Mechas", "duration": 120 },
-        { "name": "Manicura Semipermanente", "duration": 60 },
-        { "name": "Masaje Relajante", "duration": 60 },
-        { "name": "Tratamiento Facial", "duration": 90 }
+        {
+            "name": "Corte Clásico",
+            "duration": 30
+        },
+        {
+            "name": "Corte + Barba",
+            "duration": 45
+        },
+        {
+            "name": "Tinte y Mechas",
+            "duration": 120
+        },
+        {
+            "name": "Manicura Semipermanente",
+            "duration": 60
+        },
+        {
+            "name": "Masaje Relajante",
+            "duration": 60
+        },
+        {
+            "name": "Tratamiento Facial",
+            "duration": 90
+        }
+    ],
+    "roles": [
+        "Estilista",
+        "Colorista",
+        "Recepcionista",
+        "Manager",
+        "Barbero",
+        "Esteticista"
     ]
 }
