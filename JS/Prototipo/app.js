@@ -1124,4 +1124,42 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error("Error fetching settings or team", e);
         }
     }
+    
+    // Bloquear interacciones en Soporte (Prototipo) con acciones específicas
+    const soportePage = document.getElementById('page-soporte');
+    if (soportePage) {
+        const showWarning = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (window.showToast) {
+                window.showToast('Prototipo visual', 'Esta sección de soporte es solo una demostración visual y no es funcional.', 'warning');
+            }
+        };
+
+        // 1. Clics específicos
+        soportePage.addEventListener('click', (e) => {
+            const specificClickable = e.target.closest(
+                '.custom-select-trigger, ' +      // Desplegable de categoría
+                '.file-drop-zone, ' +             // Captura de pantalla
+                '.btn-support-action, ' +         // Chat y Llamada
+                '.kb-list a, ' +                  // Artículos
+                '.kb-footer a, ' +                // Ver todos
+                '.btn-purple-action'              // Enviar ticket (por si acaso)
+            );
+            
+            if (specificClickable) {
+                showWarning(e);
+            }
+        }, true);
+
+        // 2. Tecla Enter en cajas de texto
+        soportePage.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const isTextBox = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA';
+                if (isTextBox) {
+                    showWarning(e);
+                }
+            }
+        }, true);
+    }
 });
