@@ -221,9 +221,7 @@
     transition: background-color 0.2s;
 }
 
-.btn-delete:hover {
-    background-color: #fca5a5;
-}
+
 
 /* Secciones de Título */
 .section-heading {

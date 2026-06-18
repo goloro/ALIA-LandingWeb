@@ -96,6 +96,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const statusClass = isActive ? 'pill-activo' : 'pill-inactivo';
             const emailDisplay = prof.email || `${prof.name.toLowerCase().replace(/[^a-z]/g, '')}@peluqueriaalia.com`;
             
+            let deleteBtnHtml = '';
+            if (!prof.isMe) {
+                deleteBtnHtml = `
+                    <button class="btn-action btn-delete btn-delete-prof" data-prof-name="${prof.name}" title="Eliminar Profesional">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
+                `;
+            }
+            
             tr.innerHTML = `
                 <td>
                     <div class="eq-prof-cell">
@@ -108,10 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
                 <td><span class="eq-spec">${prof.role || 'Estilista'}</span></td>
                 <td><span class="pill-status ${statusClass}">${statusDisplay}</span></td>
-                <td style="display: flex; justify-content: center; align-items: center; padding-right: 0;">
-                    <button class="btn-icon btn-config-prof" data-prof-name="${prof.name}" title="Gestionar Horario/Disponibilidad" style="background: none; border: none; cursor: pointer; color: #64748b; padding: 4px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <td style="display: flex; justify-content: center; align-items: center; padding-right: 0; gap: 8px;">
+                    <button class="btn-action btn-config-prof" data-prof-name="${prof.name}" title="Gestionar Horario/Disponibilidad" style="background-color: #f1f5f9; color: #64748b;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><path d="M17.5 17.5 16 16.25V14"/><circle cx="16" cy="16" r="6"/></svg>
                     </button>
+                    ${deleteBtnHtml}
                 </td>
             `;
             tbody.appendChild(tr);
@@ -126,6 +136,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+        
+        // Add listeners for delete buttons
+        document.querySelectorAll('.btn-delete-prof').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                window.profToDeleteName = e.currentTarget.dataset.profName;
+                const modal = document.getElementById('modal-confirm-delete-prof');
+                if (modal) modal.classList.add('active');
+            });
+        });
+        
+        // Modal Confirm Delete Prof logic
+        const btnConfirmDeleteProf = document.getElementById('btn-confirm-delete-prof');
+        const btnCancelDeleteProf = document.getElementById('btn-cancel-delete-prof');
+        const modalConfirmDeleteProf = document.getElementById('modal-confirm-delete-prof');
+
+        if (btnConfirmDeleteProf) {
+            btnConfirmDeleteProf.addEventListener('click', () => {
+                if (window.profToDeleteName) {
+                    const profName = window.profToDeleteName;
+                    const btn = btnConfirmDeleteProf;
+                    const originalHtml = btn.innerHTML;
+                    btn.innerHTML = '<svg class="spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"></line></svg>';
+                    
+                    setTimeout(() => {
+                        window.MockAPI.state.team = window.MockAPI.state.team.filter(p => p.name !== profName);
+                        window.BusinessTeam = window.BusinessTeam.filter(p => p.name !== profName);
+                        renderTeamTable();
+                        
+                        modalConfirmDeleteProf.classList.remove('active');
+                        if (window.showToast) window.showToast('Profesional Eliminado', `El profesional ${profName} ha sido eliminado correctamente.`, 'error');
+                        
+                        btn.innerHTML = originalHtml;
+                        window.profToDeleteName = null;
+                    }, 400); // Simulate network delay
+                }
+            });
+        }
+        
+        if (btnCancelDeleteProf) {
+            btnCancelDeleteProf.addEventListener('click', () => {
+                window.profToDeleteName = null;
+                if (modalConfirmDeleteProf) modalConfirmDeleteProf.classList.remove('active');
+            });
+        }
 
         // Actualizar tarjetas de estadísticas
         const elTotal = document.getElementById('total-staff-val');
@@ -359,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Show toast notification
             if (window.showToast) {
-                window.showToast(`Horario de ${currentConfigProf} actualizado correctamente.`, 'success');
+                window.showToast('Éxito', `Horario de ${currentConfigProf} actualizado correctamente.`, 'success');
             } else {
                 alert(`Horario de ${currentConfigProf} actualizado correctamente.`);
             }
