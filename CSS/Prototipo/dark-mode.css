@@ -76,7 +76,34 @@
 .portal-container.dark-theme .phone-container,
 .portal-container.dark-theme .phone-screen,
 .portal-container.dark-theme .chat-header,
-.portal-container.dark-theme .chat-footer {
+.portal-container.dark-theme .chat-footer,
+.portal-container.dark-theme .modal-container,
+.portal-container.dark-theme .form-control,
+.portal-container.dark-theme input[type="tel"],
+.portal-container.dark-theme input[type="date"],
+.portal-container.dark-theme input[type="time"],
+.portal-container.dark-theme input[type="password"],
+.portal-container.dark-theme input[type="number"],
+.portal-container.dark-theme select,
+.portal-container.dark-theme .mini-calendar-popover,
+.portal-container.dark-theme .autocomplete-popover,
+.portal-container.dark-theme .appointment-details-panel,
+.portal-container.dark-theme .notes-card,
+.portal-container.dark-theme .btn-footer-outline,
+.portal-container.dark-theme .agenda-grid-header-row,
+.portal-container.dark-theme .agenda-grid-body,
+.portal-container.dark-theme button.view-toggle-btn.active,
+.portal-container.dark-theme button.prof-filter-btn:not(.active),
+.portal-container.dark-theme button.cs-filter-btn.outline-warning,
+.portal-container.dark-theme .disp-card.card-calendario,
+.portal-container.dark-theme .disp-card.card-solicitudes,
+.portal-container.dark-theme .disp-card.card-registrar,
+.portal-container.dark-theme .eq-stat-card.border-purple,
+.portal-container.dark-theme .eq-stat-card.border-green,
+.portal-container.dark-theme .eq-table-wrapper,
+.portal-container.dark-theme .invitation-card,
+.portal-container.dark-theme .marker-inner-dot,
+.portal-container.dark-theme .hoy-dot {
     background-color: var(--dark-card-bg) !important;
     border-color: var(--dark-border) !important;
     color: var(--portal-text-main) !important;
@@ -88,7 +115,25 @@
 .portal-container.dark-theme h2,
 .portal-container.dark-theme h3,
 .portal-container.dark-theme .section-label,
-.portal-container.dark-theme .setting-info span {
+.portal-container.dark-theme .setting-info span,
+.portal-container.dark-theme .panel-time,
+.portal-container.dark-theme .panel-date,
+.portal-container.dark-theme .client-name,
+.portal-container.dark-theme .edit-link,
+.portal-container.dark-theme .history-service,
+.portal-container.dark-theme .history-badge,
+.portal-container.dark-theme .cd-stat-val,
+.portal-container.dark-theme .cd-tab.active,
+.portal-container.dark-theme .cd-reg-date,
+.portal-container.dark-theme .eq-stat-label,
+.portal-container.dark-theme .eq-stat-value,
+.portal-container.dark-theme .eq-prof-name,
+.portal-container.dark-theme .eq-spec,
+.portal-container.dark-theme .insight-label,
+.portal-container.dark-theme .insight-value,
+.portal-container.dark-theme .chat-name,
+.portal-container.dark-theme .selected-value,
+.portal-container.dark-theme strong {
     color: var(--portal-text-main) !important;
 }
 

@@ -1117,6 +1117,44 @@ document.addEventListener('DOMContentLoaded', async () => {
             const miCuentaAvatar = document.querySelector('.avatar-image');
             if (miCuentaAvatar) miCuentaAvatar.src = currentUserAvatar;
 
+            // Update Mi Cuenta Inputs
+            const loadUserData = (user) => {
+                const inputNombre = document.getElementById('mi-cuenta-nombre');
+                if (inputNombre) inputNombre.value = user.name || '';
+                
+                const inputEmail = document.getElementById('mi-cuenta-email');
+                if (inputEmail) inputEmail.value = user.email || '';
+                
+                const inputTelefono = document.getElementById('mi-cuenta-telefono');
+                if (inputTelefono) inputTelefono.value = user.phone || '';
+                
+                const inputFechaNacimiento = document.getElementById('mi-cuenta-fecha-nacimiento');
+                if (inputFechaNacimiento) inputFechaNacimiento.value = user.birthDate || '';
+                
+                const inputCorreoPersonal = document.getElementById('mi-cuenta-correo-personal');
+                if (inputCorreoPersonal) inputCorreoPersonal.value = user.personalEmail || '';
+                
+                const inputDireccion = document.getElementById('mi-cuenta-direccion');
+                if (inputDireccion) inputDireccion.value = user.address || '';
+                
+                const inputPassword = document.getElementById('mi-cuenta-password');
+                // Dejar la contraseña vacía por defecto
+                if (inputPassword) inputPassword.value = '';
+            };
+
+            const cachedUser = localStorage.getItem('currentUserData');
+            if (cachedUser) {
+                loadUserData(JSON.parse(cachedUser));
+            } else {
+                fetch('../Data/user.json')
+                    .then(res => res.json())
+                    .then(user => {
+                        localStorage.setItem('currentUserData', JSON.stringify(user));
+                        loadUserData(user);
+                    })
+                    .catch(e => console.error('Error loading user.json', e));
+            }
+
             // Update "Mi Equipo" self user
             const eqProfName = document.querySelector('.eq-prof-name');
             if (eqProfName && eqProfName.textContent.includes('(Tú)')) {
@@ -1224,4 +1262,176 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+
+    // --- Lógica de Navegación Interna (Ajustes) ---
+    const btnMiCuenta = document.getElementById('btn-mi-cuenta');
+    const btnPortalNegocio = document.getElementById('btn-portal-negocio');
+    const btnBackPortal = document.getElementById('btn-back-portal');
+    const btnBackMiCuenta = document.getElementById('btn-back-mi-cuenta');
+
+    const navigateToInternalPage = (pageId, title) => {
+        document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+        const page = document.getElementById(pageId);
+        if (page) page.classList.add('active');
+        
+        const topbarTitle = document.querySelector('.topbar-title');
+        if (topbarTitle) topbarTitle.textContent = title;
+    };
+
+    if (btnMiCuenta) {
+        btnMiCuenta.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateToInternalPage('page-mi-cuenta', 'Información de Usuario');
+        });
+    }
+
+    if (btnPortalNegocio) {
+        btnPortalNegocio.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateToInternalPage('page-portal-negocio', 'Portal del Negocio');
+        });
+    }
+
+    const goBackToAjustes = (e) => {
+        e.preventDefault();
+        navigateToInternalPage('page-ajustes', 'Ajustes y Preferencias');
+    };
+
+    if (btnBackPortal) btnBackPortal.addEventListener('click', goBackToAjustes);
+    if (btnBackMiCuenta) btnBackMiCuenta.addEventListener('click', goBackToAjustes);
+
+    // --- Lógica de Mostrar/Ocultar Contraseñas ---
+    const passwordEyes = document.querySelectorAll('.password-eye');
+    passwordEyes.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const input = btn.previousElementSibling;
+            if (input && input.tagName === 'INPUT') {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    // Cambiar a icono de ojo tachado (eye-off)
+                    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+                } else {
+                    input.type = 'password';
+                    // Cambiar a icono de ojo normal (eye)
+                    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+                }
+            }
+        });
+    });
+
+    // --- Lógica de Botones de Prototipo (Mi Cuenta) ---
+    const btnUploadPhoto = document.querySelector('.btn-upload-photo');
+    const btnRemovePhoto = document.querySelector('.btn-remove-photo');
+    const btnsUpdate = document.querySelectorAll('.btn-update');
+    
+    const showPrototypeWarning = (e) => {
+        e.preventDefault();
+        window.showToast("Función de Prototipo", "Esta funcionalidad no está conectada en la versión de prueba.", "warning");
+    };
+
+    if (btnUploadPhoto) btnUploadPhoto.addEventListener('click', showPrototypeWarning);
+    if (btnRemovePhoto) btnRemovePhoto.addEventListener('click', showPrototypeWarning);
+    
+    btnsUpdate.forEach(btn => {
+        if (btn.id === 'btn-actualizar-datos') {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const emailInput = document.getElementById('mi-cuenta-correo-personal');
+                const phoneInput = document.getElementById('mi-cuenta-telefono');
+                const addressInput = document.getElementById('mi-cuenta-direccion');
+                
+                // Validación de email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput && emailInput.value.trim() !== '' && !emailRegex.test(emailInput.value)) {
+                    window.showToast("Error de Validación", "Por favor, introduce un correo electrónico válido.", "error");
+                    return;
+                }
+                
+                // Validación de teléfono (al menos 9 dígitos)
+                if (phoneInput && phoneInput.value.trim() !== '') {
+                    const digits = phoneInput.value.replace(/\D/g, '');
+                    if (digits.length < 9) {
+                        window.showToast("Error de Validación", "El teléfono debe contener al menos 9 dígitos.", "error");
+                        return;
+                    }
+                }
+                
+                // Validación de dirección
+                if (addressInput && addressInput.value.trim() === '') {
+                    window.showToast("Error de Validación", "La dirección completa no puede estar vacía.", "error");
+                    return;
+                }
+                
+                // Guardar en localStorage
+                const cachedUser = localStorage.getItem('currentUserData');
+                if (cachedUser) {
+                    const user = JSON.parse(cachedUser);
+                    if (emailInput) user.personalEmail = emailInput.value.trim();
+                    if (phoneInput) user.phone = phoneInput.value.trim();
+                    if (addressInput) user.address = addressInput.value.trim();
+                    localStorage.setItem('currentUserData', JSON.stringify(user));
+                }
+                
+                // Si todo está correcto
+                window.showToast("Datos Actualizados", "Tus datos personales se han guardado correctamente.", "success");
+            });
+        } else if (btn.id === 'btn-actualizar-password') {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const currentPasswordInput = document.getElementById('mi-cuenta-password');
+                const newPasswordInput = document.getElementById('mi-cuenta-new-password');
+                const confirmPasswordInput = document.getElementById('mi-cuenta-confirm-password');
+                
+                // Validar que ningún campo esté vacío
+                if (!currentPasswordInput || currentPasswordInput.value.trim() === '' || 
+                    !newPasswordInput || newPasswordInput.value.trim() === '' ||
+                    !confirmPasswordInput || confirmPasswordInput.value.trim() === '') {
+                    window.showToast("Error de Validación", "Hace falta llenar todos los campos.", "error");
+                    return;
+                }
+                
+                const cachedUser = localStorage.getItem('currentUserData');
+                if (cachedUser) {
+                    const user = JSON.parse(cachedUser);
+                    
+                    // 1. Validar contraseña actual
+                    if (currentPasswordInput.value !== user.password) {
+                        window.showToast("Error de Validación", "La contraseña actual es incorrecta.", "error");
+                        return;
+                    }
+                    
+                    // 2. Validar que la nueva no esté vacía
+                    if (!newPasswordInput || newPasswordInput.value.trim() === '') {
+                        window.showToast("Error de Validación", "La nueva contraseña no puede estar vacía.", "error");
+                        return;
+                    }
+                    
+                    // 3. Validar que coincidan
+                    if (newPasswordInput.value !== confirmPasswordInput.value) {
+                        window.showToast("Error de Validación", "Las contraseñas nuevas no coinciden.", "error");
+                        return;
+                    }
+                    
+                    // Actualizar contraseña en localStorage
+                    user.password = newPasswordInput.value;
+                    localStorage.setItem('currentUserData', JSON.stringify(user));
+                    
+                    // Éxito
+                    window.showToast("Contraseña Actualizada", "Tu contraseña se ha cambiado correctamente.", "success");
+                    
+                    // Limpiar campos
+                    currentPasswordInput.value = '';
+                    newPasswordInput.value = '';
+                    confirmPasswordInput.value = '';
+                } else {
+                    window.showToast("Error", "No se encontraron los datos del usuario. Recarga la página.", "error");
+                }
+            });
+        } else {
+            btn.addEventListener('click', showPrototypeWarning);
+        }
+    });
+
 });
