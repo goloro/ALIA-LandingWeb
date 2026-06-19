@@ -30,17 +30,17 @@ class MockAPI {
         try {
             // Cargar desde JSON estático
             try {
-                const clientsRes = await fetch('../data/clients.json');
+                const clientsRes = await fetch('../Data/clients.json');
                 if (clientsRes.ok) this.state.clients = await clientsRes.json();
             } catch(e) { console.log("Error loading clients.json"); }
 
             try {
-                const teamRes = await fetch('../data/team.json');
+                const teamRes = await fetch('../Data/team.json');
                 if (teamRes.ok) this.state.team = await teamRes.json();
             } catch(e) { console.log("Error loading team.json"); }
             
             try {
-                const apptsRes = await fetch('../data/appointments.json');
+                const apptsRes = await fetch('../Data/appointments.json');
                 if (apptsRes.ok) {
                     this.state.appointments = await apptsRes.json();
                 }
@@ -53,7 +53,7 @@ class MockAPI {
                 if (cachedUser) {
                     this.state.currentUser = JSON.parse(cachedUser);
                 } else {
-                    const userRes = await fetch('../data/user.json');
+                    const userRes = await fetch('../Data/user.json');
                     if (userRes.ok) {
                         this.state.currentUser = await userRes.json();
                     } else {
@@ -80,7 +80,7 @@ class MockAPI {
             }
 
             try {
-                const businessRes = await fetch('../data/business.json');
+                const businessRes = await fetch('../Data/business.json');
                 if (businessRes.ok) {
                     this.state.businessInfo = await businessRes.json();
                 } else {
@@ -92,7 +92,7 @@ class MockAPI {
             }
 
             try {
-                const absRes = await fetch('../data/ausencias.json');
+                const absRes = await fetch('../Data/ausencias.json');
                 if (absRes.ok) {
                     this.state.absences = await absRes.json();
                 }
@@ -102,7 +102,7 @@ class MockAPI {
 
             // Cargar ajustes si existe el archivo
             try {
-                const settingsRes = await fetch('../data/settings.json');
+                const settingsRes = await fetch('../Data/settings.json');
                 if (settingsRes.ok) {
                     const loadedSettings = await settingsRes.json();
                     this.state.settings = { ...this.state.settings, ...loadedSettings };
@@ -113,7 +113,7 @@ class MockAPI {
 
             // Cargar invitaciones
             try {
-                const invRes = await fetch('../data/invitations.json');
+                const invRes = await fetch('../Data/invitations.json');
                 if (invRes.ok) {
                     this.state.invitations = await invRes.json();
                 }
@@ -122,7 +122,21 @@ class MockAPI {
             }
             
             // Seed mock appointments if empty so prototype looks good
-            if (this.state.appointments.length === 0 && this.state.team.length > 0) {
+            if (this.state.team.length === 0) {
+                this.state.team = [
+                    { id: 1, name: "Dra. Laura Gómez", role: "Especialista", attendance: "98%", avatarUrl: "https://i.pravatar.cc/150?u=laura", dayOff: 2, lunchBreak: "13:30" },
+                    { id: 2, name: "Dr. Javier Ruiz", role: "Terapista", attendance: "88%", avatarUrl: "https://i.pravatar.cc/150?u=javier", dayOff: 3, lunchBreak: "14:30" }
+                ];
+            }
+            if (!this.state.currentUser) {
+                this.state.currentUser = {
+                    "id": 0,
+                    "name": "Propietario ALIA",
+                    "role": "Owner",
+                    "avatarUrl": "https://i.pravatar.cc/150?u=owner"
+                };
+            }
+            if (this.state.appointments.length === 0) {
                 this._seedMockAppointments();
             }
 
@@ -132,9 +146,15 @@ class MockAPI {
             // Fallback empty if fetch fails
             this.state.clients = [];
             this.state.team = [
-                { id: 1, name: "Dra. Laura Gómez", role: "Especialista", dayOff: 2, lunchBreak: "13:30" },
-                { id: 2, name: "Dr. Javier Ruiz", role: "Terapista", dayOff: 3, lunchBreak: "14:30" }
+                { id: 1, name: "Dra. Laura Gómez", role: "Especialista", attendance: "98%", avatarUrl: "https://i.pravatar.cc/150?u=laura", dayOff: 2, lunchBreak: "13:30" },
+                { id: 2, name: "Dr. Javier Ruiz", role: "Terapista", attendance: "88%", avatarUrl: "https://i.pravatar.cc/150?u=javier", dayOff: 3, lunchBreak: "14:30" }
             ];
+            this.state.currentUser = {
+                "id": 0,
+                "name": "Propietario ALIA",
+                "role": "Owner",
+                "avatarUrl": "https://i.pravatar.cc/150?u=owner"
+            };
             this._seedMockAppointments();
             this.initialized = true;
         }
@@ -177,22 +197,21 @@ class MockAPI {
             if (d.toDateString() === tomorrow.toDateString()) return "Mañana";
             return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
         };
-
         const prof1 = prof1Obj.name;
         const prof2 = prof2Obj.name;
         const myAgenda = myAgendaObj.name;
 
         const seedAppts = [
-            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "10:30", duration: 60, service: "Corte y Lavado", prof: prof1, status: "completed" },
-            { id: 102, clientId: 102, clientName: "Ana López", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "12:00", duration: 90, service: "Coloración", prof: prof1, status: "pending" },
-            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: formatD(p2_date1), formattedDate: formatLabel(p2_date1), time: "16:00", duration: 30, service: "Arreglo Barba", prof: prof2, status: "pending" },
-            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: formatD(p1_date2), formattedDate: formatLabel(p1_date2), time: "11:00", duration: 60, service: "Peinado", prof: prof1, status: "pending" },
-            { id: 105, clientId: 105, clientName: "David R.", rawDate: formatD(p2_date2), formattedDate: formatLabel(p2_date2), time: "13:30", duration: 30, service: "Corte Express", prof: prof2, status: "pending" },
+            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "10:30", duration: 60, service: "Corte y Lavado", prof: prof1, status: "completed", createdAt: formatD(now) },
+            { id: 102, clientId: 102, clientName: "Ana López", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "12:00", duration: 90, service: "Coloración", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000)) },
+            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: formatD(p2_date1), formattedDate: formatLabel(p2_date1), time: "16:00", duration: 30, service: "Arreglo Barba", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*2)) },
+            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: formatD(p1_date2), formattedDate: formatLabel(p1_date2), time: "11:00", duration: 60, service: "Peinado", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*3)) },
+            { id: 105, clientId: 105, clientName: "David R.", rawDate: formatD(p2_date2), formattedDate: formatLabel(p2_date2), time: "13:30", duration: 30, service: "Corte Express", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*4)) },
             
             // Mi Agenda appointments
-            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", prof: myAgenda, status: "pending" },
-            { id: 107, clientId: 107, clientName: "Elena V.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:00", duration: 60, service: "Entrevista Staff", prof: myAgenda, status: "pending" },
-            { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", prof: myAgenda, status: "completed" }
+            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", prof: myAgenda, status: "pending", createdAt: formatD(now) },
+            { id: 107, clientId: 107, clientName: "Elena V.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:00", duration: 60, service: "Entrevista Staff", prof: myAgenda, status: "pending", createdAt: formatD(now) },
+            { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", prof: myAgenda, status: "completed", createdAt: formatD(now) }
         ];
 
         // Añadir estos clientes a la base de datos simulada para que salgan en la pestaña de clientes
@@ -367,6 +386,8 @@ class MockAPI {
             }
         }
         
+        if (window.renderDashboard) window.renderDashboard();
+        
         return this.state.appointments[apptIndex];
     }
 
@@ -424,6 +445,7 @@ class MockAPI {
             clientName: client.name,
             date: apptData.formattedDate, 
             rawDate: apptData.rawDate,
+            createdAt: new Date().toISOString().split('T')[0],
             time: timeStr,
             service: apptData.service,
             prof: apptData.prof,
@@ -433,6 +455,8 @@ class MockAPI {
         
         client.history.unshift(newAppt);
         this.state.appointments.unshift(newAppt);
+        
+        if (window.renderDashboard) window.renderDashboard();
         
         return { success: true, client };
     }

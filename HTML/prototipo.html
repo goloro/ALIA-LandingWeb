@@ -216,31 +216,30 @@
                                 <div class="metrics-grid">
                                     <div class="metric-card">
                                         <div class="metric-title">Ingresos Previstos (<span class="current-month-text">...</span>)</div>
-                                        <div class="metric-value">0 <span>€</span></div>
-                                        <div class="metric-line" style="width: 0px;"></div>
+                                        <div class="metric-value" id="db-ingresos-value">0 <span>€</span></div>
+                                        <div class="metric-line" id="db-ingresos-bar" style="width: 0px;"></div>
                                     </div>
                                     
                                     <div class="metric-card">
                                         <div class="metric-title">Tasa De Ocupación (<span class="current-month-text">...</span>)</div>
-                                        <div class="metric-value">0 <span>%</span></div>
-                                        <div class="metric-sub" style="color: #94a3b8;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg> 0% vs mes ant.</div>
+                                        <div class="metric-value" id="db-ocupacion-value">0 <span>%</span></div>
+                                        <div class="metric-sub" id="db-ocupacion-vs" style="color: #94a3b8;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg> 0% vs mes ant.</div>
                                     </div>
-                                    
-                                    <div class="metric-card">
+                                            <div class="metric-card">
                                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                                             <div class="metric-title">Nuevos Clientes (<span class="current-month-text">...</span>)</div>
-                                            <div class="pill-green" style="background-color: #f1f5f9; color: #94a3b8;">0%</div>
+                                            <div class="pill-green" id="db-nuevos-pill" style="background-color: #f1f5f9; color: #94a3b8;">0%</div>
                                         </div>
-                                        <div class="metric-value">0</div>
-                                        <div class="avatars-group" style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; margin-top: 4px;">
+                                        <div class="metric-value" id="db-nuevos-value">0</div>
+                                        <div class="avatars-group" id="db-nuevos-avatars" style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; margin-top: 4px;">
                                             Sin datos recientes
                                         </div>
                                     </div>
                                     
                                     <div class="metric-card purple-card">
-                                        <div class="metric-title">Horas Ahorradas Por IA (<span class="current-month-text">...</span>)</div>
-                                        <div class="metric-value">✨ 0h</div>
-                                        <div class="metric-sub">Equivale a 0€ en costes<br>operativos</div>
+                                        <div class="metric-title">Horas Ahorradas Por ALIA (<span class="current-month-text">...</span>)</div>
+                                        <div class="metric-value" id="db-ahorros-value">✨ 0h</div>
+                                        <div class="metric-sub" id="db-ahorros-sub">Gestión automática<br>de reservas</div>
                                     </div>
                                 </div>
 
@@ -248,7 +247,7 @@
                                     <div class="chart-card">
                                         <div class="chart-header">
                                             <div>
-                                                <h3 class="section-title" style="margin-bottom: 4px;">Citas por Día</h3>
+                                                <h3 class="section-title" style="margin-bottom: 4px;">Citas reservadas por Día</h3>
                                                 <span class="section-subtitle">Comparativa de canal de entrada</span>
                                             </div>
                                             <div class="legend">
@@ -258,13 +257,14 @@
                                         </div>
                                         
                                         <!-- Placeholder visual para el gráfico -->
-                                        <div class="chart-area-placeholder">
+                                        <div class="chart-area-placeholder" id="db-chart-area">
                                             <span class="axis-label">Lun</span>
                                             <span class="axis-label">Mar</span>
                                             <span class="axis-label">Mié</span>
                                             <span class="axis-label">Jue</span>
                                             <span class="axis-label">Vie</span>
                                             <span class="axis-label">Sáb</span>
+                                            <span class="axis-label">Dom</span>
                                         </div>
                                     </div>
                                     
@@ -272,28 +272,28 @@
                                         <h3 class="section-title" style="margin-bottom: 4px;">Rendimiento del Equipo</h3>
                                         <span class="section-subtitle">Ocupación semanal</span>
                                         
-                                        <div class="team-list">
+                                        <div class="team-list" id="db-team-list">
                                             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 0; color: #94a3b8; text-align: center;">
                                                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; opacity: 0.5;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                                                 <span style="font-size: 0.875rem;">No hay profesionales registrados</span>
                                             </div>
                                         </div>
                                         
-                                        <button class="btn-outline">VER DETALLE DE EQUIPO</button>
+                                        <button class="btn-outline" onclick="document.querySelector('.nav-item[data-target=\'page-mi-equipo\']').click()">VER DETALLE DE EQUIPO</button>
                                     </div>
                                 </div>
 
                                 <h3 class="section-title">Próxima Cita</h3>
-                                <div class="appointment-card" style="border-left-color: #e2e8f0;">
+                                <div class="appointment-card" id="db-next-appt-card" style="border-left-color: #e2e8f0;">
                                     <div class="appt-left">
                                         <div class="appt-status">
-                                            <span class="badge-green" style="background-color: #f1f5f9; color: #94a3b8;">SIN CITAS</span>
-                                            <span class="appt-time" style="color: #94a3b8;">--:--</span>
+                                            <span class="badge-green" id="db-next-appt-badge" style="background-color: #f1f5f9; color: #94a3b8;">SIN CITAS</span>
+                                            <span class="appt-time" id="db-next-appt-time" style="color: #94a3b8;">--:--</span>
                                         </div>
-                                        <div class="appt-name" style="color: #64748b;">No hay citas próximas</div>
-                                        <div class="appt-service">---</div>
+                                        <div class="appt-name" id="db-next-appt-name" style="color: #64748b;">No hay citas próximas</div>
+                                        <div class="appt-service" id="db-next-appt-service">---</div>
                                     </div>
-                                    <div class="appt-right">
+                                    <div class="appt-right" id="db-next-appt-right">
                                         <!-- Oculto cuando no hay citas -->
                                     </div>
                                 </div>
@@ -2047,6 +2047,7 @@
     <!-- Prototype Scripts -->
     <script src="../JS/mock-api.js"></script>
     <script src="../JS/Prototipo/app.js"></script>
+    <script src="../JS/Prototipo/dashboard.js"></script>
     <script src="../JS/Prototipo/clientes.js"></script>
     <script src="../JS/Prototipo/chats.js"></script>
     <script src="../JS/Prototipo/agenda.js"></script>

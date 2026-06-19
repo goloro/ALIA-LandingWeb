@@ -1149,7 +1149,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     localStorage.setItem('currentUserData', JSON.stringify(user));
                     loadUserData(user);
                 })
-                .catch(e => console.error('Error loading user.json', e));
+                .catch(e => {
+                    console.error('Error loading user.json', e);
+                    // Fallback local
+                    const defaultUser = { "id": 0, "name": "Propietario ALIA", "role": "Owner", "avatarUrl": "https://i.pravatar.cc/150?u=owner" };
+                    loadUserData(defaultUser);
+                });
 
             // Gestión de Servicios (Portal del Negocio)
             window.currentServices = [];
@@ -1183,11 +1188,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 } else {
                     let html = '';
                     window.currentServices.forEach((srv, index) => {
+                        const priceStr = srv.price ? ` - ${srv.price}€` : '';
                         html += `
                         <div class="pn-service-item" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e2e8f0;">
                             <div>
                                 <strong style="color: #0f172a; font-size: 0.95rem;">${srv.name}</strong><br>
-                                <small style="color: #64748b; font-size: 0.85rem;">${srv.duration} min</small>
+                                <small style="color: #64748b; font-size: 0.85rem;">${srv.duration} min${priceStr}</small>
                             </div>
                             <button class="pn-btn-delete-service" data-index="${index}" style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 4px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='transparent'">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -1318,7 +1324,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                     localStorage.setItem('currentBusinessData', JSON.stringify(config));
                     loadBusinessData(config);
                 })
-                .catch(e => console.error('Error loading business-config.json', e));
+                .catch(e => {
+                    console.error('Error loading business-config.json', e);
+                    // Fallback local básico
+                    const defaultConfig = {
+                        "name": "ALIA Beauty",
+                        "services": [
+                            {"id": "s1", "name": "Corte de Pelo", "duration": 30, "price": 15},
+                            {"id": "s2", "name": "Tinte", "duration": 60, "price": 40}
+                        ],
+                        "reminders": [{ "time": 24, "unit": "horas" }],
+                        "aiPersona": "Profesional y cercana",
+                        "instructions": "Eres ALIA, la recepcionista virtual."
+                    };
+                    loadBusinessData(defaultConfig);
+                });
 
             // Update "Mi Equipo" self user
             const eqProfName = document.querySelector('.eq-prof-name');
@@ -1676,7 +1696,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const formHtml = `
                 <div id="inline-add-service-form" style="display: flex; gap: 8px; align-items: center; padding: 16px 20px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
                     <input type="text" id="new-srv-name" placeholder="Nombre del servicio" style="flex: 2; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
-                    <input type="number" id="new-srv-duration" placeholder="Min" style="flex: 1; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
+                    <input type="number" class="no-spinners" id="new-srv-duration" min="0" oninput="if(this.value < 0) this.value = Math.abs(this.value)" placeholder="Min" style="flex: 1; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
+                    <input type="number" class="no-spinners" id="new-srv-price" min="0" oninput="if(this.value < 0) this.value = Math.abs(this.value)" placeholder="€" style="flex: 1; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
                     <button id="btn-save-new-srv" style="background: #0891b2; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.2s;" onmouseover="this.style.background='#0369a1'" onmouseout="this.style.background='#0891b2'">Añadir</button>
                     <button id="btn-cancel-new-srv" style="background: transparent; color: #64748b; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Cancelar</button>
                 </div>
@@ -1693,13 +1714,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('btn-save-new-srv').addEventListener('click', () => {
                 const nName = nameInput.value.trim();
                 const nDur = parseInt(document.getElementById('new-srv-duration').value.trim());
+                const nPrice = parseFloat(document.getElementById('new-srv-price').value.trim());
                 
-                if (!nName || !nDur || isNaN(nDur) || nDur <= 0) {
-                    window.showToast("Datos Incompletos", "Por favor, introduce un nombre válido y una duración mayor a 0.", "error");
+                if (!nName || !nDur || isNaN(nDur) || nDur <= 0 || isNaN(nPrice) || nPrice < 0) {
+                    window.showToast("Datos Incompletos", "Por favor, introduce un nombre válido, duración y coste.", "error");
                     return;
                 }
                 
-                window.currentServices.push({ name: nName, duration: nDur });
+                window.currentServices.push({ name: nName, duration: nDur, price: nPrice });
                 window.renderServicesList();
                 window.saveServicesToStorage();
                 window.showToast("Servicio Añadido", `El servicio "${nName}" se ha guardado en el catálogo.`, "success");
@@ -1742,15 +1764,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             const formHtml = `
                 <div id="inline-add-reminder-form" style="display: flex; gap: 8px; align-items: center; padding: 12px 16px; background: #f8fafc; border-radius: 12px; margin-top: 16px;">
-                    <div style="display: flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; background: white; transition: border-color 0.2s; flex: 1;" id="new-rem-time-wrapper">
-                        <button type="button" id="rem-time-minus" style="background: #f8fafc; border: none; padding: 10px 14px; cursor: pointer; color: #64748b; border-right: 1px solid #cbd5e1; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        </button>
-                        <input type="number" class="no-spinners" id="new-rem-time" placeholder="Ej: 24" style="flex: 1; margin: 0; padding: 10px; border: none; font-size: 0.9rem; color: #0f172a; outline: none; text-align: center; min-width: 50px;" onfocus="document.getElementById('new-rem-time-wrapper').style.borderColor='#0891b2'" onblur="document.getElementById('new-rem-time-wrapper').style.borderColor='#cbd5e1'" />
-                        <button type="button" id="rem-time-plus" style="background: #f8fafc; border: none; padding: 10px 14px; cursor: pointer; color: #64748b; border-left: 1px solid #cbd5e1; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        </button>
-                    </div>
+                    <input type="number" class="no-spinners" id="new-rem-time" min="0" oninput="if(this.value < 0) this.value = Math.abs(this.value)" placeholder="Ej: 24" style="flex: 1; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
                     <div class="custom-select-container" id="new-rem-unit-container" style="flex: 1; position: relative;">
                         <div class="custom-select-trigger" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; background-color: white; cursor: pointer;">
                             <span class="selected-value" id="new-rem-unit">horas</span>
@@ -1769,18 +1783,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             listContainer.insertAdjacentHTML('beforeend', formHtml);
             
             document.getElementById('new-rem-time').focus();
-            
-            // Lógica botones +/-
-            document.getElementById('rem-time-minus').addEventListener('click', () => {
-                const input = document.getElementById('new-rem-time');
-                let val = parseInt(input.value) || 0;
-                if (val > 1) input.value = val - 1;
-            });
-            document.getElementById('rem-time-plus').addEventListener('click', () => {
-                const input = document.getElementById('new-rem-time');
-                let val = parseInt(input.value) || 0;
-                input.value = val + 1;
-            });
             
             // Inicializar custom select
             const container = document.getElementById('new-rem-unit-container');

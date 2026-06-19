@@ -207,6 +207,7 @@
     align-items: flex-end;
     justify-content: space-around;
     padding-bottom: 10px;
+    position: relative;
 }
 
 .axis-label {

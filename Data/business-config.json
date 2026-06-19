@@ -12,27 +12,33 @@
     "services": [
         {
             "name": "Corte Clásico",
-            "duration": 30
+            "duration": 30,
+            "price": 15
         },
         {
             "name": "Corte + Barba",
-            "duration": 45
+            "duration": 45,
+            "price": 25
         },
         {
             "name": "Tinte y Mechas",
-            "duration": 120
+            "duration": 120,
+            "price": 60
         },
         {
             "name": "Manicura Semipermanente",
-            "duration": 60
+            "duration": 60,
+            "price": 30
         },
         {
             "name": "Masaje Relajante",
-            "duration": 60
+            "duration": 60,
+            "price": 40
         },
         {
             "name": "Tratamiento Facial",
-            "duration": 90
+            "duration": 90,
+            "price": 55
         }
     ],
     "roles": [
