@@ -46,7 +46,12 @@
     "aiSettings": {
         "tone": "Informal",
         "prompt": "Eres el asistente virtual de Alia Beauty Studio. Tu objetivo es agendar citas de forma amable. Si preguntan por precios, usa la lista de servicios. Sé cercano pero educado.",
-        "reminders": [],
+        "reminders": [
+            {
+                "time": 24,
+                "unit": "horas"
+            }
+        ],
         "autoConfirm": true
     }
 }

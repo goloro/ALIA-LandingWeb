@@ -1352,7 +1352,7 @@
                                                     <p>Gestiona tu catálogo y disponibilidad</p>
                                                 </div>
                                             </div>
-                                            <button class="pn-btn-add">
+                                            <button id="btn-add-service" class="pn-btn-add">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                                 Añadir Servicio
                                             </button>
@@ -1363,7 +1363,6 @@
                                                 No hay servicios configurados
                                             </div>
                                         </div>
-                                        <button id="btn-actualizar-servicios" class="btn-update" style="margin-top: 24px;">Actualizar Catálogo</button>
                                     </div>
                                     
                                     <!-- Card 3: Comportamiento del Asistente Virtual -->
@@ -1384,7 +1383,7 @@
                                             <label class="pn-label">TONO DE LA IA</label>
                                             <div class="custom-select-container" style="position: relative; width: 100%;">
                                                 <div class="custom-select-trigger pn-select" style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px;">
-                                                    <span id="pn-tono-ia">Informal</span>
+                                                    <span id="pn-tono-ia" class="selected-value">Informal</span>
                                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                                 </div>
                                                 <div class="custom-select-options" style="top: 100%; left: 0; right: 0; z-index: 10;">
@@ -1400,21 +1399,26 @@
                                             <textarea id="pn-prompt-ia" class="pn-textarea">Eres el asistente virtual de Alia Beauty Studio. Tu objetivo es agendar citas de forma amable. Si preguntan por precios, usa la lista de servicios. Sé cercano pero educado.</textarea>
                                         </div>
                                         
-                                        <div class="pn-subheader" style="margin-top: 40px;">Configuración de Recordatorios</div>
-                                        <div style="text-align: center; padding: 32px; border: 1px dashed #e2e8f0; border-radius: 12px; margin-top: 16px; color: #94a3b8; margin-bottom: 24px;">
-                                            No hay recordatorios configurados. Añade uno para que tus clientes no olviden su cita.
+                                        <div class="pn-subheader" style="margin-top: 40px; margin-bottom: 24px;">Configuración de Recordatorios</div>
+                                        <div id="pn-reminder-list">
+                                            <!-- Dynamically populated -->
                                         </div>
                                         
-<button class="pn-btn-add-outline" style="margin-top: 16px;">
+                                        <button id="btn-add-reminder" class="pn-btn-add-outline" style="margin-top: 16px; border: 1px dashed #0891b2; color: #0891b2; background: transparent; padding: 10px 16px; border-radius: 20px; display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 0.9rem;">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                             Añadir otro recordatorio
                                         </button>
                                         
-                                        <div class="pn-confirm-row">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                            Solicitar confirmación automática 24h antes por WhatsApp
+                                        <div class="pn-confirm-row" style="margin-top: 32px; display: flex; align-items: center; justify-content: space-between; padding: 20px; background: #f8fafc; border-radius: 12px;">
+                                            <div style="display: flex; align-items: center; gap: 12px; color: #0891b2; font-weight: 500;">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                                Solicitar confirmación automática 24h antes por WhatsApp
+                                            </div>
+                                            <!-- Toggle Switch -->
+                                            <div id="auto-confirm-toggle" style="width: 44px; height: 24px; background-color: #0891b2; border-radius: 12px; position: relative; cursor: pointer; transition: background-color 0.2s;">
+                                                <div style="position: absolute; top: 2px; left: 22px; width: 20px; height: 20px; background-color: white; border-radius: 50%; transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                            </div>
                                         </div>
-                                        <button id="btn-actualizar-ia" class="btn-update" style="margin-top: 24px;">Actualizar Configuración IA</button>
                                     </div>
                                     
                                 </div>

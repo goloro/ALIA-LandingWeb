@@ -1155,6 +1155,105 @@ document.addEventListener('DOMContentLoaded', async () => {
                     .catch(e => console.error('Error loading user.json', e));
             }
 
+            // Gestión de Servicios (Portal del Negocio)
+            window.currentServices = [];
+            window.currentReminders = [];
+            window.currentAutoConfirm = true;
+            
+            window.saveServicesToStorage = () => {
+                const cachedBusiness = localStorage.getItem('currentBusinessData');
+                if (cachedBusiness) {
+                    const config = JSON.parse(cachedBusiness);
+                    config.services = window.currentServices;
+                    localStorage.setItem('currentBusinessData', JSON.stringify(config));
+                    
+                    const modalNuevaCita = document.getElementById('modal-nueva-cita');
+                    if (modalNuevaCita) {
+                        const selects = modalNuevaCita.querySelectorAll('.custom-select-container');
+                        if (selects.length >= 3 && window.populateDropdown) {
+                            const serviceNames = window.currentServices.map(s => s.name);
+                            window.populateDropdown(selects[1], serviceNames, '-- Seleccionar --');
+                        }
+                    }
+                }
+            };
+            
+            window.renderServicesList = () => {
+                const listContainer = document.querySelector('.pn-service-list');
+                if (!listContainer) return;
+                
+                if (!window.currentServices || window.currentServices.length === 0) {
+                    listContainer.innerHTML = `<div style="padding: 32px 20px; text-align: center; color: #94a3b8; font-size: 0.95rem;">No hay servicios configurados</div>`;
+                } else {
+                    let html = '';
+                    window.currentServices.forEach((srv, index) => {
+                        html += `
+                        <div class="pn-service-item" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e2e8f0;">
+                            <div>
+                                <strong style="color: #0f172a; font-size: 0.95rem;">${srv.name}</strong><br>
+                                <small style="color: #64748b; font-size: 0.85rem;">${srv.duration} min</small>
+                            </div>
+                            <button class="pn-btn-delete-service" data-index="${index}" style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 4px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='transparent'">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                        `;
+                    });
+                    listContainer.innerHTML = html;
+                    
+                    // Bind delete buttons
+                    const deleteBtns = listContainer.querySelectorAll('.pn-btn-delete-service');
+                    deleteBtns.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const idx = parseInt(e.currentTarget.getAttribute('data-index'));
+                            const removedName = window.currentServices[idx].name;
+                            window.currentServices.splice(idx, 1);
+                            window.renderServicesList();
+                            window.saveServicesToStorage();
+                            window.showToast("Servicio Eliminado", `El servicio "${removedName}" se ha quitado del catálogo.`, "error");
+                        });
+                    });
+                }
+            };
+            
+            window.renderRemindersList = () => {
+                const listContainer = document.getElementById('pn-reminder-list');
+                if (!listContainer) return;
+                
+                if (!window.currentReminders || window.currentReminders.length === 0) {
+                    listContainer.innerHTML = `<div style="text-align: center; padding: 32px; border: 1px dashed #e2e8f0; border-radius: 12px; margin-top: 16px; color: #94a3b8; margin-bottom: 24px;">No hay recordatorios configurados. Añade uno para que tus clientes no olviden su cita.</div>`;
+                } else {
+                    let html = '';
+                    window.currentReminders.forEach((rem, index) => {
+                        const labelNum = index + 1;
+                        html += `
+                        <div style="margin-top: 16px;">
+                            <label style="display:block; color:#94a3b8; font-size:0.75rem; font-weight:700; margin-bottom:4px; letter-spacing:0.5px;">RECORDATORIO ${labelNum}</label>
+                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+                                <div style="flex:1; background:#f8fafc; border-radius:12px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="color:#0f172a; font-weight:500;">${rem.time} ${rem.unit} antes</span>
+                                </div>
+                                <button class="pn-btn-delete-reminder" data-index="${index}" style="background:none; border:none; color:#0891b2; cursor:pointer; padding:8px; border-radius:8px; transition: background 0.2s;" onmouseover="this.style.background='#ecfeff'" onmouseout="this.style.background='transparent'">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                        `;
+                    });
+                    listContainer.innerHTML = html;
+                    
+                    const deleteBtns = listContainer.querySelectorAll('.pn-btn-delete-reminder');
+                    deleteBtns.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const idx = parseInt(e.currentTarget.getAttribute('data-index'));
+                            window.currentReminders.splice(idx, 1);
+                            window.renderRemindersList();
+                            if (window.saveIAConfigToStorage) window.saveIAConfigToStorage(true);
+                        });
+                    });
+                }
+            };
+
             // Cargar Portal del Negocio
             const loadBusinessData = (config) => {
                 const pnNombre = document.getElementById('pn-nombre');
@@ -1177,6 +1276,42 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 const pnPromptIa = document.getElementById('pn-prompt-ia');
                 if (pnPromptIa && config.aiSettings) pnPromptIa.value = config.aiSettings.prompt || '';
+                
+                if (config.services) {
+                    window.currentServices = [...config.services];
+                    window.renderServicesList();
+                    
+                    // Actualizar desplegable "Nueva Cita"
+                    const modalNuevaCita = document.getElementById('modal-nueva-cita');
+                    if (modalNuevaCita) {
+                        const selects = modalNuevaCita.querySelectorAll('.custom-select-container');
+                        if (selects.length >= 3 && window.populateDropdown) {
+                            const serviceNames = window.currentServices.map(s => s.name);
+                            window.populateDropdown(selects[1], serviceNames, '-- Seleccionar --');
+                        }
+                    }
+                }
+                
+                if (config.aiSettings) {
+                    if (config.aiSettings.reminders) {
+                        window.currentReminders = [...config.aiSettings.reminders];
+                        window.renderRemindersList();
+                    }
+                    if (config.aiSettings.autoConfirm !== undefined) {
+                        window.currentAutoConfirm = config.aiSettings.autoConfirm;
+                        const toggleThumb = document.querySelector('#auto-confirm-toggle div');
+                        const toggleBg = document.getElementById('auto-confirm-toggle');
+                        if (toggleThumb && toggleBg) {
+                            if (window.currentAutoConfirm) {
+                                toggleBg.style.backgroundColor = '#0891b2';
+                                toggleThumb.style.left = '22px';
+                            } else {
+                                toggleBg.style.backgroundColor = '#cbd5e1';
+                                toggleThumb.style.left = '2px';
+                            }
+                        }
+                    }
+                }
             };
 
             const cachedBusiness = localStorage.getItem('currentBusinessData');
@@ -1530,5 +1665,157 @@ document.addEventListener('DOMContentLoaded', async () => {
             btn.addEventListener('click', showPrototypeWarning);
         }
     });
+
+    // Añadir Servicio Inline Form
+    const btnAddService = document.getElementById('btn-add-service');
+    if (btnAddService) {
+        btnAddService.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const listContainer = document.querySelector('.pn-service-list');
+            if (!listContainer) return;
+            
+            if (document.getElementById('inline-add-service-form')) return;
+            
+            const emptyMsg = listContainer.querySelector('div[style*="No hay servicios"]');
+            if (emptyMsg) emptyMsg.remove();
+            
+            const formHtml = `
+                <div id="inline-add-service-form" style="display: flex; gap: 8px; align-items: center; padding: 16px 20px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+                    <input type="text" id="new-srv-name" placeholder="Nombre del servicio" style="flex: 2; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
+                    <input type="number" id="new-srv-duration" placeholder="Min" style="flex: 1; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
+                    <button id="btn-save-new-srv" style="background: #0891b2; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.2s;" onmouseover="this.style.background='#0369a1'" onmouseout="this.style.background='#0891b2'">Añadir</button>
+                    <button id="btn-cancel-new-srv" style="background: transparent; color: #64748b; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Cancelar</button>
+                </div>
+            `;
+            listContainer.insertAdjacentHTML('beforeend', formHtml);
+            
+            const nameInput = document.getElementById('new-srv-name');
+            nameInput.focus();
+            
+            document.getElementById('btn-cancel-new-srv').addEventListener('click', () => {
+                window.renderServicesList();
+            });
+            
+            document.getElementById('btn-save-new-srv').addEventListener('click', () => {
+                const nName = nameInput.value.trim();
+                const nDur = parseInt(document.getElementById('new-srv-duration').value.trim());
+                
+                if (!nName || !nDur || isNaN(nDur) || nDur <= 0) {
+                    window.showToast("Datos Incompletos", "Por favor, introduce un nombre válido y una duración mayor a 0.", "error");
+                    return;
+                }
+                
+                window.currentServices.push({ name: nName, duration: nDur });
+                window.renderServicesList();
+                window.saveServicesToStorage();
+                window.showToast("Servicio Añadido", `El servicio "${nName}" se ha guardado en el catálogo.`, "success");
+            });
+        });
+    }
+
+    // Toggle Auto Confirm
+    const autoConfirmToggle = document.getElementById('auto-confirm-toggle');
+    if (autoConfirmToggle) {
+        autoConfirmToggle.addEventListener('click', () => {
+            window.currentAutoConfirm = !window.currentAutoConfirm;
+            const toggleThumb = autoConfirmToggle.querySelector('div');
+            if (window.currentAutoConfirm) {
+                autoConfirmToggle.style.backgroundColor = '#0891b2';
+                toggleThumb.style.left = '22px';
+            } else {
+                autoConfirmToggle.style.backgroundColor = '#cbd5e1';
+                toggleThumb.style.left = '2px';
+            }
+            if (window.saveIAConfigToStorage) window.saveIAConfigToStorage(true);
+        });
+    }
+    
+    // Añadir Recordatorio Inline Form
+    const btnAddReminder = document.getElementById('btn-add-reminder');
+    if (btnAddReminder) {
+        btnAddReminder.addEventListener('click', (e) => {
+            e.preventDefault();
+            const listContainer = document.getElementById('pn-reminder-list');
+            if (!listContainer) return;
+            
+            if (document.getElementById('inline-add-reminder-form')) return;
+            
+            const emptyMsg = listContainer.querySelector('div[style*="No hay recordatorios"]');
+            if (emptyMsg) emptyMsg.remove();
+            
+            const formHtml = `
+                <div id="inline-add-reminder-form" style="display: flex; gap: 8px; align-items: center; padding: 12px 16px; background: #f8fafc; border-radius: 12px; margin-top: 16px;">
+                    <input type="number" id="new-rem-time" placeholder="Ej: 24" style="flex: 1; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
+                    <select id="new-rem-unit" style="flex: 1; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s; background-color: white; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2394a3b8%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'">
+                        <option value="horas">horas</option>
+                        <option value="días">días</option>
+                        <option value="minutos">minutos</option>
+                    </select>
+                    <button id="btn-save-new-rem" style="background: #0891b2; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.2s;" onmouseover="this.style.background='#0369a1'" onmouseout="this.style.background='#0891b2'">Añadir</button>
+                    <button id="btn-cancel-new-rem" style="background: transparent; color: #64748b; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Cancelar</button>
+                </div>
+            `;
+            listContainer.insertAdjacentHTML('beforeend', formHtml);
+            
+            document.getElementById('new-rem-time').focus();
+            
+            document.getElementById('btn-cancel-new-rem').addEventListener('click', () => {
+                window.renderRemindersList();
+            });
+            
+            document.getElementById('btn-save-new-rem').addEventListener('click', () => {
+                const nTime = parseInt(document.getElementById('new-rem-time').value.trim());
+                const nUnit = document.getElementById('new-rem-unit').value;
+                
+                if (!nTime || isNaN(nTime) || nTime <= 0) {
+                    window.showToast("Datos Incompletos", "Por favor, introduce un tiempo válido mayor a 0.", "error");
+                    return;
+                }
+                
+                window.currentReminders.push({ time: nTime, unit: nUnit });
+                window.renderRemindersList();
+                if (window.saveIAConfigToStorage) window.saveIAConfigToStorage(true);
+            });
+        });
+    }
+
+    // Guardar Configuración IA
+    window.saveIAConfigToStorage = function(showNotif = true) {
+        const cachedBusiness = localStorage.getItem('currentBusinessData');
+        if (cachedBusiness) {
+            const config = JSON.parse(cachedBusiness);
+            if (!config.aiSettings) config.aiSettings = {};
+            
+            const pnTonoIa = document.getElementById('pn-tono-ia');
+            const pnPromptIa = document.getElementById('pn-prompt-ia');
+            
+            config.aiSettings.tone = pnTonoIa ? pnTonoIa.textContent : 'Informal';
+            config.aiSettings.prompt = pnPromptIa ? pnPromptIa.value : '';
+            config.aiSettings.reminders = window.currentReminders || [];
+            config.aiSettings.autoConfirm = !!window.currentAutoConfirm;
+            
+            localStorage.setItem('currentBusinessData', JSON.stringify(config));
+            if (showNotif) {
+                window.showToast("IA Actualizada", "La configuración del Asistente Virtual se ha guardado correctamente.", "success");
+            }
+        }
+    };
+
+    // Auto-guardado para Tono IA (al cambiar en el dropdown)
+    const pnTonoIaContainer = document.getElementById('pn-tono-ia')?.closest('.custom-select-container');
+    if (pnTonoIaContainer) {
+        pnTonoIaContainer.addEventListener('dropdownChange', () => {
+            if (window.saveIAConfigToStorage) window.saveIAConfigToStorage(true);
+        });
+    }
+
+    // Auto-guardado para el Prompt IA (al perder el foco)
+    const pnPromptIa = document.getElementById('pn-prompt-ia');
+    if (pnPromptIa) {
+        pnPromptIa.addEventListener('blur', () => {
+            if (window.saveIAConfigToStorage) window.saveIAConfigToStorage(true);
+        });
+    }
 
 });
