@@ -1142,22 +1142,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (inputPassword) inputPassword.value = '';
             };
 
-            const cachedUser = localStorage.getItem('currentUserData');
-            if (cachedUser) {
-                loadUserData(JSON.parse(cachedUser));
-            } else {
-                fetch('../Data/user.json')
-                    .then(res => res.json())
-                    .then(user => {
-                        localStorage.setItem('currentUserData', JSON.stringify(user));
-                        loadUserData(user);
-                    })
-                    .catch(e => console.error('Error loading user.json', e));
-            }
+            localStorage.removeItem('currentUserData');
+            fetch('../Data/user.json')
+                .then(res => res.json())
+                .then(user => {
+                    localStorage.setItem('currentUserData', JSON.stringify(user));
+                    loadUserData(user);
+                })
+                .catch(e => console.error('Error loading user.json', e));
 
             // Gestión de Servicios (Portal del Negocio)
             window.currentServices = [];
-            window.currentReminders = [];
+            window.currentReminders = [{ time: 24, unit: 'horas' }];
             window.currentAutoConfirm = true;
             
             window.saveServicesToStorage = () => {
@@ -1295,8 +1291,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (config.aiSettings) {
                     if (config.aiSettings.reminders) {
                         window.currentReminders = [...config.aiSettings.reminders];
-                        window.renderRemindersList();
                     }
+                    window.renderRemindersList();
+                    
                     if (config.aiSettings.autoConfirm !== undefined) {
                         window.currentAutoConfirm = config.aiSettings.autoConfirm;
                         const toggleThumb = document.querySelector('#auto-confirm-toggle div');
@@ -1314,18 +1311,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             };
 
-            const cachedBusiness = localStorage.getItem('currentBusinessData');
-            if (cachedBusiness) {
-                loadBusinessData(JSON.parse(cachedBusiness));
-            } else {
-                fetch('../Data/business-config.json')
-                    .then(res => res.json())
-                    .then(config => {
-                        localStorage.setItem('currentBusinessData', JSON.stringify(config));
-                        loadBusinessData(config);
-                    })
-                    .catch(e => console.error('Error loading business-config.json', e));
-            }
+            localStorage.removeItem('currentBusinessData');
+            fetch('../Data/business-config.json')
+                .then(res => res.json())
+                .then(config => {
+                    localStorage.setItem('currentBusinessData', JSON.stringify(config));
+                    loadBusinessData(config);
+                })
+                .catch(e => console.error('Error loading business-config.json', e));
 
             // Update "Mi Equipo" self user
             const eqProfName = document.querySelector('.eq-prof-name');
@@ -1723,11 +1716,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (window.currentAutoConfirm) {
                 autoConfirmToggle.style.backgroundColor = '#0891b2';
                 toggleThumb.style.left = '22px';
+                if (window.saveIAConfigToStorage) window.saveIAConfigToStorage(false);
+                window.showToast("Confirmación Activada", "La IA solicitará confirmación automáticamente.", "success");
             } else {
                 autoConfirmToggle.style.backgroundColor = '#cbd5e1';
                 toggleThumb.style.left = '2px';
+                if (window.saveIAConfigToStorage) window.saveIAConfigToStorage(false);
+                window.showToast("Confirmación Desactivada", "La IA ya no solicitará confirmación.", "error");
             }
-            if (window.saveIAConfigToStorage) window.saveIAConfigToStorage(true);
         });
     }
     
@@ -1746,12 +1742,26 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             const formHtml = `
                 <div id="inline-add-reminder-form" style="display: flex; gap: 8px; align-items: center; padding: 12px 16px; background: #f8fafc; border-radius: 12px; margin-top: 16px;">
-                    <input type="number" id="new-rem-time" placeholder="Ej: 24" style="flex: 1; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'" />
-                    <select id="new-rem-unit" style="flex: 1; margin: 0; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; outline: none; transition: border-color 0.2s; background-color: white; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2394a3b8%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px;" onfocus="this.style.borderColor='#0891b2'" onblur="this.style.borderColor='#cbd5e1'">
-                        <option value="horas">horas</option>
-                        <option value="días">días</option>
-                        <option value="minutos">minutos</option>
-                    </select>
+                    <div style="display: flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; background: white; transition: border-color 0.2s; flex: 1;" id="new-rem-time-wrapper">
+                        <button type="button" id="rem-time-minus" style="background: #f8fafc; border: none; padding: 10px 14px; cursor: pointer; color: #64748b; border-right: 1px solid #cbd5e1; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </button>
+                        <input type="number" class="no-spinners" id="new-rem-time" placeholder="Ej: 24" style="flex: 1; margin: 0; padding: 10px; border: none; font-size: 0.9rem; color: #0f172a; outline: none; text-align: center; min-width: 50px;" onfocus="document.getElementById('new-rem-time-wrapper').style.borderColor='#0891b2'" onblur="document.getElementById('new-rem-time-wrapper').style.borderColor='#cbd5e1'" />
+                        <button type="button" id="rem-time-plus" style="background: #f8fafc; border: none; padding: 10px 14px; cursor: pointer; color: #64748b; border-left: 1px solid #cbd5e1; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </button>
+                    </div>
+                    <div class="custom-select-container" id="new-rem-unit-container" style="flex: 1; position: relative;">
+                        <div class="custom-select-trigger" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; color: #0f172a; background-color: white; cursor: pointer;">
+                            <span class="selected-value" id="new-rem-unit">horas</span>
+                            <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                        <div class="custom-select-options" style="top: 100%; left: 0; right: 0; z-index: 10;">
+                            <div class="custom-option">horas</div>
+                            <div class="custom-option">días</div>
+                            <div class="custom-option">minutos</div>
+                        </div>
+                    </div>
                     <button id="btn-save-new-rem" style="background: #0891b2; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.2s;" onmouseover="this.style.background='#0369a1'" onmouseout="this.style.background='#0891b2'">Añadir</button>
                     <button id="btn-cancel-new-rem" style="background: transparent; color: #64748b; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Cancelar</button>
                 </div>
@@ -1760,16 +1770,56 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             document.getElementById('new-rem-time').focus();
             
+            // Lógica botones +/-
+            document.getElementById('rem-time-minus').addEventListener('click', () => {
+                const input = document.getElementById('new-rem-time');
+                let val = parseInt(input.value) || 0;
+                if (val > 1) input.value = val - 1;
+            });
+            document.getElementById('rem-time-plus').addEventListener('click', () => {
+                const input = document.getElementById('new-rem-time');
+                let val = parseInt(input.value) || 0;
+                input.value = val + 1;
+            });
+            
+            // Inicializar custom select
+            const container = document.getElementById('new-rem-unit-container');
+            const trigger = container.querySelector('.custom-select-trigger');
+            const options = container.querySelectorAll('.custom-option');
+            const selectedValue = container.querySelector('.selected-value');
+
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.custom-select-container').forEach(c => {
+                    if (c !== container) c.classList.remove('open');
+                });
+                container.classList.toggle('open');
+            });
+
+            options.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectedValue.textContent = option.textContent;
+                    container.classList.remove('open');
+                });
+            });
+
             document.getElementById('btn-cancel-new-rem').addEventListener('click', () => {
                 window.renderRemindersList();
             });
             
             document.getElementById('btn-save-new-rem').addEventListener('click', () => {
                 const nTime = parseInt(document.getElementById('new-rem-time').value.trim());
-                const nUnit = document.getElementById('new-rem-unit').value;
+                const nUnit = document.getElementById('new-rem-unit').textContent;
                 
                 if (!nTime || isNaN(nTime) || nTime <= 0) {
                     window.showToast("Datos Incompletos", "Por favor, introduce un tiempo válido mayor a 0.", "error");
+                    return;
+                }
+                
+                const exists = window.currentReminders.some(r => r.time === nTime && r.unit === nUnit);
+                if (exists) {
+                    window.showToast("Recordatorio Duplicado", "Ya existe un recordatorio configurado con ese tiempo exacto.", "error");
                     return;
                 }
                 
