@@ -756,7 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Populate Roles from settings.json and render invitations
+    // Populate Roles from business-config.json and render invitations
     setTimeout(async () => {
         if (window.MockAPI) {
             // Asegurarnos de que el MockAPI está inicializado para tener las invitaciones

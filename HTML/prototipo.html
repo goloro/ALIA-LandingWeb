@@ -1310,15 +1310,15 @@
                                         <div class="pn-grid">
                                             <div class="pn-form-group">
                                                 <label class="pn-label">NOMBRE DEL SALÓN</label>
-                                                <input type="text" class="pn-input" value="Nombre del Negocio">
+                                                <input id="pn-nombre" type="text" class="pn-input" value="Nombre del Negocio">
                                             </div>
                                             <div class="pn-form-group">
                                                 <label class="pn-label">TELÉFONO PÚBLICO</label>
-                                                <input type="text" class="pn-input" value="+34 000 000 000">
+                                                <input id="pn-telefono" type="text" class="pn-input" value="+34 000 000 000">
                                             </div>
                                             <div class="pn-form-group pn-grid-full">
-                                                <label class="pn-label">DIRECCIÓN FÍSICA</label>
-                                                <input type="text" class="pn-input" value="Calle Ejemplo, Nº 1, Ciudad, 00000">
+                                                <label class="pn-label">DIRECCIÓN</label>
+                                                <input id="pn-direccion" type="text" class="pn-input" value="Calle Ejemplo, Nº 1, Ciudad, 00000">
                                             </div>
                                         </div>
                                         
@@ -1330,13 +1330,14 @@
                                         <div class="pn-grid">
                                             <div class="pn-form-group">
                                                 <label class="pn-label">HORA DE APERTURA</label>
-                                                <input type="text" class="pn-input" value="09:00 AM">
+                                                <input id="pn-hora-apertura" type="text" class="pn-input" value="09:00 AM">
                                             </div>
                                             <div class="pn-form-group">
                                                 <label class="pn-label">HORA DE CIERRE</label>
-                                                <input type="text" class="pn-input" value="08:00 PM">
+                                                <input id="pn-hora-cierre" type="text" class="pn-input" value="08:00 PM">
                                             </div>
                                         </div>
+                                        <button id="btn-actualizar-datos-negocio" class="btn-update" style="margin-top: 24px;">Actualizar Datos Generales</button>
                                     </div>
                                     
                                     <!-- Card 2: Servicios y Precios -->
@@ -1362,6 +1363,7 @@
                                                 No hay servicios configurados
                                             </div>
                                         </div>
+                                        <button id="btn-actualizar-servicios" class="btn-update" style="margin-top: 24px;">Actualizar Catálogo</button>
                                     </div>
                                     
                                     <!-- Card 3: Comportamiento del Asistente Virtual -->
@@ -1382,7 +1384,7 @@
                                             <label class="pn-label">TONO DE LA IA</label>
                                             <div class="custom-select-container" style="position: relative; width: 100%;">
                                                 <div class="custom-select-trigger pn-select" style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px;">
-                                                    <span>Informal</span>
+                                                    <span id="pn-tono-ia">Informal</span>
                                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                                 </div>
                                                 <div class="custom-select-options" style="top: 100%; left: 0; right: 0; z-index: 10;">
@@ -1395,11 +1397,10 @@
                                         
                                         <div class="pn-form-group">
                                             <label class="pn-label">INSTRUCCIONES BASE (PROMPT DEL NEGOCIO)</label>
-                                            <textarea class="pn-textarea">Eres el asistente virtual de Alia Beauty Studio. Tu objetivo es agendar citas de forma amable. Si preguntan por precios, usa la lista de servicios. Sé cercano pero educado.</textarea>
+                                            <textarea id="pn-prompt-ia" class="pn-textarea">Eres el asistente virtual de Alia Beauty Studio. Tu objetivo es agendar citas de forma amable. Si preguntan por precios, usa la lista de servicios. Sé cercano pero educado.</textarea>
                                         </div>
                                         
-                                        <div class="pn-subheader" style="margin-top: 40px;">Configuraci
-ón de Recordatorios</div>
+                                        <div class="pn-subheader" style="margin-top: 40px;">Configuración de Recordatorios</div>
                                         <div style="text-align: center; padding: 32px; border: 1px dashed #e2e8f0; border-radius: 12px; margin-top: 16px; color: #94a3b8; margin-bottom: 24px;">
                                             No hay recordatorios configurados. Añade uno para que tus clientes no olviden su cita.
                                         </div>
@@ -1413,14 +1414,7 @@
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                                             Solicitar confirmación automática 24h antes por WhatsApp
                                         </div>
-                                    </div>
-                                    
-                                    <div class="pn-bottom-actions">
-                                        <button class="pn-btn-discard">Descartar cambios</button>
-                                        <button class="pn-btn-save">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                                            Guardar Configuración del Negocio
-                                        </button>
+                                        <button id="btn-actualizar-ia" class="btn-update" style="margin-top: 24px;">Actualizar Configuración IA</button>
                                     </div>
                                     
                                 </div>

@@ -1155,6 +1155,43 @@ document.addEventListener('DOMContentLoaded', async () => {
                     .catch(e => console.error('Error loading user.json', e));
             }
 
+            // Cargar Portal del Negocio
+            const loadBusinessData = (config) => {
+                const pnNombre = document.getElementById('pn-nombre');
+                if (pnNombre) pnNombre.value = config.name || '';
+                
+                const pnTelefono = document.getElementById('pn-telefono');
+                if (pnTelefono) pnTelefono.value = config.phone || '';
+                
+                const pnDireccion = document.getElementById('pn-direccion');
+                if (pnDireccion) pnDireccion.value = config.address || '';
+                
+                const pnHoraApertura = document.getElementById('pn-hora-apertura');
+                if (pnHoraApertura && config.businessHours) pnHoraApertura.value = config.businessHours.start || '';
+                
+                const pnHoraCierre = document.getElementById('pn-hora-cierre');
+                if (pnHoraCierre && config.businessHours) pnHoraCierre.value = config.businessHours.end || '';
+                
+                const pnTonoIa = document.getElementById('pn-tono-ia');
+                if (pnTonoIa && config.aiSettings) pnTonoIa.textContent = config.aiSettings.tone || 'Informal';
+                
+                const pnPromptIa = document.getElementById('pn-prompt-ia');
+                if (pnPromptIa && config.aiSettings) pnPromptIa.value = config.aiSettings.prompt || '';
+            };
+
+            const cachedBusiness = localStorage.getItem('currentBusinessData');
+            if (cachedBusiness) {
+                loadBusinessData(JSON.parse(cachedBusiness));
+            } else {
+                fetch('../Data/business-config.json')
+                    .then(res => res.json())
+                    .then(config => {
+                        localStorage.setItem('currentBusinessData', JSON.stringify(config));
+                        loadBusinessData(config);
+                    })
+                    .catch(e => console.error('Error loading business-config.json', e));
+            }
+
             // Update "Mi Equipo" self user
             const eqProfName = document.querySelector('.eq-prof-name');
             if (eqProfName && eqProfName.textContent.includes('(Tú)')) {
@@ -1428,6 +1465,66 @@ document.addEventListener('DOMContentLoaded', async () => {
                 } else {
                     window.showToast("Error", "No se encontraron los datos del usuario. Recarga la página.", "error");
                 }
+            });
+        } else if (btn.id === 'btn-actualizar-datos-negocio') {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const pnNombre = document.getElementById('pn-nombre');
+                const pnTelefono = document.getElementById('pn-telefono');
+                const pnDireccion = document.getElementById('pn-direccion');
+                const pnHoraApertura = document.getElementById('pn-hora-apertura');
+                const pnHoraCierre = document.getElementById('pn-hora-cierre');
+                
+                // Validar campos vacíos
+                if (!pnNombre || !pnNombre.value.trim() || 
+                    !pnTelefono || !pnTelefono.value.trim() || 
+                    !pnDireccion || !pnDireccion.value.trim() || 
+                    !pnHoraApertura || !pnHoraApertura.value.trim() || 
+                    !pnHoraCierre || !pnHoraCierre.value.trim()) {
+                    window.showToast("Error de Validación", "Por favor, completa todos los datos generales.", "error");
+                    return;
+                }
+                
+                // Validar mínimo 8 horas
+                const parseTime = (timeStr) => {
+                    let t = timeStr.trim().toUpperCase();
+                    let isPM = t.includes('PM');
+                    let isAM = t.includes('AM');
+                    t = t.replace('PM','').replace('AM','').trim();
+                    let parts = t.split(':');
+                    let h = parseInt(parts[0], 10) || 0;
+                    let m = parseInt(parts[1], 10) || 0;
+                    if (isPM && h !== 12) h += 12;
+                    if (isAM && h === 12) h = 0;
+                    return h + (m / 60);
+                };
+                
+                const openHours = parseTime(pnHoraApertura.value);
+                let closeHours = parseTime(pnHoraCierre.value);
+                if (closeHours < openHours) closeHours += 24;
+                
+                const duration = closeHours - openHours;
+                if (duration < 8) {
+                    window.showToast("Error de Horario", "El negocio debe estar abierto un mínimo de 8 horas.", "error");
+                    return;
+                }
+                
+                // Guardar
+                const cachedBusiness = localStorage.getItem('currentBusinessData');
+                if (cachedBusiness) {
+                    const config = JSON.parse(cachedBusiness);
+                    config.name = pnNombre.value.trim();
+                    config.phone = pnTelefono.value.trim();
+                    config.address = pnDireccion.value.trim();
+                    config.businessHours = {
+                        start: pnHoraApertura.value.trim(),
+                        end: pnHoraCierre.value.trim()
+                    };
+                    localStorage.setItem('currentBusinessData', JSON.stringify(config));
+                }
+                
+                window.showToast("Configuración Actualizada", "Los datos generales se han guardado correctamente.", "success");
             });
         } else {
             btn.addEventListener('click', showPrototypeWarning);
