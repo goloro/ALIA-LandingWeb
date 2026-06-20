@@ -661,13 +661,35 @@
     display: flex;
     gap: 16px;
     min-height: 80px;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.history-item::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #e2e8f0;
+    z-index: 0;
+}
+
+.history-item:first-child::before {
+    top: 50%;
+}
+
+.history-item:last-child::before {
+    bottom: 50%;
 }
 
 .history-marker {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 24px;
+    z-index: 1;
 }
 
 .marker-dot {
@@ -688,17 +710,9 @@
     border-radius: 50%;
 }
 
-.marker-blue .marker-dot { background-color: #039BE5; }
+.marker-blue .marker-dot { background-color: #f59e0b; }
 .marker-green .marker-dot { background-color: #3FE374; }
 .marker-red .marker-dot { background-color: #BA1A1A; }
-
-.marker-line {
-    width: 2px;
-    background-color: #e2e8f0;
-    flex: 1;
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
 
 .history-content {
     flex: 1;
@@ -729,8 +743,9 @@
 }
 
 .badge-pending {
-    background-color: #D1E4FF;
-    color: #00677D;
+    background-color: #fef3c7;
+    color: #b45309;
+    text-transform: uppercase;
 }
 .badge-completed {
     background-color: rgba(0, 97, 41, 0.1);

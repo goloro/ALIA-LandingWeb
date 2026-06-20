@@ -596,6 +596,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Expose to window so other scripts (like app.js) can refresh the grid
     window.refreshAgenda = renderGrid;
+    
+    // Expose appointment panel opening to window
+    window.openAgendaAppointmentPanel = async function(apptStr) {
+        await populateAppointmentPanel(apptStr);
+        openAppointmentPanel();
+    };
 
     async function populateAppointmentPanel(apptStr) {
         try {
@@ -664,17 +670,19 @@ document.addEventListener('DOMContentLoaded', () => {
                                     markerContent = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
                                 } else if (!isPending) {
                                     markerContent = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+                                } else {
+                                    // isPending === true
+                                    if (window.getServiceIconSVG) {
+                                        markerContent = window.getServiceIconSVG(hist.icon || hist.service, "white", "12");
+                                    }
                                 }
                                     
-                                const markerLine = index < client.history.length - 1 ? `<div class="marker-line"></div>` : '';
-
                                 historyTimeline.innerHTML += `
                                     <div class="history-item">
                                         <div class="history-marker ${statusColor}">
                                             <div class="marker-dot">
                                                 ${markerContent}
                                             </div>
-                                            ${markerLine}
                                         </div>
                                         <div class="history-content">
                                             <div class="history-header">

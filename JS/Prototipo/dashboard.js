@@ -347,7 +347,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('db-next-appt-badge').style.color = next.status === 'confirmed' ? '#16a34a' : '#b45309';
             
             document.getElementById('db-next-appt-time').textContent = `Hoy • ${next.time}`;
-            document.getElementById('db-next-appt-card').style.borderLeftColor = '#0891b2';
+            const nextCard = document.getElementById('db-next-appt-card');
+            nextCard.style.borderLeftColor = '#0891b2';
+            nextCard.style.cursor = 'pointer';
+            nextCard.onclick = () => {
+                if (window.openAgendaAppointmentPanel) window.openAgendaAppointmentPanel(JSON.stringify(next));
+            };
+            
             document.getElementById('db-next-appt-name').style.color = '#0f172a';
             document.getElementById('db-next-appt-name').textContent = next.clientName || 'Cliente';
             
@@ -361,6 +367,11 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         } else {
             // No hay citas futuras hoy
+            const nextCard = document.getElementById('db-next-appt-card');
+            nextCard.style.borderLeftColor = '#e2e8f0';
+            nextCard.style.cursor = 'default';
+            nextCard.onclick = null;
+            
             document.getElementById('db-next-appt-badge').textContent = 'LIBRE';
             document.getElementById('db-next-appt-badge').style.backgroundColor = '#f1f5f9';
             document.getElementById('db-next-appt-badge').style.color = '#94a3b8';
@@ -525,8 +536,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Toca cita
                     const dotColor = '#00677D';
                     const iconSvg = window.getServiceIconSVG ? window.getServiceIconSVG(nextAppt.icon || nextAppt.service, dotColor, "10") : '';
+                    const apptDataStr = JSON.stringify(nextAppt).replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+                    
                     html += `
-                        <div class="timeline-item">
+                        <div class="timeline-item" style="cursor: pointer; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='transparent'" onclick="if(window.openAgendaAppointmentPanel) window.openAgendaAppointmentPanel(this.dataset.appt)" data-appt="${apptDataStr}">
                             <div class="timeline-marker">
                                 <div class="marker-circle" style="border-color: ${dotColor}; display: flex; align-items: center; justify-content: center;">
                                     ${iconSvg}
@@ -539,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <div class="slot-subtitle">${nextAppt.service}</div>
                                 </div>
                                 <div class="slot-actions" style="align-self: center;">
-                                    <button class="action-btn chat-btn" data-client="${nextAppt.clientName}" style="background-color: #e6f4ea; color: #166534;" onclick="document.querySelector('.nav-item[data-target=\\'page-chat\\']').click()">
+                                    <button class="action-btn chat-btn" data-client="${nextAppt.clientName}" style="background-color: #e6f4ea; color: #166534; z-index: 2;" onclick="event.stopPropagation(); document.querySelector('.nav-item[data-target=\\'page-chat\\']').click()">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="9" y1="10" x2="15" y2="10"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
                                     </button>
                                 </div>
