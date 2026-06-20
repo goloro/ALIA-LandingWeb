@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     continue;
                 } else if (currentMins === apptStartMins) {
                     // Toca cita
-                    const dotColor = nextAppt.status === 'confirmed' ? '#10b981' : '#f59e0b';
+                    const dotColor = '#00677D';
                     const iconSvg = window.getServiceIconSVG ? window.getServiceIconSVG(nextAppt.icon || nextAppt.service, dotColor, "10") : '';
                     html += `
                         <div class="timeline-item">
@@ -541,9 +541,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="slot-actions" style="align-self: center;">
                                     <button class="action-btn chat-btn" data-client="${nextAppt.clientName}" style="background-color: #e6f4ea; color: #166534;" onclick="document.querySelector('.nav-item[data-target=\\'page-chat\\']').click()">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="9" y1="10" x2="15" y2="10"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
-                                    </button>
-                                    <button class="action-btn menu-btn" style="background-color: transparent; color: #475569;">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                     </button>
                                 </div>
                             </div>
