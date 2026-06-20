@@ -652,6 +652,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         };
                     }
                     
+                    // Bind Chat Button
+                    const btnClientChat = document.querySelector('#appointment-details-panel .btn-client-chat');
+                    if (btnClientChat) {
+                        if (appt.source === 'Alia') {
+                            btnClientChat.style.display = 'flex';
+                            btnClientChat.onclick = () => {
+                                if (window.openSpecificChat) {
+                                    window.openSpecificChat(appt.clientId);
+                                    closeAppointmentPanel();
+                                }
+                            };
+                        } else {
+                            btnClientChat.style.display = 'none';
+                        }
+                    }
+                    
                     if (historyTimeline) {
                         historyTimeline.innerHTML = '';
                         if (!client.history || client.history.length === 0) {
@@ -666,15 +682,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const statusText = isCompleted ? 'Completado' : (isPending ? 'Pendiente' : 'No Show');
                                 
                                 let markerContent = `<div class="marker-inner-dot"></div>`;
-                                if (isCompleted) {
-                                    markerContent = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-                                } else if (!isPending) {
-                                    markerContent = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-                                } else {
-                                    // isPending === true
-                                    if (window.getServiceIconSVG) {
-                                        markerContent = window.getServiceIconSVG(hist.icon || hist.service, "white", "12");
-                                    }
+                                if (window.getServiceIconSVG) {
+                                    markerContent = window.getServiceIconSVG(hist.icon || hist.service, "white", "12");
                                 }
                                     
                                 historyTimeline.innerHTML += `

@@ -41,14 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (chat.unread > 0) chatItem.classList.add('unread');
             
-            const initials = chat.client.name.substring(0, 2).toUpperCase();
+            const initials = chat.client.name.charAt(0).toUpperCase();
             const timeStr = chat.lastMessage ? chat.lastMessage.time || 'Hace 2 minutos' : '';
             const previewText = chat.lastMessage ? chat.lastMessage.text : 'Conversación iniciada...';
 
             chatItem.innerHTML = `
                 ${needsHelp ? '<div class="cs-item-badge">ALIA Necesita Ayuda</div>' : ''}
                 <div class="cs-item-body">
-                    <div class="cs-item-avatar" style="background: #e2e8f0; color: #475569; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px;">
+                    <div class="cs-item-avatar" style="background: #00677D; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px;">
                         ${needsHelp ? '<img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar">' : initials}
                     </div>
                     <div class="cs-item-content">
@@ -71,6 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Abrir un chat específico
+    window.openSpecificChat = async function(clientId) {
+        const chatsTab = document.querySelector('.nav-item[data-target="page-chats"]');
+        window.isProgrammaticChatOpen = true;
+        if (chatsTab) chatsTab.click();
+        window.isProgrammaticChatOpen = false;
+        
+        await loadChats(false);
+        await openChat(clientId);
+    };
+
     async function openChat(clientId) {
         activeChatId = clientId;
         if (!window.MockAPI) return;
@@ -91,8 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <!-- Header -->
             <div class="cm-header">
                 <div class="cm-header-client">
-                    <div class="cm-avatar" style="background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 600;">
-                        ${clientId === 902 ? '<img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar">' : (client ? client.name.substring(0, 2).toUpperCase() : 'C')}
+                    <div class="cm-avatar" style="background: #00677D; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 600;">
+                        ${clientId === 902 ? '<img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar">' : (client ? client.name.charAt(0).toUpperCase() : 'C')}
                     </div>
                     <h3 class="cm-client-name">${client ? client.name : 'Cliente'}</h3>
                 </div>
@@ -353,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navChats = document.querySelector('.nav-item[data-target="page-chats"]');
     if (navChats) {
         navChats.addEventListener('click', () => {
+            if (window.isProgrammaticChatOpen) return;
             loadChats();
         });
     }

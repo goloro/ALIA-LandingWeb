@@ -202,16 +202,16 @@ class MockAPI {
         const myAgenda = myAgendaObj.name;
 
         const seedAppts = [
-            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "10:30", duration: 60, service: "Corte y Lavado", icon: "tijeras", prof: prof1, status: "completed", createdAt: formatD(now) },
-            { id: 102, clientId: 102, clientName: "Ana López", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "12:00", duration: 90, service: "Coloración", icon: "gota", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000)) },
-            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: formatD(p2_date1), formattedDate: formatLabel(p2_date1), time: "16:00", duration: 30, service: "Arreglo Barba", icon: "cuchilla", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*2)) },
-            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: formatD(p1_date2), formattedDate: formatLabel(p1_date2), time: "11:00", duration: 60, service: "Peinado", icon: "tijeras", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*3)) },
-            { id: 105, clientId: 105, clientName: "David R.", rawDate: formatD(p2_date2), formattedDate: formatLabel(p2_date2), time: "13:30", duration: 30, service: "Corte Express", icon: "tijeras", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*4)) },
+            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "10:30", duration: 60, service: "Corte y Lavado", icon: "tijeras", prof: prof1, status: "completed", createdAt: formatD(now), source: "Alia" },
+            { id: 102, clientId: 102, clientName: "Ana López", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "12:00", duration: 90, service: "Coloración", icon: "gota", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000)), source: "Alia" },
+            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: formatD(p2_date1), formattedDate: formatLabel(p2_date1), time: "16:00", duration: 30, service: "Arreglo Barba", icon: "cuchilla", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*2)), source: "Manual" },
+            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: formatD(p1_date2), formattedDate: formatLabel(p1_date2), time: "11:00", duration: 60, service: "Peinado", icon: "tijeras", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*3)), source: "Alia" },
+            { id: 105, clientId: 105, clientName: "David R.", rawDate: formatD(p2_date2), formattedDate: formatLabel(p2_date2), time: "13:30", duration: 30, service: "Corte Express", icon: "tijeras", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*4)), source: "Manual" },
             
             // Mi Agenda appointments
-            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", icon: "maletin", prof: myAgenda, status: "pending", createdAt: formatD(now) },
-            { id: 107, clientId: 107, clientName: "Emma", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:30", duration: 60, service: "Corte de pelo", icon: "tijeras", prof: myAgenda, status: "pending", createdAt: formatD(now) },
-            { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", icon: "maletin", prof: myAgenda, status: "completed", createdAt: formatD(now) }
+            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", icon: "maletin", prof: myAgenda, status: "pending", createdAt: formatD(now), source: "Manual" },
+            { id: 107, clientId: 107, clientName: "Emma", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:30", duration: 60, service: "Corte de pelo", icon: "tijeras", prof: myAgenda, status: "pending", createdAt: formatD(now), source: "Alia" },
+            { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", icon: "maletin", prof: myAgenda, status: "completed", createdAt: formatD(now), source: "Manual" }
         ];
 
         // Añadir estos clientes a la base de datos simulada para que salgan en la pestaña de clientes
@@ -263,19 +263,41 @@ class MockAPI {
         });
 
         // Initialize Chat Data
-        // Ricardo Mendoza (id: 902) gets the specific Frame 7 mock messages
         this.state.chats = {
-            902: {
+            101: {
+                unread: 0,
+                messages: [
+                    { sender: 'client', text: 'Hola, necesito cortarme el pelo y lavar. ¿Tenéis hueco hoy por la mañana?', time: '09:00 AM' },
+                    { sender: 'alia', text: '¡Hola Carlos! Soy ALIA, el asistente virtual. Sí, tenemos un hueco disponible a las 10:30 con la Dra. Laura Gómez. ¿Te lo reservo?', time: '09:01 AM' },
+                    { sender: 'client', text: 'Sí, genial. Reserva ese.', time: '09:05 AM' },
+                    { sender: 'alia', text: '¡Perfecto! Tu cita para "Corte y Lavado" ha sido confirmada para hoy a las 10:30 en nuestro local (Calle Peluquería 123). ¡Te esperamos!', time: '09:05 AM' }
+                ]
+            },
+            102: {
+                unread: 0,
+                messages: [
+                    { sender: 'client', text: 'Buenas, me gustaría hacerme unas mechas y coloración. ¿A qué hora puedo ir?', time: '09:30 AM' },
+                    { sender: 'alia', text: '¡Hola Ana! ¿Tienes preferencia de estilista? Te puedo buscar hueco para hoy.', time: '09:31 AM' },
+                    { sender: 'client', text: 'Cualquiera está bien, pero me gustaría sobre mediodía si es posible.', time: '09:35 AM' },
+                    { sender: 'alia', text: 'Hecho. Te he agendado una cita de Coloración de 90 minutos para hoy a las 12:00 en nuestro salón (Calle Peluquería 123) con la Dra. Laura Gómez. ¡Nos vemos luego!', time: '09:35 AM' }
+                ]
+            },
+            104: {
+                unread: 0,
+                messages: [
+                    { sender: 'client', text: 'Hola, tengo una boda mañana y necesito que me peinéis.', time: '10:00 AM' },
+                    { sender: 'alia', text: '¡Hola Lucía! ¡Qué evento más chulo! Te puedo agendar mañana por la mañana a las 11:00 con la Dra. Laura Gómez, que es experta en recogidos y peinados. ¿Te encaja?', time: '10:02 AM' },
+                    { sender: 'client', text: 'Sí, por favor, me viene de perlas.', time: '10:05 AM' },
+                    { sender: 'alia', text: 'Cita reservada: Peinado para mañana a las 11:00 en nuestro centro (Calle Peluquería 123) con la Dra. Laura Gómez. ¡Te dejaremos espectacular!', time: '10:06 AM' }
+                ]
+            },
+            107: {
                 unread: 1,
                 messages: [
-                    { sender: 'client', text: 'Hola, quería pedir cita. Quiero teñirme el pelo de gris plata o blanco.', time: '10:15 AM' },
-                    { sender: 'alia', text: '¡Hola Ricardo! 👋 Soy ALIA, el asistente virtual de la peluquería ALIA. Estaré encantada de ayudarte. Para un cambio a gris plata, ¿tienes preferencia por algún barbero o estilista de nuestro equipo, o te busco el primer hueco disponible?', time: '10:15 AM' },
-                    { sender: 'client', text: 'Me da igual quién me lo haga. Pero antes de ir necesito saber exactamente cuánto me va a costar y cuánto vais a tardar. Tengo el pelo castaño muy oscuro, casi negro, y bastante fino.', time: '10:17 AM' },
-                    { sender: 'alia', text: 'Entiendo. Para llegar a un gris plata o blanco desde una base tan oscura, se necesita un proceso de decoloración intenso. El precio base de la decoloración más el matiz es de 55€, pero el tiempo y el precio final varían según las sesiones que necesite tu cabello para aclarar. Lo ideal sería agendar una cita de valoración gratuita de 15 minutos. ¿Te busco hueco para que un especialista lo vea?', time: '10:17 AM' },
-                    { sender: 'client', text: 'Es que trabajo hasta tarde y no tengo tiempo para ir dos veces. Necesito que me deis un precio cerrado por aquí y saber si se me va a quemar o caer el pelo por decolorarlo tanto. Si la broma sube de 90€ decídmelo ya y busco otro sitio.', time: '10:20 AM' },
-                    { sender: 'alia', text: 'Entiendo perfectamente tu situación, Ricardo. Como se trata de un proceso químico muy fuerte sobre cabello fino y oscuro, prefiero que un especialista valore tus dudas directamente para no darte un presupuesto incorrecto ni arriesgar la salud de tu pelo o tu cuero cabelludo.\\n⏸️ Pauso mi asistencia automática. En unos minutos uno de nuestros estilistas leerá esto y te responderá por aquí mismo. ¡Dame un momento!', time: '10:20 AM' },
-                    { sender: 'system', text: 'ASISTENTE ALIA PAUSADA • INTERVENCIÓN HUMANA REQUERIDA', time: '' },
-                    { sender: 'profesional', text: 'Hola Ricardo, soy Marcos, especialista colorista de la peluquería. Haces muy bien en preguntar. Pasar de oscuro a gris plata en pelo fino casi siempre requiere dos decoloraciones suaves para no romper la fibra capilar, además del matiz. Darte un precio cerrado por WhatsApp sin hacer una prueba de mechón es arriesgado, pero calcula que rondará los 85–100€ y tardaremos unas 3 horas. Si te encaja, te busco un hueco largo esta semana.', time: '10:25 AM', profName: 'PROFESIONAL MARCOS GÓMEZ' }
+                    { sender: 'client', text: '¡Hola! Necesito un corte rápido, las puntas.', time: '15:00' },
+                    { sender: 'alia', text: '¡Hola Emma! Tengo un hueco hoy a las 17:30. Te atenderá directamente nuestro Propietario. ¿Te lo dejo anotado?', time: '15:02' },
+                    { sender: 'client', text: 'Sí, ¡perfecto!', time: '15:05' },
+                    { sender: 'alia', text: 'Cita confirmada para hoy a las 17:30 en nuestro salón (Calle Peluquería 123). ¡Hasta luego!', time: '15:05' }
                 ]
             },
             901: {
@@ -284,6 +306,19 @@ class MockAPI {
                     { sender: 'client', text: 'Hola, quería informarme sobre los precios del tratamiento facial.', time: '09:00' },
                     { sender: 'alia', text: '¡Hola Marta! El tratamiento facial cuesta 60€ y dura unos 90 minutos. Incluye limpieza profunda e hidratación. ¿Te gustaría agendar una cita?', time: '09:01' },
                     { sender: 'client', text: 'Me lo pienso y te digo, gracias.', time: '09:30' }
+                ]
+            },
+            902: {
+                unread: 1,
+                messages: [
+                    { sender: 'client', text: 'Hola, quería pedir cita. Quiero teñirme el pelo de gris plata o blanco.', time: '10:15 AM' },
+                    { sender: 'alia', text: '¡Hola Ricardo! 🤖 Soy ALIA, el asistente virtual de la peluquería ALIA. Estaré encantada de ayudarte. Para un cambio a gris plata, ¿tienes preferencia por algún barbero o estilista de nuestro equipo, o te busco el primer hueco disponible?', time: '10:15 AM' },
+                    { sender: 'client', text: 'Me da igual quién me lo haga. Pero antes de ir necesito saber exactamente cuánto me va a costar y cuánto vais a tardar. Tengo el pelo castaño muy oscuro, casi negro, y bastante fino.', time: '10:17 AM' },
+                    { sender: 'alia', text: 'Entiendo. Para llegar a un gris plata o blanco desde una base tan oscura, se necesita un proceso de decoloración intenso. El precio base de la decoloración más el matiz es de 55€, pero el tiempo y el precio final varían según las sesiones que necesite tu cabello para aclarar. Lo ideal sería agendar una cita de valoración gratuita de 15 minutos. ¿Te busco hueco para que un especialista lo vea?', time: '10:17 AM' },
+                    { sender: 'client', text: 'Es que trabajo hasta tarde y no tengo tiempo para ir dos veces. Necesito que me deis un precio cerrado por aquí y saber si se me va a quemar o caer el pelo por decolorarlo tanto. Si la broma sube de 90€ decídmelo ya y busco otro sitio.', time: '10:20 AM' },
+                    { sender: 'alia', text: 'Entiendo perfectamente tu situación, Ricardo. Como se trata de un proceso químico muy fuerte sobre cabello fino y oscuro, prefiero que un especialista valore tus dudas directamente para no darte un presupuesto incorrecto ni arriesgar la salud de tu pelo o tu cuero cabelludo.\n⏸️ Pauso mi asistencia automática. En unos minutos uno de nuestros estilistas leerá esto y te responderá por aquí mismo. ¡Dame un momento!', time: '10:20 AM' },
+                    { sender: 'system', text: 'ASISTENTE ALIA PAUSADA ⏸️ INTERVENCIÓN HUMANA REQUERIDA', time: '' },
+                    { sender: 'profesional', text: 'Hola Ricardo, soy Marcos, especialista colorista de la peluquería. Haces muy bien en preguntar. Pasar de oscuro a gris plata en pelo fino casi siempre requiere dos decoloraciones suaves para no romper la fibra capilar, además del matiz. Darte un precio cerrado por WhatsApp sin hacer una prueba de mechón es arriesgado, pero calcula que rondará los 85-100€ y tardaremos unas 3 horas. Si te encaja, te busco un hueco largo esta semana.', time: '10:25 AM', profName: 'PROFESIONAL MARCOS GÓMEZ' }
                 ]
             }
         };

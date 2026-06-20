@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    window.openNuevaCitaModal = async function(prefilledClientName = '') {
+    window.openNuevaCitaModal = async function(prefilledClientName = '', prefilledTime = '') {
         if (modalNuevaCita) {
             modalNuevaCita.classList.add('active');
             const inputCliente = modalNuevaCita.querySelector('input[placeholder*="Buscar por nombre"]');
@@ -483,6 +483,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            const selects = modalNuevaCita.querySelectorAll('.custom-select-container');
+            if (selects.length > 0 && prefilledTime) {
+                const timeValue = selects[0].querySelector('.selected-value');
+                if (timeValue) timeValue.textContent = prefilledTime;
+            }
             
             const inputsTextCalendar = modalNuevaCita.querySelectorAll('input[type="text"]');
             if (inputsTextCalendar.length > 1) {
@@ -512,7 +517,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             
-            const selects = modalNuevaCita.querySelectorAll('.custom-select-container');
             if (selects.length >= 3 && window.populateDropdown) {
                 // Bind listeners to Service and Prof to trigger Smart Calendar
                 if (!selects[1].hasAttribute('data-smart-bound')) {
@@ -687,6 +691,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof window.resetClientSearch === 'function') window.resetClientSearch();
                 // Refresh Agenda
                 if (typeof window.refreshAgenda === 'function') window.refreshAgenda();
+                // Refresh Dashboard
+                if (typeof window.renderDashboard === 'function') window.renderDashboard();
             } catch(e) {
                 if (window.showToast) window.showToast('Error', 'Hubo un problema al guardar la cita.', 'error');
             } finally {

@@ -517,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     if (gapEnd > currentMins) {
                         html += `
-                            <div class="timeline-item dashed">
+                            <div class="timeline-item dashed" style="cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="if(window.openNuevaCitaModal) window.openNuevaCitaModal('', '${formatMins(currentMins)}')">
                                 <div class="timeline-marker">
                                     <div class="marker-circle plus" style="color: #64748b; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center;">+</div>
                                 </div>
@@ -541,21 +541,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     html += `
                         <div class="timeline-item" style="cursor: pointer; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='transparent'" onclick="if(window.openAgendaAppointmentPanel) window.openAgendaAppointmentPanel(this.dataset.appt)" data-appt="${apptDataStr}">
                             <div class="timeline-marker">
-                                <div class="marker-circle" style="border-color: ${dotColor}; display: flex; align-items: center; justify-content: center;">
+                                <div class="marker-circle" style="border-color: ${dotColor}; display: flex; align-items: center; justify-content: center; background-color: white;">
                                     ${iconSvg}
                                 </div>
                             </div>
-                            <div class="timeline-content" style="align-items: stretch;">
-                                <div class="time-label" style="display: flex; align-items: center; margin-top: 0;">${nextAppt.time}</div>
-                                <div class="slot-details">
-                                    <div class="slot-title">${nextAppt.clientName}</div>
-                                    <div class="slot-subtitle">${nextAppt.service}</div>
+                            <div class="timeline-content" style="flex-direction: row; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center;">
+                                    <div class="time-label" style="display: flex; align-items: center; margin-top: 0; margin-right: 16px;">${nextAppt.time}</div>
+                                    <div class="slot-details" style="display: flex; flex-direction: column;">
+                                        <div class="slot-title">${nextAppt.clientName}</div>
+                                        <div class="slot-subtitle">${nextAppt.service}</div>
+                                    </div>
                                 </div>
-                                <div class="slot-actions" style="align-self: center;">
-                                    <button class="action-btn chat-btn" data-client="${nextAppt.clientName}" style="background-color: #e6f4ea; color: #166534; z-index: 2;" onclick="event.stopPropagation(); document.querySelector('.nav-item[data-target=\\'page-chat\\']').click()">
+                                ${nextAppt.source === 'Alia' ? `<div class="slot-actions" style="align-self: center;">
+                                    <button class="action-btn chat-btn" data-client="${nextAppt.clientName}" style="background-color: #e6f4ea; color: #166534; z-index: 2;" onclick="event.stopPropagation(); if(window.openSpecificChat) window.openSpecificChat(${nextAppt.clientId})">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="9" y1="10" x2="15" y2="10"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
                                     </button>
-                                </div>
+                                </div>` : ''}
                             </div>
                         </div>
                     `;
@@ -573,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (gapEnd > currentMins) {
                     html += `
-                        <div class="timeline-item dashed">
+                        <div class="timeline-item dashed" style="cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="if(window.openNuevaCitaModal) window.openNuevaCitaModal('', '${formatMins(currentMins)}')">
                             <div class="timeline-marker">
                                 <div class="marker-circle plus" style="color: #64748b; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center;">+</div>
                             </div>

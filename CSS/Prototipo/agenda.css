@@ -566,9 +566,9 @@
 
 /* Client Card */
 .client-card {
-    background-color: #D1E4FF;
+    background-color: transparent;
     border-radius: 12px;
-    padding: 16px;
+    padding: 8px 0;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -577,7 +577,7 @@
 .client-avatar {
     width: 40px;
     height: 40px;
-    background-color: #4800B2;
+    background-color: #00677D;
     color: #FFFFFF;
     border-radius: 50%;
     display: flex;
