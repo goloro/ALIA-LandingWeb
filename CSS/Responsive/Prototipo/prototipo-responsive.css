@@ -1,11 +1,210 @@
-/* ====== MEDIA QUERY PARA BLOQUEO MÓVIL ====== */
-/* Si la pantalla es menor o igual a 1024px (tablets y móviles) */
+/* ====== RESPONSIVE DASHBOARD ====== */
+
+/* ====== 1024px (Tablets Landscape & Pequeos Porttiles) ====== */
 @media (max-width: 1024px) {
-    .app-container {
-        display: none !important; /* Oculta todo el entorno de escritorio */
+    /* 1. Ocultar Panel Derecho (Mockup ALIA) */
+    .prototype-phone {
+        display: none !important;
     }
     
-    .mobile-blocker {
-        display: flex !important; /* Muestra el mensaje de bloqueo */
+    .prototype-phone.show-mobile {
+        display: block !important;
+        position: fixed !important;
+        top: 50%; 
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        z-index: 99999;
+        /* Do not override width/height/background, let phone-mockup.css handle the phone styling */
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    
+    .alia-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 99998;
+    }
+    
+    .alia-overlay.active {
+        display: block;
+    }
+    
+    .prototype-content {
+        gap: 0;
+    }
+    
+    /* 2. Grid Dashboard: 4 -> 2 columnas */
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    /* 3. Tablas y Grids: Overflow Horizontal */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .agenda-container {
+        overflow-x: auto;
+    }
+    
+    .calendar-grid {
+        overflow-x: auto;
+        min-width: 800px;
+    }
+    
+    .calendar-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    /* Fix Agenda Top Header squishing on tablet/mobile */
+    .agenda-new-header {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    
+    .agenda-date-title {
+        white-space: nowrap !important;
+    }
+    
+    .agenda-prof-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        /* Prevent filters from squishing too much */
+        flex: 1;
+    }
+    
+    .agenda-prof-filters::-webkit-scrollbar {
+        height: 0px; /* Hide scrollbar for a cleaner look, or set to 4px */
+    }
+    
+    .prof-filter-btn {
+        white-space: nowrap;
+    }
+    
+    .agenda-view-toggles {
+        flex-shrink: 0;
+    }
+}
+
+/* ====== 768px (Tablets Portrait y Mviles) ====== */
+@media (max-width: 768px) {
+    /* 1. Ocultar Sidebar clsico y convertir a Drawer */
+    .portal-sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        z-index: 10000;
+        transition: left 0.3s ease;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    }
+    
+    .portal-sidebar.open {
+        left: 0;
+    }
+    
+    /* Overlay para el Drawer */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 9999;
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+    
+    /* 2. Mostrar botn hamburguesa */
+    .mobile-menu-btn {
+        display: block !important;
+    }
+    
+    /* 3. Ajustar padding del topbar */
+    .portal-topbar {
+        padding: 16px 20px !important;
+    }
+    
+    .topbar-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .topbar-actions .search-box {
+        display: none; /* Ocultar buscador en mvil por espacio */
+    }
+    
+    .btn-new-cita {
+        padding: 8px 12px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    /* 4. Grid Dashboard: 2 -> 1 columna */
+    .metrics-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* 5. Padding del contenido principal */
+    .page-section {
+        padding: 16px !important;
+    }
+    
+    .dashboard-header {
+        margin-bottom: 24px !important;
+    }
+    
+    /* 6. Modales a ancho completo */
+    .modal-container {
+        width: 90% !important;
+        padding: 24px !important;
+    }
+    
+    .modal-overlay {
+        position: fixed !important;
+        border-radius: 0 !important;
+    }
+    
+    /* Ajustar layout y main content para usar el espacio completo */
+    .portal-container {
+        border-radius: 0 !important;
+    }
+    .prototype-workspace {
+        padding: 0 !important;
+    }
+}
+
+/* ====== FAB BOTN ALIA (Mvil) ====== */
+.fab-alia {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    background: #004EB2;
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,78,178,0.4);
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.fab-alia:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+    .fab-alia {
+        display: flex;
     }
 }

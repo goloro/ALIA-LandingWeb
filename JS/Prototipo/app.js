@@ -1908,3 +1908,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 });
+// Mobile Menu Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const btnMobileMenu = document.getElementById('btn-mobile-menu');
+    const portalSidebar = document.getElementById('portal-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    
+    if (btnMobileMenu && portalSidebar && sidebarOverlay) {
+        btnMobileMenu.addEventListener('click', () => {
+            portalSidebar.classList.add('open');
+            sidebarOverlay.classList.add('active');
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            portalSidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+        });
+    }
+
+    // Close menu when clicking a nav item on mobile
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                portalSidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+            }
+        });
+    });
+
+    // FAB ALIA Logic now handled purely via inline HTML onclicks and .alia-overlay
+});
