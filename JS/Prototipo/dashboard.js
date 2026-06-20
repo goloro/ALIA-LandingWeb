@@ -350,9 +350,14 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('db-next-appt-card').style.borderLeftColor = '#0891b2';
             document.getElementById('db-next-appt-name').style.color = '#0f172a';
             document.getElementById('db-next-appt-name').textContent = next.clientName || 'Cliente';
+            
+            const nextIconSvg = window.getServiceIconSVG ? window.getServiceIconSVG(next.icon || next.service, "currentColor", "14") : '';
             document.getElementById('db-next-appt-service').innerHTML = `
-                <div style="font-weight: 600; color: #0f172a; margin-top: 4px;">${next.service}</div>
-                <div style="color: #64748b; font-size: 0.8rem; margin-top: 2px;">con ${next.prof}</div>
+                <div style="font-weight: 600; color: #0f172a; margin-top: 4px; display: flex; align-items: center; gap: 4px;">
+                    <span style="color: #64748b; display: flex; align-items: center;">${nextIconSvg}</span>
+                    <span>${next.service}</span>
+                </div>
+                <div style="color: #64748b; font-size: 0.8rem; margin-top: 2px; margin-left: 18px;">con ${next.prof}</div>
             `;
         } else {
             // No hay citas futuras hoy
@@ -519,10 +524,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (currentMins === apptStartMins) {
                     // Toca cita
                     const dotColor = nextAppt.status === 'confirmed' ? '#10b981' : '#f59e0b';
+                    const iconSvg = window.getServiceIconSVG ? window.getServiceIconSVG(nextAppt.icon || nextAppt.service, dotColor, "10") : '';
                     html += `
                         <div class="timeline-item">
                             <div class="timeline-marker">
-                                <div class="marker-circle" style="border-color: ${dotColor};"></div>
+                                <div class="marker-circle" style="border-color: ${dotColor}; display: flex; align-items: center; justify-content: center;">
+                                    ${iconSvg}
+                                </div>
                             </div>
                             <div class="timeline-content" style="align-items: stretch;">
                                 <div class="time-label" style="display: flex; align-items: center; margin-top: 0;">${nextAppt.time}</div>
@@ -530,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <div class="slot-title">${nextAppt.clientName}</div>
                                     <div class="slot-subtitle">${nextAppt.service}</div>
                                 </div>
-                            <div class="slot-actions" style="align-self: center;">
+                                <div class="slot-actions" style="align-self: center;">
                                     <button class="action-btn chat-btn" data-client="${nextAppt.clientName}" style="background-color: #e6f4ea; color: #166534;" onclick="document.querySelector('.nav-item[data-target=\\'page-chat\\']').click()">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="9" y1="10" x2="15" y2="10"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
                                     </button>

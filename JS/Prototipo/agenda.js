@@ -391,12 +391,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 eventEl.style.height = `${heightPx}px`;
                 eventEl.dataset.appt = JSON.stringify(appt);
                 
+                // Icono del servicio
+                const serviceIcon = window.getServiceIconSVG ? window.getServiceIconSVG(appt.icon || appt.service, "currentColor", "12") : '';
+                
                 // Truncate text if block is too small
-                const serviceLabel = duration <= 30 ? '' : `<div style="font-size:11px; opacity:0.9; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${appt.service}</div>`;
+                const serviceLabel = duration <= 30 ? '' : `<div style="font-size:11px; opacity:0.9; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display: flex; align-items: center; gap: 4px; margin-top: 2px;">${serviceIcon} <span>${appt.service}</span></div>`;
                 const profLabel = selectedViewToggle === 'Semana' && selectedProfFilter === 'Todos' ? `<span style="font-size:10px; opacity:0.8;"> - ${appt.prof.split(' ')[1] || appt.prof}</span>` : '';
 
                 eventEl.innerHTML = `
-                    <div style="display:flex; flex-direction:column; gap:2px; height:100%; width:100%; overflow:hidden;">
+                    <div style="display:flex; flex-direction:column; gap:0px; height:100%; width:100%; overflow:hidden;">
                         <div style="font-weight:600; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                             ${appt.time} - ${appt.clientName} ${profLabel}
                         </div>

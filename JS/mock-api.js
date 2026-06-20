@@ -202,16 +202,16 @@ class MockAPI {
         const myAgenda = myAgendaObj.name;
 
         const seedAppts = [
-            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "10:30", duration: 60, service: "Corte y Lavado", prof: prof1, status: "completed", createdAt: formatD(now) },
-            { id: 102, clientId: 102, clientName: "Ana López", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "12:00", duration: 90, service: "Coloración", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000)) },
-            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: formatD(p2_date1), formattedDate: formatLabel(p2_date1), time: "16:00", duration: 30, service: "Arreglo Barba", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*2)) },
-            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: formatD(p1_date2), formattedDate: formatLabel(p1_date2), time: "11:00", duration: 60, service: "Peinado", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*3)) },
-            { id: 105, clientId: 105, clientName: "David R.", rawDate: formatD(p2_date2), formattedDate: formatLabel(p2_date2), time: "13:30", duration: 30, service: "Corte Express", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*4)) },
+            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "10:30", duration: 60, service: "Corte y Lavado", icon: "tijeras", prof: prof1, status: "completed", createdAt: formatD(now) },
+            { id: 102, clientId: 102, clientName: "Ana López", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "12:00", duration: 90, service: "Coloración", icon: "gota", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000)) },
+            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: formatD(p2_date1), formattedDate: formatLabel(p2_date1), time: "16:00", duration: 30, service: "Arreglo Barba", icon: "cuchilla", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*2)) },
+            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: formatD(p1_date2), formattedDate: formatLabel(p1_date2), time: "11:00", duration: 60, service: "Peinado", icon: "tijeras", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*3)) },
+            { id: 105, clientId: 105, clientName: "David R.", rawDate: formatD(p2_date2), formattedDate: formatLabel(p2_date2), time: "13:30", duration: 30, service: "Corte Express", icon: "tijeras", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*4)) },
             
             // Mi Agenda appointments
-            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", prof: myAgenda, status: "pending", createdAt: formatD(now) },
-            { id: 107, clientId: 107, clientName: "Emma", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:30", duration: 60, service: "Corte de pelo", prof: myAgenda, status: "pending", createdAt: formatD(now) },
-            { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", prof: myAgenda, status: "completed", createdAt: formatD(now) }
+            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", icon: "maletin", prof: myAgenda, status: "pending", createdAt: formatD(now) },
+            { id: 107, clientId: 107, clientName: "Emma", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:30", duration: 60, service: "Corte de pelo", icon: "tijeras", prof: myAgenda, status: "pending", createdAt: formatD(now) },
+            { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", icon: "maletin", prof: myAgenda, status: "completed", createdAt: formatD(now) }
         ];
 
         // Añadir estos clientes a la base de datos simulada para que salgan en la pestaña de clientes

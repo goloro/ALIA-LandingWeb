@@ -1,3 +1,28 @@
+// --- Service SVG Icons System ---
+window.getServiceIconSVG = function(serviceName, color = "currentColor", size = "10") {
+    const name = (serviceName || '').toLowerCase();
+    
+    // Tijeras (Corte)
+    if (name === 'tijeras' || name.includes('corte') || name.includes('peinado') || name.includes('lavado')) {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>`;
+    }
+    // Gota / Paleta (Color)
+    if (name === 'gota' || name.includes('color') || name.includes('tinte') || name.includes('mechas')) {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>`;
+    }
+    // Barba / Bigote / Cuchilla
+    if (name === 'cuchilla' || name.includes('barba') || name.includes('afeitado')) {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h6a2 2 0 0 0 2-2v-8z"></path><polyline points="18 10 22 10 22 6 18 6"></polyline></svg>`;
+    }
+    // Maletín / Configuración (Gestión, Entrevista, Revisión)
+    if (name === 'maletin' || name === 'maletín' || name.includes('gestión') || name.includes('revisión') || name.includes('entrevista') || name.includes('admin') || name.includes('gesti')) {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`;
+    }
+    
+    // Por defecto: Calendario
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- Toast Notifications System ---
     window.showToast = function(title, message, type = 'info') {
@@ -1189,11 +1214,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     let html = '';
                     window.currentServices.forEach((srv, index) => {
                         const priceStr = srv.price ? ` - ${srv.price}€` : '';
+                        const srvIcon = window.getServiceIconSVG(srv.icon || srv.name, "#64748b", "16");
                         html += `
                         <div class="pn-service-item" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e2e8f0;">
-                            <div>
-                                <strong style="color: #0f172a; font-size: 0.95rem;">${srv.name}</strong><br>
-                                <small style="color: #64748b; font-size: 0.85rem;">${srv.duration} min${priceStr}</small>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                                    ${srvIcon}
+                                </div>
+                                <div>
+                                    <strong style="color: #0f172a; font-size: 0.95rem;">${srv.name}</strong><br>
+                                    <small style="color: #64748b; font-size: 0.85rem;">${srv.duration} min${priceStr}</small>
+                                </div>
                             </div>
                             <button class="pn-btn-delete-service" data-index="${index}" style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 4px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='transparent'">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
