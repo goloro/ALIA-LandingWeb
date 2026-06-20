@@ -154,6 +154,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Próxima Cita
             renderNextAppointment(appointments);
 
+            // 5. Mini Stats (Completadas, Citas Hoy, Huecos Libres)
+            renderMiniStats(appointments);
+
+            // 6. Resto de la jornada
+            renderRestOfDay(appointments);
+
         } catch(e) {
             console.error("Error renderizando dashboard:", e);
         }
@@ -306,55 +312,279 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderNextAppointment(appointments) {
         if (!appointments || appointments.length === 0) return;
 
+        const userName = window.MockAPI?.state?.currentUser?.name || "Propietario";
+        const isOwner = userName.toLowerCase().includes("propietario");
+        const profNameToMatch = isOwner ? "Propietario" : userName;
+
         const now = new Date();
+        const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
         
-        // Filtrar citas futuras
+        // Filtrar citas futuras del DÍA ACTUAL y del USUARIO ACTUAL
         let futureAppts = appointments.filter(a => {
             if (a.status !== 'pending' && a.status !== 'confirmed') return false;
-            // Parse rawDate and time (e.g. "2023-10-15" and "10:30")
-            const [year, month, day] = a.rawDate.split('-').map(Number);
+            if (a.prof !== profNameToMatch && !isOwner) return false;
+            if (isOwner && a.prof !== "Propietario") return false;
+
+            if (a.rawDate !== todayStr) return false; // Solo el día actual
+            
             const [hours, mins] = (a.time || "00:00").split(':').map(Number);
-            const apptDate = new Date(year, month - 1, day, hours, mins);
+            const apptDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, mins);
             return apptDate > now;
         });
 
-        // Si no hay futuras, mostramos la última (para que el prototipo no se vea vacío)
-        if (futureAppts.length === 0) {
-            futureAppts = [...appointments].reverse(); 
-        } else {
+        if (futureAppts.length > 0) {
             // Sort by closest time
             futureAppts.sort((a, b) => {
                 const d1 = new Date(a.rawDate + 'T' + a.time);
                 const d2 = new Date(b.rawDate + 'T' + b.time);
                 return d1 - d2;
             });
-        }
 
-        if (futureAppts.length > 0) {
             const next = futureAppts[0];
             
             document.getElementById('db-next-appt-badge').textContent = next.status === 'confirmed' ? 'CONFIRMADA' : 'PENDIENTE';
-            document.getElementById('db-next-appt-badge').style.backgroundColor = next.status === 'confirmed' ? '#d1fae5' : '#fef3c7';
-            document.getElementById('db-next-appt-badge').style.color = next.status === 'confirmed' ? '#047857' : '#b45309';
+            document.getElementById('db-next-appt-badge').style.backgroundColor = next.status === 'confirmed' ? '#dcfce7' : '#fef3c7';
+            document.getElementById('db-next-appt-badge').style.color = next.status === 'confirmed' ? '#16a34a' : '#b45309';
             
-            document.getElementById('db-next-appt-time').textContent = `${next.formattedDate} • ${next.time}`;
-            
-            const [year, month, day] = next.rawDate.split('-').map(Number);
-            const apptDate = new Date(year, month - 1, day);
-            const isToday = apptDate.toDateString() === now.toDateString();
-
-            if (isToday) {
-                document.getElementById('db-next-appt-card').style.borderLeftColor = '#0891b2';
-            } else {
-                document.getElementById('db-next-appt-card').style.borderLeftColor = '#e2e8f0';
-            }
-
+            document.getElementById('db-next-appt-time').textContent = `Hoy • ${next.time}`;
+            document.getElementById('db-next-appt-card').style.borderLeftColor = '#0891b2';
+            document.getElementById('db-next-appt-name').style.color = '#0f172a';
             document.getElementById('db-next-appt-name').textContent = next.clientName || 'Cliente';
             document.getElementById('db-next-appt-service').innerHTML = `
                 <div style="font-weight: 600; color: #0f172a; margin-top: 4px;">${next.service}</div>
                 <div style="color: #64748b; font-size: 0.8rem; margin-top: 2px;">con ${next.prof}</div>
             `;
+        } else {
+            // No hay citas futuras hoy
+            document.getElementById('db-next-appt-badge').textContent = 'LIBRE';
+            document.getElementById('db-next-appt-badge').style.backgroundColor = '#f1f5f9';
+            document.getElementById('db-next-appt-badge').style.color = '#94a3b8';
+            document.getElementById('db-next-appt-time').textContent = '--:--';
+            document.getElementById('db-next-appt-card').style.borderLeftColor = '#e2e8f0';
+            document.getElementById('db-next-appt-name').style.color = '#94a3b8';
+            document.getElementById('db-next-appt-name').textContent = 'No hay más citas próximas hoy';
+            document.getElementById('db-next-appt-service').innerHTML = '¡Tiempo libre o para tareas administrativas!';
         }
+    }
+
+    function renderMiniStats(appointments) {
+        if (!appointments) return;
+        
+        const userName = window.MockAPI?.state?.currentUser?.name || "Propietario";
+        const isOwner = userName.toLowerCase().includes("propietario");
+        const profNameToMatch = isOwner ? "Propietario" : userName;
+
+        const now = new Date();
+        const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+        
+        // Filtrar citas del DÍA ACTUAL y del USUARIO ACTUAL
+        const todaysAppts = appointments.filter(a => {
+            if (a.status !== 'pending' && a.status !== 'confirmed' && a.status !== 'completed') return false;
+            if (a.prof !== profNameToMatch && !isOwner) return false;
+            if (isOwner && a.prof !== "Propietario") return false;
+            return a.rawDate === todayStr;
+        });
+
+        const citasHoy = todaysAppts.length;
+        const completadas = todaysAppts.filter(a => a.status === 'completed').length;
+        
+        // Calcular huecos libres. Asumimos jornada de 8 horas (480 mins).
+        let occupiedMins = 0;
+        todaysAppts.forEach(a => {
+            occupiedMins += a.duration || 45;
+        });
+        const freeMins = Math.max(0, 480 - occupiedMins);
+        const huecos = Math.floor(freeMins / 60); // Huecos libres de 1 hora aprox.
+        
+        const elCompletadas = document.getElementById('db-mini-completadas-value');
+        const elCitasHoy = document.getElementById('db-mini-citas-hoy-value');
+        const elHuecos = document.getElementById('db-mini-huecos-value');
+        
+        if (elCompletadas) elCompletadas.innerHTML = `${completadas} <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+        if (elCitasHoy) elCitasHoy.textContent = citasHoy;
+        if (elHuecos) elHuecos.innerHTML = `${huecos} <span style="font-size:1rem; color:#d97706; margin-left: 4px;">🕒</span>`;
+    }
+
+    function renderRestOfDay(appointments) {
+        const container = document.getElementById('db-timeline-container');
+        if (!container) return;
+
+        if (!appointments || appointments.length === 0) {
+            renderEmptyTimeline(container);
+            return;
+        }
+
+        const userName = window.MockAPI?.state?.currentUser?.name || "Propietario";
+        const isOwner = userName.toLowerCase().includes("propietario");
+        const profNameToMatch = isOwner ? "Propietario" : userName;
+
+        const now = new Date();
+        const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+        
+        let futureAppts = appointments.filter(a => {
+            if (a.status !== 'pending' && a.status !== 'confirmed') return false;
+            if (a.prof !== profNameToMatch && !isOwner) return false;
+            if (isOwner && a.prof !== "Propietario") return false;
+            if (a.rawDate !== todayStr) return false;
+            
+            const [hours, mins] = (a.time || "00:00").split(':').map(Number);
+            const apptDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, mins);
+            return apptDate > now;
+        });
+
+        // Ordenamos por hora
+        futureAppts.sort((a, b) => {
+            const d1 = new Date(a.rawDate + 'T' + a.time);
+            const d2 = new Date(b.rawDate + 'T' + b.time);
+            return d1 - d2;
+        });
+
+        // Mostrar todas las citas futuras en el timeline para contexto (incluida la prxima)
+        const restAppts = futureAppts;
+
+        // Lógica de inyección dinámica de huecos
+        let html = '';
+        
+        // Obtener configuración
+        const settings = window.BusinessSettings || {};
+        const teamObj = window.BusinessTeam?.find(t => t.name === profNameToMatch) || {};
+        const lunchStart = teamObj.pausaAlmuerzo?.start || "14:00";
+        const lunchEnd = teamObj.pausaAlmuerzo?.end || "15:00";
+        const dayEnd = settings.openHours?.end || "19:00";
+        
+        // Helper para minutos
+        const toMins = (t) => { const [h,m] = t.split(':').map(Number); return h*60+m; };
+        const formatMins = (m) => `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+        
+        // Empezamos desde "ahora" redondeado a los próximos 30 mins
+        let currentMins = now.getHours() * 60 + now.getMinutes();
+        // Redondear a la siguiente media hora para empezar limpio, o dejar así si queremos ser exactos
+        // Pero para el prototipo asume que empezamos en hora en punto (ej 12:00)
+        currentMins = Math.ceil(currentMins / 30) * 30;
+        
+        const endMins = toMins(dayEnd);
+        const lunchStartMins = toMins(lunchStart);
+        const lunchEndMins = toMins(lunchEnd);
+        
+        let nextApptIdx = 0;
+        
+        // Generador
+        while (currentMins < endMins) {
+            // Check si toca almuerzo
+            if (currentMins >= lunchStartMins && currentMins < lunchEndMins) {
+                html += `
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <div class="marker-circle" style="border-color: #cbd5e1; background-color: #f1f5f9; display: flex; align-items: center; justify-content: center;">
+                                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                            </div>
+                        </div>
+                        <div class="timeline-content" style="align-items: stretch; background-color: #f8fafc; border: 1px solid #e2e8f0; box-shadow: none;">
+                            <div class="time-label" style="display: flex; align-items: center; margin-top: 0; color: #64748b;">${lunchStart}</div>
+                            <div class="slot-details">
+                                <div class="slot-title" style="color: #64748b;">Pausa del almuerzo</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                currentMins = lunchEndMins;
+                continue;
+            }
+            
+            let nextAppt = restAppts[nextApptIdx];
+            if (nextAppt) {
+                let apptStartMins = toMins(nextAppt.time);
+                if (currentMins < apptStartMins) {
+                    // Hay un hueco
+                    let gapEnd = Math.min(apptStartMins, endMins);
+                    if (currentMins < lunchStartMins && gapEnd > lunchStartMins) gapEnd = lunchStartMins;
+                    
+                    if (gapEnd > currentMins) {
+                        html += `
+                            <div class="timeline-item dashed">
+                                <div class="timeline-marker">
+                                    <div class="marker-circle plus" style="color: #64748b; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center;">+</div>
+                                </div>
+                                <div class="timeline-content" style="align-items: stretch;">
+                                    <div class="time-label" style="display: flex; align-items: center; margin-top: 0;">${formatMins(currentMins)}</div>
+                                    <div class="slot-details">
+                                        <div class="slot-title">Hueco Disponible</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    currentMins = gapEnd;
+                    continue;
+                } else if (currentMins === apptStartMins) {
+                    // Toca cita
+                    const dotColor = nextAppt.status === 'confirmed' ? '#10b981' : '#f59e0b';
+                    html += `
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <div class="marker-circle" style="border-color: ${dotColor};"></div>
+                            </div>
+                            <div class="timeline-content" style="align-items: stretch;">
+                                <div class="time-label" style="display: flex; align-items: center; margin-top: 0;">${nextAppt.time}</div>
+                                <div class="slot-details">
+                                    <div class="slot-title">${nextAppt.clientName}</div>
+                                    <div class="slot-subtitle">${nextAppt.service}</div>
+                                </div>
+                            <div class="slot-actions" style="align-self: center;">
+                                    <button class="action-btn chat-btn" data-client="${nextAppt.clientName}" style="background-color: #e6f4ea; color: #166534;" onclick="document.querySelector('.nav-item[data-target=\\'page-chat\\']').click()">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="9" y1="10" x2="15" y2="10"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+                                    </button>
+                                    <button class="action-btn menu-btn" style="background-color: transparent; color: #475569;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    currentMins += (nextAppt.duration || 30);
+                    nextApptIdx++;
+                    continue;
+                } else {
+                    nextApptIdx++;
+                    continue;
+                }
+            } else {
+                // Hueco hasta el final del dia
+                let gapEnd = endMins;
+                if (currentMins < lunchStartMins) gapEnd = lunchStartMins;
+                
+                if (gapEnd > currentMins) {
+                    html += `
+                        <div class="timeline-item dashed">
+                            <div class="timeline-marker">
+                                <div class="marker-circle plus" style="color: #64748b; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center;">+</div>
+                            </div>
+                            <div class="timeline-content" style="align-items: stretch;">
+                                <div class="time-label" style="display: flex; align-items: center; margin-top: 0;">${formatMins(currentMins)}</div>
+                                <div class="slot-details">
+                                    <div class="slot-title">Hueco Disponible</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                currentMins = gapEnd;
+            }
+        }
+        
+        if (html === '') {
+            renderEmptyTimeline(container);
+        } else {
+            container.innerHTML = html;
+        }
+    }
+
+    function renderEmptyTimeline(container) {
+        container.innerHTML = `
+            <div style="padding: 24px 16px; color: #64748b; font-size: 0.95rem; text-align: center; background-color: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">
+                No hay más citas por hoy.
+            </div>
+        `;
     }
 
     // Inicializar al cargar (un pequeño retraso para asegurar MockAPI)

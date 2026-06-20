@@ -303,7 +303,7 @@
                                     <div class="mini-stat-card">
                                         <div class="mini-stat-info">
                                             <div class="mini-stat-header">Completadas</div>
-                                            <div class="mini-stat-value">0 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                                            <div class="mini-stat-value" id="db-mini-completadas-value">0 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
                                         </div>
                                         <div class="mini-stat-icon-wrapper green-icon">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -312,7 +312,7 @@
                                     <div class="mini-stat-card">
                                         <div class="mini-stat-info">
                                             <div class="mini-stat-header">Citas Hoy</div>
-                                            <div class="mini-stat-value">0</div>
+                                            <div class="mini-stat-value" id="db-mini-citas-hoy-value">0</div>
                                         </div>
                                         <div class="mini-stat-icon-wrapper purple-icon">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -321,7 +321,7 @@
                                     <div class="mini-stat-card">
                                         <div class="mini-stat-info">
                                             <div class="mini-stat-header">Huecos Libres</div>
-                                            <div class="mini-stat-value">0 <span style="font-size:1rem; color:#d97706; margin-left: 4px;">🕒</span></div>
+                                            <div class="mini-stat-value" id="db-mini-huecos-value">0 <span style="font-size:1rem; color:#d97706; margin-left: 4px;">🕒</span></div>
                                         </div>
                                         <div class="mini-stat-icon-wrapper orange-icon">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -332,20 +332,9 @@
                                 <!-- Resto de la jornada -->
                                 <div class="section-header-row">
                                     <h3 class="section-title" style="margin-bottom: 0;">Resto de la jornada</h3>
-                                    <a href="#" class="link-calendar">Ver calendario completo</a>
+                                    <a href="#" class="link-calendar" onclick="document.querySelector('.nav-item[data-target=\'page-agenda-semanal\']').click()">Ver agenda completa</a>
                                 </div>
-                                <div class="timeline-container">
-                                    <div class="timeline-item dashed">
-                                        <div class="timeline-marker">
-                                            <div class="marker-circle plus">+</div>
-                                        </div>
-                                        <div class="timeline-content">
-                                            <div class="time-label">--:--</div>
-                                            <div class="slot-details">
-                                                <div class="slot-title">Hueco Disponible</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="timeline-container" id="db-timeline-container">
                                 </div>
 
 

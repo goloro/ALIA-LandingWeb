@@ -210,7 +210,7 @@ class MockAPI {
             
             // Mi Agenda appointments
             { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", prof: myAgenda, status: "pending", createdAt: formatD(now) },
-            { id: 107, clientId: 107, clientName: "Elena V.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:00", duration: 60, service: "Entrevista Staff", prof: myAgenda, status: "pending", createdAt: formatD(now) },
+            { id: 107, clientId: 107, clientName: "Emma", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:30", duration: 60, service: "Corte de pelo", prof: myAgenda, status: "pending", createdAt: formatD(now) },
             { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", prof: myAgenda, status: "completed", createdAt: formatD(now) }
         ];
 
