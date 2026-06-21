@@ -87,12 +87,13 @@
     position: relative;
     max-width: 100%;
     border-radius: 24px;
-    transform: scale(1.1);
-    transform-origin: center right;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .image-wrapper img {
-    width: 125%;
+    width: 100%;
+    max-width: 700px;
     display: block;
     border-radius: 20px;
 }
