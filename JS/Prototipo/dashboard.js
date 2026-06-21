@@ -416,14 +416,54 @@ document.addEventListener('DOMContentLoaded', () => {
         const elCitasHoy = document.getElementById('db-mini-citas-hoy-value');
         const elHuecos = document.getElementById('db-mini-huecos-value');
         
+        const todayDay = now.getDay();
+        const mockSettings = window.MockAPI?.state?.settings || {};
+        const currentUser = window.MockAPI?.state?.currentUser || {};
+        const isClosed = mockSettings.closedDays?.includes(todayDay) || false;
+        const isDayOff = currentUser.diasLibres?.includes(todayDay) || false;
+        
+        let huecosHtml = `${huecos} <span style="font-size:1rem; color:#d97706; margin-left: 4px;">✌️</span>`;
+        if (isClosed || isDayOff) {
+            huecosHtml = `-`;
+        }
+        
         if (elCompletadas) elCompletadas.innerHTML = `${completadas} <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
         if (elCitasHoy) elCitasHoy.textContent = citasHoy;
-        if (elHuecos) elHuecos.innerHTML = `${huecos} <span style="font-size:1rem; color:#d97706; margin-left: 4px;">🕒</span>`;
+        if (elHuecos) elHuecos.innerHTML = huecosHtml;
     }
 
     function renderRestOfDay(appointments) {
         const container = document.getElementById('db-timeline-container');
         if (!container) return;
+        
+        const now = new Date();
+        const todayDay = now.getDay();
+        const mockSettings = window.MockAPI?.state?.settings || {};
+        const currentUser = window.MockAPI?.state?.currentUser || {};
+        const isClosed = mockSettings.closedDays?.includes(todayDay) || false;
+        const isDayOff = currentUser.diasLibres?.includes(todayDay) || false;
+        
+        if (isClosed) {
+            container.innerHTML = `
+                <div style="padding: 32px 16px; color: #64748b; font-size: 1.05rem; text-align: center; background-color: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">🏬</div>
+                    <strong>La tienda está cerrada hoy.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.8;">Nos vemos el próximo día laborable.</span>
+                </div>
+            `;
+            return;
+        }
+        
+        if (isDayOff) {
+            container.innerHTML = `
+                <div style="padding: 32px 16px; color: #004EB2; font-size: 1.05rem; text-align: center; background-color: #f0f7ff; border-radius: 12px; border: 1px dashed #bfdbfe;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">🌴</div>
+                    <strong>¡Hoy es tu día de descanso!</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.8;">Aprovecha para desconectar y recargar pilas.</span>
+                </div>
+            `;
+            return;
+        }
 
         if (!appointments || appointments.length === 0) {
             renderEmptyTimeline(container);
@@ -434,7 +474,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const isOwner = userName.toLowerCase().includes("propietario");
         const profNameToMatch = isOwner ? "Propietario" : userName;
 
-        const now = new Date();
         const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
         
         let futureAppts = appointments.filter(a => {

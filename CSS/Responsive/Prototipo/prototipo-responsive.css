@@ -1,7 +1,7 @@
 /* ====== RESPONSIVE DASHBOARD ====== */
 
-/* ====== 1024px (Tablets Landscape & Pequeos Porttiles) ====== */
-@media (max-width: 1024px) {
+/* ====== 1440px (Laptops, Tablets & Pequeños Portátiles) ====== */
+@media (max-width: 1440px) {
     /* 1. Ocultar Panel Derecho (Mockup ALIA) */
     .prototype-phone {
         display: none !important;
@@ -12,9 +12,11 @@
         position: fixed !important;
         top: 50%; 
         left: 50%;
-        transform: translate(-50%, -50%) scale(0.9);
+        transform: translate(-50%, -50%);
         z-index: 99999;
-        /* Do not override width/height/background, let phone-mockup.css handle the phone styling */
+        width: 320px !important;
+        height: 620px !important;
+        max-height: 85vh !important;
         box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
     
@@ -92,8 +94,16 @@
     }
 }
 
-/* ====== 768px (Tablets Portrait y Mviles) ====== */
+/* ====== 768px (Tablets Portrait y Móviles) ====== */
 @media (max-width: 768px) {
+    /* Reactivar Blocker Móvil */
+    .mobile-blocker {
+        display: flex !important;
+    }
+    
+    .app-container, .prototype-workspace {
+        display: none !important;
+    }
     /* 1. Ocultar Sidebar clsico y convertir a Drawer */
     .portal-sidebar {
         position: fixed;
@@ -203,7 +213,7 @@
     transform: scale(1.05);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1440px) {
     .fab-alia {
         display: flex;
     }
