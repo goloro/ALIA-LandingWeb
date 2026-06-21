@@ -106,7 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Simular respuesta tras 1.5s
                 responseTimeout = setTimeout(() => {
                     removeTypingIndicator();
-                    appendMessage('En este momento no estoy conectada a mis servidores. ¡Pronto podré ayudarte con tu negocio!', 'received');
+                    // Leer mensaje offline desde el atributo data inyectado por content-loader.js
+                    const offlineMsg = chatWindow.dataset.offlineMessage ||
+                        'En este momento no estoy conectada a mis servidores. ¡Pronto podré ayudarte con tu negocio!';
+                    appendMessage(offlineMsg, 'received');
                 }, 1500);
 
             }, 500);

@@ -1,0 +1,233 @@
+{
+  "meta": {
+    "title": "ALIA - El asistente que optimiza tus reservas",
+    "description": "Automatiza tus reservas, reduce los no-shows y ofrece una atención premium 24/7 sin levantar un dedo."
+  },
+  "header": {
+    "prototypeButtonText": "PROTOTIPO",
+    "prototypeButtonUrl": "HTML/prototipo.html"
+  },
+  "hero": {
+    "titleLine1": "El asistente que",
+    "titleHighlight": "optimiza",
+    "titleLine2": "tus",
+    "titleLine3": "reservas.",
+    "description": "Automatiza tus reservas, reduce los no-shows y ofrece una atención premium 24/7 sin levantar un dedo. El asistente digital que tu negocio merece.",
+    "buttons": [
+      {
+        "text": "PROTOTIPO",
+        "url": "HTML/prototipo.html",
+        "style": "primary"
+      },
+      {
+        "text": "Solicitar Presupuesto<br>Personalizado",
+        "url": "#",
+        "style": "secondary"
+      }
+    ],
+    "chat": {
+      "businessName": "Peluquería ALIA",
+      "businessStatus": "En línea",
+      "inputPlaceholder": "Escribe un mensaje..."
+    }
+  },
+  "aiChat": {
+    "welcomeMessage": "¡Hola! Soy ALIA. Puedo darte un presupuesto personalizado o contarte como automatizar tu negocio. ¿En que estas pensando?",
+    "offlineMessage": "En este momento no estoy conectada a mis servidores. ¡Pronto podré ayudarte con tu negocio!",
+    "inputPlaceholder": "Escribe tu consulta"
+  },
+  "comparison": {
+    "heading": "Da el salto al futuro de la gestión",
+    "subheading": "Compara cómo cambia el día a día de tu negocio cuando integras una solución inteligente diseñada para el sector beauty.",
+    "traditional": {
+      "title": "La gestión tradicional",
+      "items": [
+        "Interrupciones constantes para atender llamadas y WhatsApps",
+        "Pérdida de clientes potenciales por no responder fuera de horario",
+        "Altas tasas de no-show por falta de recordatorios automáticos",
+        "Gestión manual de huecos y cancelaciones que consume horas",
+        "Dificultad para analizar el rendimiento real de cada profesional"
+      ]
+    },
+    "alia": {
+      "title": "El ecosistema ALIA",
+      "items": [
+        "Reservas 100% automatizadas vía WhatsApp las 24 horas del día",
+        "Atención inmediata que convierte cada consulta en una cita confirmada",
+        "Sistema inteligente de recordatorios que reduce los no-shows al mínimo",
+        "Upselling proactivo: la IA sugiere servicios extra según el perfil del cliente",
+        "Dashboard en tiempo real con KPIs de ingresos, fidelidad y ocupación"
+      ]
+    }
+  },
+  "technology": {
+    "heading": "Tecnología Core de ALIA",
+    "cards": [
+      {
+        "id": "nlp",
+        "iconClass": "icon-purple",
+        "title": "Procesamiento NLP",
+        "description": "Motor de IA conversacional que entiende el contexto, el tono y la intención del cliente. Adiós a los flujos robóticos predefinidos."
+      },
+      {
+        "id": "cloud",
+        "iconClass": "icon-teal",
+        "title": "Infraestructura Cloud",
+        "description": "Arquitectura de alta disponibilidad y escalable. Cifrado de extremo a extremo para garantizar la privacidad de los datos de tus clientes."
+      },
+      {
+        "id": "omnichannel",
+        "iconClass": "icon-purple",
+        "title": "Integración Omnicanal",
+        "description": "Conexión nativa con WhatsApp Business API y sincronización bidireccional en tiempo real con el calendario de tu negocio."
+      },
+      {
+        "id": "bi",
+        "iconClass": "icon-teal",
+        "title": "Business Intelligence",
+        "description": "Extracción de datos en tiempo real para generar reportes automáticos de ocupación, previsión de ingresos y rendimiento del equipo."
+      }
+    ]
+  },
+  "features": {
+    "heading": "Todo lo que necesitas, en un solo portal.",
+    "cards": [
+      {
+        "id": "receptionist",
+        "blobClass": "blob-purple",
+        "iconBgClass": "bg-purple",
+        "title": "Recepcionista 24/7",
+        "description": "Integración directa con WhatsApp para gestionar citas, resolver dudas y enviar recordatorios de forma automática a cualquier hora."
+      },
+      {
+        "id": "agenda",
+        "blobClass": "blob-blue",
+        "iconBgClass": "bg-blue",
+        "title": "Agenda Multi-Profesional",
+        "description": "Organiza los horarios de todo tu equipo en una vista intuitiva. Sincronización en tiempo real para evitar solapamientos."
+      },
+      {
+        "id": "finance",
+        "blobClass": "blob-green",
+        "iconBgClass": "bg-green",
+        "title": "Control Financiero",
+        "description": "Analiza el rendimiento de tu negocio con informes detallados de ingresos, servicios más demandados y fidelidad de clientes."
+      }
+    ]
+  },
+  "portal": {
+    "heading": "Tu Negocio,<br>Supervisado",
+    "description": "Control total desde un único portal inteligente. Visualiza tus citas, ajusta disponibilidades y monitorea el rendimiento de ALIA en tiempo real con una interfaz limpia y profesional.",
+    "features": [
+      "Métricas clave y calendario centralizado en un solo vistazo.",
+      "Modifica horarios y servicios con un par de clics."
+    ],
+    "floatingBadge": "✨ Optimización de agenda detectada"
+  },
+  "hybrid": {
+    "tag": "Gestión Híbrida",
+    "heading": "Flexibilidad total: Convive con tus reservas de siempre",
+    "description": "ALIA está diseñada para complementar tu recepción humana. Sigue atendiendo llamadas o clientes de paso con total normalidad.",
+    "features": [
+      "Añade citas manuales",
+      "Sincronización instantánea",
+      "Cercanía Humana"
+    ]
+  },
+  "hardware": {
+    "tag": "OPCIONAL: HARDWARE LISTO PARA USAR",
+    "heading": "Tu negocio, equipado<br>desde el primer día",
+    "description": "Llevamos la digitalización de tu negocio al siguiente nivel. Te ofrecemos la posibilidad de adquirir tablets pre-configuradas con el ecosistema ALIA, listas para que tu equipo las use nada más sacarlas de la caja.",
+    "features": [
+      "Configuración y vinculación de cuenta incluida.",
+      "Soportes ergonómicos para estaciones de trabajo."
+    ],
+    "ctaText": "Consultar packs de equipamiento",
+    "ctaUrl": "#"
+  },
+  "calculator": {
+    "heading": "Descubre cuánto tiempo vas a<br>recuperar al mes",
+    "subheading": "Utiliza nuestra calculadora para visualizar el impacto real de automatizar tus agendamientos con ALIA.",
+    "sliders": [
+      {
+        "id": "citas",
+        "question": "¿Cuántas citas semanales gestionas?",
+        "min": 0,
+        "max": 300,
+        "defaultValue": 100,
+        "step": 5,
+        "labelMin": "0 CITAS",
+        "labelMax": "300 CITAS"
+      },
+      {
+        "id": "minutos",
+        "question": "¿Cuánto tardas de media en agendar por cliente (minutos)?",
+        "min": 1,
+        "max": 10,
+        "defaultValue": 3,
+        "step": 1,
+        "labelMin": "1 MIN",
+        "labelMax": "10 MIN"
+      }
+    ],
+    "results": {
+      "savingsLabel": "CON ALIA, TE AHORRAS:",
+      "savingsUnit": "HORAS AL MES",
+      "infoText": "Tiempo que tu equipo puede dedicar a mejorar la atención presencial.",
+      "annualLabel": "AHORRO ANUAL",
+      "efficiencyLabel": "EFICIENCIA",
+      "efficiencyValue": "+85%"
+    }
+  },
+  "roadmap": {
+    "tag": "HOJA DE RUTA",
+    "heading": "Tu camino al éxito con ALIA",
+    "subheading": "Un proceso de implementación diseñado para escalar tu negocio sin fricciones tecnológicas.",
+    "steps": [
+      {
+        "number": "01",
+        "colorClass": "bg-teal",
+        "title": "Auditoría y Descubrimiento",
+        "description": "Nos sentamos contigo para entender al milímetro cómo funciona tu salón y qué funcionalidades exactas necesitas en tu panel de control.",
+        "badges": ["ANÁLISIS", "KPIS"]
+      },
+      {
+        "number": "02",
+        "colorClass": "bg-purple",
+        "title": "Diseño de la solución",
+        "description": "Planteamos la arquitectura del sistema, la interfaz exclusiva de tu portal y cómo interactuará la IA con tus clientes.",
+        "badges": ["DATA IMPORT", "ESTRUCTURA"]
+      },
+      {
+        "number": "03",
+        "colorClass": "bg-teal",
+        "title": "Desarrollo a medida",
+        "description": "Construimos tu portal de gestión personalizado desde cero e integramos y entrenamos el motor de ALIA con tus servicios y reglas de negocio.",
+        "badges": ["VOICE & TONE", "FINE-TUNING"]
+      },
+      {
+        "number": "04",
+        "colorClass": "bg-purple",
+        "title": "Despliegue e Integración",
+        "description": "Conectamos de forma nativa tu nuevo sistema con WhatsApp Business API, sincronizamos calendarios y realizamos pruebas de estrés.",
+        "badges": ["WHATSAPP API", "SYNC"]
+      },
+      {
+        "number": "05",
+        "colorClass": "bg-teal",
+        "title": "Mantenimiento evolutivo",
+        "description": "No te dejamos solo. Proporcionamos soporte técnico continuo, refinamos el modelo de IA y desarrollamos nuevas funcionalidades según crezca tu negocio.",
+        "badges": ["RENTABILIDAD", "SOPORTE 24/7"]
+      }
+    ]
+  },
+  "cta": {
+    "heading": "¿Listo para llevar tu salón al siguiente nivel?",
+    "description": "Únete a los salones que ya están ahorrando 15+ horas semanales en gestión administrativa.",
+    "buttonText": "Contacta con nosotros",
+    "buttonUrl": "#"
+  },
+  "footer": {
+    "copyright": "© 2026 ALIA. Todos los derechos reservados."
+  }
+}

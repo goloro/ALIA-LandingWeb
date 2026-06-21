@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALIA - El asistente que optimiza tus reservas</title>
+    <meta name="description" content="Automatiza tus reservas, reduce los no-shows y ofrece una atención premium 24/7 sin levantar un dedo. El asistente digital que tu negocio merece.">
 
     <link rel="shortcut icon" href="Images/Logos/LogoHexagonoAlia-SinFondo.png" type="image/x-icon">
 
@@ -72,19 +73,19 @@
                 <div class="ai-chat-avatar">
                     <img src="Images/Logos/LogoHexagonoAlia-SinFondo.png" alt="ALIA Avatar">
                 </div>
-                <div class="ai-chat-bubble">
-                    <p>¡Hola! Soy ALIA. Puedo darte un presupuesto personalizado o contarte como automatizar tu negocio. ¿En que estas pensando?</p>
-                </div>
+                <!-- Mensaje de bienvenida inyectado dinámicamente desde content.json -->
+                <div class="ai-chat-bubble"><p></p></div>
             </div>
         </div>
         <div class="ai-chat-footer">
-            <button class="ai-chat-icon-btn">
+            <button class="ai-chat-icon-btn" aria-label="Adjuntar archivo">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             </button>
-            <button class="ai-chat-icon-btn">
+            <button class="ai-chat-icon-btn" aria-label="Emoji">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
             </button>
-            <input type="text" id="ai-chat-input" placeholder="Escribe tu consulta" class="ai-chat-input">
+            <!-- Placeholder inyectado desde content.json -->
+            <input type="text" id="ai-chat-input" class="ai-chat-input">
             <button id="ai-chat-send-btn" class="ai-chat-send-btn" aria-label="Enviar mensaje">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
@@ -104,19 +105,12 @@
     <main class="hero">
         <!-- Text Content -->
         <div class="hero-content">
-            <h1 class="hero-title">
-                El asistente que <br>
-                <span class="highlight">optimiza</span> tus <br>
-                reservas.
-            </h1>
-            <p class="hero-description">
-                Automatiza tus reservas, reduce los no-shows y ofrece una atención premium 24/7 sin levantar un dedo. El
-                asistente digital que tu negocio merece.
-            </p>
-            <div class="hero-buttons">
-                <a href="HTML/prototipo.html" class="btn btn-primary">PROTOTIPO</a>
-                <a href="#" class="btn btn-secondary">Solicitar Presupuesto<br>Personalizado</a>
-            </div>
+            <!-- Título inyectado desde content.json -->
+            <h1 class="hero-title" id="hero-title"></h1>
+            <!-- Descripción inyectada desde content.json -->
+            <p class="hero-description" id="hero-description"></p>
+            <!-- Botones inyectados desde content.json -->
+            <div class="hero-buttons" id="hero-buttons"></div>
         </div>
 
         <!-- Phone Mockup Content -->
@@ -132,8 +126,9 @@
                                 <img src="Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar">
                             </div>
                             <div class="chat-info">
-                                <h3 class="chat-name">Peluquería ALIA</h3>
-                                <p class="chat-status">En línea</p>
+                                <!-- Nombre e estado del negocio inyectados desde content.json -->
+                                <h3 class="chat-name" id="chat-business-name"></h3>
+                                <p class="chat-status" id="chat-business-status"></p>
                             </div>
                         </div>
                         <div class="chat-header-right">
@@ -155,9 +150,9 @@
                         </div>
                     </div>
 
-                    <!-- Chat Body where JS injects messages -->
+                    <!-- Chat Body donde JS inyecta mensajes -->
                     <div class="chat-body" id="chat-container">
-                        <!-- Mensajes inyectados dinámicamente -->
+                        <!-- Mensajes inyectados dinámicamente desde Data/messages.json -->
                     </div>
 
                     <!-- Chat Footer -->
@@ -169,8 +164,9 @@
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                             </svg>
                         </span>
+                        <!-- Placeholder inyectado desde content.json -->
                         <div class="chat-input-wrapper">
-                            <input type="text" placeholder="Escribe un mensaje..." disabled>
+                            <input type="text" disabled>
                         </div>
                         <div class="icon-send">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
@@ -186,9 +182,9 @@
     <!-- Comparison Section -->
     <section class="comparison">
         <div class="comparison-header">
-            <h2>Da el salto al futuro de la gestión</h2>
-            <p>Compara cómo cambia el día a día de tu negocio cuando integras una solución<br>inteligente diseñada para
-                el sector beauty.</p>
+            <!-- Encabezados inyectados desde content.json -->
+            <h2 id="comparison-heading"></h2>
+            <p id="comparison-subheading"></p>
         </div>
 
         <div class="comparison-grid">
@@ -204,15 +200,11 @@
                             <line x1="3" y1="10" x2="21" y2="10"></line>
                         </svg>
                     </div>
-                    <h3>La gestión tradicional</h3>
+                    <!-- Título inyectado desde content.json -->
+                    <h3 id="traditional-title"></h3>
                 </div>
-                <ul class="comparison-list">
-                    <li>Interrupciones constantes para atender llamadas y WhatsApps</li>
-                    <li>Pérdida de clientes potenciales por no responder fuera de horario</li>
-                    <li>Altas tasas de no-show por falta de recordatorios automáticos</li>
-                    <li>Gestión manual de huecos y cancelaciones que consume horas</li>
-                    <li>Dificultad para analizar el rendimiento real de cada profesional</li>
-                </ul>
+                <!-- Items inyectados desde content.json -->
+                <ul class="comparison-list" id="traditional-list"></ul>
             </div>
 
             <!-- ALIA -->
@@ -221,15 +213,11 @@
                     <div class="icon-wrapper alia-icon">
                         <img src="Images/Logos/LogoHexagonoAlia-SinFondo.png" alt="ALIA">
                     </div>
-                    <h3>El ecosistema ALIA</h3>
+                    <!-- Título inyectado desde content.json -->
+                    <h3 id="alia-title"></h3>
                 </div>
-                <ul class="comparison-list">
-                    <li>Reservas 100% automatizadas vía WhatsApp las 24 horas del día</li>
-                    <li>Atención inmediata que convierte cada consulta en una cita confirmada</li>
-                    <li>Sistema inteligente de recordatorios que reduce los no-shows al mínimo</li>
-                    <li>Upselling proactivo: la IA sugiere servicios extra según el perfil del cliente</li>
-                    <li>Dashboard en tiempo real con KPIs de ingresos, fidelidad y ocupación</li>
-                </ul>
+                <!-- Items inyectados desde content.json -->
+                <ul class="comparison-list" id="alia-list"></ul>
             </div>
         </div>
     </section>
@@ -237,165 +225,39 @@
     <!-- Technology Section -->
     <section class="technology">
         <div class="tech-header">
-            <h2>Tecnología Core de ALIA</h2>
+            <!-- Título inyectado desde content.json -->
+            <h2 id="technology-heading"></h2>
         </div>
-
-        <div class="tech-grid">
-            <!-- Card 1: NLP -->
-            <div class="tech-card">
-                <div class="tech-icon icon-purple">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
-                        <path
-                            d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
-                    </svg>
-                </div>
-                <h3>Procesamiento NLP</h3>
-                <p>Motor de IA conversacional que entiende el contexto, el tono y la intención del cliente. Adiós a los
-                    flujos robóticos predefinidos.</p>
-            </div>
-
-            <!-- Card 2: Cloud -->
-            <div class="tech-card">
-                <div class="tech-icon icon-teal">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
-                    </svg>
-                </div>
-                <h3>Infraestructura Cloud</h3>
-                <p>Arquitectura de alta disponibilidad y escalable. Cifrado de extremo a extremo para garantizar la
-                    privacidad de los datos de tus clientes.</p>
-            </div>
-
-            <!-- Card 3: Omnichannel -->
-            <div class="tech-card">
-                <div class="tech-icon icon-purple">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                    </svg>
-                </div>
-                <h3>Integración Omnicanal</h3>
-                <p>Conexión nativa con WhatsApp Business API y sincronización bidireccional en tiempo real con el
-                    calendario de tu negocio.</p>
-            </div>
-
-            <!-- Card 4: BI -->
-            <div class="tech-card">
-                <div class="tech-icon icon-teal">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 3v18h18" />
-                        <path d="m19 9-5 5-4-4-3 3" />
-                        <path d="M19 9h-4" />
-                        <path d="M19 9v4" />
-                    </svg>
-                </div>
-                <h3>Business Intelligence</h3>
-                <p>Extracción de datos en tiempo real para generar reportes automáticos de ocupación, previsión de
-                    ingresos y rendimiento del equipo.</p>
-            </div>
-        </div>
+        <!-- Tarjetas inyectadas dinámicamente desde content.json -->
+        <div class="tech-grid" id="tech-grid"></div>
     </section>
 
     <!-- Features Section -->
     <section class="features">
         <div class="features-header">
-            <h2>Todo lo que necesitas, en un solo portal.</h2>
+            <!-- Título inyectado desde content.json -->
+            <h2 id="features-heading"></h2>
         </div>
-
-        <div class="features-grid">
-            <!-- Card 1 -->
-            <div class="feature-card">
-                <div class="feature-blob blob-purple"></div>
-                <div class="feature-icon bg-purple">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-3 9h-2V9h2v2zm-4 0h-2V9h2v2zm-4 0H7V9h2v2z" />
-                    </svg>
-                </div>
-                <h3>Recepcionista 24/7</h3>
-                <p>Integración directa con WhatsApp para gestionar citas, resolver dudas y enviar recordatorios de forma
-                    automática a cualquier hora.</p>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="feature-card">
-                <div class="feature-blob blob-blue"></div>
-                <div class="feature-icon bg-blue">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
-                </div>
-                <h3>Agenda Multi-Profesional</h3>
-                <p>Organiza los horarios de todo tu equipo en una vista intuitiva. Sincronización en tiempo real para
-                    evitar solapamientos.</p>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="feature-card">
-                <div class="feature-blob blob-green"></div>
-                <div class="feature-icon bg-green">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 9h4v11H4zM16 4h4v16h-4zM10 14h4v6h-4z" />
-                    </svg>
-                </div>
-                <h3>Control Financiero</h3>
-                <p>Analiza el rendimiento de tu negocio con informes detallados de ingresos, servicios más demandados y
-                    fidelidad de clientes.</p>
-            </div>
-        </div>
+        <!-- Tarjetas inyectadas dinámicamente desde content.json -->
+        <div class="features-grid" id="features-grid"></div>
     </section>
 
     <!-- Portal Section -->
     <section class="portal">
         <div class="portal-container">
             <div class="portal-content">
-                <h2>Tu Negocio,<br>Supervisado</h2>
-                <p class="portal-desc">Control total desde un único portal inteligente. Visualiza tus citas, ajusta
-                    disponibilidades y monitorea el rendimiento de ALIA en tiempo real con una interfaz limpia y
-                    profesional.</p>
-
-                <ul class="portal-features">
-                    <li>
-                        <div class="portal-icon icon-green">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                        </div>
-                        <span>Métricas clave y calendario centralizado en un solo vistazo.</span>
-                    </li>
-                    <li>
-                        <div class="portal-icon icon-green">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path
-                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                                </path>
-                            </svg>
-                        </div>
-                        <span>Modifica horarios y servicios con un par de clics.</span>
-                    </li>
-                </ul>
+                <!-- Heading e descripción inyectados desde content.json -->
+                <h2 id="portal-heading"></h2>
+                <p class="portal-desc" id="portal-description"></p>
+                <!-- Features inyectadas desde content.json -->
+                <ul class="portal-features" id="portal-features-list"></ul>
             </div>
 
             <div class="portal-visual">
                 <div class="image-wrapper">
                     <img src="Images/PortalDesktopImage.png" alt="Portal ALIA">
-                    <div class="floating-badge">
-                        ✨ Optimización de agenda detectada
-                    </div>
+                    <!-- Badge inyectado desde content.json -->
+                    <div class="floating-badge" id="portal-badge"></div>
                 </div>
             </div>
         </div>
@@ -406,45 +268,12 @@
         <div class="hybrid-container">
             <!-- Text Content -->
             <div class="hybrid-content">
-                <div class="tag" style="margin-bottom: 1.5rem; display: inline-block;">Gestión Híbrida</div>
-                <h2>Flexibilidad total: Convive con tus reservas de siempre</h2>
-                <p class="hybrid-desc">ALIA está diseñada para complementar tu recepción humana. Sigue atendiendo
-                    llamadas o clientes de paso con total normalidad.</p>
-
-                <ul class="hybrid-features">
-                    <li>
-                        <div class="hybrid-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                </path>
-                            </svg>
-                        </div>
-                        <span>Añade citas manuales</span>
-                    </li>
-                    <li>
-                        <div class="hybrid-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-7.82l5.67-5.67"></path>
-                            </svg>
-                        </div>
-                        <span>Sincronización instantánea</span>
-                    </li>
-                    <li>
-                        <div class="hybrid-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                        </div>
-                        <span>Cercanía Humana</span>
-                    </li>
-                </ul>
+                <!-- Tag, heading y descripción inyectados desde content.json -->
+                <div class="tag" id="hybrid-tag" style="margin-bottom: 1.5rem; display: inline-block;"></div>
+                <h2 id="hybrid-heading"></h2>
+                <p class="hybrid-desc" id="hybrid-description"></p>
+                <!-- Features inyectadas desde content.json -->
+                <ul class="hybrid-features" id="hybrid-features-list"></ul>
             </div>
 
             <!-- Visual Content -->
@@ -464,38 +293,13 @@
             </div>
 
             <div class="hardware-content">
-                <div class="tag">OPCIONAL: HARDWARE LISTO PARA USAR</div>
-                <h2>Tu negocio, equipado<br>desde el primer día</h2>
-                <p class="hardware-desc">Llevamos la digitalización de tu negocio al siguiente nivel. Te ofrecemos la
-                    posibilidad de adquirir tablets pre-configuradas con el ecosistema ALIA, listas para que tu equipo
-                    las use nada más sacarlas de la caja.</p>
-
-                <ul class="hardware-features">
-                    <li>
-                        <div class="hardware-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path
-                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                                </path>
-                            </svg>
-                        </div>
-                        <span>Configuración y vinculación de cuenta incluida.</span>
-                    </li>
-                    <li>
-                        <div class="hardware-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                            </svg>
-                        </div>
-                        <span>Soportes ergonómicos para estaciones de trabajo.</span>
-                    </li>
-                </ul>
-
-                <a href="#" class="btn btn-secondary">Consultar packs de equipamiento</a>
+                <!-- Tag, heading, descripción y features inyectados desde content.json -->
+                <div class="tag" id="hardware-tag"></div>
+                <h2 id="hardware-heading"></h2>
+                <p class="hardware-desc" id="hardware-description"></p>
+                <ul class="hardware-features" id="hardware-features-list"></ul>
+                <!-- CTA inyectado desde content.json -->
+                <a href="#" id="hardware-cta" class="btn btn-secondary"></a>
             </div>
         </div>
     </section>
@@ -503,9 +307,9 @@
     <!-- Calculator Section -->
     <section class="calculator-section">
         <div class="calc-header">
-            <h2>Descubre cuánto tiempo vas a<br>recuperar al mes</h2>
-            <p>Utiliza nuestra calculadora para visualizar el impacto real de automatizar tus agendamientos con ALIA.
-            </p>
+            <!-- Encabezados inyectados desde content.json -->
+            <h2 id="calculator-heading"></h2>
+            <p id="calculator-subheading"></p>
         </div>
 
         <div class="calc-container">
@@ -513,25 +317,27 @@
             <div class="calc-controls">
                 <div class="calc-card">
                     <div class="calc-row-header">
-                        <span class="calc-question">¿Cuántas citas semanales gestionas?</span>
+                        <!-- Pregunta inyectada desde content.json -->
+                        <span class="calc-question" id="calc-question-citas"></span>
                         <span class="calc-value" id="val-citas">100</span>
                     </div>
                     <input type="range" id="slider-citas" min="0" max="300" value="100" step="5">
                     <div class="calc-labels">
-                        <span>0 CITAS</span>
-                        <span>300 CITAS</span>
+                        <span id="calc-label-min-citas"></span>
+                        <span id="calc-label-max-citas"></span>
                     </div>
                 </div>
 
                 <div class="calc-card">
                     <div class="calc-row-header">
-                        <span class="calc-question">¿Cuánto tardas de media en agendar por cliente (minutos)?</span>
+                        <!-- Pregunta inyectada desde content.json -->
+                        <span class="calc-question" id="calc-question-minutos"></span>
                         <span class="calc-value" id="val-minutos">3</span>
                     </div>
                     <input type="range" id="slider-minutos" min="1" max="10" value="3" step="1">
                     <div class="calc-labels">
-                        <span>1 MIN</span>
-                        <span>10 MIN</span>
+                        <span id="calc-label-min-minutos"></span>
+                        <span id="calc-label-max-minutos"></span>
                     </div>
                 </div>
             </div>
@@ -539,10 +345,11 @@
             <!-- Results -->
             <div class="calc-results">
                 <div>
-                    <div class="result-label">CON ALIA, TE AHORRAS:</div>
+                    <!-- Labels inyectados desde content.json -->
+                    <div class="result-label" id="calc-savings-label"></div>
                     <div class="result-main">
                         <span class="result-number" id="res-mensual">20</span>
-                        <span class="result-unit">HORAS AL MES</span>
+                        <span class="result-unit" id="calc-savings-unit"></span>
                     </div>
 
                     <div class="result-info">
@@ -553,18 +360,20 @@
                                 <polyline points="12 6 12 12 16 14"></polyline>
                             </svg>
                         </div>
-                        <p>Tiempo que tu equipo puede dedicar a mejorar la atención presencial.</p>
+                        <!-- Texto inyectado desde content.json -->
+                        <p id="calc-info-text"></p>
                     </div>
                 </div>
 
                 <div class="result-stats">
                     <div class="stat-card">
-                        <div class="stat-label">AHORRO ANUAL</div>
+                        <!-- Labels inyectados desde content.json -->
+                        <div class="stat-label" id="calc-annual-label"></div>
                         <div class="stat-value" id="res-anual">240 Horas</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">EFICIENCIA</div>
-                        <div class="stat-value">+85%</div>
+                        <div class="stat-label" id="calc-efficiency-label"></div>
+                        <div class="stat-value" id="calc-efficiency-value"></div>
                     </div>
                 </div>
             </div>
@@ -574,94 +383,22 @@
     <!-- Roadmap Section -->
     <section class="roadmap">
         <div class="roadmap-header">
-            <div class="roadmap-tag">HOJA DE RUTA</div>
-            <h2>Tu camino al éxito con ALIA</h2>
-            <p>Un proceso de implementación diseñado para escalar tu negocio sin<br>fricciones tecnológicas.</p>
+            <!-- Encabezados inyectados desde content.json -->
+            <div class="roadmap-tag" id="roadmap-tag"></div>
+            <h2 id="roadmap-heading"></h2>
+            <p id="roadmap-subheading"></p>
         </div>
-
-        <div class="roadmap-grid">
-            <!-- Step 1 -->
-            <div class="roadmap-card">
-                <div class="step-number bg-teal">01</div>
-                <h3>Auditoría y Descubrimiento</h3>
-                <p>Nos sentamos contigo para entender al milímetro cómo funciona tu salón y qué funcionalidades exactas
-                    necesitas en tu panel de control.</p>
-                <div class="card-badges">
-                    <span class="badge badge-blue">ANÁLISIS</span>
-                    <span class="badge badge-blue">KPIS</span>
-                </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="roadmap-card">
-                <div class="step-number bg-purple">02</div>
-                <h3>Diseño de la solución</h3>
-                <p>Planteamos la arquitectura del sistema, la interfaz exclusiva de tu portal y cómo interactuará la IA
-                    con tus clientes.</p>
-                <div class="card-badges">
-                    <span class="badge badge-blue">DATA IMPORT</span>
-                    <span class="badge badge-blue">ESTRUCTURA</span>
-                </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="roadmap-card">
-                <div class="step-number bg-teal">03</div>
-                <h3>Desarrollo a medida</h3>
-                <p>Construimos tu portal de gestión personalizado desde cero e integramos y entrenamos el motor de ALIA
-                    con tus servicios y reglas de negocio.</p>
-                <div class="card-badges">
-                    <span class="badge badge-blue">VOICE & TONE</span>
-                    <span class="badge badge-blue">FINE-TUNING</span>
-                </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="roadmap-card">
-                <div class="step-number bg-purple">04</div>
-                <h3>Despliegue e Integración</h3>
-                <p>Conectamos de forma nativa tu nuevo sistema con WhatsApp Business API, sincronizamos calendarios y
-                    realizamos pruebas de estrés.</p>
-                <div class="card-badges">
-                    <span class="badge badge-blue">WHATSAPP API</span>
-                    <span class="badge badge-blue">SYNC</span>
-                </div>
-            </div>
-
-            <!-- Step 5 -->
-            <div class="roadmap-card">
-                <div class="step-number bg-teal">05</div>
-                <h3>Mantenimiento evolutivo</h3>
-                <p>No te dejamos solo. Proporcionamos soporte técnico continuo, refinamos el modelo de IA y
-                    desarrollamos nuevas funcionalidades según crezca tu negocio.</p>
-                <div class="card-badges">
-                    <span class="badge badge-blue">RENTABILIDAD</span>
-                    <span class="badge badge-blue">SOPORTE 24/7</span>
-                </div>
-            </div>
-
-            <!-- Rocket Space -->
-            <div class="roadmap-rocket">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z">
-                    </path>
-                    <path
-                        d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z">
-                    </path>
-                    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-                    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
-                </svg>
-            </div>
-        </div>
+        <!-- Tarjetas y cohete inyectados dinámicamente desde content.json -->
+        <div class="roadmap-grid" id="roadmap-grid"></div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="cta-container">
-            <h2>¿Listo para llevar tu salón al siguiente nivel?</h2>
-            <p>Únete a los salones que ya están ahorrando 15+ horas semanales en <br>gestión administrativa.</p>
-            <a href="#" class="btn-cta">Contacta con nosotros</a>
+            <!-- Contenido inyectado desde content.json -->
+            <h2 id="cta-heading"></h2>
+            <p id="cta-description"></p>
+            <a href="#" id="cta-button" class="btn-cta"></a>
         </div>
     </section>
 
@@ -670,11 +407,12 @@
         <div class="footer-container">
             <div class="footer-left">
                 <img src="Images/Logos/LogoTextoAlia-SinFondo.png" alt="ALIA Logo" class="footer-logo">
-                <p>© 2026 ALIA. Todos los derechos reservados.</p>
+                <!-- Copyright inyectado desde content.json -->
+                <p id="footer-copyright"></p>
             </div>
 
             <div class="footer-social">
-                <button class="social-btn">
+                <button class="social-btn" aria-label="Compartir">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="18" cy="5" r="3"></circle>
@@ -684,7 +422,7 @@
                         <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
                     </svg>
                 </button>
-                <button class="social-btn">
+                <button class="social-btn" aria-label="Web">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
@@ -699,6 +437,8 @@
     </footer>
 
     <!-- App Logic (Modules) -->
+    <!-- content-loader.js debe cargarse antes que calculator.js y ai-chat.js -->
+    <script src="JS/content-loader.js"></script>
     <script type="module" src="JS/Hero/init.js"></script>
     <script src="JS/calculator.js"></script>
     <script src="JS/ai-chat.js"></script>
