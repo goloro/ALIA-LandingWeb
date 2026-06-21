@@ -2,9 +2,7 @@
  *  SOPORTE VIEW
  * ------------------------------------- */
 
-.portal-page-content.no-scroll-soporte {
-    overflow: hidden !important;
-}
+
 
 .soporte-layout {
     display: grid;
@@ -104,7 +102,7 @@
 }
 
 .btn-purple-action {
-    background-color: #6d28d9;
+    background: linear-gradient(90deg, #00677D 0%, #22d3ee 100%);
     color: white;
     border: none;
     border-radius: 24px;
@@ -113,13 +111,12 @@
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 103, 125, 0.3);
 }
 
 .btn-purple-action:hover {
-    background-color: #5b21b6;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(109, 40, 217, 0.4);
+    box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
 }
 
 /* Action Card (Urgencia) */

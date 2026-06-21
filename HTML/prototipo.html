@@ -70,6 +70,9 @@
             <div class="prototype-content">
                 <!-- Contenedor del Portal (Izquierda) -->
                 <div class="portal-container" style="position: relative;">
+                    <!-- Toast Notifications Container (Moved inside portal) -->
+                    <div id="toast-container" class="toast-container"></div>
+                    
     <div class="modal-overlay" id="modal-confirm-delete" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; z-index: 9999;">
         <div class="modal-container" style="max-width: 400px; text-align: center;">
             <div style="margin-bottom: 24px; color: #ef4444;">
@@ -2046,9 +2049,6 @@
         </main>
     </div>
 
-    <!-- Toast Notifications Container -->
-    <div id="toast-container" class="toast-container"></div>
-    
     <!-- Prototype Scripts -->
     <script src="../JS/mock-api.js"></script>
     <script src="../JS/Prototipo/app.js"></script>

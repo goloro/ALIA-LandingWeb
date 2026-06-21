@@ -114,6 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetId === 'page-clientes' && typeof window.loadClients === 'function') {
                 window.loadClients();
             }
+            
+            // Refrescar dashboard si se entra a su sección
+            if (targetId === 'page-dashboard' && typeof window.renderDashboard === 'function') {
+                window.renderDashboard();
+            }
 
             // Cambiar el título de la barra superior
             const topbarTitle = document.querySelector('.topbar-title');
@@ -127,16 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (pageContent) {
                 if (targetId === 'page-chats') {
                     pageContent.classList.add('no-scroll-chats');
-                    pageContent.classList.remove('no-scroll-soporte');
                     pageContent.classList.remove('no-scroll-agenda');
                 } else if (targetId === 'page-soporte') {
-                    pageContent.classList.add('no-scroll-soporte');
                     pageContent.classList.remove('no-scroll-chats');
                     pageContent.classList.remove('no-scroll-agenda');
                 } else if (targetId === 'page-agenda-semanal') {
                     pageContent.classList.add('no-scroll-agenda');
                     pageContent.classList.remove('no-scroll-chats');
-                    pageContent.classList.remove('no-scroll-soporte');
                     
                     // Hacer autoscroll a la línea de tiempo actual al entrar a la pestaña
                     setTimeout(() => {
@@ -553,7 +555,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!window.teamOptionsLoaded && window.MockAPI) {
                     try {
                         const team = await window.MockAPI.getTeam();
-                        const teamNames = ['Cualquier Disponible', ...team.map(t => t.name)];
+                        const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+                        const teamNames = ['Cualquier Disponible', ...team.map(t => t.name), currentUserName];
                         window.populateDropdown(selects[2], teamNames, 'Cualquier Disponible');
                         window.teamOptionsLoaded = true;
                     } catch (e) {

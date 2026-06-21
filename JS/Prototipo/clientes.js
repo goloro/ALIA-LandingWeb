@@ -381,6 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeClienteModal();
                 currentPage = 1; // Volver a la primera página para ver el nuevo
                 loadClients();
+                if (typeof window.renderDashboard === 'function') window.renderDashboard();
                 
                 if (window.returnToApptModal) {
                     window.returnToApptModal = false;
@@ -665,6 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await window.MockAPI.deleteClient(window.clientToDeleteId);
                 if (window.showToast) window.showToast('Cliente Eliminado', 'El cliente ha sido eliminado permanentemente del sistema.', 'error');
                 loadClients(); // Reload
+                if (typeof window.renderDashboard === 'function') window.renderDashboard();
                 
                 // Si estamos borrando desde el panel, cerrarlo
                 const clientPanel = document.getElementById('client-details-panel');
@@ -774,6 +776,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.showToast) window.showToast('Éxito', 'Datos del cliente actualizados correctamente.', 'success');
             
             loadClients(); // Recargar tabla
+            if (typeof window.renderDashboard === 'function') window.renderDashboard();
             
             // Si el panel de cliente está abierto, actualizarlo
             const clientPanel = document.getElementById('client-details-panel');

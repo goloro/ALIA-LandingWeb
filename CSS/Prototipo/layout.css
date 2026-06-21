@@ -305,6 +305,10 @@
     pointer-events: none;
 }
 
+.input-with-icon .custom-select-trigger {
+    padding-left: 44px;
+}
+
 .form-control {
     width: 100%;
     padding: 14px 14px 14px 44px;
@@ -624,7 +628,7 @@
 
 /* Toast Notifications */
 .toast-container {
-    position: fixed;
+    position: absolute;
     top: 24px;
     right: 24px;
     z-index: 9999;
