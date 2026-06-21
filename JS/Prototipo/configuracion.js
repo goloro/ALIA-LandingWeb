@@ -166,4 +166,18 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleSwitch.classList.toggle('active');
         });
     }
+
+    // --- Advertencias de Prototipo en Ajustes ---
+    const btnPreferencias = document.getElementById('btn-preferencias');
+    const btnLogout = document.getElementById('btn-logout');
+
+    const showPrototipoWarning = (e) => {
+        e.preventDefault();
+        if (window.showToast) {
+            window.showToast('Prototipo visual', 'Esta opción es solo una demostración visual en el prototipo y no es funcional.', 'warning');
+        }
+    };
+
+    if (btnPreferencias) btnPreferencias.addEventListener('click', showPrototipoWarning);
+    if (btnLogout) btnLogout.addEventListener('click', showPrototipoWarning);
 });

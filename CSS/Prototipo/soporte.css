@@ -111,7 +111,6 @@
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(0, 103, 125, 0.3);
 }
 
 .btn-purple-action:hover {
