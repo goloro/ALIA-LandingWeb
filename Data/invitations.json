@@ -1,16 +1,16 @@
 [
     {
         "id": 1,
-        "name": "María García",
-        "email": "maria.g@example.com",
-        "phone": "600123456",
-        "dob": "15/05/1990",
-        "address": "Calle Falsa 123, 2ºA, 28000",
-        "role": "Estilista",
-        "ssn": "281234567890",
-        "dni": "12345678Z",
-        "hireDate": "19/06/2026",
+        "name": "Pedro Infante",
+        "email": "pedro.infante@correo.es",
+        "phone": "677001122",
+        "dob": "05/03/1998",
+        "address": "Calle Serrano 88, 1ºA, 28006 Madrid",
+        "role": "Barbero",
+        "ssn": "",
+        "dni": "56781234Y",
+        "hireDate": "15/07/2026",
         "status": "Pendiente",
-        "date": "19 jun 2026"
+        "date": "21 jun 2026"
     }
 ]

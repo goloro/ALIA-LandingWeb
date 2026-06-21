@@ -1,15 +1,15 @@
 {
     "id": 0,
-    "name": "Propietario",
+    "name": "Alejandro Mora",
     "role": "Owner",
-    "email": "propietario@alia.com",
-    "personalEmail": "propietario.personal@correo.com",
-    "phone": "+34 600 000 000",
-    "birthDate": "01/01/1990",
-    "address": "Calle Principal 123, 28000 Madrid",
-    "password": "mySecurePassword123",
+    "email": "alejandro@aliastudio.com",
+    "personalEmail": "alejandro.mora@gmail.com",
+    "phone": "+34 600 999 000",
+    "birthDate": "15/04/1985",
+    "address": "Calle Mayor, 12, 28013 Madrid",
+    "password": "AliaStu2026!",
     "avatar": "../Images/Logos/LogoPeluqueríaNegro.png",
-    "permissions": ["admin", "manage_team", "manage_schedule"],
+    "permissions": ["admin", "manage_team", "manage_schedule", "manage_clients", "view_reports"],
     "diasLibres": [1],
     "pausaAlmuerzo": { "start": "14:00", "end": "15:00" }
 }

@@ -36,13 +36,22 @@ class MockAPI {
 
             try {
                 const teamRes = await fetch('../Data/team.json');
-                if (teamRes.ok) this.state.team = await teamRes.json();
+                if (teamRes.ok) {
+                    const teamData = await teamRes.json();
+                    // Normalizar: garantizar que dayOff (número) exista aunque el JSON use diasLibres (array)
+                    this.state.team = teamData.map(m => ({
+                        ...m,
+                        dayOff: m.dayOff !== undefined ? m.dayOff : (Array.isArray(m.diasLibres) ? m.diasLibres[0] : undefined)
+                    }));
+                }
             } catch(e) { console.log("Error loading team.json"); }
             
             try {
                 const apptsRes = await fetch('../Data/appointments.json');
                 if (apptsRes.ok) {
                     this.state.appointments = await apptsRes.json();
+                    // Recalcular formattedDate en runtime para que "Hoy"/"Mañana" sean siempre correctos
+                    this._normalizeAppointmentDates();
                 }
             } catch(e) {
                 console.log("Error loading appointments.json", e);
@@ -158,6 +167,28 @@ class MockAPI {
             this._seedMockAppointments();
             this.initialized = true;
         }
+    }
+
+    /** Recalcula formattedDate de todas las citas según su rawDate y la fecha actual */
+    _normalizeAppointmentDates() {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        const todayStr    = today.toISOString().split('T')[0];
+        const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+        this.state.appointments = this.state.appointments.map(appt => {
+            let label = appt.formattedDate;
+            if (appt.rawDate === todayStr) {
+                label = 'Hoy';
+            } else if (appt.rawDate === tomorrowStr) {
+                label = 'Mañana';
+            } else if (appt.rawDate) {
+                const parts = appt.rawDate.split('-');
+                if (parts.length === 3) label = `${parts[2]}/${parts[1]}`;
+            }
+            return { ...appt, formattedDate: label };
+        });
     }
 
     _seedMockAppointments() {

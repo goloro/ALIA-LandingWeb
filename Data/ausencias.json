@@ -1,47 +1,56 @@
 [
-  {
-    "id": 1,
-    "profName": "Propietario",
-    "type": "Vacaciones",
-    "startDate": "15 Ago 2026",
-    "endDate": "22 Ago 2026",
-    "comments": "Vacaciones Verano",
-    "status": "Aprobado"
-  },
-  {
-    "id": 2,
-    "profName": "Propietario",
-    "type": "Baja Médica",
-    "startDate": "12 Feb 2026",
-    "endDate": "14 Feb 2026",
-    "comments": "Baja Médica",
-    "status": "Aprobado"
-  },
-  {
-    "id": 3,
-    "profName": "Dr. Javier Ruiz",
-    "type": "Vacaciones",
-    "startDate": "05 Oct 2026",
-    "endDate": "12 Oct 2026",
-    "comments": "Viaje familiar",
-    "status": "Aprobado"
-  },
-  {
-    "id": 4,
-    "profName": "Dr. Javier Ruiz",
-    "type": "Baja Médica",
-    "startDate": "20 May 2026",
-    "endDate": "23 May 2026",
-    "comments": "Gripe",
-    "status": "Pendiente"
-  },
-  {
-    "id": 5,
-    "profName": "Dra. Laura Gómez",
-    "type": "Vacaciones",
-    "startDate": "24 Dic 2026",
-    "endDate": "02 Ene 2027",
-    "comments": "Vacaciones de Navidad",
-    "status": "Pendiente"
-  }
+    {
+        "id": 1,
+        "profName": "Alejandro Mora",
+        "type": "Vacaciones",
+        "startDate": "04 Ago 2026",
+        "endDate": "15 Ago 2026",
+        "comments": "Vacaciones de verano con la familia",
+        "status": "Aprobado"
+    },
+    {
+        "id": 2,
+        "profName": "Alejandro Mora",
+        "type": "Baja Médica",
+        "startDate": "12 Feb 2026",
+        "endDate": "14 Feb 2026",
+        "comments": "Gripe con fiebre alta",
+        "status": "Aprobado"
+    },
+    {
+        "id": 3,
+        "profName": "Javier Ruiz",
+        "type": "Vacaciones",
+        "startDate": "01 Sep 2026",
+        "endDate": "07 Sep 2026",
+        "comments": "Viaje familiar a Portugal",
+        "status": "Aprobado"
+    },
+    {
+        "id": 4,
+        "profName": "Javier Ruiz",
+        "type": "Asunto Personal",
+        "startDate": "05 Jul 2026",
+        "endDate": "05 Jul 2026",
+        "comments": "Gestión notaría",
+        "status": "Pendiente"
+    },
+    {
+        "id": 5,
+        "profName": "Laura Gómez",
+        "type": "Vacaciones",
+        "startDate": "24 Dic 2026",
+        "endDate": "02 Ene 2027",
+        "comments": "Vacaciones de Navidad y Año Nuevo",
+        "status": "Pendiente"
+    },
+    {
+        "id": 6,
+        "profName": "Laura Gómez",
+        "type": "Baja Médica",
+        "startDate": "03 Mar 2026",
+        "endDate": "05 Mar 2026",
+        "comments": "Cólico nefrítico",
+        "status": "Aprobado"
+    }
 ]

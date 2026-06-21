@@ -2,48 +2,183 @@
     {
         "id": 1,
         "name": "Marta García",
-        "email": "marta.garcia@example.com",
+        "email": "marta.garcia@gmail.com",
         "phone": "+34 612 345 678",
-        "lastAppt": "2023-10-15",
-        "totalAppts": 4,
-        "registeredAt": "2023-01-10",
-        "notes": "Prefiere citas por la mañana. Alérgica a algunos productos con amoníaco.",
+        "lastAppt": "2026-06-20",
+        "totalAppts": 12,
+        "registeredAt": "2024-03-10",
+        "notes": "Prefiere citas por la mañana. Alérgica a productos con amoníaco — usar solo tintes sin amoniaco.",
+        "source": "Alia",
         "history": [
-            { "date": "15 OCT 2023, 10:00", "status": "completed", "service": "Corte y peinado", "prof": "Laura Gómez" },
-            { "date": "10 SEP 2023, 11:30", "status": "completed", "service": "Tinte y mechas", "prof": "Laura Gómez" },
-            { "date": "05 MAY 2023, 10:00", "status": "completed", "service": "Corte y peinado", "prof": "Laura Gómez" },
-            { "date": "15 ENE 2023, 12:00", "status": "completed", "service": "Corte", "prof": "Laura Gómez" }
+            { "date": "20 JUN 2026, 10:00", "status": "completed", "service": "Corte y Peinado",   "prof": "Laura Gómez" },
+            { "date": "05 JUN 2026, 10:30", "status": "completed", "service": "Tinte y Mechas",    "prof": "Laura Gómez" },
+            { "date": "12 MAY 2026, 10:00", "status": "completed", "service": "Tratamiento Capilar","prof": "Laura Gómez" },
+            { "date": "10 MAR 2026, 10:00", "status": "noshow",    "service": "Tinte y Mechas",    "prof": "Laura Gómez" },
+            { "date": "01 FEB 2026, 10:00", "status": "completed", "service": "Corte y Peinado",   "prof": "Laura Gómez" },
+            { "date": "15 ENE 2026, 11:30", "status": "completed", "service": "Manicura Semipermanente", "prof": "Laura Gómez" }
         ]
     },
     {
         "id": 2,
         "name": "Carlos López",
-        "email": "carlos.l@example.com",
+        "email": "carlos.l@hotmail.com",
         "phone": "+34 698 765 432",
-        "lastAppt": "2023-10-10",
-        "totalAppts": 5,
-        "registeredAt": "2022-11-05",
-        "notes": "Cliente VIP. Siempre pide a Javier. Le gusta el café solo mientras espera.",
+        "lastAppt": "2026-06-19",
+        "totalAppts": 20,
+        "registeredAt": "2023-09-05",
+        "notes": "Cliente VIP. Siempre pide a Javier. Barba a navaja. Profesión: abogado.",
+        "source": "Alia",
         "history": [
-            { "date": "10 OCT 2023, 18:00", "status": "completed", "service": "Corte de caballero + Barba", "prof": "Javier Ruiz" },
-            { "date": "05 SEP 2023, 18:30", "status": "noshow", "service": "Corte de caballero", "prof": "Javier Ruiz" },
-            { "date": "20 AGO 2023, 17:00", "status": "completed", "service": "Corte de caballero", "prof": "Javier Ruiz" },
-            { "date": "15 MAR 2023, 18:00", "status": "completed", "service": "Corte de caballero + Barba", "prof": "Javier Ruiz" },
-            { "date": "10 ENE 2023, 17:30", "status": "completed", "service": "Corte de caballero", "prof": "Javier Ruiz" }
+            { "date": "19 JUN 2026, 18:30", "status": "completed", "service": "Corte + Barba",      "prof": "Javier Ruiz" },
+            { "date": "28 MAY 2026, 18:30", "status": "completed", "service": "Corte + Barba",      "prof": "Javier Ruiz" },
+            { "date": "10 MAY 2026, 17:00", "status": "completed", "service": "Corte de caballero", "prof": "Javier Ruiz" },
+            { "date": "22 ABR 2026, 18:30", "status": "completed", "service": "Corte + Barba",      "prof": "Javier Ruiz" },
+            { "date": "05 ABR 2026, 18:00", "status": "cancelled", "service": "Corte + Barba",      "prof": "Javier Ruiz" },
+            { "date": "12 MAR 2026, 18:30", "status": "completed", "service": "Corte + Barba",      "prof": "Javier Ruiz" }
         ]
     },
     {
         "id": 3,
         "name": "Ana Martínez",
-        "email": "",
+        "email": "ana.martinez@outlook.com",
         "phone": "+34 655 443 322",
-        "lastAppt": "2023-09-28",
-        "totalAppts": 2,
-        "registeredAt": "2023-09-01",
-        "notes": "Primera visita reciente. Mostró interés en tratamientos capilares.",
+        "lastAppt": "2026-06-18",
+        "totalAppts": 6,
+        "registeredAt": "2025-11-01",
+        "notes": "Interesada en tratamientos capilares de queratina. Llegó por recomendación de Marta García.",
+        "source": "Alia",
         "history": [
-            { "date": "20 NOV 2026, 16:00", "status": "pending", "service": "Tratamiento capilar", "prof": "Laura Gómez" },
-            { "date": "28 SEP 2023, 16:00", "status": "completed", "service": "Lavado y marcado", "prof": "Laura Gómez" }
+            { "date": "18 JUN 2026, 16:00", "status": "completed", "service": "Tratamiento Capilar",     "prof": "Laura Gómez" },
+            { "date": "08 MAY 2026, 16:00", "status": "completed", "service": "Lavado y Marcado",        "prof": "Laura Gómez" },
+            { "date": "15 ABR 2026, 16:30", "status": "completed", "service": "Corte y Peinado",         "prof": "Laura Gómez" },
+            { "date": "10 MAR 2026, 17:00", "status": "completed", "service": "Tratamiento Capilar",     "prof": "Laura Gómez" },
+            { "date": "01 FEB 2026, 16:00", "status": "noshow",    "service": "Manicura Semipermanente", "prof": "Laura Gómez" },
+            { "date": "20 ENE 2026, 16:30", "status": "completed", "service": "Lavado y Marcado",        "prof": "Laura Gómez" }
         ]
+    },
+    {
+        "id": 4,
+        "name": "Lucía Fernández",
+        "email": "lucia.fer@gmail.com",
+        "phone": "+34 677 112 233",
+        "lastAppt": "2026-06-16",
+        "totalAppts": 8,
+        "registeredAt": "2025-04-20",
+        "notes": "Viene cada 6 semanas. Le encantó el balayage. Prefiere cortes modernos.",
+        "source": "Alia",
+        "history": [
+            { "date": "16 JUN 2026, 11:00", "status": "completed", "service": "Peinado y Recogido", "prof": "Laura Gómez" },
+            { "date": "22 ABR 2026, 11:30", "status": "completed", "service": "Balayage",           "prof": "Laura Gómez" },
+            { "date": "12 MAR 2026, 10:00", "status": "completed", "service": "Corte y Peinado",    "prof": "Laura Gómez" },
+            { "date": "30 ENE 2026, 11:00", "status": "completed", "service": "Tratamiento Capilar","prof": "Laura Gómez" }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Miguel Sanz",
+        "email": "miguel.sanz@empresa.com",
+        "phone": "+34 611 987 654",
+        "lastAppt": "2026-06-19",
+        "totalAppts": 15,
+        "registeredAt": "2024-01-15",
+        "notes": "Viene cada 3-4 semanas. Solo arreglo de barba. No le gustan los lados muy cortos.",
+        "source": "Manual",
+        "history": [
+            { "date": "19 JUN 2026, 16:00", "status": "completed", "service": "Arreglo Barba", "prof": "Javier Ruiz" },
+            { "date": "25 MAY 2026, 16:30", "status": "completed", "service": "Arreglo Barba", "prof": "Javier Ruiz" },
+            { "date": "30 ABR 2026, 16:00", "status": "completed", "service": "Corte + Barba", "prof": "Javier Ruiz" },
+            { "date": "05 ABR 2026, 16:00", "status": "completed", "service": "Arreglo Barba", "prof": "Javier Ruiz" },
+            { "date": "10 MAR 2026, 17:00", "status": "completed", "service": "Arreglo Barba", "prof": "Javier Ruiz" }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Isabel Romero",
+        "email": "isabel.romero@correo.es",
+        "phone": "+34 633 221 110",
+        "lastAppt": "2026-06-18",
+        "totalAppts": 5,
+        "registeredAt": "2026-02-14",
+        "notes": "Muy exigente con el acabado. Le gustan los tratamientos faciales y la manicura.",
+        "source": "Alia",
+        "history": [
+            { "date": "18 JUN 2026, 12:00", "status": "completed", "service": "Tratamiento Facial",     "prof": "Laura Gómez" },
+            { "date": "15 MAY 2026, 12:00", "status": "completed", "service": "Manicura Semipermanente","prof": "Laura Gómez" },
+            { "date": "10 ABR 2026, 11:30", "status": "completed", "service": "Tratamiento Facial",     "prof": "Laura Gómez" },
+            { "date": "20 FEB 2026, 12:00", "status": "completed", "service": "Manicura Semipermanente","prof": "Laura Gómez" }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Roberto Fuentes",
+        "email": "roberto.f@gmail.com",
+        "phone": "+34 644 556 778",
+        "lastAppt": "2026-06-17",
+        "totalAppts": 4,
+        "registeredAt": "2025-12-01",
+        "notes": "Cliente ocasional. Trabaja de noche, prefiere citas a última hora de la tarde.",
+        "source": "Manual",
+        "history": [
+            { "date": "17 JUN 2026, 19:00", "status": "completed", "service": "Corte Clásico", "prof": "Javier Ruiz" },
+            { "date": "20 MAR 2026, 19:00", "status": "completed", "service": "Corte Clásico", "prof": "Javier Ruiz" },
+            { "date": "10 ENE 2026, 19:00", "status": "completed", "service": "Corte + Barba", "prof": "Javier Ruiz" }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Elena Vidal",
+        "email": "elena.vidal@universidad.es",
+        "phone": "+34 655 778 991",
+        "lastAppt": "2026-06-20",
+        "totalAppts": 5,
+        "registeredAt": "2025-09-10",
+        "notes": "Estudiante universitaria. Viene antes de exámenes o eventos. Le gustan los estilos naturales.",
+        "source": "Alia",
+        "history": [
+            { "date": "20 JUN 2026, 10:00", "status": "completed", "service": "Corte y Peinado",  "prof": "Laura Gómez" },
+            { "date": "15 MAR 2026, 10:00", "status": "completed", "service": "Lavado y Marcado", "prof": "Laura Gómez" },
+            { "date": "20 ENE 2026, 10:30", "status": "completed", "service": "Corte y Peinado",  "prof": "Laura Gómez" }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "David Reyes",
+        "email": "",
+        "phone": "+34 699 334 556",
+        "lastAppt": "2026-06-19",
+        "totalAppts": 9,
+        "registeredAt": "2024-06-01",
+        "notes": "Sin email. Solo WhatsApp. Viene cada mes. Siempre pide corte express.",
+        "source": "Manual",
+        "history": [
+            { "date": "19 JUN 2026, 13:30", "status": "completed", "service": "Corte Express", "prof": "Javier Ruiz" },
+            { "date": "20 MAY 2026, 13:30", "status": "completed", "service": "Corte Express", "prof": "Javier Ruiz" },
+            { "date": "22 ABR 2026, 13:00", "status": "completed", "service": "Corte Express", "prof": "Javier Ruiz" },
+            { "date": "25 MAR 2026, 13:30", "status": "completed", "service": "Corte Express", "prof": "Javier Ruiz" }
+        ]
+    },
+    {
+        "id": 901,
+        "name": "Marta Sánchez",
+        "email": "marta.s@ejemplo.com",
+        "phone": "+34 600 000 090",
+        "lastAppt": null,
+        "totalAppts": 0,
+        "registeredAt": "2026-06-20",
+        "notes": "Lead generado vía ALIA. Interesada en tratamiento facial completo.",
+        "source": "Alia",
+        "history": []
+    },
+    {
+        "id": 902,
+        "name": "Ricardo Mendoza",
+        "email": "ricardo.m@ejemplo.com",
+        "phone": "+34 600 000 091",
+        "lastAppt": null,
+        "totalAppts": 0,
+        "registeredAt": "2026-06-20",
+        "notes": "Lead generado vía ALIA. Interesado en decoloración gris plata. Requiere valoración.",
+        "source": "Alia",
+        "history": []
     }
 ]

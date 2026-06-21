@@ -1,0 +1,19 @@
+{
+    "closedDays": [0],
+    "openHours": {
+        "start": "09:00",
+        "end": "20:00"
+    },
+    "slotDuration": 30,
+    "currency": "EUR",
+    "locale": "es-ES",
+    "timezone": "Europe/Madrid",
+    "maxAdvanceBookingDays": 60,
+    "minAdvanceBookingHours": 2,
+    "cancellationPolicyHours": 24,
+    "notifications": {
+        "emailEnabled": true,
+        "whatsappEnabled": true,
+        "smsEnabled": false
+    }
+}

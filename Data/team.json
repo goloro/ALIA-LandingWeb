@@ -1,24 +1,36 @@
-﻿[
-  {
-    "id": 1,
-    "name": "Dra. Laura Gómez",
-    "role": "Especialista Principal",
-    "retention": "92%",
-    "attendance": "98%",
-    "appointments": 45,
-    "avatarUrl": "https://i.pravatar.cc/150?u=laura",
-    "diasLibres": [2],
-    "pausaAlmuerzo": {"start": "13:30", "end": "14:30"}
-  },
-  {
-    "id": 2,
-    "name": "Dr. Javier Ruiz",
-    "role": "Terapista Asociado",
-    "retention": "88%",
-    "attendance": "95%",
-    "appointments": 32,
-    "avatarUrl": "https://i.pravatar.cc/150?u=javier",
-    "diasLibres": [3],
-    "pausaAlmuerzo": {"start": "14:30", "end": "15:30"}
-  }
+[
+    {
+        "id": 1,
+        "name": "Laura Gómez",
+        "role": "Estilista & Colorista",
+        "retention": "94%",
+        "attendance": "98%",
+        "appointments": 58,
+        "avatarUrl": "https://i.pravatar.cc/150?u=laura_gomez",
+        "dayOff": 2,
+        "diasLibres": [2],
+        "pausaAlmuerzo": { "start": "13:30", "end": "14:30" },
+        "lunchBreak": "13:30",
+        "phone": "+34 600 111 222",
+        "email": "laura.gomez@aliastudio.com",
+        "hireDate": "2022-03-01",
+        "specialties": ["Coloración", "Mechas Balayage", "Tratamientos Capilares", "Recogidos", "Tratamiento Facial", "Manicura"]
+    },
+    {
+        "id": 2,
+        "name": "Javier Ruiz",
+        "role": "Barbero & Estilista",
+        "retention": "89%",
+        "attendance": "95%",
+        "appointments": 44,
+        "avatarUrl": "https://i.pravatar.cc/150?u=javier_ruiz",
+        "dayOff": 3,
+        "diasLibres": [3],
+        "pausaAlmuerzo": { "start": "14:30", "end": "15:30" },
+        "lunchBreak": "14:30",
+        "phone": "+34 600 333 444",
+        "email": "javier.ruiz@aliastudio.com",
+        "hireDate": "2023-01-15",
+        "specialties": ["Barba a navaja", "Cortes caballero", "Fade & Undercut", "Corte Express"]
+    }
 ]
