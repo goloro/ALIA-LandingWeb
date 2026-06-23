@@ -1,9 +1,5 @@
 .hero-visual {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    position: relative;
+    display: none;
 }
 
 .phone-container::before {

@@ -149,6 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
             renderChart(appointments, clients);
 
             // 3. Rendimiento del Equipo
+            // Incorporar al usuario actual (ej. Propietario) al equipo si no está incluido
+            if (window.MockAPI && window.MockAPI.state && window.MockAPI.state.currentUser) {
+                const cUser = window.MockAPI.state.currentUser;
+                if (!team.some(t => t.name === cUser.name)) {
+                    team.unshift({
+                        id: cUser.id || 'owner',
+                        name: cUser.name,
+                        role: cUser.role || 'Propietario',
+                        avatarUrl: cUser.avatar || 'https://i.pravatar.cc/150?u=owner'
+                    });
+                }
+            }
             renderTeam(team, appointments);
 
             // 4. Próxima Cita
@@ -174,13 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!c.classList.contains('axis-label')) c.remove();
         });
 
-        // Contar citas por día de la semana con una base inventada fija para el prototipo
-        const countsByDay = { 1: 5, 2: 7, 3: 4, 4: 8, 5: 12, 6: 15, 0: 0 };
-        const autoCountsByDay = { 1: 5, 2: 6, 3: 4, 4: 8, 5: 11, 6: 14, 0: 0 }; // Casi todo IA, poquísimas manuales
-
         // Definir la semana actual
         const now = new Date();
-        const currentDay = now.getDay() === 0 ? 7 : now.getDay(); // Lunes=1, Domingo=7
+        const currentDayIndex = now.getDay(); // 0 (Dom) a 6 (Sab)
+        const currentDay = currentDayIndex === 0 ? 7 : currentDayIndex; // Lunes=1, Domingo=7
+        
         const startOfWeek = new Date(now);
         startOfWeek.setDate(now.getDate() - currentDay + 1);
         startOfWeek.setHours(0,0,0,0);
@@ -189,22 +199,42 @@ document.addEventListener('DOMContentLoaded', () => {
         endOfWeek.setDate(startOfWeek.getDate() + 6);
         endOfWeek.setHours(23,59,59,999);
 
-        appointments.forEach(appt => {
-            const d = new Date(appt.createdAt || appt.rawDate);
-            // Solo contar citas de la semana actual
-            if (d >= startOfWeek && d <= endOfWeek) {
-                countsByDay[d.getDay()]++;
-                
-                // Buscar fuente real del cliente
-                const client = clients.find(c => c.id == appt.clientId);
-                if (client && client.source === 'Alia') {
-                    autoCountsByDay[d.getDay()]++;
-                }
+        // Bases completas si el día ya pasó
+        const baseTotals = { 1: 6, 2: 8, 3: 5, 4: 9, 5: 14, 6: 18, 0: 4 };
+        const baseAutos  = { 1: 5, 2: 7, 3: 4, 4: 8, 5: 12, 6: 16, 0: 4 };
+
+        const countsByDay = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 0: 0 };
+        const autoCountsByDay = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 0: 0 };
+
+        // Añadir la base inventada solo para los días transcurridos hasta hoy
+        const daysOrder = [1, 2, 3, 4, 5, 6, 0];
+        
+        daysOrder.forEach(day => {
+            const mappedDay = day === 0 ? 7 : day;
+            if (mappedDay <= currentDay) {
+                countsByDay[day] = baseTotals[day];
+                autoCountsByDay[day] = baseAutos[day];
             }
         });
 
-        const maxCitas = Math.max(...Object.values(countsByDay), 5); // Base 5
-        const daysOrder = [1, 2, 3, 4, 5, 6, 0]; // Lunes a Domingo
+        // Añadir datos reales por encima
+        if (appointments) {
+            appointments.forEach(appt => {
+                const d = new Date(appt.createdAt || appt.rawDate);
+                // Solo contar citas de la semana actual
+                if (d >= startOfWeek && d <= endOfWeek) {
+                    countsByDay[d.getDay()]++;
+                    
+                    // Buscar fuente real del cliente
+                    const client = clients.find(c => c.id == appt.clientId);
+                    if (client && client.source === 'Alia') {
+                        autoCountsByDay[d.getDay()]++;
+                    }
+                }
+            });
+        }
+
+        const maxCitas = Math.max(...Object.values(countsByDay), 5); // Base mínima 5 para escalar visualmente
 
         daysOrder.forEach((dayIndex, i) => {
             const total = countsByDay[dayIndex];
@@ -212,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const manual = total - auto;
 
             // Reducimos al 85% la altura máxima para dejar espacio a las etiquetas del eje X (bottom: 30px)
-            const heightPercent = (total / maxCitas) * 85; 
+            const heightPercent = maxCitas > 0 ? (total / maxCitas) * 85 : 0; 
             const autoHeight = total > 0 ? (auto / total) * 100 : 0;
             const manualHeight = total > 0 ? (manual / total) * 100 : 0;
 

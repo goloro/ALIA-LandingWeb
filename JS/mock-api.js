@@ -187,12 +187,20 @@ class MockAPI {
      *   "completed".
      */
     _normalizeAppointmentDates() {
+        // Helper: fecha local en formato YYYY-MM-DD (evita el bug de toISOString en UTC+X)
+        const toLocalYMD = (d) => {
+            const y  = d.getFullYear();
+            const mo = String(d.getMonth() + 1).padStart(2, '0');
+            const dd = String(d.getDate()).padStart(2, '0');
+            return `${y}-${mo}-${dd}`;
+        };
+
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
-        const todayStr    = today.toISOString().split('T')[0];
-        const tomorrowStr = tomorrow.toISOString().split('T')[0];
+        const todayStr    = toLocalYMD(today);
+        const tomorrowStr = toLocalYMD(tomorrow);
 
         // Lunes de la semana actual (si hoy es domingo → siguiente lunes)
         const dow = today.getDay(); // 0=Dom, 1=Lun, …, 6=Sáb
@@ -206,10 +214,10 @@ class MockAPI {
             let status  = appt.status;
 
             if (appt.dayOffset !== undefined) {
-                // Calcular fecha real desde el lunes de esta semana
+                // Calcular fecha real desde el lunes de esta semana (usando fecha LOCAL)
                 const apptDate = new Date(monday);
                 apptDate.setDate(monday.getDate() + appt.dayOffset);
-                rawDate = apptDate.toISOString().split('T')[0];
+                rawDate = toLocalYMD(apptDate);   // ← FIX: fecha local, no UTC
 
                 if (rawDate === todayStr)         label = 'Hoy';
                 else if (rawDate === tomorrowStr) label = 'Mañana';
