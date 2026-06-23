@@ -31,60 +31,113 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.textContent = currentMonthStr.charAt(0).toUpperCase() + currentMonthStr.slice(1);
             });
 
-            // 1. Cálculos de Métricas Globales (Con base inventada para el prototipo)
-            let currentMonthAppts = 84; // Base inventada
-            let lastMonthAppts = 72; // Base inventada
-            let autoAppts = 81; // Casi todas (81 de 84) son por la IA
-            let ingresosTotales = 2940; // Base inventada (84 citas * 35€ ticket medio)
-            let minsOcupadosMes = 84 * 45; // Base inventada (84 citas * 45 mins)
+            // ==========================================================
+            // Helper: minutos laborables de un profesional en el mes
+            // ==========================================================
+            const toLocalYMD = (d) => {
+                const y  = d.getFullYear();
+                const mo = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                return `${y}-${mo}-${dd}`;
+            };
+            const getWorkingMinutes = (year, month, closedDays, diasLibres, dailyMins) => {
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                let total = 0;
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dow = new Date(year, month, day).getDay();
+                    if (!closedDays.includes(dow) && !diasLibres.includes(dow)) total += dailyMins;
+                }
+                return total;
+            };
+
+            // Horas del negocio (reutilizar settings ya cargado arriba)
+            const closedDays  = settings.closedDays  || [0];
+            const openStart   = settings.openHours?.start || '10:00';
+            const openEnd     = settings.openHours?.end   || '20:00';
+            const [oSh, oSm]  = openStart.split(':').map(Number);
+            const [oEh, oEm]  = openEnd.split(':').map(Number);
+            const dailyMins   = (oEh * 60 + oEm) - (oSh * 60 + oSm); // ej. 600 min (10h)
+
+            // Construir mapa de profesionales (owner + equipo)
+            const ownerName = window.MockAPI?.state?.currentUser?.name || 'Alejandro Mora';
+            const ownerDL   = window.MockAPI?.state?.currentUser?.diasLibres
+                              || (window.MockAPI?.state?.currentUser?.dayOff !== undefined
+                                  ? [window.MockAPI.state.currentUser.dayOff] : [1]);
+
+            const profData = {}; // { name: { occupied, capacity } }
+
+            // Propietario
+            profData[ownerName] = {
+                occupied : 0,
+                capacity : getWorkingMinutes(now.getFullYear(), now.getMonth(), closedDays, ownerDL, dailyMins)
+            };
+            // Equipo
+            team.forEach(prof => {
+                const dl = prof.diasLibres || (prof.dayOff !== undefined ? [prof.dayOff] : []);
+                profData[prof.name] = {
+                    occupied : 0,
+                    capacity : getWorkingMinutes(now.getFullYear(), now.getMonth(), closedDays, dl, dailyMins)
+                };
+            });
+
+            // 1. Conteo de citas reales del mes
+            let currentMonthAppts = 0;
+            let lastMonthAppts    = 0;
+            let autoAppts         = 0;
+            let ingresosTotales   = 0;
 
             appointments.forEach(appt => {
-                const apptDate = new Date(appt.rawDate);
-                if (apptDate.getMonth() === now.getMonth() && apptDate.getFullYear() === now.getFullYear()) {
+                const apptDate = new Date(appt.rawDate + 'T00:00:00'); // evitar bug de hora
+                const apptMonth = apptDate.getMonth();
+                const apptYear  = apptDate.getFullYear();
+
+                if (apptYear === now.getFullYear() && apptMonth === now.getMonth()) {
                     currentMonthAppts++;
-                    
-                    // Sumar el precio y duración real del servicio
-                    let precio = 35; // ticket medio por defecto
-                    let duracion = 45; // duración por defecto
+
+                    // Precio
+                    let precio = 35;
                     if (window.currentServices && appt.service) {
                         const srv = window.currentServices.find(s => s.name === appt.service);
-                        if (srv) {
-                            if (srv.price) precio = parseFloat(srv.price);
-                            if (srv.duration) duracion = parseInt(srv.duration);
-                        }
+                        if (srv && srv.price) precio = parseFloat(srv.price);
                     }
-                    if (appt.duration) duracion = parseInt(appt.duration);
-                    
                     ingresosTotales += precio;
-                    minsOcupadosMes += duracion;
-                    // Buscar fuente real del cliente (ALIA vs Manual)
-                    let isAuto = true; // Por defecto asumimos ALIA
-                    if (appt.clientId) {
-                        const client = clients.find(c => c.id === appt.clientId);
-                        if (client && client.source === 'Manual') {
-                            isAuto = false;
-                        }
+
+                    // Minutos ocupados por profesional
+                    const dur = appt.duration ? parseInt(appt.duration) : 45;
+                    if (profData[appt.prof] !== undefined) {
+                        profData[appt.prof].occupied += dur;
+                    }
+
+                    // Fuente ALIA vs Manual
+                    let isAuto = (appt.source !== 'Manual');
+                    if (appt.clientId && clients) {
+                        const cl = clients.find(c => c.id === appt.clientId);
+                        if (cl && cl.source === 'Manual') isAuto = false;
                     }
                     if (isAuto) autoAppts++;
-                } else if (apptDate.getMonth() === now.getMonth() - 1) {
+
+                } else if (apptYear === now.getFullYear() && apptMonth === now.getMonth() - 1) {
                     lastMonthAppts++;
                 }
             });
 
-            // A. Ingresos Previstos (Suma real de precios + base inventada)
+            // A. Ingresos Previstos
             document.getElementById('db-ingresos-value').innerHTML = `${ingresosTotales.toLocaleString('es-ES')} <span>€</span>`;
             document.getElementById('db-ingresos-bar').style.width = currentMonthAppts > 0 ? '70%' : '0px';
 
-            // B. Tasa de Ocupación (Real)
-            // Capacidad teórica mensual: profesionales * 20 días laborales * 8 horas * 60 mins
-            const numProfs = team.length > 0 ? team.length : 1;
-            const totalMinsMes = numProfs * 20 * 8 * 60;
-            const ocupacion = totalMinsMes > 0 ? Math.min(100, Math.round((minsOcupadosMes / totalMinsMes) * 100)) : 0;
+            // B. Tasa de Ocupación — Real: sum(ocupado) / sum(capacidad)
+            const totalOccupiedMins  = Object.values(profData).reduce((s, p) => s + p.occupied,  0);
+            const totalCapacityMins  = Object.values(profData).reduce((s, p) => s + p.capacity,  0);
+            const ocupacion = totalCapacityMins > 0
+                ? Math.min(100, Math.round((totalOccupiedMins / totalCapacityMins) * 100))
+                : 0;
             document.getElementById('db-ocupacion-value').innerHTML = `${ocupacion} <span>%</span>`;
-            
-            // B.1. Comparativa mes anterior
-            const lastMonthMins = lastMonthAppts * 45; // Usamos 45 mins como media para el mes pasado
-            const ocupacionAnterior = totalMinsMes > 0 ? Math.min(100, Math.round((lastMonthMins / totalMinsMes) * 100)) : 0;
+
+            // B.1. Comparativa mes anterior (estimación con 45 min/cita de media)
+            const lastMonthMins       = lastMonthAppts * 45;
+            const ocupacionAnterior   = totalCapacityMins > 0
+                ? Math.min(100, Math.round((lastMonthMins / totalCapacityMins) * 100))
+                : 0;
             const diffOcupacion = ocupacion - ocupacionAnterior;
             const vsEl = document.getElementById('db-ocupacion-vs');
             if (vsEl) {
@@ -161,7 +214,54 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
             }
-            renderTeam(team, appointments);
+            // ====== OCUPACIÓN SEMANAL — Panel "Rendimiento del Equipo" ======
+            // (profData arriba es mensual para la card general; aquí calculamos la semana)
+            const wd       = now.getDay() === 0 ? 7 : now.getDay();
+            const wkStart  = new Date(now);
+            wkStart.setDate(now.getDate() - wd + 1);
+            wkStart.setHours(0, 0, 0, 0);
+            const wkEnd = new Date(wkStart);
+            wkEnd.setDate(wkStart.getDate() + 6);
+            wkEnd.setHours(23, 59, 59, 999);
+            const wkStartStr = toLocalYMD(wkStart);
+            const wkEndStr   = toLocalYMD(wkEnd);
+
+            // Capacidad de un profesional en la semana actual
+            const getWeeklyMins = (start, closed, dl, dMins) => {
+                let t = 0;
+                for (let i = 0; i < 7; i++) {
+                    const d = new Date(start);
+                    d.setDate(start.getDate() + i);
+                    const dow = d.getDay();
+                    if (!closed.includes(dow) && !dl.includes(dow)) t += dMins;
+                }
+                return t;
+            };
+
+            // Construir weeklyProfData con el equipo completo (propietario ya incluido)
+            const weeklyProfData = {};
+            team.forEach(prof => {
+                const isOwner = prof.name === ownerName;
+                const dl = isOwner
+                    ? ownerDL
+                    : (prof.diasLibres || (prof.dayOff !== undefined ? [prof.dayOff] : []));
+                weeklyProfData[prof.name] = {
+                    occupied : 0,
+                    capacity : getWeeklyMins(wkStart, closedDays, dl, dailyMins)
+                };
+            });
+
+            // Sumar minutos de citas de esta semana (matching tolerante por si acento difiere)
+            appointments.forEach(appt => {
+                if (!appt.rawDate || appt.rawDate < wkStartStr || appt.rawDate > wkEndStr) return;
+                const dur = appt.duration ? parseInt(appt.duration) : 45;
+                const exactKey = weeklyProfData[appt.prof] !== undefined ? appt.prof : null;
+                const key = exactKey
+                    ?? Object.keys(weeklyProfData).find(k => k.trim() === appt.prof?.trim());
+                if (key != null) weeklyProfData[key].occupied += dur;
+            });
+
+            renderTeam(team, weeklyProfData);
 
             // 4. Próxima Cita
             renderNextAppointment(appointments);
@@ -198,6 +298,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const endOfWeek = new Date(startOfWeek);
         endOfWeek.setDate(startOfWeek.getDate() + 6);
         endOfWeek.setHours(23,59,59,999);
+
+        // Actualizar el rango de fechas en el título
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const startDay = startOfWeek.getDate();
+        const endDay = endOfWeek.getDate();
+        const startMonth = monthNames[startOfWeek.getMonth()];
+        const endMonth = monthNames[endOfWeek.getMonth()];
+        
+        let rangeStr = "";
+        if (startMonth === endMonth) {
+            rangeStr = `${startDay} - ${endDay} ${startMonth}`;
+        } else {
+            rangeStr = `${startDay} ${startMonth.slice(0, 3)} - ${endDay} ${endMonth}`;
+        }
+        
+        const rangeEl = document.getElementById('db-chart-date-range');
+        if (rangeEl) rangeEl.textContent = rangeStr;
 
         // Bases completas si el día ya pasó
         const baseTotals = { 1: 6, 2: 8, 3: 5, 4: 9, 5: 14, 6: 18, 0: 4 };
@@ -237,8 +354,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxCitas = Math.max(...Object.values(countsByDay), 5); // Base mínima 5 para escalar visualmente
 
         daysOrder.forEach((dayIndex, i) => {
-            const total = countsByDay[dayIndex];
-            const auto = autoCountsByDay[dayIndex];
+            let total = countsByDay[dayIndex];
+            let auto = autoCountsByDay[dayIndex];
+            
+            const mappedDay = dayIndex === 0 ? 7 : dayIndex;
+            // Si el día es en el futuro (después de hoy), no mostrar nada
+            if (mappedDay > currentDay) {
+                total = 0;
+                auto = 0;
+            }
+
             const manual = total - auto;
 
             // Reducimos al 85% la altura máxima para dejar espacio a las etiquetas del eje X (bottom: 30px)
@@ -247,9 +372,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const manualHeight = total > 0 ? (manual / total) * 100 : 0;
 
             const leftPos = (i * 14.28) + 7.14; // Centrado en su 1/7
+            const displayStyle = total === 0 ? 'none' : 'flex';
 
             const barHtml = `
-                <div style="position: absolute; bottom: 30px; left: calc(${leftPos}% - 6px); width: 12px; height: ${heightPercent}%; display: flex; flex-direction: column-reverse; border-radius: 4px; overflow: hidden; background: #f1f5f9;">
+                <div style="position: absolute; bottom: 30px; left: calc(${leftPos}% - 6px); width: 12px; height: ${heightPercent}%; display: ${displayStyle}; flex-direction: column-reverse; border-radius: 4px; overflow: hidden; background: #f1f5f9;">
                     <div style="width: 100%; height: ${autoHeight}%; background-color: #10b981; transition: height 0.5s ease;"></div>
                     <div style="width: 100%; height: ${manualHeight}%; background-color: #cbd5e1; transition: height 0.5s ease;"></div>
                 </div>
@@ -258,7 +384,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function renderTeam(team, appointments) {
+    // profData: { profName: { occupied, capacity } }
+    function renderTeam(team, profData) {
         const teamList = document.getElementById('db-team-list');
         if (!teamList || !team) return;
 
@@ -271,51 +398,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Definir la semana actual para filtrar citas
-        const now = new Date();
-        const currentDay = now.getDay() === 0 ? 7 : now.getDay();
-        const startOfWeek = new Date(now);
-        startOfWeek.setDate(now.getDate() - currentDay + 1);
-        startOfWeek.setHours(0,0,0,0);
-        
-        const endOfWeek = new Date(startOfWeek);
-        endOfWeek.setDate(startOfWeek.getDate() + 6);
-        endOfWeek.setHours(23,59,59,999);
-
-        // Minutos de ocupación por profesional
-        const occByProf = {};
-        team.forEach(p => occByProf[p.name] = 0);
-        
-        // Base inventada (51 citas semanales en el gráfico * 45 mins) repartidas entre el equipo
-        const baseMinsSemanaPorProf = Math.round((51 * 45) / (team.length || 1));
-        team.forEach(p => occByProf[p.name] += baseMinsSemanaPorProf);
-
-        if (appointments) {
-            appointments.forEach(appt => {
-                const d = new Date(appt.createdAt || appt.rawDate);
-                if (d >= startOfWeek && d <= endOfWeek) {
-                    if (appt.prof && occByProf[appt.prof] !== undefined) {
-                        let dur = 45;
-                        if (appt.duration) {
-                            dur = parseInt(appt.duration);
-                        } else if (window.currentServices && appt.service) {
-                            const s = window.currentServices.find(x => x.name === appt.service);
-                            if (s && s.duration) dur = parseInt(s.duration);
-                        }
-                        occByProf[appt.prof] += dur;
-                    }
-                }
-            });
-        }
-
-        // Max minutos a la semana: 5 días * 8 horas * 60 minutos = 2400 mins
-        const maxMinsSemana = 5 * 8 * 60;
-
         let html = '';
         team.forEach(prof => {
-            const occupied = occByProf[prof.name] || 0;
-            const occ = Math.min(100, Math.round((occupied / maxMinsSemana) * 100));
-            const occColor = occ > 90 ? '#10b981' : (occ > 75 ? '#0891b2' : '#f59e0b');
+            const data     = profData && profData[prof.name];
+            const occupied = data ? data.occupied  : 0;
+            const capacity = data ? data.capacity  : 1;
+            const occ      = capacity > 0 ? Math.min(100, Math.round((occupied / capacity) * 100)) : 0;
+            const occColor = occ > 85 ? '#10b981' : (occ > 65 ? '#0891b2' : '#f59e0b');
             
             html += `
             <div style="display: flex; align-items: center; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 8px;">
@@ -535,6 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamObj = window.BusinessTeam?.find(t => t.name === profNameToMatch) || {};
         const lunchStart = teamObj.pausaAlmuerzo?.start || "14:00";
         const lunchEnd = teamObj.pausaAlmuerzo?.end || "15:00";
+        const dayStart = settings.openHours?.start || "10:00";
         const dayEnd = settings.openHours?.end || "19:00";
         
         // Helper para minutos
@@ -543,9 +633,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Empezamos desde "ahora" redondeado a los próximos 30 mins
         let currentMins = now.getHours() * 60 + now.getMinutes();
-        // Redondear a la siguiente media hora para empezar limpio, o dejar así si queremos ser exactos
-        // Pero para el prototipo asume que empezamos en hora en punto (ej 12:00)
         currentMins = Math.ceil(currentMins / 30) * 30;
+        
+        const startMins = toMins(dayStart);
+        if (currentMins < startMins) {
+            currentMins = startMins; // No mostrar huecos antes de la hora de apertura
+        }
         
         const endMins = toMins(dayEnd);
         const lunchStartMins = toMins(lunchStart);

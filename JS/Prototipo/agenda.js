@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         profFiltersContainer.appendChild(btnMiAgenda);
         
         teamData.forEach(prof => {
-            const shortName = prof.name.split(' ')[1] || prof.name;
+            const shortName = prof.name.split(' ').slice(0, 2).join(' ') || prof.name;
             const btn = document.createElement('button');
             btn.className = 'prof-filter-btn' + (selectedProfFilter === shortName ? ' active' : '');
             btn.textContent = shortName;

@@ -77,6 +77,13 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.agenda-prof-filters::-webkit-scrollbar {
+    display: none;
 }
 
 .prof-filter-btn {
@@ -90,6 +97,8 @@
     font-family: 'Inter', sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .prof-filter-btn:hover {
