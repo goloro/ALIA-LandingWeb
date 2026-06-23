@@ -29,7 +29,7 @@ const BASE_URL = (() => {
 })();
 
 /** Construye una URL segura relativa al origen. Nunca empieza con '//' */
-const url = (path) => `${BASE_URL}/${path}`;
+const url = (path) => BASE_URL ? `${BASE_URL}/${path}` : path;
 
 // Exportamos BASE_URL para que init.js pueda importarla si se refactoriza a módulo.
 // Por ahora la exponemos en window para compatibilidad con el script clásico.

@@ -21,7 +21,7 @@
       },
       {
         "text": "Solicitar Presupuesto<br>Personalizado",
-        "url": "#",
+        "url": "#cta",
         "style": "secondary"
       }
     ],
@@ -143,7 +143,7 @@
       "Soportes ergonómicos para estaciones de trabajo."
     ],
     "ctaText": "Consultar packs de equipamiento",
-    "ctaUrl": "#"
+    "ctaUrl": "#cta"
   },
   "calculator": {
     "heading": "Descubre cuánto tiempo vas a<br>recuperar al mes",
@@ -225,7 +225,7 @@
     "heading": "¿Listo para llevar tu salón al siguiente nivel?",
     "description": "Únete a los salones que ya están ahorrando 15+ horas semanales en gestión administrativa.",
     "buttonText": "Contacta con nosotros",
-    "buttonUrl": "#"
+    "buttonUrl": "#cta"
   },
   "footer": {
     "copyright": "© 2026 ALIA. Todos los derechos reservados."

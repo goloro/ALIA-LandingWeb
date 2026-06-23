@@ -152,42 +152,85 @@ class MockAPI {
             this.initialized = true;
         } catch (error) {
             console.error("MockAPI Init Error:", error);
-            // Fallback empty if fetch fails
-            this.state.clients = [];
-            this.state.team = [
-                { id: 1, name: "Dra. Laura Gómez", role: "Especialista", attendance: "98%", avatarUrl: "https://i.pravatar.cc/150?u=laura", dayOff: 2, lunchBreak: "13:30" },
-                { id: 2, name: "Dr. Javier Ruiz", role: "Terapista", attendance: "88%", avatarUrl: "https://i.pravatar.cc/150?u=javier", dayOff: 3, lunchBreak: "14:30" }
-            ];
-            this.state.currentUser = {
-                "id": 0,
-                "name": "Propietario ALIA",
-                "role": "Owner",
-                "avatarUrl": "https://i.pravatar.cc/150?u=owner"
-            };
-            this._seedMockAppointments();
+            // Los fetches individuales ya tienen su propio try-catch.
+            // Aquí solo garantizamos valores mínimos para team y currentUser
+            // sin sobreescribir citas ya cargadas.
+            if (this.state.team.length === 0) {
+                this.state.team = [
+                    { id: 1, name: "Laura Gómez", role: "Estilista", attendance: "98%", avatarUrl: "https://i.pravatar.cc/150?u=laura", dayOff: 2, lunchBreak: "13:30" },
+                    { id: 2, name: "Javier Ruiz",  role: "Barbero",   attendance: "88%", avatarUrl: "https://i.pravatar.cc/150?u=javier", dayOff: 3, lunchBreak: "14:30" }
+                ];
+            }
+            if (!this.state.currentUser) {
+                this.state.currentUser = {
+                    "id": 0,
+                    "name": "Alejandro Mora",
+                    "role": "Owner",
+                    "avatarUrl": "https://i.pravatar.cc/150?u=owner"
+                };
+            }
+            // Solo sembramos citas si no se cargó NADA (evita sobrescribir datos reales)
+            if (this.state.appointments.length === 0) {
+                this._seedMockAppointments();
+            }
             this.initialized = true;
         }
     }
 
-    /** Recalcula formattedDate de todas las citas según su rawDate y la fecha actual */
+    /**
+     * Recalcula rawDate y formattedDate.
+     * - Si la cita tiene dayOffset (entero), la fecha se calcula desde el lunes
+     *   de la semana actual: dayOffset 0 = lunes, 1 = martes, …, 5 = sábado,
+     *   7 = lunes próximo, etc. (negativo = semana pasada).
+     * - Si la cita sólo tiene rawDate fijo (modo legado), usa esa fecha.
+     * - Las citas pendientes con fecha pasada se marcan automáticamente como
+     *   "completed".
+     */
     _normalizeAppointmentDates() {
         const today = new Date();
+        today.setHours(0, 0, 0, 0);
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
         const todayStr    = today.toISOString().split('T')[0];
         const tomorrowStr = tomorrow.toISOString().split('T')[0];
 
+        // Lunes de la semana actual (si hoy es domingo → siguiente lunes)
+        const dow = today.getDay(); // 0=Dom, 1=Lun, …, 6=Sáb
+        const monday = new Date(today);
+        monday.setDate(today.getDate() + (dow === 0 ? 1 : 1 - dow));
+        monday.setHours(0, 0, 0, 0);
+
         this.state.appointments = this.state.appointments.map(appt => {
-            let label = appt.formattedDate;
-            if (appt.rawDate === todayStr) {
-                label = 'Hoy';
-            } else if (appt.rawDate === tomorrowStr) {
-                label = 'Mañana';
-            } else if (appt.rawDate) {
-                const parts = appt.rawDate.split('-');
-                if (parts.length === 3) label = `${parts[2]}/${parts[1]}`;
+            let rawDate = appt.rawDate || '';
+            let label   = appt.formattedDate || '';
+            let status  = appt.status;
+
+            if (appt.dayOffset !== undefined) {
+                // Calcular fecha real desde el lunes de esta semana
+                const apptDate = new Date(monday);
+                apptDate.setDate(monday.getDate() + appt.dayOffset);
+                rawDate = apptDate.toISOString().split('T')[0];
+
+                if (rawDate === todayStr)         label = 'Hoy';
+                else if (rawDate === tomorrowStr) label = 'Mañana';
+                else {
+                    const parts = rawDate.split('-');
+                    label = `${parts[2]}/${parts[1]}`;
+                }
+
+                // Auto-completar citas pasadas
+                if (apptDate < today && status === 'pending') status = 'completed';
+            } else {
+                // Modo legado: rawDate fijo
+                if (rawDate === todayStr)         label = 'Hoy';
+                else if (rawDate === tomorrowStr) label = 'Mañana';
+                else if (rawDate) {
+                    const parts = rawDate.split('-');
+                    if (parts.length === 3) label = `${parts[2]}/${parts[1]}`;
+                }
             }
-            return { ...appt, formattedDate: label };
+
+            return { ...appt, rawDate, formattedDate: label, status };
         });
     }
 

@@ -180,5 +180,78 @@
         "notes": "Lead generado vía ALIA. Interesado en decoloración gris plata. Requiere valoración.",
         "source": "Alia",
         "history": []
+    },
+    {
+        "id": 10,
+        "name": "Carla Vega",
+        "email": "carla.vega@gmail.com",
+        "phone": "+34 655 100 200",
+        "lastAppt": "2026-06-10",
+        "totalAppts": 3,
+        "registeredAt": "2026-01-15",
+        "notes": "Clienta nueva. Vino por Instagram. Le gustan los colores naturales y los tratamientos hidratantes.",
+        "source": "Alia",
+        "history": [
+            { "date": "10 JUN 2026, 12:00", "status": "completed", "service": "Lavado y Marcado",   "prof": "Laura Gómez" },
+            { "date": "02 MAY 2026, 11:30", "status": "completed", "service": "Corte y Peinado",    "prof": "Alejandro Mora" },
+            { "date": "15 MAR 2026, 10:00", "status": "completed", "service": "Tratamiento Capilar","prof": "Laura Gómez" }
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Pablo Mora",
+        "email": "pablo.mora@outlook.es",
+        "phone": "+34 677 300 400",
+        "lastAppt": "2026-06-09",
+        "totalAppts": 5,
+        "registeredAt": "2025-08-20",
+        "notes": "Barbero habitual. Viene cada 2-3 semanas. Prefiere turno de mañana.",
+        "source": "Manual",
+        "history": [
+            { "date": "09 JUN 2026, 10:00", "status": "completed", "service": "Corte + Barba",  "prof": "Javier Ruiz" },
+            { "date": "18 MAY 2026, 10:00", "status": "completed", "service": "Arreglo Barba",  "prof": "Javier Ruiz" },
+            { "date": "25 ABR 2026, 10:00", "status": "completed", "service": "Corte + Barba",  "prof": "Javier Ruiz" },
+            { "date": "01 ABR 2026, 10:30", "status": "completed", "service": "Corte Clásico",  "prof": "Javier Ruiz" }
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Sofía Iglesias",
+        "email": "sofia.iglesias@correo.com",
+        "phone": "+34 633 500 600",
+        "lastAppt": "2026-06-05",
+        "totalAppts": 4,
+        "registeredAt": "2025-10-10",
+        "notes": "Le gusta pedir citas de tarde. Interesada en manicura y coloración. Muy puntual.",
+        "source": "Alia",
+        "history": [
+            { "date": "05 JUN 2026, 17:00", "status": "completed", "service": "Manicura Semipermanente","prof": "Laura Gómez" },
+            { "date": "20 ABR 2026, 16:30", "status": "completed", "service": "Coloración",            "prof": "Laura Gómez" },
+            { "date": "15 MAR 2026, 17:00", "status": "completed", "service": "Lavado y Marcado",      "prof": "Laura Gómez" }
+        ]
+    },
+    {
+        "id": 901,
+        "name": "Marta Sánchez",
+        "email": "marta.s@ejemplo.com",
+        "phone": "+34 600 000 090",
+        "lastAppt": null,
+        "totalAppts": 0,
+        "registeredAt": "2026-06-20",
+        "notes": "Lead generado vía ALIA. Interesada en tratamiento facial completo.",
+        "source": "Alia",
+        "history": []
+    },
+    {
+        "id": 902,
+        "name": "Ricardo Mendoza",
+        "email": "ricardo.m@ejemplo.com",
+        "phone": "+34 600 000 091",
+        "lastAppt": null,
+        "totalAppts": 0,
+        "registeredAt": "2026-06-20",
+        "notes": "Lead generado vía ALIA. Interesado en decoloración gris plata. Requiere valoración.",
+        "source": "Alia",
+        "history": []
     }
 ]

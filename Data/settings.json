@@ -1,7 +1,7 @@
 {
     "closedDays": [0],
     "openHours": {
-        "start": "09:00",
+        "start": "10:00",
         "end": "20:00"
     },
     "slotDuration": 30,
