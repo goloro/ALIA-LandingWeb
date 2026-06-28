@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const currentUserName = window.MockAPI?.state?.currentUser?.name || 'Propietario';
-        const currentUserAvatar = window.MockAPI?.state?.currentUser?.avatar || '../Images/Logos/LogoPeluqueríaNegro.png';
+        const currentUserAvatar = window.MockAPI?.state?.currentUser?.avatar || '../Images/Avatars/alejandro.png';
         const currentUserEmail = window.MockAPI?.state?.currentUser?.email || 'propietario@alia.com';
         
         const fullTeam = [
@@ -780,3 +780,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 500);
 
 });
+
+

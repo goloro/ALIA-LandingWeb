@@ -122,7 +122,8 @@ class AliaPrototypeChat {
                             time: data.args.time,
                             prof: data.args.prof,
                             service: data.args.service || 'Cita IA',
-                            notes: data.args.notes || ''
+                            notes: data.args.notes || '',
+                            source: 'Alia'
                         });
                         if (window.refreshAgenda) window.refreshAgenda();
                     } else {

@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         id: cUser.id || 'owner',
                         name: cUser.name,
                         role: cUser.role || 'Propietario',
-                        avatarUrl: cUser.avatar || 'https://i.pravatar.cc/150?u=owner'
+                        avatarUrl: cUser.avatar || '../Images/Avatars/alejandro.png'
                     });
                 }
             }
@@ -782,3 +782,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 300);
 
 });
+
+

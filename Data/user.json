@@ -8,8 +8,10 @@
     "birthDate": "15/04/1985",
     "address": "Calle Mayor, 12, 28013 Madrid",
     "password": "AliaStu2026!",
-    "avatar": "../Images/Logos/LogoPeluqueríaNegro.png",
+    "avatar": "../Images/Avatars/alejandro.png",
     "permissions": ["admin", "manage_team", "manage_schedule", "manage_clients", "view_reports"],
     "diasLibres": [1],
     "pausaAlmuerzo": { "start": "14:00", "end": "15:00" }
 }
+
+

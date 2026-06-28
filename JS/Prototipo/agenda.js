@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headersWrapper.innerHTML = '';
                 
                 const currentUserName = window.MockAPI?.state?.currentUser?.name || "Propietario";
-                const currentUserAvatar = window.MockAPI?.state?.currentUser?.avatar || "../Images/Logos/LogoPeluqueríaNegro.png";
+                const currentUserAvatar = window.MockAPI?.state?.currentUser?.avatar || "../Images/Avatars/alejandro.png";
                 const displayTeam = [{ name: currentUserName, avatarUrl: currentUserAvatar }, ...teamData];
                 numCols = displayTeam.length;
                 
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     colIds.push({ id: prof.name, prof: prof.name });
                     headersWrapper.innerHTML += `
                         <div class="agenda-prof-header">
-                            <img src="${prof.avatarUrl || '../Images/Logos/LogoPeluqueríaNegro.png'}" alt="${prof.name}" class="prof-avatar">
+                            <img src="${prof.avatarUrl || '../Images/Avatars/alejandro.png'}" alt="${prof.name}" class="prof-avatar">
                             <span class="prof-name">${prof.name}</span>
                         </div>
                     `;
@@ -820,3 +820,5 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAgendaData();
 
 });
+
+

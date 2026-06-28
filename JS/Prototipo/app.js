@@ -1188,7 +1188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const team = await window.MockAPI.getTeam();
             const currentUser = window.MockAPI?.state?.currentUser;
             const currentUserName = currentUser?.name || 'Propietario';
-            const currentUserAvatar = currentUser?.avatar || '../Images/Logos/LogoPeluqueríaNegro.png';
+            const currentUserAvatar = currentUser?.avatar || '../Images/Avatars/alejandro.png';
             
             window.BusinessTeam = [{name: currentUserName, diasLibres: [1], pausaAlmuerzo: { start: '14:00', end: '15:00' }}, ...team];
 
@@ -1236,7 +1236,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 .catch(e => {
                     console.error('Error loading user.json', e);
                     // Fallback local
-                    const defaultUser = { "id": 0, "name": "Propietario ALIA", "role": "Owner", "avatarUrl": "https://i.pravatar.cc/150?u=owner" };
+                    const defaultUser = { "id": 0, "name": "Propietario ALIA", "role": "Owner", "avatarUrl": "../Images/Avatars/alejandro.png" };
                     loadUserData(defaultUser);
                 });
 
@@ -2000,3 +2000,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // FAB ALIA Logic now handled purely via inline HTML onclicks and .alia-overlay
 });
+
+

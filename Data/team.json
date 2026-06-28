@@ -6,7 +6,7 @@
         "retention": "94%",
         "attendance": "98%",
         "appointments": 58,
-        "avatarUrl": "https://i.pravatar.cc/150?u=laura_gomez",
+        "avatarUrl": "../Images/Avatars/laura.png",
         "dayOff": 2,
         "diasLibres": [2],
         "pausaAlmuerzo": { "start": "13:30", "end": "14:30" },
@@ -23,7 +23,7 @@
         "retention": "89%",
         "attendance": "95%",
         "appointments": 44,
-        "avatarUrl": "https://i.pravatar.cc/150?u=javier_ruiz",
+        "avatarUrl": "../Images/Avatars/javier.png",
         "dayOff": 3,
         "diasLibres": [3],
         "pausaAlmuerzo": { "start": "14:30", "end": "15:30" },
@@ -34,3 +34,5 @@
         "specialties": ["Barba a navaja", "Cortes caballero", "Fade & Undercut", "Corte Express"]
     }
 ]
+
+

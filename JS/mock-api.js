@@ -70,7 +70,7 @@ class MockAPI {
                             "id": 0,
                             "name": "Propietario ALIA",
                             "role": "Owner",
-                            "avatar": "../Images/Logos/LogoPeluqueríaNegro.png",
+                            "avatar": "../Images/Avatars/alejandro.png",
                             "diasLibres": [1],
                             "pausaAlmuerzo": { "start": "14:00", "end": "15:00" }
                         };
@@ -82,7 +82,7 @@ class MockAPI {
                     "id": 0,
                     "name": "Propietario ALIA",
                     "role": "Owner",
-                    "avatar": "../Images/Logos/LogoPeluqueríaNegro.png",
+                    "avatar": "../Images/Avatars/alejandro.png",
                     "diasLibres": [1],
                     "pausaAlmuerzo": { "start": "14:00", "end": "15:00" }
                 };
@@ -133,8 +133,8 @@ class MockAPI {
             // Seed mock appointments if empty so prototype looks good
             if (this.state.team.length === 0) {
                 this.state.team = [
-                    { id: 1, name: "Dra. Laura Gómez", role: "Especialista", attendance: "98%", avatarUrl: "https://i.pravatar.cc/150?u=laura", dayOff: 2, lunchBreak: "13:30" },
-                    { id: 2, name: "Dr. Javier Ruiz", role: "Terapista", attendance: "88%", avatarUrl: "https://i.pravatar.cc/150?u=javier", dayOff: 3, lunchBreak: "14:30" }
+                    { id: 1, name: "Dra. Laura Gómez", role: "Especialista", attendance: "98%", avatarUrl: "../Images/Avatars/laura.png", dayOff: 2, lunchBreak: "13:30" },
+                    { id: 2, name: "Dr. Javier Ruiz", role: "Terapista", attendance: "88%", avatarUrl: "../Images/Avatars/javier.png", dayOff: 3, lunchBreak: "14:30" }
                 ];
             }
             if (!this.state.currentUser) {
@@ -142,7 +142,7 @@ class MockAPI {
                     "id": 0,
                     "name": "Propietario ALIA",
                     "role": "Owner",
-                    "avatarUrl": "https://i.pravatar.cc/150?u=owner"
+                    "avatarUrl": "../Images/Avatars/alejandro.png"
                 };
             }
             
@@ -155,8 +155,8 @@ class MockAPI {
             // sin sobreescribir citas ya cargadas.
             if (this.state.team.length === 0) {
                 this.state.team = [
-                    { id: 1, name: "Laura Gómez", role: "Estilista", attendance: "98%", avatarUrl: "https://i.pravatar.cc/150?u=laura", dayOff: 2, lunchBreak: "13:30" },
-                    { id: 2, name: "Javier Ruiz",  role: "Barbero",   attendance: "88%", avatarUrl: "https://i.pravatar.cc/150?u=javier", dayOff: 3, lunchBreak: "14:30" }
+                    { id: 1, name: "Laura Gómez", role: "Estilista", attendance: "98%", avatarUrl: "../Images/Avatars/laura.png", dayOff: 2, lunchBreak: "13:30" },
+                    { id: 2, name: "Javier Ruiz",  role: "Barbero",   attendance: "88%", avatarUrl: "../Images/Avatars/javier.png", dayOff: 3, lunchBreak: "14:30" }
                 ];
             }
             if (!this.state.currentUser) {
@@ -164,7 +164,7 @@ class MockAPI {
                     "id": 0,
                     "name": "Alejandro Mora",
                     "role": "Owner",
-                    "avatarUrl": "https://i.pravatar.cc/150?u=owner"
+                    "avatarUrl": "../Images/Avatars/alejandro.png"
                 };
             }
             // Solo sembramos citas si no se cargó NADA (evita sobrescribir datos reales)
@@ -394,20 +394,26 @@ class MockAPI {
                 pausaAlmuerzo: this.state.currentUser.pausaAlmuerzo || { start: '14:00', end: '15:00' }
             });
         }
-        let profObj = fullTeam.find(t => t.name.toLowerCase().includes(profQuery) || t.role.toLowerCase().includes(profQuery));
-        if (!profObj) {
-            throw new Error(`No se encontró al profesional "${apptData.prof}". Disponibles: ${fullTeam.map(t=>t.name).join(', ')}.`);
+        
+        let profObj = null;
+        let possibleProfs = [];
+        if (profQuery === 'cualquiera' || profQuery === 'cualquier disponible' || profQuery === 'el que tenga hueco' || profQuery === '') {
+            possibleProfs = fullTeam;
+        } else {
+            let p = fullTeam.find(t => t.name.toLowerCase().includes(profQuery) || t.role.toLowerCase().includes(profQuery));
+            if (!p) {
+                let errStr = `No se encontró al profesional "${apptData.prof}". Disponibles: ${fullTeam.map(t=>t.name).join(', ')}. Si da igual, pide "cualquiera".`;
+                throw new Error(errStr);
+            }
+            possibleProfs = [p];
         }
 
-        // 3. Validate Days Closed & Days Off
+        // 3. Validate Days Closed
         if (this.state.settings && this.state.settings.closedDays && this.state.settings.closedDays.includes(dayOfWeek)) {
             throw new Error(`El local está cerrado en esa fecha. Días cerrados: ${this.state.settings.closedDays.join(', ')}.`);
         }
-        if (profObj.diasLibres && profObj.diasLibres.includes(dayOfWeek)) {
-            throw new Error(`El profesional ${profObj.name} tiene el día libre en esa fecha. Por favor, elige otro día u otro profesional.`);
-        }
 
-        // 4. Validate Hours & Lunch Break
+        // 4. Validate Hours
         let timeStr = apptData.time || "10:00";
         if (timeStr.length < 5) timeStr = timeStr.padStart(5, '0'); // Fix e.g. "9:00" -> "09:00"
         
@@ -421,30 +427,71 @@ class MockAPI {
                 throw new Error(`La hora ${timeStr} está fuera del horario comercial (${this.state.settings.openHours.start} - ${this.state.settings.openHours.end}).`);
             }
         }
-        
-        if (profObj.pausaAlmuerzo) {
-            const lunchStart = timeToMins(profObj.pausaAlmuerzo.start);
-            const lunchEnd = timeToMins(profObj.pausaAlmuerzo.end);
-            if (apptMins >= lunchStart && apptMins < lunchEnd) {
-                throw new Error(`El profesional ${profObj.name} está en su pausa de almuerzo de ${profObj.pausaAlmuerzo.start} a ${profObj.pausaAlmuerzo.end}.`);
+
+        const duration = apptData.duration || 30;
+        const apptEndMins = apptMins + duration;
+
+        // 5. Find available prof
+        let selectedProf = null;
+        let lastError = null;
+
+        for (let p of possibleProfs) {
+            try {
+                if (p.diasLibres && p.diasLibres.includes(dayOfWeek)) {
+                    throw new Error(`El profesional ${p.name} tiene el día libre en esa fecha.`);
+                }
+                
+                if (p.pausaAlmuerzo) {
+                    const lunchStart = timeToMins(p.pausaAlmuerzo.start);
+                    const lunchEnd = timeToMins(p.pausaAlmuerzo.end);
+                    if (apptMins >= lunchStart && apptMins < lunchEnd) {
+                        throw new Error(`El profesional ${p.name} está en su pausa de almuerzo de ${p.pausaAlmuerzo.start} a ${p.pausaAlmuerzo.end}.`);
+                    }
+                }
+
+                const collisions = this.state.appointments.filter(a => a.rawDate === rawDate && a.prof === p.name && a.status !== 'cancelled');
+                for (let a of collisions) {
+                    const existingStart = timeToMins(a.time);
+                    const existingEnd = existingStart + (a.duration || 30);
+                    
+                    if ((apptMins >= existingStart && apptMins < existingEnd) || (apptEndMins > existingStart && apptEndMins <= existingEnd) || (apptMins <= existingStart && apptEndMins >= existingEnd)) {
+                        const endH = Math.floor(existingEnd/60);
+                        const endM = String(existingEnd%60).padStart(2,'0');
+                        throw new Error(`El profesional ${p.name} ya tiene una cita ocupada de ${a.time} a ${endH}:${endM}. Por favor, sugiere otra hora.`);
+                    }
+                }
+                
+                selectedProf = p;
+                break;
+            } catch (err) {
+                lastError = err;
             }
         }
 
-        // 5. Validate Collisions
-        const duration = apptData.duration || 30;
-        const apptEndMins = apptMins + duration;
-        
-        const collisions = this.state.appointments.filter(a => a.rawDate === rawDate && a.prof === profObj.name && a.status !== 'cancelled');
-        for (let a of collisions) {
-            const existingStart = timeToMins(a.time);
-            const existingEnd = existingStart + (a.duration || 30);
-            
-            if ((apptMins >= existingStart && apptMins < existingEnd) || (apptEndMins > existingStart && apptEndMins <= existingEnd) || (apptMins <= existingStart && apptEndMins >= existingEnd)) {
-                const endH = Math.floor(existingEnd/60);
-                const endM = String(existingEnd%60).padStart(2,'0');
-                throw new Error(`El profesional ${profObj.name} ya tiene una cita ocupada de ${a.time} a ${endH}:${endM}. Por favor, sugiere otra hora.`);
+        if (!selectedProf) {
+            let errStr = lastError ? lastError.message : "No hay profesionales disponibles.";
+            if (possibleProfs.length > 1) {
+                errStr = `Ningún profesional tiene disponibilidad a las ${timeStr} en esa fecha. Por favor, sugiere otra hora.`;
             }
+            
+            // Ayuda a la IA calculando los huecos disponibles
+            if (window.calculateAvailableTimes) {
+                try {
+                    const queryP = possibleProfs.length > 1 ? 'Cualquier Disponible' : possibleProfs[0].name;
+                    const argDate = rawDate.split('-').reverse().join('/');
+                    const times = await window.calculateAvailableTimes(argDate, duration, queryP);
+                    if (times && times.length > 0) {
+                        errStr += ` Huecos disponibles en esa fecha: ${times.join(', ')}.`;
+                    } else {
+                        errStr += ` No quedan huecos disponibles en esa fecha. Sugiere otro día.`;
+                    }
+                } catch(e) {}
+            }
+            
+            throw new Error(errStr);
         }
+        
+        profObj = selectedProf;
         
         // 6. Find client by name or phone
         const query = clientQuery.toLowerCase().trim();
@@ -461,7 +508,7 @@ class MockAPI {
                 registeredAt: new Date().toISOString().split('T')[0],
                 notes: "",
                 history: [],
-                source: 'Manual'
+                source: apptData.source || 'Manual'
             };
             this.state.clients.unshift(newClient);
             client = newClient;
@@ -482,6 +529,7 @@ class MockAPI {
             service: apptData.service,
             prof: profObj.name,
             duration: duration,
+            source: apptData.source || 'Manual',
             status: 'pending'
         };
         
@@ -506,12 +554,18 @@ class MockAPI {
     // Expande la plantilla semanal (dayOffset 0-5) a la semana de targetMonday
     // si aún no hay citas para esa semana. Llamado de forma lazy desde getAppointments.
     _expandWeekIfNeeded(targetMondayStr) {
-        // ¿Ya hay citas para esta semana?
-        const alreadyCovered = this.state.appointments.some(a =>
-            a.rawDate && a.rawDate >= targetMondayStr &&
-            a.rawDate <= targetMondayStr.replace(/\d+$/, m => String(parseInt(m) + 6).padStart(2,'0'))
+        // La semana está cubierta si tiene citas en al menos 3 días distintos
+        // (evita falsos positivos con datos parciales de dayOffset 7/8)
+        const weekEnd = new Date(targetMondayStr + 'T00:00:00');
+        weekEnd.setDate(weekEnd.getDate() + 6);
+        const weekEndStr = this._toLocalYMD(weekEnd);
+
+        const datesInWeek = new Set(
+            this.state.appointments
+                .filter(a => a.rawDate && a.rawDate >= targetMondayStr && a.rawDate <= weekEndStr)
+                .map(a => a.rawDate)
         );
-        if (alreadyCovered) return;
+        if (datesInWeek.size >= 3) return; // semana suficientemente cubierta
 
         // Calcular lunes de targetMondayStr
         const wkMonday = new Date(targetMondayStr + 'T00:00:00');
@@ -590,14 +644,20 @@ class MockAPI {
         await this.init();
         await this._simulateDelay(100);
 
-        // Expansión lazy: si se pide una semana sin datos, generar desde template
-        const checkDate = filters.startDate || filters.date || null;
-        if (checkDate) {
-            const d = new Date(checkDate + 'T00:00:00');
-            const dd = d.getDay();
-            const mon = new Date(d);
-            mon.setDate(d.getDate() + (dd === 0 ? -6 : 1 - dd));
-            this._expandWeekIfNeeded(this._toLocalYMD(mon));
+        // Expansión lazy: expande TODAS las semanas del rango solicitado
+        // (corrige el caso de vista mes o salto directo a una semana lejana)
+        const checkStart = filters.startDate || filters.date || null;
+        if (checkStart) {
+            const endLimit = filters.endDate ? new Date(filters.endDate + 'T00:00:00') : new Date(checkStart + 'T00:00:00');
+            // Encontrar el primer lunes del rango
+            const cursor = new Date(checkStart + 'T00:00:00');
+            const dow = cursor.getDay();
+            cursor.setDate(cursor.getDate() + (dow === 0 ? -6 : 1 - dow));
+            // Iterar semana a semana hasta cubrir todo el rango
+            while (cursor <= endLimit) {
+                this._expandWeekIfNeeded(this._toLocalYMD(cursor));
+                cursor.setDate(cursor.getDate() + 7);
+            }
         }
 
         return this.state.appointments.filter(appt => {
@@ -695,3 +755,5 @@ class MockAPI {
 // Export a singleton instance
 const api = new MockAPI();
 window.MockAPI = api; // Make it globally available for our prototype scripts
+
+
