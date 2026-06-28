@@ -60,10 +60,32 @@ class AliaPrototypeChat {
                     });
                 }
                 
+                let currentServices = window.MockAPI.state.businessInfo?.services || [];
+                let currentSettings = window.MockAPI.state.settings || { closedDays: [0], openHours: { start: '10:00', end: '19:00' } };
+                
+                // Si el usuario ha editado la configuración en el Prototipo, la leemos de localStorage
+                const cachedBusiness = localStorage.getItem('currentBusinessData');
+                if (cachedBusiness) {
+                    try {
+                        const config = JSON.parse(cachedBusiness);
+                        if (config.services && config.services.length > 0) {
+                            currentServices = config.services;
+                        }
+                        if (config.businessHours) {
+                            currentSettings.openHours = config.businessHours;
+                        }
+                        if (config.closedDays) {
+                            currentSettings.closedDays = config.closedDays;
+                        }
+                    } catch (e) {
+                        console.error('Error parsing currentBusinessData for AI Context', e);
+                    }
+                }
+
                 payload.businessContext = {
                     team: fullTeam,
-                    settings: window.MockAPI.state.settings || { closedDays: [0], openHours: { start: '10:00', end: '19:00' } },
-                    services: window.MockAPI.state.businessInfo?.services || []
+                    settings: currentSettings,
+                    services: currentServices
                 };
             }
 
