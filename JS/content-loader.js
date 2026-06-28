@@ -366,6 +366,11 @@ async function loadContent() {
         console.error('[content-loader] Error crítico al cargar content.json:', error);
         // La interfaz permanece visible; las secciones quedan sin texto
         // en lugar de lanzar una pantalla en blanco.
+    } finally {
+        if (typeof window.checkAndHidePreloader === 'function') {
+            window.isContentLoaded = true;
+            window.checkAndHidePreloader();
+        }
     }
 }
 
