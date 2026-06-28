@@ -164,8 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prototypeChatAPI) prototypeChatAPI.initialize();
 
     async function sendMessage() {
-        const text = inputField.value.trim();
+        let text = inputField.value.trim();
         if (!text) return;
+
+        // Auto-capitalizar la primera letra y después de punto, interrogación o exclamación
+        text = text.replace(/(^\s*|[.!?]\s+|[¿¡]\s*)([a-zñáéíóúü])/g, (m, sep, letter) => sep + letter.toUpperCase());
 
         const now = new Date();
         const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });

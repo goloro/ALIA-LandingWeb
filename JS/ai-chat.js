@@ -97,8 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
         landingChatAPI.initialize();
 
         async function sendMessage() {
-            const text = chatInput.value.trim();
+            let text = chatInput.value.trim();
             if (!text) return;
+
+            // Auto-capitalizar la primera letra y después de punto, interrogación o exclamación
+            text = text.replace(/(^\s*|[.!?]\s+|[¿¡]\s*)([a-zñáéíóúü])/g, (m, sep, letter) => sep + letter.toUpperCase());
 
             // Añadir mensaje del usuario
             appendMessage(text, 'sent');
