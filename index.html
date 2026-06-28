@@ -96,15 +96,6 @@
                 window.isWindowLoaded = true;
                 window.checkAndHidePreloader();
             });
-
-            setTimeout(() => {
-                const p = document.getElementById('premium-preloader');
-                if(p && p.style.opacity !== '0') {
-                    p.style.opacity = '0'; p.style.visibility = 'hidden';
-                    document.body.classList.remove('loading');
-                    setTimeout(() => p.remove(), 600);
-                }
-            }, 6000);
         </script>
     </div>
 
