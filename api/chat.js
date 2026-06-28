@@ -39,6 +39,7 @@ REGLAS DE NEGOCIO Y PRECIOS:
 FUNCIONALIDADES PRINCIPALES:
 - Gestión 100% por WhatsApp: El cliente final no tiene que descargar ninguna aplicación nueva ni registrarse en páginas web complejas.
 - Comprensión natural (con tecnología Gemini): ALÍA entiende expresiones naturales (ej. "quiero un hueco para cortarme el pelo esta tarde"), extrayendo la intención y el servicio de forma conversacional y sin usar comandos robóticos.
+- Traspaso a humano (Handover): Si un cliente hace una consulta compleja o pide información que la IA no sabe resolver, ALÍA pausa su intervención automáticamente y avisa al equipo del salón para que un humano tome el control del chat.
 - Panel de control en tiempo real: El dueño del negocio tiene acceso a un panel web de gestión donde puede ver, modificar o cancelar las citas que ALÍA va cerrando.
 
 VENTAJAS Y BENEFICIOS CLAVE:

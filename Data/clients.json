@@ -710,22 +710,18 @@
                                           {
                                               "sender":  "client",
                                               "time":  "11:30",
-                                              "text":  "Buenas, quiero pedir cita con nuestro equipo"
+                                              "text":  "Buenas, estaba pensando en hacerme una decoloración gris plata, pero tengo el pelo bastante oscuro ahora mismo. ¿Cuánto me costaría y qué día podríais?"
                                           },
                                           {
                                               "sender":  "alia",
                                               "time":  "11:30",
-                                              "text":  "¡Hola Ricardo! Tengo un hueco disponible con nuestro equipo para el servicio. ¿Te lo apunto?"
+                                              "text":  "¡Hola Ricardo! 💇‍♂️ Un cambio a gris plata es un proceso complejo y depende mucho de tu tono actual. Para asegurarnos de darte un precio exacto y reservar el tiempo necesario en agenda, voy a avisar a uno de nuestros especialistas para que revise tu caso y te conteste por aquí."
                                           },
                                           {
-                                              "sender":  "client",
-                                              "time":  "11:33",
-                                              "text":  "Sí, genial gracias"
-                                          },
-                                          {
-                                              "sender":  "alia",
-                                              "time":  "11:33",
-                                              "text":  "¡Listo! Tu cita de el servicio con nuestro equipo queda confirmada. ¡Te esperamos!"
+                                              "sender":  "system",
+                                              "time":  "11:30",
+                                              "text":  "ASISTENTE ALIA PAUSADA • INTERVENCIÓN HUMANA REQUERIDA",
+                                              "sysType": "error"
                                           }
                                       ]
                      }
