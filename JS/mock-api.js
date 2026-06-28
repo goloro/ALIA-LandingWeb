@@ -145,9 +145,7 @@ class MockAPI {
                     "avatarUrl": "https://i.pravatar.cc/150?u=owner"
                 };
             }
-            if (this.state.appointments.length === 0) {
-                this._seedMockAppointments();
-            }
+            
 
             this.initialized = true;
         } catch (error) {
@@ -170,9 +168,7 @@ class MockAPI {
                 };
             }
             // Solo sembramos citas si no se cargó NADA (evita sobrescribir datos reales)
-            if (this.state.appointments.length === 0) {
-                this._seedMockAppointments();
-            }
+            
             this.initialized = true;
         }
     }
@@ -202,10 +198,10 @@ class MockAPI {
         const todayStr    = toLocalYMD(today);
         const tomorrowStr = toLocalYMD(tomorrow);
 
-        // Lunes de la semana actual (si hoy es domingo → siguiente lunes)
+        // Lunes de la semana actual (si hoy es domingo → lunes de ESTA semana, no el siguiente)
         const dow = today.getDay(); // 0=Dom, 1=Lun, …, 6=Sáb
         const monday = new Date(today);
-        monday.setDate(today.getDate() + (dow === 0 ? 1 : 1 - dow));
+        monday.setDate(today.getDate() + (dow === 0 ? -6 : 1 - dow));
         monday.setHours(0, 0, 0, 0);
 
         this.state.appointments = this.state.appointments.map(appt => {
@@ -240,172 +236,6 @@ class MockAPI {
 
             return { ...appt, rawDate, formattedDate: label, status };
         });
-    }
-
-    _seedMockAppointments() {
-        const now = new Date();
-        
-        const getNextValidDate = (startDate, profObj) => {
-            let d = new Date(startDate);
-            const closedDays = this.state.settings?.closedDays || [0];
-            while (true) {
-                if (!closedDays.includes(d.getDay())) {
-                    if (!profObj || profObj.dayOff !== d.getDay()) {
-                        return d;
-                    }
-                }
-                d.setDate(d.getDate() + 1);
-            }
-        };
-
-        const prof1Obj = this.state.team[0] || { name: "Dra. Laura Gómez", dayOff: 2 };
-        const prof2Obj = this.state.team[1] || { name: "Dr. Javier Ruiz", dayOff: 3 };
-        const myAgendaObj = { name: "Propietario", dayOff: 1 };
-
-        const p1_date1 = getNextValidDate(now, prof1Obj);
-        const p1_date2 = getNextValidDate(new Date(p1_date1.getTime() + 86400000), prof1Obj);
-        
-        const p2_date1 = getNextValidDate(now, prof2Obj);
-        const p2_date2 = getNextValidDate(new Date(p2_date1.getTime() + 86400000), prof2Obj);
-        
-        const my_date1 = getNextValidDate(now, myAgendaObj);
-        const my_date2 = getNextValidDate(new Date(my_date1.getTime() + 86400000), myAgendaObj);
-
-        const formatD = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-        const formatLabel = (d) => {
-            const today = new Date();
-            const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
-            if (d.toDateString() === today.toDateString()) return "Hoy";
-            if (d.toDateString() === tomorrow.toDateString()) return "Mañana";
-            return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
-        };
-        const prof1 = prof1Obj.name;
-        const prof2 = prof2Obj.name;
-        const myAgenda = myAgendaObj.name;
-
-        const seedAppts = [
-            { id: 101, clientId: 101, clientName: "Carlos Pérez", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "10:30", duration: 60, service: "Corte y Lavado", icon: "tijeras", prof: prof1, status: "completed", createdAt: formatD(now), source: "Alia" },
-            { id: 102, clientId: 102, clientName: "Ana López", rawDate: formatD(p1_date1), formattedDate: formatLabel(p1_date1), time: "12:00", duration: 90, service: "Coloración", icon: "gota", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000)), source: "Alia" },
-            { id: 103, clientId: 103, clientName: "Miguel Sanz", rawDate: formatD(p2_date1), formattedDate: formatLabel(p2_date1), time: "16:00", duration: 30, service: "Arreglo Barba", icon: "cuchilla", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*2)), source: "Manual" },
-            { id: 104, clientId: 104, clientName: "Lucía M.", rawDate: formatD(p1_date2), formattedDate: formatLabel(p1_date2), time: "11:00", duration: 60, service: "Peinado", icon: "tijeras", prof: prof1, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*3)), source: "Alia" },
-            { id: 105, clientId: 105, clientName: "David R.", rawDate: formatD(p2_date2), formattedDate: formatLabel(p2_date2), time: "13:30", duration: 30, service: "Corte Express", icon: "tijeras", prof: prof2, status: "pending", createdAt: formatD(new Date(now.getTime() - 86400000*4)), source: "Manual" },
-            
-            // Mi Agenda appointments
-            { id: 106, clientId: 106, clientName: "Roberto F.", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "11:30", duration: 45, service: "Revisión Equipo", icon: "maletin", prof: myAgenda, status: "pending", createdAt: formatD(now), source: "Manual" },
-            { id: 107, clientId: 107, clientName: "Emma", rawDate: formatD(my_date1), formattedDate: formatLabel(my_date1), time: "17:30", duration: 60, service: "Corte de pelo", icon: "tijeras", prof: myAgenda, status: "pending", createdAt: formatD(now), source: "Alia" },
-            { id: 108, clientId: 108, clientName: "Admin", rawDate: formatD(my_date2), formattedDate: formatLabel(my_date2), time: "10:00", duration: 120, service: "Gestión Proveedores", icon: "maletin", prof: myAgenda, status: "completed", createdAt: formatD(now), source: "Manual" }
-        ];
-
-        // Añadir estos clientes a la base de datos simulada para que salgan en la pestaña de clientes
-        seedAppts.forEach(appt => {
-            const existingClient = this.state.clients.find(c => c.id === appt.clientId);
-            if (!existingClient) {
-                this.state.clients.push({
-                    id: appt.clientId,
-                    name: appt.clientName,
-                    email: appt.clientName.replace(' ', '.').toLowerCase() + "@ejemplo.com",
-                    phone: "+34 600 000 " + (appt.clientId - 100).toString().padStart(2, '0'),
-                    lastAppt: appt.rawDate,
-                    totalAppts: 1,
-                    registeredAt: appt.rawDate,
-                    notes: "Cliente autogenerado por el prototipo para la cita de hoy/mañana.",
-                    history: [
-                        { date: appt.rawDate + ", " + appt.time, status: appt.status, service: appt.service, prof: appt.prof }
-                    ],
-                    source: 'Alia'
-                });
-            }
-        });
-
-        // Add potential clients (leads who spoke to Alia but haven't booked)
-        this.state.clients.push({
-            id: 901,
-            name: "Marta Sánchez",
-            email: "marta.s@ejemplo.com",
-            phone: "+34 600 000 90",
-            lastAppt: null,
-            totalAppts: 0,
-            registeredAt: new Date().toISOString().split('T')[0],
-            notes: "Lead generado ayer. Interesada en tratamiento facial.",
-            history: [],
-            source: 'Alia'
-        });
-
-        this.state.clients.push({
-            id: 902,
-            name: "Ricardo Mendoza",
-            email: "ricardo.m@ejemplo.com",
-            phone: "+34 600 000 91",
-            lastAppt: null,
-            totalAppts: 0,
-            registeredAt: new Date().toISOString().split('T')[0],
-            notes: "Interesado en decoloración gris plata.",
-            history: [],
-            source: 'Alia'
-        });
-
-        // Initialize Chat Data
-        this.state.chats = {
-            101: {
-                unread: 0,
-                messages: [
-                    { sender: 'client', text: 'Hola, necesito cortarme el pelo y lavar. ¿Tenéis hueco hoy por la mañana?', time: '09:00 AM' },
-                    { sender: 'alia', text: '¡Hola Carlos! Soy ALIA, el asistente virtual. Sí, tenemos un hueco disponible a las 10:30 con la Dra. Laura Gómez. ¿Te lo reservo?', time: '09:01 AM' },
-                    { sender: 'client', text: 'Sí, genial. Reserva ese.', time: '09:05 AM' },
-                    { sender: 'alia', text: '¡Perfecto! Tu cita para "Corte y Lavado" ha sido confirmada para hoy a las 10:30 en nuestro local (Calle Peluquería 123). ¡Te esperamos!', time: '09:05 AM' }
-                ]
-            },
-            102: {
-                unread: 0,
-                messages: [
-                    { sender: 'client', text: 'Buenas, me gustaría hacerme unas mechas y coloración. ¿A qué hora puedo ir?', time: '09:30 AM' },
-                    { sender: 'alia', text: '¡Hola Ana! ¿Tienes preferencia de estilista? Te puedo buscar hueco para hoy.', time: '09:31 AM' },
-                    { sender: 'client', text: 'Cualquiera está bien, pero me gustaría sobre mediodía si es posible.', time: '09:35 AM' },
-                    { sender: 'alia', text: 'Hecho. Te he agendado una cita de Coloración de 90 minutos para hoy a las 12:00 en nuestro salón (Calle Peluquería 123) con la Dra. Laura Gómez. ¡Nos vemos luego!', time: '09:35 AM' }
-                ]
-            },
-            104: {
-                unread: 0,
-                messages: [
-                    { sender: 'client', text: 'Hola, tengo una boda mañana y necesito que me peinéis.', time: '10:00 AM' },
-                    { sender: 'alia', text: '¡Hola Lucía! ¡Qué evento más chulo! Te puedo agendar mañana por la mañana a las 11:00 con la Dra. Laura Gómez, que es experta en recogidos y peinados. ¿Te encaja?', time: '10:02 AM' },
-                    { sender: 'client', text: 'Sí, por favor, me viene de perlas.', time: '10:05 AM' },
-                    { sender: 'alia', text: 'Cita reservada: Peinado para mañana a las 11:00 en nuestro centro (Calle Peluquería 123) con la Dra. Laura Gómez. ¡Te dejaremos espectacular!', time: '10:06 AM' }
-                ]
-            },
-            107: {
-                unread: 1,
-                messages: [
-                    { sender: 'client', text: '¡Hola! Necesito un corte rápido, las puntas.', time: '15:00' },
-                    { sender: 'alia', text: '¡Hola Emma! Tengo un hueco hoy a las 17:30. Te atenderá directamente nuestro Propietario. ¿Te lo dejo anotado?', time: '15:02' },
-                    { sender: 'client', text: 'Sí, ¡perfecto!', time: '15:05' },
-                    { sender: 'alia', text: 'Cita confirmada para hoy a las 17:30 en nuestro salón (Calle Peluquería 123). ¡Hasta luego!', time: '15:05' }
-                ]
-            },
-            901: {
-                unread: 1,
-                messages: [
-                    { sender: 'client', text: 'Hola, quería informarme sobre los precios del tratamiento facial.', time: '09:00' },
-                    { sender: 'alia', text: '¡Hola Marta! El tratamiento facial cuesta 60€ y dura unos 90 minutos. Incluye limpieza profunda e hidratación. ¿Te gustaría agendar una cita?', time: '09:01' },
-                    { sender: 'client', text: 'Me lo pienso y te digo, gracias.', time: '09:30' }
-                ]
-            },
-            902: {
-                unread: 1,
-                messages: [
-                    { sender: 'client', text: 'Hola, quería pedir cita. Quiero teñirme el pelo de gris plata o blanco.', time: '10:15 AM' },
-                    { sender: 'alia', text: '¡Hola Ricardo! 🤖 Soy ALIA, el asistente virtual de la peluquería ALIA. Estaré encantada de ayudarte. Para un cambio a gris plata, ¿tienes preferencia por algún barbero o estilista de nuestro equipo, o te busco el primer hueco disponible?', time: '10:15 AM' },
-                    { sender: 'client', text: 'Me da igual quién me lo haga. Pero antes de ir necesito saber exactamente cuánto me va a costar y cuánto vais a tardar. Tengo el pelo castaño muy oscuro, casi negro, y bastante fino.', time: '10:17 AM' },
-                    { sender: 'alia', text: 'Entiendo. Para llegar a un gris plata o blanco desde una base tan oscura, se necesita un proceso de decoloración intenso. El precio base de la decoloración más el matiz es de 55€, pero el tiempo y el precio final varían según las sesiones que necesite tu cabello para aclarar. Lo ideal sería agendar una cita de valoración gratuita de 15 minutos. ¿Te busco hueco para que un especialista lo vea?', time: '10:17 AM' },
-                    { sender: 'client', text: 'Es que trabajo hasta tarde y no tengo tiempo para ir dos veces. Necesito que me deis un precio cerrado por aquí y saber si se me va a quemar o caer el pelo por decolorarlo tanto. Si la broma sube de 90€ decídmelo ya y busco otro sitio.', time: '10:20 AM' },
-                    { sender: 'alia', text: 'Entiendo perfectamente tu situación, Ricardo. Como se trata de un proceso químico muy fuerte sobre cabello fino y oscuro, prefiero que un especialista valore tus dudas directamente para no darte un presupuesto incorrecto ni arriesgar la salud de tu pelo o tu cuero cabelludo.\n⏸️ Pauso mi asistencia automática. En unos minutos uno de nuestros estilistas leerá esto y te responderá por aquí mismo. ¡Dame un momento!', time: '10:20 AM' },
-                    { sender: 'system', text: 'ASISTENTE ALIA PAUSADA ⏸️ INTERVENCIÓN HUMANA REQUERIDA', time: '' },
-                    { sender: 'profesional', text: 'Hola Ricardo, soy Marcos, especialista colorista de la peluquería. Haces muy bien en preguntar. Pasar de oscuro a gris plata en pelo fino casi siempre requiere dos decoloraciones suaves para no romper la fibra capilar, además del matiz. Darte un precio cerrado por WhatsApp sin hacer una prueba de mechón es arriesgado, pero calcula que rondará los 85-100€ y tardaremos unas 3 horas. Si te encaja, te busco un hueco largo esta semana.', time: '10:25 AM', profName: 'PROFESIONAL MARCOS GÓMEZ' }
-                ]
-            }
-        };
-
-        this.state.appointments = seedAppts;
     }
 
     // Helper to simulate network latency
@@ -579,18 +409,117 @@ class MockAPI {
     }
 
 
+    // Helper: fecha local YYYY-MM-DD sin bug UTC
+    _toLocalYMD(d) {
+        const y  = d.getFullYear();
+        const mo = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        return `${y}-${mo}-${dd}`;
+    }
+
+    // Expande la plantilla semanal (dayOffset 0-5) a la semana de targetMonday
+    // si aún no hay citas para esa semana. Llamado de forma lazy desde getAppointments.
+    _expandWeekIfNeeded(targetMondayStr) {
+        // ¿Ya hay citas para esta semana?
+        const alreadyCovered = this.state.appointments.some(a =>
+            a.rawDate && a.rawDate >= targetMondayStr &&
+            a.rawDate <= targetMondayStr.replace(/\d+$/, m => String(parseInt(m) + 6).padStart(2,'0'))
+        );
+        if (alreadyCovered) return;
+
+        // Calcular lunes de targetMondayStr
+        const wkMonday = new Date(targetMondayStr + 'T00:00:00');
+
+        // Número de semana relativo a la semana actual (para variación horaria)
+        const today = new Date(); today.setHours(0,0,0,0);
+        const dow = today.getDay();
+        const curMonday = new Date(today);
+        curMonday.setDate(today.getDate() + (dow === 0 ? -6 : 1 - dow));
+        const wDelta = Math.round((wkMonday - curMonday) / (7 * 86400000));
+        const timeShift = [0, 10, 5][Math.abs(wDelta) % 3];
+
+        const lunchMap = {
+            'Javier Ruiz':      { s: 870, e: 930 },
+            'Alejandro Mora':   { s: 840, e: 900 },
+            'Laura G\u00f3mez': { s: 810, e: 870 },
+        };
+
+        // Plantillas: citas con dayOffset 0-5 (la semana actual como template)
+        const templates = this.state.appointments.filter(a =>
+            a.dayOffset !== undefined && a.dayOffset !== null &&
+            Number(a.dayOffset) >= 0 && Number(a.dayOffset) <= 5
+        );
+
+        const todayStr = this._toLocalYMD(today);
+        const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+        const tomorrowStr = this._toLocalYMD(tomorrow);
+
+        const virtual = [];
+        templates.forEach(appt => {
+            const apptDate = new Date(wkMonday);
+            apptDate.setDate(wkMonday.getDate() + Number(appt.dayOffset));
+            const rawDate = this._toLocalYMD(apptDate);
+
+            const [h, m] = appt.time.split(':').map(Number);
+            let startMins = h * 60 + m + timeShift;
+            const dur = parseInt(appt.duration) || 45;
+            let endMins = startMins + dur;
+
+            if (endMins > 1140) return; // después de 19:00
+
+            const lunch = lunchMap[appt.prof];
+            if (lunch && startMins < lunch.e && endMins > lunch.s) {
+                startMins = h * 60 + m;
+                endMins   = startMins + dur;
+                if (endMins > 1140) return;
+            }
+
+            const time = `${String(Math.floor(startMins/60)).padStart(2,'0')}:${String(startMins%60).padStart(2,'0')}`;
+
+            let lbl;
+            if (rawDate === todayStr)         lbl = 'Hoy';
+            else if (rawDate === tomorrowStr) lbl = 'Mañana';
+            else { const p = rawDate.split('-'); lbl = `${p[2]}/${p[1]}`; }
+
+            const vstatus = apptDate < today ? 'completed'
+                : (appt.status === 'cancelled' ? 'cancelled' : 'pending');
+
+            virtual.push({
+                ...appt,
+                id:            200000 + (Number(appt.id) * 30) + (Math.abs(wDelta) % 30),
+                rawDate,
+                formattedDate: lbl,
+                time,
+                status:        vstatus,
+                dayOffset:     null
+            });
+        });
+
+        if (virtual.length > 0) {
+            this.state.appointments = [...this.state.appointments, ...virtual];
+        }
+    }
+
     async getAppointments(filters = {}) {
         await this.init();
         await this._simulateDelay(100);
-        
+
+        // Expansión lazy: si se pide una semana sin datos, generar desde template
+        const checkDate = filters.startDate || filters.date || null;
+        if (checkDate) {
+            const d = new Date(checkDate + 'T00:00:00');
+            const dd = d.getDay();
+            const mon = new Date(d);
+            mon.setDate(d.getDate() + (dd === 0 ? -6 : 1 - dd));
+            this._expandWeekIfNeeded(this._toLocalYMD(mon));
+        }
+
         return this.state.appointments.filter(appt => {
             if (appt.status === 'cancelled') return false;
             if (filters.prof && appt.prof !== filters.prof) return false;
-            
             if (filters.startDate && appt.rawDate < filters.startDate) return false;
-            if (filters.endDate && appt.rawDate > filters.endDate) return false;
-            if (filters.date && appt.rawDate !== filters.date) return false;
-            
+            if (filters.endDate   && appt.rawDate > filters.endDate)   return false;
+            if (filters.date      && appt.rawDate !== filters.date)     return false;
             return true;
         });
     }
@@ -632,11 +561,11 @@ class MockAPI {
         const chatClients = this.state.clients.filter(c => c.source === 'Alia');
         
         return chatClients.map(client => {
-            const chatData = this.state.chats[client.id] || { unread: 0, messages: [] };
-            const lastMessage = chatData.messages.length > 0 ? chatData.messages[chatData.messages.length - 1] : null;
+            const chatData = client.chatData || { unread: 0, messages: [] };
+            const lastMessage = chatData.messages && chatData.messages.length > 0 ? chatData.messages[chatData.messages.length - 1] : null;
             return {
                 client: client,
-                unread: chatData.unread,
+                unread: chatData.unread || 0,
                 lastMessage: lastMessage
             };
         });
@@ -647,29 +576,33 @@ class MockAPI {
         await this._simulateDelay(200);
         
         // Mark as read when fetching
-        if (this.state.chats[clientId]) {
-            this.state.chats[clientId].unread = 0;
+        let client = this.state.clients.find(c => c.id == clientId);
+        if (client && client.chatData) {
+            client.chatData.unread = 0;
         }
         
-        const chatData = this.state.chats[clientId] || { unread: 0, messages: [] };
-        return chatData.messages;
+        const chatData = client && client.chatData ? client.chatData : { unread: 0, messages: [] };
+        return chatData.messages || [];
     }
 
     async addChatMessage(clientId, text, sender = 'alia') {
         await this.init();
         await this._simulateDelay(400); // Network delay
 
-        if (!this.state.chats[clientId]) {
-            this.state.chats[clientId] = { unread: 0, messages: [] };
+        let client = this.state.clients.find(c => c.id == clientId);
+        if (client) {
+            if (!client.chatData) client.chatData = { unread: 0, messages: [] };
+            if (!client.chatData.messages) client.chatData.messages = [];
+            
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+            
+            const newMsg = { sender: sender, text: text, time: timeStr };
+            client.chatData.messages.push(newMsg);
+            
+            return newMsg;
         }
-        
-        const now = new Date();
-        const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-        
-        const newMsg = { sender: sender, text: text, time: timeStr };
-        this.state.chats[clientId].messages.push(newMsg);
-        
-        return newMsg;
+        return null;
     }
 }
 

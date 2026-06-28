@@ -10,12 +10,42 @@
         "notes": "Prefiere citas por la mañana. Alérgica a productos con amoníaco — usar solo tintes sin amoniaco.",
         "source": "Alia",
         "history": [
-            { "date": "20 JUN 2026, 10:00", "status": "completed", "service": "Corte y Peinado",   "prof": "Laura Gómez" },
-            { "date": "05 JUN 2026, 10:30", "status": "completed", "service": "Tinte y Mechas",    "prof": "Laura Gómez" },
-            { "date": "12 MAY 2026, 10:00", "status": "completed", "service": "Tratamiento Capilar","prof": "Laura Gómez" },
-            { "date": "10 MAR 2026, 10:00", "status": "noshow",    "service": "Tinte y Mechas",    "prof": "Laura Gómez" },
-            { "date": "01 FEB 2026, 10:00", "status": "completed", "service": "Corte y Peinado",   "prof": "Laura Gómez" },
-            { "date": "15 ENE 2026, 11:30", "status": "completed", "service": "Manicura Semipermanente", "prof": "Laura Gómez" }
+            {
+                "date": "20 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "05 JUN 2026, 10:30",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "12 MAY 2026, 10:00",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "10 MAR 2026, 10:00",
+                "status": "noshow",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "01 FEB 2026, 10:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "15 ENE 2026, 11:30",
+                "status": "completed",
+                "service": "Manicura Semipermanente",
+                "prof": "Laura Gómez"
+            }
         ]
     },
     {
@@ -29,12 +59,42 @@
         "notes": "Cliente VIP. Siempre pide a Javier. Barba a navaja. Profesión: abogado.",
         "source": "Alia",
         "history": [
-            { "date": "19 JUN 2026, 18:30", "status": "completed", "service": "Corte + Barba",      "prof": "Javier Ruiz" },
-            { "date": "28 MAY 2026, 18:30", "status": "completed", "service": "Corte + Barba",      "prof": "Javier Ruiz" },
-            { "date": "10 MAY 2026, 17:00", "status": "completed", "service": "Corte de caballero", "prof": "Javier Ruiz" },
-            { "date": "22 ABR 2026, 18:30", "status": "completed", "service": "Corte + Barba",      "prof": "Javier Ruiz" },
-            { "date": "05 ABR 2026, 18:00", "status": "cancelled", "service": "Corte + Barba",      "prof": "Javier Ruiz" },
-            { "date": "12 MAR 2026, 18:30", "status": "completed", "service": "Corte + Barba",      "prof": "Javier Ruiz" }
+            {
+                "date": "19 JUN 2026, 18:30",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 MAY 2026, 18:30",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "10 MAY 2026, 17:00",
+                "status": "completed",
+                "service": "Corte de caballero",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "22 ABR 2026, 18:30",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "05 ABR 2026, 18:00",
+                "status": "cancelled",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "12 MAR 2026, 18:30",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            }
         ]
     },
     {
@@ -48,12 +108,42 @@
         "notes": "Interesada en tratamientos capilares de queratina. Llegó por recomendación de Marta García.",
         "source": "Alia",
         "history": [
-            { "date": "18 JUN 2026, 16:00", "status": "completed", "service": "Tratamiento Capilar",     "prof": "Laura Gómez" },
-            { "date": "08 MAY 2026, 16:00", "status": "completed", "service": "Lavado y Marcado",        "prof": "Laura Gómez" },
-            { "date": "15 ABR 2026, 16:30", "status": "completed", "service": "Corte y Peinado",         "prof": "Laura Gómez" },
-            { "date": "10 MAR 2026, 17:00", "status": "completed", "service": "Tratamiento Capilar",     "prof": "Laura Gómez" },
-            { "date": "01 FEB 2026, 16:00", "status": "noshow",    "service": "Manicura Semipermanente", "prof": "Laura Gómez" },
-            { "date": "20 ENE 2026, 16:30", "status": "completed", "service": "Lavado y Marcado",        "prof": "Laura Gómez" }
+            {
+                "date": "18 JUN 2026, 16:00",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "08 MAY 2026, 16:00",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "15 ABR 2026, 16:30",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "10 MAR 2026, 17:00",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "01 FEB 2026, 16:00",
+                "status": "noshow",
+                "service": "Manicura Semipermanente",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "20 ENE 2026, 16:30",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            }
         ]
     },
     {
@@ -67,10 +157,30 @@
         "notes": "Viene cada 6 semanas. Le encantó el balayage. Prefiere cortes modernos.",
         "source": "Alia",
         "history": [
-            { "date": "16 JUN 2026, 11:00", "status": "completed", "service": "Peinado y Recogido", "prof": "Laura Gómez" },
-            { "date": "22 ABR 2026, 11:30", "status": "completed", "service": "Balayage",           "prof": "Laura Gómez" },
-            { "date": "12 MAR 2026, 10:00", "status": "completed", "service": "Corte y Peinado",    "prof": "Laura Gómez" },
-            { "date": "30 ENE 2026, 11:00", "status": "completed", "service": "Tratamiento Capilar","prof": "Laura Gómez" }
+            {
+                "date": "16 JUN 2026, 11:00",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "22 ABR 2026, 11:30",
+                "status": "completed",
+                "service": "Balayage",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "12 MAR 2026, 10:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "30 ENE 2026, 11:00",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            }
         ]
     },
     {
@@ -84,11 +194,126 @@
         "notes": "Viene cada 3-4 semanas. Solo arreglo de barba. No le gustan los lados muy cortos.",
         "source": "Manual",
         "history": [
-            { "date": "19 JUN 2026, 16:00", "status": "completed", "service": "Arreglo Barba", "prof": "Javier Ruiz" },
-            { "date": "25 MAY 2026, 16:30", "status": "completed", "service": "Arreglo Barba", "prof": "Javier Ruiz" },
-            { "date": "30 ABR 2026, 16:00", "status": "completed", "service": "Corte + Barba", "prof": "Javier Ruiz" },
-            { "date": "05 ABR 2026, 16:00", "status": "completed", "service": "Arreglo Barba", "prof": "Javier Ruiz" },
-            { "date": "10 MAR 2026, 17:00", "status": "completed", "service": "Arreglo Barba", "prof": "Javier Ruiz" }
+            {
+                "date": "19 JUN 2026, 16:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "25 MAY 2026, 16:30",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "30 ABR 2026, 16:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "05 ABR 2026, 16:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "10 MAR 2026, 17:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:35",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:10",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:50",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:50",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:05",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:50",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:15",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            }
         ]
     },
     {
@@ -102,10 +327,30 @@
         "notes": "Muy exigente con el acabado. Le gustan los tratamientos faciales y la manicura.",
         "source": "Alia",
         "history": [
-            { "date": "18 JUN 2026, 12:00", "status": "completed", "service": "Tratamiento Facial",     "prof": "Laura Gómez" },
-            { "date": "15 MAY 2026, 12:00", "status": "completed", "service": "Manicura Semipermanente","prof": "Laura Gómez" },
-            { "date": "10 ABR 2026, 11:30", "status": "completed", "service": "Tratamiento Facial",     "prof": "Laura Gómez" },
-            { "date": "20 FEB 2026, 12:00", "status": "completed", "service": "Manicura Semipermanente","prof": "Laura Gómez" }
+            {
+                "date": "18 JUN 2026, 12:00",
+                "status": "completed",
+                "service": "Tratamiento Facial",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "15 MAY 2026, 12:00",
+                "status": "completed",
+                "service": "Manicura Semipermanente",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "10 ABR 2026, 11:30",
+                "status": "completed",
+                "service": "Tratamiento Facial",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "20 FEB 2026, 12:00",
+                "status": "completed",
+                "service": "Manicura Semipermanente",
+                "prof": "Laura Gómez"
+            }
         ]
     },
     {
@@ -119,9 +364,24 @@
         "notes": "Cliente ocasional. Trabaja de noche, prefiere citas a última hora de la tarde.",
         "source": "Manual",
         "history": [
-            { "date": "17 JUN 2026, 19:00", "status": "completed", "service": "Corte Clásico", "prof": "Javier Ruiz" },
-            { "date": "20 MAR 2026, 19:00", "status": "completed", "service": "Corte Clásico", "prof": "Javier Ruiz" },
-            { "date": "10 ENE 2026, 19:00", "status": "completed", "service": "Corte + Barba", "prof": "Javier Ruiz" }
+            {
+                "date": "17 JUN 2026, 19:00",
+                "status": "completed",
+                "service": "Corte Clásico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "20 MAR 2026, 19:00",
+                "status": "completed",
+                "service": "Corte Clásico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "10 ENE 2026, 19:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            }
         ]
     },
     {
@@ -135,9 +395,24 @@
         "notes": "Estudiante universitaria. Viene antes de exámenes o eventos. Le gustan los estilos naturales.",
         "source": "Alia",
         "history": [
-            { "date": "20 JUN 2026, 10:00", "status": "completed", "service": "Corte y Peinado",  "prof": "Laura Gómez" },
-            { "date": "15 MAR 2026, 10:00", "status": "completed", "service": "Lavado y Marcado", "prof": "Laura Gómez" },
-            { "date": "20 ENE 2026, 10:30", "status": "completed", "service": "Corte y Peinado",  "prof": "Laura Gómez" }
+            {
+                "date": "20 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "15 MAR 2026, 10:00",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "20 ENE 2026, 10:30",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            }
         ]
     },
     {
@@ -151,10 +426,30 @@
         "notes": "Sin email. Solo WhatsApp. Viene cada mes. Siempre pide corte express.",
         "source": "Manual",
         "history": [
-            { "date": "19 JUN 2026, 13:30", "status": "completed", "service": "Corte Express", "prof": "Javier Ruiz" },
-            { "date": "20 MAY 2026, 13:30", "status": "completed", "service": "Corte Express", "prof": "Javier Ruiz" },
-            { "date": "22 ABR 2026, 13:00", "status": "completed", "service": "Corte Express", "prof": "Javier Ruiz" },
-            { "date": "25 MAR 2026, 13:30", "status": "completed", "service": "Corte Express", "prof": "Javier Ruiz" }
+            {
+                "date": "19 JUN 2026, 13:30",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "20 MAY 2026, 13:30",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "22 ABR 2026, 13:00",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "25 MAR 2026, 13:30",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            }
         ]
     },
     {
@@ -179,7 +474,54 @@
         "registeredAt": "2026-06-20",
         "notes": "Lead generado vía ALIA. Interesado en decoloración gris plata. Requiere valoración.",
         "source": "Alia",
-        "history": []
+        "history": [],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quería pedir cita. Quiero teñirme el pelo de gris plata o blanco.",
+                    "time": "10:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "¡Hola Ricardo! 👋 Soy ALIA, el asistente virtual de la peluquería. Estaré encantada de ayudarte. Para un cambio a gris plata, ¿tienes preferencia por algún barbero o estilista de nuestro equipo, o te busco el primer hueco disponible?",
+                    "time": "10:15"
+                },
+                {
+                    "sender": "client",
+                    "text": "Me da igual quién me lo haga. Pero antes de ir necesito saber exactamente cuánto me va a costar y cuánto vais a tardar. Tengo el pelo castaño muy oscuro, casi negro, y bastante fino.",
+                    "time": "10:17"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Entiendo. Para llegar a un gris plata o blanco desde una base tan oscura, se necesita un proceso de decoloración intenso. El precio base de la decoloración más el matiz es de 55€, pero el tiempo y el precio final varían según las sesiones que necesite tu cabello para aclarar. Lo ideal sería agendar una cita de valoración gratuita de 15 minutos. ¿Te busco hueco para que un especialista lo vea?",
+                    "time": "10:17"
+                },
+                {
+                    "sender": "client",
+                    "text": "Es que trabajo hasta tarde y no tengo tiempo para ir dos veces. Necesito que me deis un precio cerrado por aquí y saber si se me va a quemar o caer el pelo por decolorarlo tanto. Si la broma sube de 90€ decídmelo ya y busco otro sitio.",
+                    "time": "10:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Entiendo perfectamente tu situación, Ricardo. Como se trata de un proceso químico muy fuerte sobre cabello fino y oscuro, prefiero que un especialista valore tus dudas directamente para no darte un presupuesto incorrecto ni arriesgar la salud de tu pelo o tu cuero cabelludo.\n⏸️ Pauso mi asistencia automática. En unos minutos uno de nuestros estilistas leerá esto y te responderá por aquí mismo. ¡Dame un momento!",
+                    "time": "10:20"
+                },
+                {
+                    "sender": "system",
+                    "sysType": "error",
+                    "text": "ASISTENTE ALIA PAUSADA ⏸ INTERVENCIÓN HUMANA REQUERIDA",
+                    "time": ""
+                },
+                {
+                    "sender": "profesional",
+                    "text": "Hola Ricardo, soy Marcos, especialista colorista de la peluquería. Haces muy bien en preguntar. Pasar de oscuro a gris plata en pelo fino casi siempre requiere dos decoloraciones suaves para no romper la fibra capilar, además del matiz. Darte un precio cerrado por WhatsApp sin hacer una prueba de mechón es arriesgado, pero calcula que rondará los 85-100€ y tardaremos unas 3 horas. Si te encaja, te busco un hueco largo esta semana.",
+                    "time": "10:25",
+                    "profName": "MARCOS GÓMEZ"
+                }
+            ]
+        }
     },
     {
         "id": 10,
@@ -192,9 +534,90 @@
         "notes": "Clienta nueva. Vino por Instagram. Le gustan los colores naturales y los tratamientos hidratantes.",
         "source": "Alia",
         "history": [
-            { "date": "10 JUN 2026, 12:00", "status": "completed", "service": "Lavado y Marcado",   "prof": "Laura Gómez" },
-            { "date": "02 MAY 2026, 11:30", "status": "completed", "service": "Corte y Peinado",    "prof": "Alejandro Mora" },
-            { "date": "15 MAR 2026, 10:00", "status": "completed", "service": "Tratamiento Capilar","prof": "Laura Gómez" }
+            {
+                "date": "10 JUN 2026, 12:00",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "02 MAY 2026, 11:30",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "15 MAR 2026, 10:00",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 13:30",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:15",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:15",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:55",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            }
         ]
     },
     {
@@ -208,10 +631,30 @@
         "notes": "Barbero habitual. Viene cada 2-3 semanas. Prefiere turno de mañana.",
         "source": "Manual",
         "history": [
-            { "date": "09 JUN 2026, 10:00", "status": "completed", "service": "Corte + Barba",  "prof": "Javier Ruiz" },
-            { "date": "18 MAY 2026, 10:00", "status": "completed", "service": "Arreglo Barba",  "prof": "Javier Ruiz" },
-            { "date": "25 ABR 2026, 10:00", "status": "completed", "service": "Corte + Barba",  "prof": "Javier Ruiz" },
-            { "date": "01 ABR 2026, 10:30", "status": "completed", "service": "Corte Clásico",  "prof": "Javier Ruiz" }
+            {
+                "date": "09 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "18 MAY 2026, 10:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "25 ABR 2026, 10:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "01 ABR 2026, 10:30",
+                "status": "completed",
+                "service": "Corte Clásico",
+                "prof": "Javier Ruiz"
+            }
         ]
     },
     {
@@ -225,33 +668,4556 @@
         "notes": "Le gusta pedir citas de tarde. Interesada en manicura y coloración. Muy puntual.",
         "source": "Alia",
         "history": [
-            { "date": "05 JUN 2026, 17:00", "status": "completed", "service": "Manicura Semipermanente","prof": "Laura Gómez" },
-            { "date": "20 ABR 2026, 16:30", "status": "completed", "service": "Coloración",            "prof": "Laura Gómez" },
-            { "date": "15 MAR 2026, 17:00", "status": "completed", "service": "Lavado y Marcado",      "prof": "Laura Gómez" }
+            {
+                "date": "05 JUN 2026, 17:00",
+                "status": "completed",
+                "service": "Manicura Semipermanente",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "20 ABR 2026, 16:30",
+                "status": "completed",
+                "service": "Coloración",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "15 MAR 2026, 17:00",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            }
         ]
     },
     {
-        "id": 901,
-        "name": "Marta Sánchez",
-        "email": "marta.s@ejemplo.com",
-        "phone": "+34 600 000 090",
-        "lastAppt": null,
-        "totalAppts": 0,
-        "registeredAt": "2026-06-20",
-        "notes": "Lead generado vía ALIA. Interesada en tratamiento facial completo.",
+        "id": 1001,
+        "name": "Ruben Lopez",
+        "email": "ruben.lopez@gmail.com",
+        "phone": "+34 644502258",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
         "source": "Alia",
-        "history": []
+        "history": [
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:50",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:30",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:50",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:15",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:20",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:05",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:55",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:35",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:35",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Buenas tardes. Necesito cita para arreglo barba con Javier Ruiz.",
+                    "time": "14:30"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Claro, ALIA al aparato. Revisando la agenda de Javier Ruiz... qu te parece a las 10:00?",
+                    "time": "14:31"
+                },
+                {
+                    "sender": "client",
+                    "text": "Estupendo. Reserva a esa hora porfa.",
+                    "time": "14:40"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hecho! Nos vemos a las 10:00 para tu arreglo barba.",
+                    "time": "14:40"
+                }
+            ]
+        }
     },
     {
-        "id": 902,
-        "name": "Ricardo Mendoza",
-        "email": "ricardo.m@ejemplo.com",
-        "phone": "+34 600 000 091",
-        "lastAppt": null,
-        "totalAppts": 0,
-        "registeredAt": "2026-06-20",
-        "notes": "Lead generado vía ALIA. Interesado en decoloración gris plata. Requiere valoración.",
+        "id": 1002,
+        "name": "Sergio Navarro",
+        "email": "sergio.navarro@gmail.com",
+        "phone": "+34 689015296",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
         "source": "Alia",
-        "history": []
+        "history": [
+            {
+                "date": "28 JUN 2026, 10:25",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:35",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:00",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:25",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:55",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:30",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 14:10",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Buenas tardes. Necesito cita para corte clasico con Javier Ruiz.",
+                    "time": "14:30"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Claro, ALIA al aparato. Revisando la agenda de Javier Ruiz... qu te parece a las 10:25?",
+                    "time": "14:31"
+                },
+                {
+                    "sender": "client",
+                    "text": "Estupendo. Reserva a esa hora porfa.",
+                    "time": "14:40"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hecho! Nos vemos a las 10:25 para tu corte clasico.",
+                    "time": "14:40"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1003,
+        "name": "Ivan Castro",
+        "email": "ivan.castro@gmail.com",
+        "phone": "+34 679333869",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:35",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:35",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:40",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:55",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 14:10",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:40",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:35",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:50",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            }
+        ]
+    },
+    {
+        "id": 1004,
+        "name": "Pablo Romero",
+        "email": "pablo.romero@gmail.com",
+        "phone": "+34 681274939",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:50",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 14:10",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:15",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:30",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:25",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:40",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte express. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 11:50 con Javier Ruiz?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 11:50. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1005,
+        "name": "Diego Herrera",
+        "email": "diego.herrera@gmail.com",
+        "phone": "+34 674026936",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 3,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 12:20",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:25",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 14:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:45",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:15",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:50",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            }
+        ]
+    },
+    {
+        "id": 1006,
+        "name": "Adrian Vega",
+        "email": "adrian.vega@gmail.com",
+        "phone": "+34 634806045",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 13:00",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:55",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:30",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:40",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:15",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:40",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:35",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:45",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:25",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte + barba. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 13:00 con Javier Ruiz?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 13:00. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1007,
+        "name": "Daniel Mora",
+        "email": "daniel.mora@gmail.com",
+        "phone": "+34 630064771",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 13:50",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:50",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:30",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:40",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:20",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:35",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:35",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar arreglo barba. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 13:50 con Javier Ruiz?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 13:50. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1008,
+        "name": "Tomas Ruiz",
+        "email": "tomas.ruiz@gmail.com",
+        "phone": "+34 627769299",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:25",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:50",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:20",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:15",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:40",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:40",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:15",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            }
+        ]
+    },
+    {
+        "id": 1009,
+        "name": "Carlos Perez",
+        "email": "carlos.perez@gmail.com",
+        "phone": "+34 662268279",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:25",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:50",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:35",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:55",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:55",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:20",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:20",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:05",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte + barba. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 16:05 con Javier Ruiz?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 16:05. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1010,
+        "name": "Alvaro Gil",
+        "email": "alvaro.gil@gmail.com",
+        "phone": "+34 629275230",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 3,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:25",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:50",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 14:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:35",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:35",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:45",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:25",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:15",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:55",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:40",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:30",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            }
+        ]
+    },
+    {
+        "id": 1011,
+        "name": "Luis Martin",
+        "email": "luis.martin@gmail.com",
+        "phone": "+34 676976418",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 17:30",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:55",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 14:10",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:20",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:40",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:35",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:55",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:35",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:35",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 17:30 con Javier Ruiz. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para arreglo barba a las 17:30 con Javier Ruiz. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1012,
+        "name": "Roberto Torres",
+        "email": "roberto.torres@gmail.com",
+        "phone": "+34 627145399",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 18:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:40",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:30",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:15",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:25",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:15",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:15",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:35",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte clasico. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 18:00 con Javier Ruiz?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 18:00. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1013,
+        "name": "Jesus Blanco",
+        "email": "jesus.blanco@gmail.com",
+        "phone": "+34 663031621",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 10:15",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:40",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:25",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:55",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:10",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:35",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:40",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:50",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:55",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Buenas tardes. Necesito cita para corte + barba con Javier Ruiz.",
+                    "time": "14:30"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Claro, ALIA al aparato. Revisando la agenda de Javier Ruiz... qu te parece a las 10:15?",
+                    "time": "14:31"
+                },
+                {
+                    "sender": "client",
+                    "text": "Estupendo. Reserva a esa hora porfa.",
+                    "time": "14:40"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hecho! Nos vemos a las 10:15 para tu corte + barba.",
+                    "time": "14:40"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1014,
+        "name": "Fernando Castro",
+        "email": "fernando.castro@gmail.com",
+        "phone": "+34 660118064",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "pending",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:00",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 14:00",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:20",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 11:55",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:35",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:30",
+                "status": "completed",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 11:05 con Javier Ruiz. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para corte express a las 11:05 con Javier Ruiz. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1015,
+        "name": "Marco Garcia",
+        "email": "marco.garcia@gmail.com",
+        "phone": "+34 653721436",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:30",
+                "status": "pending",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 13:00",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:40",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:40",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:50",
+                "status": "completed",
+                "service": "Arreglo Barba",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 15:35",
+                "status": "completed",
+                "service": "Fade & Undercut",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 18:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Javier Ruiz"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "pending",
+                "service": "Corte + Barba",
+                "prof": "Javier Ruiz"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar fade & undercut. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 11:30 con Javier Ruiz?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 11:30. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1016,
+        "name": "Sofia Molina",
+        "email": "sofia.molina@gmail.com",
+        "phone": "+34 678637022",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:40",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:55",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:10",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:50",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:50",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 10:00 con Alejandro Mora. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para corte y peinado a las 10:00 con Alejandro Mora. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1017,
+        "name": "Ines Lopez",
+        "email": "ines.lopez@gmail.com",
+        "phone": "+34 699321912",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:45",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:20",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:55",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:10",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 11:00 con Alejandro Mora. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para corte clasico a las 11:00 con Alejandro Mora. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1018,
+        "name": "Beatriz Cruz",
+        "email": "beatriz.cruz@gmail.com",
+        "phone": "+34 668267932",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:45",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:30",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:00",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:45",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:25",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 11:45 con Alejandro Mora. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para lavado y marcado a las 11:45 con Alejandro Mora. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1019,
+        "name": "Natalia Rubio",
+        "email": "natalia.rubio@gmail.com",
+        "phone": "+34 627282033",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:20",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:55",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:40",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:25",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:55",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte express. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 12:45 con Alejandro Mora?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 12:45. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1020,
+        "name": "Marta Garcia",
+        "email": "marta.garcia@gmail.com",
+        "phone": "+34 648984193",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 13:20",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:55",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:50",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:05",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 13:20 con Alejandro Mora. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para corte clasico a las 13:20 con Alejandro Mora. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1021,
+        "name": "Carmen Ruiz",
+        "email": "carmen.ruiz@gmail.com",
+        "phone": "+34 643754073",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 15:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:45",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:35",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:50",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:05",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 15:00 con Alejandro Mora. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para corte y peinado a las 15:00 con Alejandro Mora. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1022,
+        "name": "Silvia Moreno",
+        "email": "silvia.moreno@gmail.com",
+        "phone": "+34 671283712",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 16:00",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:45",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:40",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:30",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:55",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:55",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:05",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:50",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            }
+        ]
+    },
+    {
+        "id": 1023,
+        "name": "Julia Perez",
+        "email": "julia.perez@gmail.com",
+        "phone": "+34 658980444",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 3,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:40",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:30",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            }
+        ]
+    },
+    {
+        "id": 1024,
+        "name": "Irene Soto",
+        "email": "irene.soto@gmail.com",
+        "phone": "+34 628209457",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 17:45",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:20",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:05",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 17:45 con Alejandro Mora. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para corte clasico a las 17:45 con Alejandro Mora. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1025,
+        "name": "Claudia Reyes",
+        "email": "claudia.reyes@gmail.com",
+        "phone": "+34 696051607",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 18:20",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:55",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:50",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:45",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte express. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 18:20 con Alejandro Mora?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 18:20. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1026,
+        "name": "Patricia Ortiz",
+        "email": "patricia.ortiz@gmail.com",
+        "phone": "+34 640189687",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 10:20",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:55",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:50",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte clasico. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 10:20 con Alejandro Mora?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 10:20. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1027,
+        "name": "Raquel Jimenez",
+        "email": "raquel.jimenez@gmail.com",
+        "phone": "+34 688688659",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:15",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:55",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:30",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:25",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:50",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            }
+        ]
+    },
+    {
+        "id": 1028,
+        "name": "Marina Leal",
+        "email": "marina.leal@gmail.com",
+        "phone": "+34 673412758",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:35",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:20",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:50",
+                "status": "completed",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:25",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar lavado y marcado. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 12:00 con Alejandro Mora?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 12:00. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1029,
+        "name": "Sara Palomar",
+        "email": "sara.palomar@gmail.com",
+        "phone": "+34 642768167",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 13:00",
+                "status": "pending",
+                "service": "Corte Express",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 15:00",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:00",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:50",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            }
+        ]
+    },
+    {
+        "id": 1030,
+        "name": "Elena Torres",
+        "email": "elena.torres@gmail.com",
+        "phone": "+34 621544921",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 15:00",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 17:00",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 10:20",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:45",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:30",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 12:10",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            },
+            {
+                "date": "28 JUN 2026, 13:20",
+                "status": "pending",
+                "service": "Corte Clasico",
+                "prof": "Alejandro Mora"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 15:00 con Alejandro Mora. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para lavado y marcado a las 15:00 con Alejandro Mora. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1031,
+        "name": "Isabel Jimenez",
+        "email": "isabel.jimenez@gmail.com",
+        "phone": "+34 626419905",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 15:25",
+                "status": "pending",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:30",
+                "status": "pending",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 10:00 con Laura Gómez. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para tinte y mechas a las 10:00 con Laura Gómez. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1032,
+        "name": "Lucia Fernandez",
+        "email": "lucia.fernandez@gmail.com",
+        "phone": "+34 678719949",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "pending",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:15",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "pending",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte y peinado. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 12:35 con Laura Gómez?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 12:35. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1033,
+        "name": "Pilar Sanchez",
+        "email": "pilar.sanchez@gmail.com",
+        "phone": "+34 616325260",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 14:30",
+                "status": "pending",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:40",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:25",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:15",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:15",
+                "status": "pending",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar coloracion. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 14:30 con Laura Gómez?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 14:30. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1034,
+        "name": "Cristina Lopez",
+        "email": "cristina.lopez@gmail.com",
+        "phone": "+34 646282353",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 16:05",
+                "status": "pending",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 16:15",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:40",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:35",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "pending",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 16:05 con Laura Gómez. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para manicura a las 16:05 con Laura Gómez. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1035,
+        "name": "Marta Rodriguez",
+        "email": "marta.rodriguez@gmail.com",
+        "phone": "+34 670966960",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 17:15",
+                "status": "pending",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "pending",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:25",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 16:25",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:40",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola, quera ver si tenis hueco para un corte rpido hoy.",
+                    "time": "09:00"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Soy ALIA, tu asistente virtual. Tengo un hueco a las 17:15 con Laura Gómez. Te lo reservo?",
+                    "time": "09:01"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, perfecto. Me viene genial.",
+                    "time": "09:03"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Genial! Cita reservada para tratamiento capilar a las 17:15 con Laura Gómez. Te esperamos!",
+                    "time": "09:03"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1036,
+        "name": "Ana Gutierrez",
+        "email": "ana.gutierrez@gmail.com",
+        "phone": "+34 620467633",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "pending",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:15",
+                "status": "pending",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:25",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:40",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:35",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Buenas tardes. Necesito cita para peinado y recogido con Laura Gómez.",
+                    "time": "14:30"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Claro, ALIA al aparato. Revisando la agenda de Laura Gómez... qu te parece a las 18:15?",
+                    "time": "14:31"
+                },
+                {
+                    "sender": "client",
+                    "text": "Estupendo. Reserva a esa hora porfa.",
+                    "time": "14:40"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hecho! Nos vemos a las 18:15 para tu peinado y recogido.",
+                    "time": "14:40"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1037,
+        "name": "Sandra Torres",
+        "email": "sandra.torres@gmail.com",
+        "phone": "+34 611937820",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:30",
+                "status": "pending",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:00",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 16:10",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            }
+        ]
+    },
+    {
+        "id": 1038,
+        "name": "Beatriz Herrera",
+        "email": "beatriz.herrera@gmail.com",
+        "phone": "+34 627579289",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 5,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:40",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 16:15",
+                "status": "pending",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:15",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:50",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:40",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:20",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:05",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            }
+        ]
+    },
+    {
+        "id": 1039,
+        "name": "Irene Castro",
+        "email": "irene.castro@gmail.com",
+        "phone": "+34 653146019",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 14:30",
+                "status": "pending",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:40",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:15",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 15:35",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:20",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            }
+        ]
+    },
+    {
+        "id": 1040,
+        "name": "Paloma Navarro",
+        "email": "paloma.navarro@gmail.com",
+        "phone": "+34 682554521",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "pending",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:25",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 16:15",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:40",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:15",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:35",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            }
+        ]
+    },
+    {
+        "id": 1041,
+        "name": "Laura Reyes",
+        "email": "laura.reyes@gmail.com",
+        "phone": "+34 615928709",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 3,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "pending",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:10",
+                "status": "pending",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            }
+        ]
+    },
+    {
+        "id": 1042,
+        "name": "Carmen Lopez",
+        "email": "carmen.lopez@gmail.com",
+        "phone": "+34 653972585",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:45",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:05",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:40",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:40",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:35",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Buenas tardes. Necesito cita para manicura con Laura Gómez.",
+                    "time": "14:30"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Claro, ALIA al aparato. Revisando la agenda de Laura Gómez... qu te parece a las 10:00?",
+                    "time": "14:31"
+                },
+                {
+                    "sender": "client",
+                    "text": "Estupendo. Reserva a esa hora porfa.",
+                    "time": "14:40"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hecho! Nos vemos a las 10:00 para tu manicura.",
+                    "time": "14:40"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1043,
+        "name": "Rosa Martinez",
+        "email": "rosa.martinez@gmail.com",
+        "phone": "+34 620151604",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 11:15",
+                "status": "pending",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:30",
+                "status": "pending",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:00",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:20",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 14:35",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 15:30",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar tratamiento capilar. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 11:15 con Laura Gómez?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 11:15. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1044,
+        "name": "Maria Garcia",
+        "email": "maria.garcia@gmail.com",
+        "phone": "+34 613611018",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 2,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 12:25",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "pending",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:15",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:00",
+                "status": "pending",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar corte y peinado. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 12:25 con Laura Gómez?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 12:25. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1045,
+        "name": "Ana Perez",
+        "email": "ana.perez@gmail.com",
+        "phone": "+34 656342311",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 4,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Manual",
+        "history": [
+            {
+                "date": "28 JUN 2026, 14:30",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "pending",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "completed",
+                "service": "Peinado y Recogido",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:05",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:35",
+                "status": "pending",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            }
+        ]
+    },
+    {
+        "id": 1046,
+        "name": "Alicia Vega",
+        "email": "alicia.vega@gmail.com",
+        "phone": "+34 642367349",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 3,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 14:30",
+                "status": "completed",
+                "service": "Tinte y Mechas",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:30",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:20",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:10",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:10",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 10:05",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:20",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 16:20",
+                "status": "completed",
+                "service": "Tratamiento Capilar",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 1,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar tinte y mechas. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 14:30 con Laura Gómez?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 14:30. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1047,
+        "name": "Daniela Reyes",
+        "email": "daniela.reyes@gmail.com",
+        "phone": "+34 673828523",
+        "lastAppt": "2026-06-28",
+        "totalAppts": 1,
+        "registeredAt": "2025-01-10",
+        "notes": "",
+        "source": "Alia",
+        "history": [
+            {
+                "date": "28 JUN 2026, 17:10",
+                "status": "completed",
+                "service": "Manicura",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 15:25",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 18:15",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:20",
+                "status": "completed",
+                "service": "Coloracion",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 11:45",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 12:30",
+                "status": "completed",
+                "service": "Corte y Peinado",
+                "prof": "Laura Gómez"
+            },
+            {
+                "date": "28 JUN 2026, 17:35",
+                "status": "completed",
+                "service": "Lavado y Marcado",
+                "prof": "Laura Gómez"
+            }
+        ],
+        "chatData": {
+            "unread": 0,
+            "messages": [
+                {
+                    "sender": "client",
+                    "text": "Hola ALIA! Necesito agendar manicura. Llevo el pelo fatal.",
+                    "time": "11:15"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Hola! Jaja, no te preocupes, lo solucionamos. Te viene bien a las 17:10 con Laura Gómez?",
+                    "time": "11:16"
+                },
+                {
+                    "sender": "client",
+                    "text": "S, me encaja perfecto.",
+                    "time": "11:20"
+                },
+                {
+                    "sender": "alia",
+                    "text": "Listo! Reservado a las 17:10. Hasta pronto!",
+                    "time": "11:20"
+                }
+            ]
+        }
     }
 ]

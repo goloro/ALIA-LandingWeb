@@ -2,7 +2,7 @@
     "closedDays": [0],
     "openHours": {
         "start": "10:00",
-        "end": "20:00"
+        "end": "19:00"
     },
     "slotDuration": 30,
     "currency": "EUR",

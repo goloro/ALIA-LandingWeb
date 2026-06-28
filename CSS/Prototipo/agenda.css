@@ -275,7 +275,6 @@
     grid-template-columns: repeat(4, 1fr);
     position: relative;
     margin-top: 16px;
-    padding-bottom: 24px;
 }
 
 /* Single Professional View State */
@@ -331,7 +330,8 @@
 /* Professional Column */
 .agenda-prof-col {
     position: relative;
-    height: calc(18 * 48px); /* 18 slots of 48px */
+    height: calc(19 * 48px); /* explicitly cover the 18:30-19:00 slot */
+    overflow: hidden;
 }
 
 .agenda-event {

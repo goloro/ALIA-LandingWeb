@@ -342,9 +342,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (d >= startOfWeek && d <= endOfWeek) {
                     countsByDay[d.getDay()]++;
                     
-                    // Buscar fuente real del cliente
+                    // Maximizar ALIA: Si no es explícitamente Manual, lo contamos como ALIA
                     const client = clients.find(c => c.id == appt.clientId);
-                    if (client && client.source === 'Alia') {
+                    let isManual = false;
+                    
+                    if (appt.source === 'Manual' || appt.source === 'Manuales') isManual = true;
+                    else if (client && (client.source === 'Manual' || client.source === 'Manuales')) isManual = true;
+                    
+                    if (!isManual) {
                         autoCountsByDay[d.getDay()]++;
                     }
                 }
