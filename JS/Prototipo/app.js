@@ -158,8 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatArea = document.getElementById('prototype-chat-container');
     const inputField = document.getElementById('prototype-chat-input');
     const sendBtn = document.getElementById('prototype-chat-send');
+    
+    // Instanciar la clase preparada para la API
+    const prototypeChatAPI = window.AliaPrototypeChat ? new window.AliaPrototypeChat() : null;
+    if (prototypeChatAPI) prototypeChatAPI.initialize();
 
-    function sendMessage() {
+    async function sendMessage() {
         const text = inputField.value.trim();
         if (!text) return;
 
@@ -182,6 +186,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         inputField.value = '';
+
+        if (!prototypeChatAPI) return;
+
+        // Simulamos indicador de escritura del bot
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message message-bot typing-indicator-msg';
+        typingDiv.innerHTML = `Escribiendo...`;
+        if (chatArea) {
+            chatArea.appendChild(typingDiv);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        try {
+            // Llamar a la clase que gestiona la API
+            const responseText = await prototypeChatAPI.sendMessage(text);
+            
+            // Quitar indicador de escritura
+            if (typingDiv.parentNode) typingDiv.parentNode.removeChild(typingDiv);
+            
+            // Añadir respuesta del bot
+            const botMsgDiv = document.createElement('div');
+            botMsgDiv.className = 'message message-bot';
+            botMsgDiv.innerHTML = `
+                ${responseText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+                <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+            `;
+            
+            if (chatArea) {
+                chatArea.appendChild(botMsgDiv);
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+        } catch (error) {
+            if (typingDiv.parentNode) typingDiv.parentNode.removeChild(typingDiv);
+            console.error("Error en la conexión con la API del Prototipo:", error);
+        }
     }
 
     if (sendBtn && inputField) {

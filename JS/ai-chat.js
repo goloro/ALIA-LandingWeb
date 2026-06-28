@@ -84,9 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let typingTimeout;
-        let responseTimeout;
 
-        function sendMessage() {
+        // Instanciar la clase preparada para la API
+        const landingChatAPI = new window.AliaLandingChat();
+        landingChatAPI.initialize();
+
+        async function sendMessage() {
             const text = chatInput.value.trim();
             if (!text) return;
 
@@ -94,25 +97,25 @@ document.addEventListener('DOMContentLoaded', () => {
             appendMessage(text, 'sent');
             chatInput.value = '';
 
-            // Limpiar cualquier respuesta anterior que estuviera pendiente
+            // Limpiar cualquier estado anterior
             clearTimeout(typingTimeout);
-            clearTimeout(responseTimeout);
             removeTypingIndicator();
 
             // Mostrar indicador "escribiendo..."
-            typingTimeout = setTimeout(() => {
-                showTypingIndicator();
-                
-                // Simular respuesta tras 1.5s
-                responseTimeout = setTimeout(() => {
-                    removeTypingIndicator();
-                    // Leer mensaje offline desde el atributo data inyectado por content-loader.js
-                    const offlineMsg = chatWindow.dataset.offlineMessage ||
-                        'En este momento no estoy conectada a mis servidores. ¡Pronto podré ayudarte con tu negocio!';
-                    appendMessage(offlineMsg, 'received');
-                }, 1500);
+            showTypingIndicator();
 
-            }, 500);
+            try {
+                // Llamar a la clase que gestiona la API
+                const response = await landingChatAPI.sendMessage(text);
+                removeTypingIndicator();
+                appendMessage(response, 'received');
+            } catch (error) {
+                removeTypingIndicator();
+                console.error("Error en la conexión con la API:", error);
+                const offlineMsg = chatWindow.dataset.offlineMessage ||
+                    'En este momento no estoy conectada a mis servidores. ¡Pronto podré ayudarte con tu negocio!';
+                appendMessage(offlineMsg, 'received');
+            }
         }
 
         sendBtn.addEventListener('click', sendMessage);
