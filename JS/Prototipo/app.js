@@ -1425,6 +1425,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                         "instructions": "Eres ALIA, la recepcionista virtual."
                     };
                     loadBusinessData(defaultConfig);
+                })
+                .finally(() => {
+                    // Quitar el overlay de carga si existe, una vez el UI está poblado
+                    const loader = document.getElementById('data-loading-overlay');
+                    if (loader) {
+                        loader.style.opacity = '0';
+                        setTimeout(() => loader.remove(), 400);
+                    }
                 });
 
             // Update "Mi Equipo" self user

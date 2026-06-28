@@ -39,6 +39,16 @@
 </head>
 
 <body>
+    <!-- Global Loading Overlay for Data Fetching -->
+    <div id="data-loading-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease-out;">
+        <div style="width: 50px; height: 50px; border: 4px solid #f3f4f6; border-top: 4px solid #00b4d8; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
+        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 600; margin-bottom: 8px;">Cargando Información...</h2>
+        <p style="color: #64748b; font-size: 1rem;">Obteniendo base de datos del negocio</p>
+        <style>
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        </style>
+    </div>
+
     <!-- Mobile Blocker Screen -->
     <div class="mobile-blocker">
         <div class="blocker-content">
