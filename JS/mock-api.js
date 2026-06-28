@@ -354,7 +354,90 @@ class MockAPI {
         await this.init();
         await this._simulateDelay(600);
         
-        // Find client by name or phone
+        // 1. Process Date
+        let dateObj = new Date();
+        if (apptData.date) {
+            if (apptData.date.toLowerCase() === 'mañana' || apptData.date.toLowerCase() === 'manana') {
+                dateObj.setDate(dateObj.getDate() + 1);
+            } else if (apptData.date.toLowerCase() !== 'hoy') {
+                dateObj = new Date(apptData.date);
+                if (isNaN(dateObj.getTime())) {
+                    dateObj = new Date(); // fallback if invalid
+                }
+            }
+        }
+        
+        const rawDate = this._toLocalYMD(dateObj);
+        const dayOfWeek = dateObj.getDay();
+
+        // Format Date for UI
+        const todayStr = this._toLocalYMD(new Date());
+        const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+        const tomorrowStr = this._toLocalYMD(tomorrow);
+        
+        let prefix = "";
+        if (rawDate === todayStr) prefix = "Hoy, ";
+        else if (rawDate === tomorrowStr) prefix = "Mañana, ";
+        else prefix = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"][dateObj.getDay()] + ", ";
+        
+        const months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+        const formattedDate = `${prefix}${dateObj.getDate()} ${months[dateObj.getMonth()]}`;
+        
+        // 2. Validate Professional
+        const profQuery = (apptData.prof || "").toLowerCase().trim();
+        let profObj = this.state.team.find(t => t.name.toLowerCase().includes(profQuery) || t.role.toLowerCase().includes(profQuery));
+        if (!profObj) {
+            throw new Error(`No se encontró al profesional "${apptData.prof}". Disponibles: ${this.state.team.map(t=>t.name).join(', ')}.`);
+        }
+
+        // 3. Validate Days Closed & Days Off
+        if (this.state.settings && this.state.settings.closedDays && this.state.settings.closedDays.includes(dayOfWeek)) {
+            throw new Error(`El local está cerrado en esa fecha. Días cerrados: ${this.state.settings.closedDays.join(', ')}.`);
+        }
+        if (profObj.diasLibres && profObj.diasLibres.includes(dayOfWeek)) {
+            throw new Error(`El profesional ${profObj.name} tiene el día libre en esa fecha. Por favor, elige otro día u otro profesional.`);
+        }
+
+        // 4. Validate Hours & Lunch Break
+        let timeStr = apptData.time || "10:00";
+        if (timeStr.length < 5) timeStr = timeStr.padStart(5, '0'); // Fix e.g. "9:00" -> "09:00"
+        
+        const timeToMins = (t) => { const [h,m] = t.split(':').map(Number); return h*60 + m; };
+        const apptMins = timeToMins(timeStr);
+        
+        if (this.state.settings && this.state.settings.openHours) {
+            const openMins = timeToMins(this.state.settings.openHours.start);
+            const closeMins = timeToMins(this.state.settings.openHours.end);
+            if (apptMins < openMins || apptMins >= closeMins) {
+                throw new Error(`La hora ${timeStr} está fuera del horario comercial (${this.state.settings.openHours.start} - ${this.state.settings.openHours.end}).`);
+            }
+        }
+        
+        if (profObj.pausaAlmuerzo) {
+            const lunchStart = timeToMins(profObj.pausaAlmuerzo.start);
+            const lunchEnd = timeToMins(profObj.pausaAlmuerzo.end);
+            if (apptMins >= lunchStart && apptMins < lunchEnd) {
+                throw new Error(`El profesional ${profObj.name} está en su pausa de almuerzo de ${profObj.pausaAlmuerzo.start} a ${profObj.pausaAlmuerzo.end}.`);
+            }
+        }
+
+        // 5. Validate Collisions
+        const duration = apptData.duration || 30;
+        const apptEndMins = apptMins + duration;
+        
+        const collisions = this.state.appointments.filter(a => a.rawDate === rawDate && a.prof === profObj.name && a.status !== 'cancelled');
+        for (let a of collisions) {
+            const existingStart = timeToMins(a.time);
+            const existingEnd = existingStart + (a.duration || 30);
+            
+            if ((apptMins >= existingStart && apptMins < existingEnd) || (apptEndMins > existingStart && apptEndMins <= existingEnd) || (apptMins <= existingStart && apptEndMins >= existingEnd)) {
+                const endH = Math.floor(existingEnd/60);
+                const endM = String(existingEnd%60).padStart(2,'0');
+                throw new Error(`El profesional ${profObj.name} ya tiene una cita ocupada de ${a.time} a ${endH}:${endM}. Por favor, sugiere otra hora.`);
+            }
+        }
+        
+        // 6. Find client by name or phone
         const query = clientQuery.toLowerCase().trim();
         let client = this.state.clients.find(c => c.name.toLowerCase() === query || c.phone === query);
         
@@ -376,27 +459,20 @@ class MockAPI {
         }
 
         client.totalAppts = (client.totalAppts || 0) + 1;
-        client.lastAppt = apptData.rawDate; // e.g. "2026-05-01" or whatever format
+        client.lastAppt = rawDate; 
         client.history = client.history || [];
-        
-        // Extract time from formattedDate or assume it's passed in apptData
-        let timeStr = apptData.time || '';
-        if (!timeStr && apptData.formattedDate) {
-            const parts = apptData.formattedDate.split(', ');
-            if (parts.length > 1) timeStr = parts[1];
-        }
 
         const newAppt = {
             id: Date.now(),
             clientId: client.id,
             clientName: client.name,
-            date: apptData.formattedDate, 
-            rawDate: apptData.rawDate,
+            date: formattedDate, 
+            rawDate: rawDate,
             createdAt: new Date().toISOString().split('T')[0],
             time: timeStr,
             service: apptData.service,
-            prof: apptData.prof,
-            duration: apptData.duration || 30,
+            prof: profObj.name,
+            duration: duration,
             status: 'pending'
         };
         
@@ -404,6 +480,7 @@ class MockAPI {
         this.state.appointments.unshift(newAppt);
         
         if (window.renderDashboard) window.renderDashboard();
+        if (window.refreshAgenda) window.refreshAgenda();
         
         return { success: true, client };
     }

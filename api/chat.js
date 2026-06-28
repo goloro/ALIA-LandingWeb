@@ -4,7 +4,7 @@ module.exports = async function handler(req, res) {
     }
 
     try {
-        const { history, chatType } = req.body;
+        const { history, chatType, businessContext } = req.body;
         
         let apiKey;
         if (chatType === 'landing_page') {
@@ -31,7 +31,27 @@ module.exports = async function handler(req, res) {
         if (chatType === 'landing_page') {
             systemInstructionText = "Eres ALIA, el asistente virtual comercial de una plataforma de inteligencia artificial para peluquerías, barberías y salones de belleza. Tu objetivo es proporcionar información precisa sobre los planes (Básico, Profesional, Enterprise), funcionalidades y ventajas. Responde de forma clara, profesional y persuasiva. NUNCA respondas a preguntas que no estén relacionadas con ALIA o el sector de la belleza. Si el usuario pregunta algo irrelevante (ej. recetas, política, chistes genéricos), declina amablemente y redirige la conversación a ALIA.";
         } else if (chatType === 'prototype_client') {
-            systemInstructionText = "Eres ALIA, la recepcionista virtual inteligente de un salón de belleza. Tienes dos objetivos principales:\n1. Resolver cualquier duda que tenga el cliente (horarios, precios orientativos, recomendaciones de estilo, etc.) de forma muy amable, profesional y resolutiva.\n2. Interactuar con el cliente para agendar una cita.\n\nPara agendar la cita debes averiguar: el nombre del cliente (o teléfono), qué servicio desea, qué fecha y qué hora. Ve preguntando los datos de forma conversacional y natural. NUNCA pidas todos los datos de golpe.\n\nCuando tengas TODOS los datos (cliente, servicio, fecha y hora), DEBES llamar OBLIGATORIAMENTE a la herramienta 'addAppointment' para registrar la cita en la agenda. NUNCA digas que la cita está confirmada hasta que no llames a la herramienta y recibas el resultado 'success'.";
+            systemInstructionText = "Eres ALIA, la recepcionista virtual inteligente de un salón de belleza. Tienes dos objetivos principales:\n1. Resolver cualquier duda que tenga el cliente (horarios, precios orientativos, recomendaciones de estilo, etc.) de forma muy amable, profesional y resolutiva.\n2. Interactuar con el cliente para agendar una cita.\n\nPara agendar la cita debes averiguar: el nombre del cliente (o teléfono), qué servicio desea, con qué profesional, qué fecha y qué hora. Ve preguntando los datos de forma conversacional y natural. NUNCA pidas todos los datos de golpe.\n\nCuando tengas TODOS los datos (cliente, servicio, profesional, fecha y hora), DEBES llamar OBLIGATORIAMENTE a la herramienta 'addAppointment' para registrar la cita en la agenda. NUNCA digas que la cita está confirmada hasta que no llames a la herramienta y recibas el resultado 'success'. Si la herramienta devuelve un error (ej. el profesional no está disponible), pídele disculpas al cliente y sugiérele otra hora o profesional basándote en la información del error.";
+
+            if (businessContext) {
+                let contextStr = `\n\n--- CONTEXTO DEL NEGOCIO ---\n`;
+                if (businessContext.settings) {
+                    contextStr += `Horario: ${businessContext.settings.openHours?.start || '10:00'} a ${businessContext.settings.openHours?.end || '20:00'}\n`;
+                    contextStr += `Días cerrados: ${businessContext.settings.closedDays.join(', ')} (0=Domingo, 1=Lunes...)\n`;
+                }
+                if (businessContext.services) {
+                    contextStr += `Servicios: ${businessContext.services.map(s => `${s.name} (${s.duration}min, ${s.price}€)`).join(', ')}\n`;
+                }
+                if (businessContext.team) {
+                    contextStr += `Profesionales:\n`;
+                    businessContext.team.forEach(t => {
+                        const dl = t.diasLibres || [];
+                        const pa = t.pausaAlmuerzo || {start:'-', end:'-'};
+                        contextStr += `- ${t.name} (${t.role}): Días libres ${dl.join(',')}, Almuerzo ${pa.start}-${pa.end}. Especialidades: ${(t.specialties||[]).join(', ')}\n`;
+                    });
+                }
+                systemInstructionText += contextStr;
+            }
             
             // Declaración de herramientas de Function Calling
             tools = [{
@@ -54,6 +74,10 @@ module.exports = async function handler(req, res) {
                                     type: "STRING",
                                     description: "La hora de la cita en formato HH:MM."
                                 },
+                                prof: {
+                                    type: "STRING",
+                                    description: "El nombre del profesional con el que se agenda la cita (ej. Laura Gómez)."
+                                },
                                 service: {
                                     type: "STRING",
                                     description: "El servicio que desea el cliente (ej. Corte, Tinte, Manicura)."
@@ -63,7 +87,7 @@ module.exports = async function handler(req, res) {
                                     description: "Cualquier nota adicional del cliente."
                                 }
                             },
-                            required: ["clientQuery", "date", "time", "service"]
+                            required: ["clientQuery", "date", "time", "prof", "service"]
                         }
                     }
                 ]

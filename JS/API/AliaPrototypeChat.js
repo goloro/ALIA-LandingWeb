@@ -43,13 +43,23 @@ class AliaPrototypeChat {
         }
 
         try {
+            const payload = { 
+                history: this.history,
+                chatType: 'prototype_client'
+            };
+
+            if (window.MockAPI && window.MockAPI.state) {
+                payload.businessContext = {
+                    team: window.MockAPI.state.team || [],
+                    settings: window.MockAPI.state.settings || { closedDays: [0], openHours: { start: '10:00', end: '19:00' } },
+                    services: window.MockAPI.state.businessInfo?.services || []
+                };
+            }
+
             const response = await fetch(this.apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    history: this.history,
-                    chatType: 'prototype_client'
-                })
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) {
@@ -77,6 +87,7 @@ class AliaPrototypeChat {
                         await window.MockAPI.addAppointment(clientQuery, {
                             date: data.args.date,
                             time: data.args.time,
+                            prof: data.args.prof,
                             service: data.args.service || 'Cita IA',
                             notes: data.args.notes || ''
                         });
