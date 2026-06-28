@@ -208,8 +208,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // Añadir respuesta del bot
             const botMsgDiv = document.createElement('div');
             botMsgDiv.className = 'message message-bot';
+            
+            const formatChatMsg = (txt) => {
+                let safe = txt.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                safe = safe.replace(/\n/g, '<br>');
+                return safe;
+            };
+
             botMsgDiv.innerHTML = `
-                ${responseText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+                ${formatChatMsg(responseText)}
                 <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
             `;
             

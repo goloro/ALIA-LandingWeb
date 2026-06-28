@@ -49,8 +49,19 @@ class AliaPrototypeChat {
             };
 
             if (window.MockAPI && window.MockAPI.state) {
+                let fullTeam = window.MockAPI.state.team ? [...window.MockAPI.state.team] : [];
+                if (window.MockAPI.state.currentUser) {
+                    fullTeam.unshift({
+                        name: window.MockAPI.state.currentUser.name,
+                        role: window.MockAPI.state.currentUser.role || 'Propietario',
+                        diasLibres: window.MockAPI.state.currentUser.diasLibres || [0],
+                        pausaAlmuerzo: window.MockAPI.state.currentUser.pausaAlmuerzo || { start: '14:00', end: '15:00' },
+                        specialties: window.MockAPI.state.currentUser.specialties || []
+                    });
+                }
+                
                 payload.businessContext = {
-                    team: window.MockAPI.state.team || [],
+                    team: fullTeam,
                     settings: window.MockAPI.state.settings || { closedDays: [0], openHours: { start: '10:00', end: '19:00' } },
                     services: window.MockAPI.state.businessInfo?.services || []
                 };

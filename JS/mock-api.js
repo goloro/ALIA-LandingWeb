@@ -385,9 +385,18 @@ class MockAPI {
         
         // 2. Validate Professional
         const profQuery = (apptData.prof || "").toLowerCase().trim();
-        let profObj = this.state.team.find(t => t.name.toLowerCase().includes(profQuery) || t.role.toLowerCase().includes(profQuery));
+        let fullTeam = this.state.team ? [...this.state.team] : [];
+        if (this.state.currentUser) {
+            fullTeam.push({
+                name: this.state.currentUser.name,
+                role: this.state.currentUser.role || 'Propietario',
+                diasLibres: this.state.currentUser.diasLibres || [0],
+                pausaAlmuerzo: this.state.currentUser.pausaAlmuerzo || { start: '14:00', end: '15:00' }
+            });
+        }
+        let profObj = fullTeam.find(t => t.name.toLowerCase().includes(profQuery) || t.role.toLowerCase().includes(profQuery));
         if (!profObj) {
-            throw new Error(`No se encontró al profesional "${apptData.prof}". Disponibles: ${this.state.team.map(t=>t.name).join(', ')}.`);
+            throw new Error(`No se encontró al profesional "${apptData.prof}". Disponibles: ${fullTeam.map(t=>t.name).join(', ')}.`);
         }
 
         // 3. Validate Days Closed & Days Off

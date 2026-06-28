@@ -39,6 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const msgDiv = document.createElement('div');
             msgDiv.className = `ai-chat-message ${type}`;
 
+            const formatChatMsg = (txt) => {
+                let safe = txt.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                safe = safe.replace(/\n/g, '<br>');
+                return safe;
+            };
+
             let innerHTML = '';
             
             if (type === 'received') {
@@ -47,13 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="Images/Logos/LogoHexagonoAlia-SinFondo.png" alt="ALIA Avatar">
                     </div>
                     <div class="ai-chat-bubble">
-                        <p>${text}</p>
+                        <p>${formatChatMsg(text)}</p>
                     </div>
                 `;
             } else {
                 innerHTML = `
                     <div class="ai-chat-bubble">
-                        <p>${text}</p>
+                        <p>${formatChatMsg(text)}</p>
                     </div>
                 `;
             }
