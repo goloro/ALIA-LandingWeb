@@ -154,20 +154,126 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Lógica del Chat ---
+    // --- Lógica del Chat (Multi-chat) ---
     const chatArea = document.getElementById('prototype-chat-container');
     const inputField = document.getElementById('prototype-chat-input');
     const sendBtn = document.getElementById('prototype-chat-send');
     
-    // Instanciar la clase preparada para la API
-    const prototypeChatAPI = window.AliaPrototypeChat ? new window.AliaPrototypeChat() : null;
-    if (prototypeChatAPI) prototypeChatAPI.initialize();
+    const listView = document.getElementById('prototype-chat-list-view');
+    const detailView = document.getElementById('prototype-chat-detail-view');
+    const listItems = document.getElementById('prototype-chat-list-items');
+    const newChatBtn = document.getElementById('prototype-new-chat-btn');
+    const backBtn = document.querySelector('.chat-header-left .icon-back');
+    const chatNameEl = document.querySelector('.chat-name');
+    const emptyStateHTML = chatArea ? chatArea.innerHTML : '';
+
+    let prototypeChats = [
+        { 
+            id: 1, 
+            name: "Cliente 1", 
+            api: window.AliaPrototypeChat ? new window.AliaPrototypeChat() : null,
+            messagesHTML: emptyStateHTML,
+            lastMessage: "Hola, soy ALIA 👋",
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        }
+    ];
+    let currentChatId = null;
+
+    if (prototypeChats[0].api) prototypeChats[0].api.initialize();
+
+    function renderChatList() {
+        if (!listItems) return;
+        listItems.innerHTML = '';
+        prototypeChats.forEach(chat => {
+            const item = document.createElement('div');
+            item.className = 'chat-list-item';
+            item.innerHTML = `
+                <div class="chat-list-item-avatar-wrapper" style="position: relative; margin-right: 15px;">
+                    <div class="chat-list-item-avatar" style="margin-right: 0;">
+                        <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="ALIA">
+                    </div>
+                    <div class="online-dot"></div>
+                </div>
+                <div class="chat-list-item-info">
+                    <div class="cl-item-top">
+                        <h4 class="chat-list-item-name">${chat.name}</h4>
+                        <span class="cl-item-time">${chat.time}</span>
+                    </div>
+                    <div class="cl-item-bottom">
+                        <p class="chat-list-item-preview">${chat.lastMessage}</p>
+                    </div>
+                </div>
+            `;
+            item.addEventListener('click', () => openChat(chat.id));
+            listItems.appendChild(item);
+        });
+    }
+
+    function openChat(id) {
+        currentChatId = id;
+        const chat = prototypeChats.find(c => c.id === id);
+        if (!chat) return;
+
+        if (chatNameEl) chatNameEl.textContent = chat.name;
+        if (chatArea) {
+            chatArea.innerHTML = chat.messagesHTML;
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        if (listView) listView.style.display = 'none';
+        if (detailView) detailView.style.display = 'flex';
+    }
+
+    function saveCurrentChatState() {
+        if (!currentChatId || !chatArea) return;
+        const chat = prototypeChats.find(c => c.id === currentChatId);
+        if (chat) {
+            chat.messagesHTML = chatArea.innerHTML;
+        }
+    }
+
+    if (backBtn) {
+        backBtn.addEventListener('click', () => {
+            saveCurrentChatState();
+            renderChatList();
+            if (detailView) detailView.style.display = 'none';
+            if (listView) listView.style.display = 'flex';
+            currentChatId = null;
+        });
+    }
+
+    if (newChatBtn) {
+        newChatBtn.addEventListener('click', () => {
+            const newId = prototypeChats.length + 1;
+            const newChat = {
+                id: newId,
+                name: `Cliente ${newId}`,
+                api: window.AliaPrototypeChat ? new window.AliaPrototypeChat() : null,
+                messagesHTML: emptyStateHTML,
+                lastMessage: "Hola, soy ALIA 👋",
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            if (newChat.api) newChat.api.initialize();
+            prototypeChats.push(newChat);
+            renderChatList();
+            openChat(newId);
+        });
+    }
+
+    // Inicializar lista
+    renderChatList();
+    // Por defecto, mostrar la lista
+    if (detailView) detailView.style.display = 'none';
+    if (listView) listView.style.display = 'flex';
 
     async function sendMessage() {
+        if (!currentChatId) return;
+        const chat = prototypeChats.find(c => c.id === currentChatId);
+        if (!chat) return;
+
         let text = inputField.value.trim();
         if (!text) return;
 
-        // Auto-capitalizar la primera letra y después de punto, interrogación o exclamación
         text = text.replace(/(^\s*|[.!?]\s+|[¿¡]\s*)([a-zñáéíóúü])/g, (m, sep, letter) => sep + letter.toUpperCase());
 
         const now = new Date();
@@ -175,28 +281,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message message-user';
-        
         const safeText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-        messageDiv.innerHTML = `
-            ${safeText}
-            <div class="message-time">${timeString} <span>✓✓</span></div>
-        `;
+        messageDiv.innerHTML = `${safeText}<div class="message-time">${timeString} <span>✓✓</span></div>`;
         
         if (chatArea) {
-            // Eliminar empty state al primer mensaje
-            const emptyState = document.getElementById('chat-empty-state');
+            const emptyState = chatArea.querySelector('.chat-empty-state');
             if (emptyState) emptyState.remove();
-
             chatArea.appendChild(messageDiv);
             chatArea.scrollTop = chatArea.scrollHeight;
         }
         
+        chat.lastMessage = "Tú: " + text;
+        saveCurrentChatState();
         inputField.value = '';
 
-        if (!prototypeChatAPI) return;
+        if (!chat.api) return;
 
-        // Simulamos indicador de escritura del bot
         const typingDiv = document.createElement('div');
         typingDiv.className = 'message message-bot typing-indicator-msg';
         typingDiv.innerHTML = `Escribiendo...`;
@@ -206,41 +306,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Llamar a la clase que gestiona la API
-            const responseText = await prototypeChatAPI.sendMessage(text);
-            
-            // Quitar indicador de escritura
+            const responseText = await chat.api.sendMessage(text);
             if (typingDiv.parentNode) typingDiv.parentNode.removeChild(typingDiv);
             
-            // Añadir respuesta del bot
             const botMsgDiv = document.createElement('div');
             botMsgDiv.className = 'message message-bot';
-            
             const formatChatMsg = (txt) => {
                 let safe = txt.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                 safe = safe.replace(/\n/g, '<br>');
                 return safe;
             };
-
-            botMsgDiv.innerHTML = `
-                ${formatChatMsg(responseText)}
-                <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-            `;
+            botMsgDiv.innerHTML = `${formatChatMsg(responseText)}<div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>`;
             
             if (chatArea) {
                 chatArea.appendChild(botMsgDiv);
                 chatArea.scrollTop = chatArea.scrollHeight;
             }
+            chat.lastMessage = "ALIA: " + responseText;
+            saveCurrentChatState();
         } catch (error) {
             if (typingDiv.parentNode) typingDiv.parentNode.removeChild(typingDiv);
-            console.error("Error en la conexión con la API del Prototipo:", error);
+            console.error("Error API Prototipo:", error);
         }
     }
 
     if (sendBtn && inputField) {
         sendBtn.addEventListener('click', sendMessage);
-
         inputField.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendMessage();
