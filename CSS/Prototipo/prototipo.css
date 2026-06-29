@@ -60,7 +60,7 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     background-color: #fcfcfd;
     padding: 20px;
     overflow: hidden;
@@ -153,3 +153,4 @@ body {
 .pill-inactivo::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background-color: #94a3b8; }
 
 .time-select-styled { appearance: none; -webkit-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%2394a3b8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"6 9 12 15 18 9\"></polyline></svg>'); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; cursor: pointer; }
+
