@@ -184,7 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (nuevosClientes > 0) {
                 let avatarsHtml = '';
                 for (let i = 0; i < Math.min(3, nuevosClientes); i++) {
-                    avatarsHtml += `<img src="https://i.pravatar.cc/150?u=client${i}" style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; margin-left: ${i > 0 ? '-8px' : '0'};">`;
+                    const avatarId = ((i + 1) % 10) + 1;
+                    avatarsHtml += `<img src="../Images/Avatars/client_${avatarId}.svg" style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; margin-left: ${i > 0 ? '-8px' : '0'}; object-fit: cover;">`;
                 }
                 avatarsHtml += `<span style="margin-left: 8px;">+${nuevosClientes} este mes</span>`;
                 dbNuevosAvatars.innerHTML = avatarsHtml;

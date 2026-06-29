@@ -633,7 +633,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (clientName) clientName.textContent = appt.clientName || 'Cliente';
-            if (clientAvatar && appt.clientName) clientAvatar.textContent = appt.clientName.charAt(0).toUpperCase();
+            if (clientAvatar && appt.clientName) {
+                const avatarId = ((appt.clientId ? appt.clientId : appt.clientName.charCodeAt(0)) % 10) + 1;
+                clientAvatar.innerHTML = `<img src="../Images/Avatars/client_${avatarId}.svg" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                clientAvatar.style.padding = '0';
+                clientAvatar.style.overflow = 'hidden';
+                clientAvatar.style.backgroundColor = 'transparent';
+            }
 
             // Lógica asíncrona para obtener info del cliente
             if (window.MockAPI) {

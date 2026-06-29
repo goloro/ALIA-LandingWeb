@@ -452,7 +452,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nameEl) nameEl.textContent = client.name;
         
         const avatarEl = panel.querySelector('.cd-avatar');
-        if (avatarEl) avatarEl.textContent = client.name.charAt(0).toUpperCase();
+        if (avatarEl) {
+            const avatarId = ((client.id ? client.id : client.name.charCodeAt(0)) % 10) + 1;
+            avatarEl.innerHTML = `<img src="../Images/Avatars/client_${avatarId}.svg" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+            avatarEl.style.padding = '0';
+            avatarEl.style.overflow = 'hidden';
+            avatarEl.style.backgroundColor = 'transparent';
+        }
         
         const contactItems = panel.querySelectorAll('.cd-contact-item');
         if (contactItems.length >= 2) {

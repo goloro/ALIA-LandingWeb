@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
             chatItem.innerHTML = `
                 ${needsHelp ? '<div class="cs-item-badge">ALIA Necesita Ayuda</div>' : ''}
                 <div class="cs-item-body">
-                    <div class="cs-item-avatar" style="background: #00677D; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px;">
-                        ${needsHelp ? '<img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar">' : initials}
+                    <div class="cs-item-avatar" style="background: transparent; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; overflow: hidden; border-radius: 50%;">
+                        ${needsHelp ? '<img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">' : `<img src="../Images/Avatars/client_${((chat.client.id ? chat.client.id : chat.client.name.charCodeAt(0)) % 10) + 1}.svg" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">`}
                     </div>
                     <div class="cs-item-content">
                         <span class="cs-item-name">${chat.client.name}</span>
@@ -101,8 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <!-- Header -->
             <div class="cm-header">
                 <div class="cm-header-client">
-                    <div class="cm-avatar" style="background: #00677D; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 600;">
-                        ${clientId === 902 ? '<img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar">' : (client ? client.name.charAt(0).toUpperCase() : 'C')}
+                    <div class="cm-avatar" style="background: transparent; display: flex; align-items: center; justify-content: center; font-weight: 600; overflow: hidden; border-radius: 50%;">
+                        ${clientId === 902 ? '<img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">' : (client ? `<img src="../Images/Avatars/client_${((client.id ? client.id : client.name.charCodeAt(0)) % 10) + 1}.svg" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">` : 'C')}
                     </div>
                     <h3 class="cm-client-name">${client ? client.name : 'Cliente'}</h3>
                 </div>
