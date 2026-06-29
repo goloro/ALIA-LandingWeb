@@ -188,7 +188,7 @@
         "number": "01",
         "colorClass": "bg-teal",
         "title": "Auditoría y Descubrimiento",
-        "description": "Nos sentamos contigo para entender al milímetro cómo funciona tu salón y qué funcionalidades exactas necesitas en tu panel de control.",
+        "description": "Nos sentamos contigo para entender al milímetro cómo funciona tu negocio y qué funcionalidades exactas necesitas en tu panel de control.",
         "badges": ["ANÁLISIS", "KPIS"]
       },
       {
@@ -222,8 +222,8 @@
     ]
   },
   "cta": {
-    "heading": "¿Listo para llevar tu salón al siguiente nivel?",
-    "description": "Únete a los salones que ya están ahorrando 15+ horas semanales en gestión administrativa.",
+    "heading": "¿Listo para llevar tu negocio al siguiente nivel?",
+    "description": "Únete a los negocios que ya están ahorrando 15+ horas semanales en gestión administrativa.",
     "buttonText": "Contacta con nosotros",
     "buttonUrl": "#cta"
   },

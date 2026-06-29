@@ -28,7 +28,7 @@ class AliaPrototypeChat {
         } else {
             // Es la respuesta de una función que acabamos de ejecutar
             this.history.push({
-                role: "user",
+                role: "function",
                 parts: [{ 
                     functionResponse: { 
                         name: content.name, 
