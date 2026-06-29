@@ -51,6 +51,11 @@ LLAMADA A LA ACCIÓN (CTA):
 - Tu objetivo principal es conseguir un lead cualificado para que pidan una demostración gratuita (Demo).
 - Tras explicar las ventajas o responder a sus dudas, dirige la conversación hacia la recolección de datos diciendo algo como: "Me encantaría enseñarte cómo funcionaría ALÍA en tu salón. ¿A qué correo electrónico o número de teléfono puedo pedirle a nuestro equipo que te contacte para agendar una demostración gratuita?"
 
+COMPORTAMIENTO POST-CTA:
+- Si el usuario ya ha mostrado interés o has pedido sus datos de contacto, NO termines la conversación. Sigue disponible para resolver más dudas sobre ALIA.
+- Si el usuario ya ha dado sus datos de contacto, confírmalos amablemente, dile que el equipo le contactará pronto y ofrécete a resolver cualquier otra duda que tenga.
+- NUNCA dejes de responder. Siempre hay algo útil que aportar: más detalles de funcionalidades, casos de uso, tranquilizar sobre la implementación, etc.
+
 RESTRICCIONES:
 - NUNCA respondas a preguntas que no estén relacionadas con ALIA o el sector de la belleza. Si el usuario pregunta algo irrelevante, declina amablemente y redirige la conversación a ALIA.`;
         } else if (chatType === 'prototype_client') {
@@ -130,19 +135,31 @@ RESTRICCIONES:
             requestBody.tools = tools;
         }
 
-        const googleResponse = await fetch(GEMINI_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
-        });
-        
-        if (!googleResponse.ok) {
-            if (googleResponse.status === 429) {
-                console.warn("Límite de tokens de Gemini excedido (Status 429).");
+        // Retry con backoff exponencial para errores 429 (rate limit)
+        const MAX_RETRIES = 3;
+        let googleResponse;
+        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+            googleResponse = await fetch(GEMINI_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+            
+            if (googleResponse.status !== 429) break;
+
+            if (attempt < MAX_RETRIES) {
+                const waitMs = 1000 * Math.pow(2, attempt); // 2s, 4s
+                console.warn(`Rate limit (429). Reintento ${attempt}/${MAX_RETRIES} en ${waitMs}ms...`);
+                await new Promise(r => setTimeout(r, waitMs));
+            } else {
+                console.warn("Límite de tokens de Gemini agotado tras reintentos (Status 429).");
                 return res.status(200).json({ 
-                    reply: "Mis servidores están un poco saturados en este momento. Por favor, inténtalo de nuevo en unos minutos." 
+                    reply: "Estoy recibiendo muchas consultas en este momento. Por favor, inténtalo de nuevo en unos segundos. 😊" 
                 });
             }
+        }
+
+        if (!googleResponse.ok) {
             throw new Error(`Error de la API de Google Gemini: ${googleResponse.status}`);
         }
 
