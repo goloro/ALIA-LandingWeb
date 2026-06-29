@@ -663,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
                             </div>
                         </div>
-                        <div class="timeline-content" style="align-items: stretch; background-color: #f8fafc; border: 1px solid #e2e8f0; box-shadow: none;">
+                        <div class="timeline-content" style="align-items: center; padding: 16px 24px; background-color: #f8fafc; border: 1px solid #e2e8f0; box-shadow: none;">
                             <div class="time-label" style="display: flex; align-items: center; margin-top: 0; color: #64748b;">${lunchStart}</div>
                             <div class="slot-details">
                                 <div class="slot-title" style="color: #64748b;">Pausa del almuerzo</div>
@@ -689,7 +689,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="timeline-marker">
                                     <div class="marker-circle plus" style="color: #64748b; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center;">+</div>
                                 </div>
-                                <div class="timeline-content" style="align-items: stretch;">
+                                <div class="timeline-content" style="align-items: center; padding: 16px 24px;">
                                     <div class="time-label" style="display: flex; align-items: center; margin-top: 0;">${formatMins(currentMins)}</div>
                                     <div class="slot-details">
                                         <div class="slot-title">Hueco Disponible</div>
@@ -747,7 +747,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="timeline-marker">
                                 <div class="marker-circle plus" style="color: #64748b; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center;">+</div>
                             </div>
-                            <div class="timeline-content" style="align-items: stretch;">
+                            <div class="timeline-content" style="align-items: center; padding: 16px 24px;">
                                 <div class="time-label" style="display: flex; align-items: center; margin-top: 0;">${formatMins(currentMins)}</div>
                                 <div class="slot-details">
                                     <div class="slot-title">Hueco Disponible</div>

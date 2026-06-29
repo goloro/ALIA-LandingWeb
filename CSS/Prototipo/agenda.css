@@ -258,7 +258,7 @@
     border-right: 1px solid #f1f5f9;
 }
 
-.time-label {
+.agenda-time-labels .time-label {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -331,8 +331,7 @@
 /* Professional Column */
 .agenda-prof-col {
     position: relative;
-    height: calc(19 * 48px); /* explicitly cover the 18:30-19:00 slot */
-    overflow: hidden;
+    height: calc(18 * 48px); /* explicitly cover up to 19:00 (18 slots of 30 mins) */
 }
 
 .agenda-event {

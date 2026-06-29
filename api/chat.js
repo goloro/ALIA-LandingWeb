@@ -64,8 +64,9 @@ RESTRICCIONES:
             if (businessContext) {
                 let contextStr = `\n\n--- CONTEXTO DEL NEGOCIO ---\n`;
                 if (businessContext.settings) {
-                    contextStr += `Horario: ${businessContext.settings.openHours?.start || '10:00'} a ${businessContext.settings.openHours?.end || '20:00'}\n`;
-                    contextStr += `Días cerrados: ${businessContext.settings.closedDays.join(', ')} (0=Domingo, 1=Lunes...)\n`;
+                    contextStr += `Horario: ${businessContext.settings.openHours?.start || '10:00'} a ${businessContext.settings.openHours?.end || '19:00'}\n`;
+                    contextStr += `Días cerrados: ${businessContext.closedDays ? businessContext.closedDays.join(', ') : ''} (0=Domingo, 1=Lunes...)\n`;
+                    contextStr += `REGLA ESTRICTA: NUNCA ofrezcas ni aceptes citas fuera del horario establecido.\n`;
                 }
                 if (businessContext.services) {
                     contextStr += `Servicios: ${businessContext.services.map(s => `${s.name} (${s.duration}min, ${s.price}€)`).join(', ')}\n`;

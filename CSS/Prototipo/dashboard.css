@@ -547,6 +547,8 @@
     background-color: #faf5ff;
     border: 1px dashed #d8b4fe;
     box-shadow: none;
+    padding: 16px 24px;
+    min-height: 52px;
 }
 
 .time-label {

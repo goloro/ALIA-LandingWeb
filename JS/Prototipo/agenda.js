@@ -186,9 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeLabelsContainer = document.querySelector('.agenda-time-labels');
         if (timeLabelsContainer) {
             timeLabelsContainer.innerHTML = '';
-            for(let h = 10; h <= 19; h++) {
+            for(let h = 10; h <= 18; h++) {
                 for (let m of [0, 30]) {
-                    if (h === 19 && m === 30) break;
+                    if (h === 18 && m === 30) {
+                        // Render 18:30 as the last slot, don't render 19:00
+                    }
                     
                     const label = document.createElement('div');
                     label.className = 'time-label';

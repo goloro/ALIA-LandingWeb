@@ -433,6 +433,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let h = startHour; h <= endHour; h++) {
             for (let m of [0, 30]) {
+                // If it's exactly the closing hour and minute, we shouldn't offer it as a start time
+                if (h === endHour && m >= endMin) continue;
                 if (isToday) {
                     if (h < currentHour || (h === currentHour && m <= currentMinute)) {
                         continue; // Block past times
