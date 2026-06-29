@@ -24,6 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Optional: remove from DOM after transition
                 setTimeout(() => {
                     modalOverlay.style.display = 'none';
+                    
+                    // Start the onboarding tutorial if it hasn't been seen yet
+                    if (window.aliaOnboarding && !localStorage.getItem('alia_onboarding_completed')) {
+                        window.aliaOnboarding.start();
+                    }
                 }, 600); // matches the CSS transition duration
             }
         });

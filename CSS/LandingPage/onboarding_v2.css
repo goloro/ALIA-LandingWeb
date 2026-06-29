@@ -1,0 +1,187 @@
+/* Onboarding Tutorial Styles */
+
+.onboarding-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent; /* Changed from rgba to transparent so highlight box-shadow works as the dim */
+    z-index: 9999990; /* Below preloader but above everything else */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: auto; /* Catch clicks outside to prevent interaction with the app */
+}
+
+.onboarding-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Highlight Element */
+.onboarding-highlight {
+    position: absolute;
+    background: transparent;
+    border-radius: 8px;
+    box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.7), 0 0 15px rgba(21, 158, 186, 0.5);
+    border: 2px solid #159EBA;
+    z-index: 9999991;
+    pointer-events: none; /* Let clicks pass through if we want them to, though usually we block */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Smooth movement between steps */
+    opacity: 0;
+    display: none;
+    box-sizing: content-box !important;
+}
+
+/* Tooltip Container */
+.onboarding-tooltip {
+    position: absolute;
+    width: 320px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    z-index: 9999992;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
+}
+
+.onboarding-tooltip.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.onboarding-tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.onboarding-step-counter {
+    font-size: 12px;
+    font-weight: 600;
+    color: #159EBA;
+    background: rgba(21, 158, 186, 0.1);
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.onboarding-close-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background 0.2s, color 0.2s;
+}
+
+.onboarding-close-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.onboarding-tooltip-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.onboarding-tooltip-text {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.onboarding-tooltip-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.onboarding-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.onboarding-btn-prev {
+    background: transparent;
+    color: #64748b;
+}
+
+.onboarding-btn-prev:hover {
+    color: #0f172a;
+    background: #f1f5f9;
+}
+
+.onboarding-btn-prev:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.onboarding-btn-next {
+    background: #159EBA;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(21, 158, 186, 0.2), 0 2px 4px -1px rgba(21, 158, 186, 0.1);
+}
+
+.onboarding-btn-next:hover {
+    background: #128299;
+}
+
+/* Tooltip Arrow */
+.onboarding-tooltip::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
+    transform: rotate(45deg);
+}
+
+.onboarding-tooltip.placement-bottom::after {
+    top: -8px;
+    left: 50%;
+    margin-left: -8px;
+    box-shadow: -2px -2px 4px rgba(0,0,0,0.05);
+}
+
+.onboarding-tooltip.placement-top::after {
+    bottom: -8px;
+    left: 50%;
+    margin-left: -8px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+}
+
+.onboarding-tooltip.placement-right::after {
+    left: -8px;
+    top: 50%;
+    margin-top: -8px;
+    box-shadow: -2px 2px 4px rgba(0,0,0,0.05);
+}
+
+.onboarding-tooltip.placement-left::after {
+    right: -8px;
+    top: 50%;
+    margin-top: -8px;
+    box-shadow: 2px -2px 4px rgba(0,0,0,0.05);
+}
