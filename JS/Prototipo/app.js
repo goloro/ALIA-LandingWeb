@@ -184,6 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         if (chatArea) {
+            // Eliminar empty state al primer mensaje
+            const emptyState = document.getElementById('chat-empty-state');
+            if (emptyState) emptyState.remove();
+
             chatArea.appendChild(messageDiv);
             chatArea.scrollTop = chatArea.scrollHeight;
         }

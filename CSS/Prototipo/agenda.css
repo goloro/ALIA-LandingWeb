@@ -253,21 +253,22 @@
 }
 
 .agenda-time-labels {
-    display: flex;
-    flex-direction: column;
+    position: relative;
     margin-top: 16px;
     border-right: 1px solid #f1f5f9;
 }
 
 .time-label {
-    height: 48px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    transform: translateY(-50%);
+    margin: 0 !important; /* override dashboard.css */
     font-size: 12px;
     font-family: 'Inter', sans-serif;
     color: #000;
     font-weight: 500;
+    background-color: white; 
 }
 
 .agenda-prof-cols-wrapper {
@@ -829,3 +830,6 @@
 .btn-footer-solid:hover {
     background: linear-gradient(135deg, #0287c9 0%, #005263 100%);
 }
+
+
+

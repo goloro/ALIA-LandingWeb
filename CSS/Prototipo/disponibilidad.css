@@ -132,6 +132,16 @@
     color: #e11d48;
 }
 
+.cal-day.libranza {
+    background-color: #f1f5f9; /* Pale grey */
+    color: #64748b;
+}
+
+.cal-day.baja {
+    background-color: #fef3c7; /* Pale yellow */
+    color: #d97706;
+}
+
 .cal-day.vacas {
     background-color: #d1fae5; /* Pale green */
     color: #059669;
@@ -142,6 +152,40 @@
     color: white;
     position: relative;
     box-shadow: 0 4px 10px rgba(96, 40, 255, 0.4);
+}
+
+/* Estilos para cuando "hoy" coincide con días no laborables */
+.cal-day.cerrado.hoy,
+.cal-day.libranza.hoy,
+.cal-day.baja.hoy,
+.cal-day.vacas.hoy {
+    background: transparent; /* Se sobrescribe abajo, heredando el original si quitáramos el linear-gradient */
+    box-shadow: inset 0 0 0 2px #6028ff;
+}
+
+.cal-day.cerrado.hoy {
+    background-color: #ffe4e6;
+    color: #e11d48;
+}
+.cal-day.libranza.hoy {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+.cal-day.baja.hoy {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+.cal-day.vacas.hoy {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+/* Cambiar el punto a color morado para que se vea sobre el fondo claro */
+.cal-day.cerrado.hoy .hoy-dot,
+.cal-day.libranza.hoy .hoy-dot,
+.cal-day.baja.hoy .hoy-dot,
+.cal-day.vacas.hoy .hoy-dot {
+    background-color: #6028ff;
 }
 
 .hoy-dot {

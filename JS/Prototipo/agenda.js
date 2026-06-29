@@ -182,6 +182,24 @@ document.addEventListener('DOMContentLoaded', () => {
             dateTitle.textContent = formatDateForTitle(currentDate, selectedViewToggle);
         }
 
+        // Dynamically generate time labels to perfectly match appointments
+        const timeLabelsContainer = document.querySelector('.agenda-time-labels');
+        if (timeLabelsContainer) {
+            timeLabelsContainer.innerHTML = '';
+            for(let h = 10; h <= 19; h++) {
+                for (let m of [0, 30]) {
+                    if (h === 19 && m === 30) break;
+                    
+                    const label = document.createElement('div');
+                    label.className = 'time-label';
+                    const startMins = (h * 60 + m) - (10 * 60);
+                    label.style.top = `${startMins * (48 / 30)}px`;
+                    label.textContent = `${h}:${m === 0 ? '00' : '30'}`;
+                    timeLabelsContainer.appendChild(label);
+                }
+            }
+        }
+
         if (selectedViewToggle === 'Mes') {
             if (agendaGrid) agendaGrid.style.display = 'none';
             if (agendaMonthGrid) {
@@ -342,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Lunch break block
                 const [lh, lm] = profObj.pausaAlmuerzo.start.split(':').map(Number);
                 const startMins = (lh * 60 + lm) - 10 * 60; // relative to 10:00 start
-                const topPx = (startMins * (48 / 30)) + 2;
+                const topPx = (startMins * (48 / 30));
                 
                 const [leh, lem] = profObj.pausaAlmuerzo.end.split(':').map(Number);
                 const endMins = (leh * 60 + lem) - 10 * 60;
@@ -380,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const [h, m] = (appt.time || '10:00').split(':').map(Number);
                 const startMins = (h * 60 + m) - (10 * 60); 
                 // Add 2px to topPx so the 4px gap is centered (2px top, 2px bottom)
-                const topPx = (startMins * (48 / 30)) + 2; 
+                const topPx = (startMins * (48 / 30)); 
                 const duration = appt.duration || 60;
                 // Subtract 4px from height to create a nice visual gap between consecutive appointments
                 const heightPx = (duration * (48 / 30)) - 4;
@@ -826,5 +844,9 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAgendaData();
 
 });
+
+
+
+
 
 

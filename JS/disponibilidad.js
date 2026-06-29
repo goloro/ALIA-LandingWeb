@@ -358,12 +358,8 @@ function renderCalendar() {
             div.classList.add('cerrado');
         } else if (isLibranza) { // Día de libranza
             div.classList.add('libranza');
-            div.style.backgroundColor = '#f1f5f9'; // gris claro
-            div.style.color = '#64748b'; // texto gris oscuro
         } else if (isBaja) {
-            div.classList.add('vacas');
-            div.style.backgroundColor = '#fef3c7';
-            div.style.color = '#d97706';
+            div.classList.add('baja');
         } else if (isVacas) {
             div.classList.add('vacas');
         }

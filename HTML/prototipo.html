@@ -441,24 +441,24 @@
                                         <div class="agenda-grid-body">
                                             <!-- Time markers -->
                                             <div class="agenda-time-labels">
-                                                <div class="time-label">10:00 AM</div>
-                                                <div class="time-label">10:30 AM</div>
-                                                <div class="time-label">11:00 AM</div>
-                                                <div class="time-label">11:30 AM</div>
-                                                <div class="time-label">12:00 PM</div>
-                                                <div class="time-label">12:30 PM</div>
-                                                <div class="time-label">13:00 PM</div>
-                                                <div class="time-label">13:30 PM</div>
-                                                <div class="time-label">14:00 PM</div>
-                                                <div class="time-label">14:30 PM</div>
-                                                <div class="time-label">15:00 PM</div>
-                                                <div class="time-label">15:30 PM</div>
-                                                <div class="time-label">16:00 PM</div>
-                                                <div class="time-label">16:30 PM</div>
-                                                <div class="time-label">17:00 PM</div>
-                                                <div class="time-label">17:30 PM</div>
-                                                <div class="time-label">18:00 PM</div>
-                                                <div class="time-label">18:30 PM</div>
+                                                <div class="time-label">10:00</div>
+                                                <div class="time-label">10:30</div>
+                                                <div class="time-label">11:00</div>
+                                                <div class="time-label">11:30</div>
+                                                <div class="time-label">12:00</div>
+                                                <div class="time-label">12:30</div>
+                                                <div class="time-label">13:00</div>
+                                                <div class="time-label">13:30</div>
+                                                <div class="time-label">14:00</div>
+                                                <div class="time-label">14:30</div>
+                                                <div class="time-label">15:00</div>
+                                                <div class="time-label">15:30</div>
+                                                <div class="time-label">16:00</div>
+                                                <div class="time-label">16:30</div>
+                                                <div class="time-label">17:00</div>
+                                                <div class="time-label">17:30</div>
+                                                <div class="time-label">18:00</div>
+                                                <div class="time-label">18:30</div>
                                             </div>
                                             
                                             <div class="agenda-prof-cols-wrapper">
@@ -2058,11 +2058,14 @@
 
                         <!-- Chat Body -->
                         <div class="chat-body" id="prototype-chat-container">
-                            <div class="message message-user">
-                                Hola! ¿Tienen algún hueco libre para mañana por la tarde? Tengo una boda el sábado y necesito un corte de pelo y arreglo de barba, voy fatal de tiempo 😅
-                                <div class="message-time">14:20 <span>✓✓</span></div>
+                            <!-- Empty state: se elimina al primer mensaje -->
+                            <div class="chat-empty-state" id="chat-empty-state">
+                                <img src="../Images/Logos/LogoHexagonoAlia-SinFondo.png" alt="ALIA" class="empty-state-avatar">
+                                <p class="empty-state-title">Hola, soy ALIA 👋</p>
+                                <p class="empty-state-subtitle">Tu recepcionista virtual. Escríbeme para reservar una cita, consultar horarios o resolver cualquier duda.</p>
                             </div>
                         </div>
+
 
                         <!-- Chat Footer -->
                         <div class="chat-footer">
@@ -2117,5 +2120,11 @@
     <script src="../JS/disponibilidad.js"></script>
     <script src="../JS/prototype-modal.js"></script>
     <script src="../JS/onboarding_v2.js"></script>
+
 </body>
 </html>
+
+
+
+
+
