@@ -1,0 +1,111 @@
+/* 
+    Prototype Modal Styles
+    Premium Glassmorphism Design
+*/
+
+.prototype-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999998; /* Just below the preloader */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.prototype-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.prototype-modal-container {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.prototype-modal-overlay.active .prototype-modal-container {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    /* Add a slight delay so it appears smoothly after overlay */
+    transition-delay: 0.1s; 
+}
+
+.prototype-modal-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, rgba(21, 158, 186, 0.1) 0%, rgba(21, 158, 186, 0.05) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: #159EBA;
+}
+
+.prototype-modal-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.prototype-modal-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.prototype-modal-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #4A5568;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.prototype-modal-btn {
+    background: #159EBA;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(21, 158, 186, 0.3);
+}
+
+.prototype-modal-btn:hover {
+    background: #128299;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(21, 158, 186, 0.4);
+}
+
+.prototype-modal-btn:active {
+    transform: translateY(0);
+}

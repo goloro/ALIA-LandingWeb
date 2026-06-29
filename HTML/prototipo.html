@@ -36,6 +36,10 @@
     <link rel="stylesheet" href="../CSS/Prototipo/notificaciones.css">
     <link rel="stylesheet" href="../CSS/Prototipo/dark-mode.css">
     <link rel="stylesheet" href="../CSS/Responsive/Prototipo/prototipo-responsive.css">
+    
+    <!-- Prototype Info Modal -->
+    <link rel="stylesheet" href="../CSS/LandingPage/prototype-modal.css">
+    <link rel="stylesheet" href="../CSS/Responsive/LandingPage/prototype-modal-responsive.css">
 </head>
 
 <body>
@@ -2083,6 +2087,22 @@
         </main>
     </div>
 
+    <!-- Prototype Info Modal -->
+    <div class="prototype-modal-overlay" id="prototype-modal-overlay">
+        <div class="prototype-modal-container">
+            <div class="prototype-modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </div>
+            <h3 class="prototype-modal-title">Bienvenido al prototipo funcional de ALIA</h3>
+            <p class="prototype-modal-text">Esta es una versión de demostración interactiva diseñada para testear las capacidades conversacionales del asistente. Actualmente estás navegando en un entorno de pruebas con un backend simulado; los datos y reservas generadas durante esta sesión no se guardarán en un servidor de producción. Te invitamos a interactuar con la IA de forma natural para comprobar el flujo de gestión de citas.</p>
+            <button class="prototype-modal-btn" id="prototype-modal-btn">Entendido, empezar a explorar</button>
+        </div>
+    </div>
+
     <!-- Prototype Scripts -->
     <script src="../JS/mock-api.js"></script>
     <script src="../JS/API/AliaPrototypeChat.js"></script>
@@ -2094,5 +2114,6 @@
     <script src="../JS/Prototipo/equipo.js"></script>
     <script src="../JS/Prototipo/configuracion.js"></script>
     <script src="../JS/disponibilidad.js"></script>
+    <script src="../JS/prototype-modal.js"></script>
 </body>
 </html>

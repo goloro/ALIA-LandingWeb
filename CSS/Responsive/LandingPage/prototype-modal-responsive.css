@@ -1,0 +1,31 @@
+/* 
+    Prototype Modal Responsive Styles
+*/
+
+@media (max-width: 768px) {
+    .prototype-modal-container {
+        padding: 32px 24px;
+        border-radius: 20px;
+    }
+
+    .prototype-modal-title {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .prototype-modal-text {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+    
+    .prototype-modal-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 20px;
+    }
+    
+    .prototype-modal-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+}
