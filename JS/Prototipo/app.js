@@ -822,6 +822,8 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 if (window.MockAPI && window.MockAPI.addAppointment) {
                     await window.MockAPI.addAppointment(clientName, {
+                        date: apiRawDate,
+                        time: timeStr,
                         rawDate: apiRawDate,
                         formattedDate: formattedDate,
                         service: service,
@@ -2098,3 +2100,68 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+// Global function to trigger notification when ALIA creates an appointment
+window.triggerAliaNotification = function(client, time, service, prof) {
+    // Check if the assigned professional is the owner
+    const currentUser = window.MockAPI?.state?.currentUser?.name || 'Propietario';
+    const isOwner = prof.toLowerCase().includes('propietario') || prof.toLowerCase().includes('alejandro') || prof === currentUser;
+    
+    if (!isOwner) return;
+
+    const notifList = document.querySelector('.notif-list');
+    if (!notifList) return;
+
+    // Remove empty state if present
+    const emptyState = notifList.querySelector('div[style*="text-align: center"]');
+    if (emptyState) {
+        emptyState.remove();
+    }
+
+    // Create notification item
+    const notifItem = document.createElement('div');
+    notifItem.className = 'notif-item unread';
+    notifItem.style.display = 'flex';
+    notifItem.style.padding = '16px';
+    notifItem.style.borderBottom = '1px solid #f1f5f9';
+    notifItem.style.cursor = 'pointer';
+    notifItem.style.transition = 'background-color 0.2s';
+    notifItem.onmouseover = () => notifItem.style.backgroundColor = '#f8fafc';
+    notifItem.onmouseout = () => notifItem.style.backgroundColor = 'transparent';
+
+    notifItem.innerHTML = `
+        <div class="notif-icon" style="width: 40px; height: 40px; border-radius: 50%; background: #e0f2fe; color: #159EBA; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </div>
+        <div class="notif-content" style="flex: 1;">
+            <p class="notif-text" style="margin: 0; font-size: 0.9rem; color: #334155; line-height: 1.4;">
+                <strong>ALIA</strong> te ha agendado una cita con <strong>${client}</strong> a las <strong>${time}</strong> (${service}).
+            </p>
+            <span class="notif-time" style="font-size: 0.75rem; color: #94a3b8; display: block; margin-top: 4px;">Justo ahora</span>
+        </div>
+        <div class="notif-unread-dot" style="width: 8px; height: 8px; background-color: #159EBA; border-radius: 50%; margin-top: 6px;"></div>
+    `;
+
+    // Insert at the top
+    notifList.insertBefore(notifItem, notifList.firstChild);
+
+    // Add badge to topbar icon
+    const btnNotif = document.getElementById('btn-open-notificaciones');
+    if (btnNotif) {
+        btnNotif.style.position = 'relative';
+        let badge = btnNotif.querySelector('.notif-badge');
+        if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'notif-badge';
+            badge.style.position = 'absolute';
+            badge.style.top = '4px';
+            badge.style.right = '4px';
+            badge.style.width = '8px';
+            badge.style.height = '8px';
+            badge.style.backgroundColor = '#ef4444';
+            badge.style.borderRadius = '50%';
+            badge.style.border = '2px solid white';
+            btnNotif.appendChild(badge);
+        }
+    }
+};

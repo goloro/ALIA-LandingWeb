@@ -117,14 +117,24 @@ class AliaPrototypeChat {
                     if (data.name === 'addAppointment' && window.MockAPI) {
                         // Extraemos parámetros (asegúrate de que mockAPI los espera así)
                         const clientQuery = data.args.clientQuery || "Cliente Prototipo";
+                        const prof = data.args.prof || 'Alejandro Mora'; // default a owner si no hay
+                        const service = data.args.service || 'Cita IA';
+                        const time = data.args.time;
+                        
                         await window.MockAPI.addAppointment(clientQuery, {
                             date: data.args.date,
-                            time: data.args.time,
-                            prof: data.args.prof,
-                            service: data.args.service || 'Cita IA',
+                            time: time,
+                            prof: prof,
+                            service: service,
                             notes: data.args.notes || '',
                             source: 'Alia'
                         });
+                        
+                        // Disparar notificacion si existe la funcion
+                        if (window.triggerAliaNotification) {
+                            window.triggerAliaNotification(clientQuery, time, service, prof);
+                        }
+
                         if (window.refreshAgenda) window.refreshAgenda();
                     } else {
                         funcResult = { status: "error", message: "Herramienta desconocida o MockAPI no disponible" };
