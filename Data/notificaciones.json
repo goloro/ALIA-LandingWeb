@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "client": "María López",
+    "time": "11:30",
+    "service": "Tinte y Mechas",
+    "prof": "Alejandro Mora",
+    "timestamp": "Hace 10 min",
+    "unread": true
+  },
+  {
+    "id": 2,
+    "client": "Juan Pérez",
+    "time": "16:00",
+    "service": "Arreglo de Barba",
+    "prof": "Javier Ruiz",
+    "timestamp": "Hace 1 hora",
+    "unread": false
+  },
+  {
+    "id": 3,
+    "client": "Sofía Martínez",
+    "time": "18:15",
+    "service": "Corte Clásico",
+    "prof": "Laura Gómez",
+    "timestamp": "Ayer",
+    "unread": false
+  }
+]

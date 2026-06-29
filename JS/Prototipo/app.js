@@ -2128,6 +2128,41 @@ window.triggerAliaNotification = function(client, time, service, prof) {
     notifItem.style.transition = 'background-color 0.2s';
     notifItem.onmouseover = () => notifItem.style.backgroundColor = '#f8fafc';
     notifItem.onmouseout = () => notifItem.style.backgroundColor = 'transparent';
+    notifItem.onclick = () => {
+        if (window.openAgendaAppointmentPanel) {
+            const mockAppt = { clientName: client, time: time, service: service, prof: prof, status: 'pending', duration: 30 };
+            window.openAgendaAppointmentPanel(JSON.stringify(mockAppt));
+        }
+        
+        // Borrar la notificación al hacer click
+        notifItem.remove();
+        
+        // Actualizar el estado del badge
+        const list = document.querySelector('.notif-list');
+        if (list && list.querySelectorAll('.notif-item.unread').length === 0) {
+            const btnNotif = document.getElementById('btn-open-notificaciones');
+            if (btnNotif) {
+                const badge = btnNotif.querySelector('.notif-badge');
+                if (badge) badge.remove();
+            }
+        }
+        // Si no quedan notificaciones, mostrar mensaje vacío
+        if (list && list.children.length === 0) {
+            list.innerHTML = `
+                <div style="padding: 30px 20px; text-align: center; color: #94a3b8;">
+                    <div style="width: 48px; height: 48px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    </div>
+                    <p style="margin: 0; font-size: 0.9rem; font-weight: 500;">No tienes nuevas notificaciones</p>
+                </div>
+            `;
+        }
+
+        const modal = document.getElementById('modal-notificaciones');
+        if (modal) modal.classList.remove('active');
+        const btn = document.getElementById('btn-open-notificaciones');
+        if (btn) btn.classList.remove('active');
+    };
 
     notifItem.innerHTML = `
         <div class="notif-icon" style="width: 40px; height: 40px; border-radius: 50%; background: #e0f2fe; color: #159EBA; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
@@ -2154,13 +2189,15 @@ window.triggerAliaNotification = function(client, time, service, prof) {
             badge = document.createElement('span');
             badge.className = 'notif-badge';
             badge.style.position = 'absolute';
-            badge.style.top = '4px';
-            badge.style.right = '4px';
-            badge.style.width = '8px';
-            badge.style.height = '8px';
+            badge.style.top = '0px';
+            badge.style.right = '0px';
+            badge.style.width = '12px';
+            badge.style.height = '12px';
             badge.style.backgroundColor = '#ef4444';
             badge.style.borderRadius = '50%';
             badge.style.border = '2px solid white';
+            badge.style.boxSizing = 'border-box';
+            badge.style.padding = '0';
             btnNotif.appendChild(badge);
         }
     }
