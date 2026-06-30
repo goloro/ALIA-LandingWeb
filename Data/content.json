@@ -21,7 +21,7 @@
       },
       {
         "text": "Solicitar Presupuesto<br>Personalizado",
-        "url": "#cta",
+        "url": "#open-chat-budget",
         "style": "secondary"
       }
     ],
@@ -225,7 +225,7 @@
     "heading": "¿Listo para llevar tu negocio al siguiente nivel?",
     "description": "Únete a los negocios que ya están ahorrando 15+ horas semanales en gestión administrativa.",
     "buttonText": "Contacta con nosotros",
-    "buttonUrl": "#cta"
+    "buttonUrl": "#open-chat-budget"
   },
   "footer": {
     "copyright": "© 2026 ALIA. Todos los derechos reservados."

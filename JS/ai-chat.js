@@ -4,15 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatClose = document.getElementById('ai-chat-close');
 
     if (chatToggle && chatWindow && chatClose) {
-        // Abrir chat
-        chatToggle.addEventListener('click', () => {
+        const openChatWindow = () => {
             chatWindow.classList.add('active');
-            chatToggle.style.transform = 'translateY(-50%) translateX(100%)';
+            chatToggle.style.transform = 'scale(0)';
             chatToggle.style.opacity = '0';
             setTimeout(() => {
                 chatToggle.style.display = 'none';
             }, 300);
-        });
+        };
+
+        // Abrir chat
+        chatToggle.addEventListener('click', openChatWindow);
 
         // Cerrar chat
         chatClose.addEventListener('click', () => {
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Forzar reflow para la animacion
             void chatToggle.offsetWidth;
             
-            chatToggle.style.transform = 'translateY(-50%) translateX(0)';
+            chatToggle.style.transform = 'scale(1)';
             chatToggle.style.opacity = '1';
         });
 
@@ -133,6 +135,20 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendMessage();
+            }
+        });
+
+        // Evento para abrir el chat desde botones de "Solicitar presupuesto"
+        document.body.addEventListener('click', (e) => {
+            const target = e.target.closest('a[href="#open-chat-budget"]');
+            if (target) {
+                e.preventDefault();
+                openChatWindow();
+                
+                setTimeout(() => {
+                    chatInput.value = "Me gustaría solicitar un presupuesto estimado.";
+                    sendMessage();
+                }, 400);
             }
         });
     }
