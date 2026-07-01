@@ -116,7 +116,7 @@
     ]
   },
   "portal": {
-    "heading": "Tu Negocio,<br>Supervisado",
+    "heading": "Tu Negocio<br>Supervisado",
     "description": "Control total desde un único portal inteligente. Visualiza tus citas, ajusta disponibilidades y monitorea el rendimiento de ALIA en tiempo real con una interfaz limpia y profesional.",
     "features": [
       "Métricas clave y calendario centralizado en un solo vistazo.",
@@ -136,7 +136,7 @@
   },
   "hardware": {
     "tag": "OPCIONAL: HARDWARE LISTO PARA USAR",
-    "heading": "Tu negocio, equipado<br>desde el primer día",
+    "heading": "Tu negocio equipado<br>desde el primer día",
     "description": "Llevamos la digitalización de tu negocio al siguiente nivel. Te ofrecemos la posibilidad de adquirir tablets pre-configuradas con el ecosistema ALIA, listas para que tu equipo las use nada más sacarlas de la caja.",
     "features": [
       "Configuración y vinculación de cuenta incluida.",
@@ -171,7 +171,7 @@
       }
     ],
     "results": {
-      "savingsLabel": "CON ALIA, TE AHORRAS:",
+      "savingsLabel": "CON ALIA TE AHORRAS:",
       "savingsUnit": "HORAS AL MES",
       "infoText": "Tiempo que tu equipo puede dedicar a mejorar la atención presencial.",
       "annualLabel": "AHORRO ANUAL",

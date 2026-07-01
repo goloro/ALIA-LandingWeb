@@ -32,6 +32,7 @@ module.exports = async function handler(req, res) {
             systemInstructionText = `Eres ALIA, el asistente virtual comercial de una plataforma de inteligencia artificial para peluquerías y negocios de belleza. Tu objetivo es proporcionar información precisa y real sobre el servicio. Responde de forma clara, amable, profesional y persuasiva.
 
 REGLAS DE NEGOCIO Y PRECIOS:
+- FASE DE INICIACIÓN: Actualmente el proyecto se encuentra en una fase inicial, por lo que POR AHORA el servicio solo está disponible para salones de belleza, peluquerías, barberías y centros de estética. Si el usuario pregunta por otro tipo de negocio (como una farmacia, restaurante, etc.), indícale amablemente que por el momento solo trabajamos con el sector de la belleza, pero que esperamos expandirnos en el futuro.
 - ALÍA se ofrece como un servicio personalizado y a medida (despliegue en la nube), que depende del volumen de reservas y las necesidades específicas de cada negocio.
 - NUNCA des precios cerrados ni hables de planes estándar (Básico, Profesional, etc.).
 - Si el usuario pregunta por el precio, responde: "No trabajamos con tarifas estándar, sino que hacemos un presupuesto a medida para cada negocio. ¿Te gustaría que un especialista valore tu caso sin compromiso?"
@@ -49,7 +50,8 @@ VENTAJAS Y BENEFICIOS CLAVE:
 
 LLAMADA A LA ACCIÓN (CTA):
 - Tu objetivo principal es conseguir un lead cualificado para que pidan una demostración gratuita (Demo).
-- Tras explicar las ventajas o responder a sus dudas, dirige la conversación hacia la recolección de datos diciendo algo como: "Me encantaría enseñarte cómo funcionaría ALÍA en tu negocio. ¿A qué correo electrónico o número de teléfono puedo pedirle a nuestro equipo que te contacte para agendar una demostración gratuita?"
+- Tras explicar las ventajas o responder a sus dudas, dirige la conversación hacia la recolección de datos diciendo algo como: "Me encantaría enseñarte cómo funcionaría ALÍA en tu negocio. ¿Me podrías decir tu nombre, un email o teléfono de contacto, y qué tipo de salón tienes para que nuestro equipo te prepare un presupuesto a medida?"
+- REGLA ESTRICTA: CUANDO EL USUARIO TE DÉ SU NOMBRE, CONTACTO Y TIPO DE NEGOCIO, DEBES LLAMAR INMEDIATAMENTE A LA HERRAMIENTA 'requestBudget'. No digas "Voy a enviarlo" antes de llamar a la herramienta. Llama a la herramienta de inmediato sin texto previo.
 
 COMPORTAMIENTO POST-CTA:
 - Si el usuario ya ha mostrado interés o has pedido sus datos de contacto, NO termines la conversación. Sigue disponible para resolver más dudas sobre ALIA.
@@ -57,7 +59,39 @@ COMPORTAMIENTO POST-CTA:
 - NUNCA dejes de responder. Siempre hay algo útil que aportar: más detalles de funcionalidades, casos de uso, tranquilizar sobre la implementación, etc.
 
 RESTRICCIONES:
-- NUNCA respondas a preguntas que no estén relacionadas con ALIA o el sector de la belleza. Si el usuario pregunta algo irrelevante, declina amablemente y redirige la conversación a ALIA.`;
+- NUNCA respondas a preguntas que no estén relacionadas con ALIA o el sector de la belleza. Si el usuario pregunta algo irrelevante, declina amablemente y redirige la conversación a ALIA.\`;
+        
+            // Declaración de herramientas de Function Calling
+            tools = [{
+                function_declarations: [
+                    {
+                        name: "requestBudget",
+                        description: "Envía una solicitud de presupuesto cuando ya has recopilado el nombre del cliente, el correo electrónico o teléfono de contacto, y el tipo de negocio o necesidades que tiene. Llama a esta función SOLO cuando el cliente te haya dado estos datos explícitamente.",
+                        parameters: {
+                            type: "OBJECT",
+                            properties: {
+                                name: {
+                                    type: "STRING",
+                                    description: "El nombre del usuario."
+                                },
+                                contactInfo: {
+                                    type: "STRING",
+                                    description: "El correo electrónico o número de teléfono del usuario."
+                                },
+                                businessDetails: {
+                                    type: "STRING",
+                                    description: "El tipo de negocio y sus necesidades (ej. Peluquería con 3 empleados)."
+                                },
+                                notes: {
+                                    type: "STRING",
+                                    description: "Cualquier nota adicional o duda que tenga el usuario."
+                                }
+                            },
+                            required: ["name", "contactInfo", "businessDetails"]
+                        }
+                    }
+                ]
+            }];
         } else if (chatType === 'prototype_client') {
             systemInstructionText = "Eres ALIA, la recepcionista virtual inteligente de la Peluquería ALIA. Tienes dos objetivos principales:\n1. Resolver cualquier duda que tenga el cliente (horarios, precios orientativos, recomendaciones de estilo, etc.) de forma muy amable, profesional y resolutiva.\n2. Interactuar con el cliente para agendar una cita.\n\nPara agendar la cita debes averiguar: el nombre del cliente, qué servicio desea, con qué profesional, qué fecha y qué hora. Ve preguntando los datos de forma conversacional y natural. NUNCA pidas todos los datos de golpe.\n\nNOTA MUY IMPORTANTE: NUNCA pidas el número de teléfono del cliente. Asume que ya lo tienes porque la conversación transcurre en WhatsApp. Sólo pide el nombre.\n\nCuando tengas TODOS los datos (cliente, servicio, profesional, fecha y hora), DEBES llamar OBLIGATORIAMENTE a la herramienta 'addAppointment' para registrar la cita en la agenda de la peluquería. IMPORTANTE: LLAMA A LA HERRAMIENTA INMEDIATAMENTE SIN ENVIAR NINGÚN MENSAJE DE TEXTO PREVIO. No digas 'Voy a comprobar...' ni 'Déjame intentar...'. Simplemente llama a la función directamente. NUNCA digas que la cita está confirmada hasta que no llames a la herramienta y recibas el resultado 'success'. Si la herramienta devuelve un error (ej. el profesional no está disponible), pídele disculpas al cliente y sugiérele otra hora o profesional basándote en la información del error.";
 
@@ -170,7 +204,56 @@ RESTRICCIONES:
         const part = data.candidates[0].content.parts[0];
         
         if (part.functionCall) {
-            // Devolvemos el control al frontend para que ejecute la acción real
+            if (part.functionCall.name === 'requestBudget') {
+                const args = part.functionCall.args;
+                
+                // Enviar email usando Resend API mediante fetch (sin dependencias de node)
+                try {
+                    const resendApiKey = process.env.RESEND_API_KEY;
+                    const destEmail = process.env.EMAIL_DEST; // El email donde quieres recibir las alertas
+                    const ccEmail = process.env.EMAIL_CC; // Opcional: email(s) para copia
+                    
+                    if (resendApiKey && destEmail) {
+                        const emailPayload = {
+                            from: 'Acme <onboarding@resend.dev>', // Usamos el correo por defecto de pruebas de Resend
+                            to: [destEmail],
+                            subject: `Nuevo Lead ALIA: ${args.name}`,
+                            html: `<p>Has recibido una nueva solicitud de presupuesto desde la Landing Page de ALIA.</p>
+                                   <ul>
+                                       <li><strong>Nombre:</strong> ${args.name}</li>
+                                       <li><strong>Contacto:</strong> ${args.contactInfo}</li>
+                                       <li><strong>Negocio:</strong> ${args.businessDetails}</li>
+                                       <li><strong>Notas:</strong> ${args.notes || 'Ninguna'}</li>
+                                   </ul>`
+                        };
+
+                        if (ccEmail) {
+                            // Separar por comas si hay varios y limpiar espacios
+                            emailPayload.cc = ccEmail.split(',').map(e => e.trim());
+                        }
+
+                        await fetch('https://api.resend.com/emails', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${resendApiKey}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(emailPayload)
+                        });
+                    } else {
+                        console.error("Faltan las variables RESEND_API_KEY o EMAIL_DEST en Vercel.");
+                    }
+                } catch (e) {
+                    console.error("Error enviando email con Resend:", e);
+                }
+
+                // Devolver respuesta directa al frontend sin re-procesar por Gemini
+                return res.status(200).json({ 
+                    reply: `¡Genial, ${args.name}! He enviado tu solicitud a nuestro equipo. Se pondrán en contacto contigo en breve al ${args.contactInfo} para preparar un presupuesto a medida para tu ${args.businessDetails}. ¿Puedo ayudarte con alguna otra duda sobre ALIA?` 
+                });
+            }
+
+            // Devolvemos el control al frontend para que ejecute la acción real (ej. addAppointment)
             return res.status(200).json({ 
                 type: 'functionCall',
                 name: part.functionCall.name,
