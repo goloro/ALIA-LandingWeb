@@ -94,3 +94,8 @@
     border-radius: 20px;
     margin-left: auto;
 }
+
+.tag-margin-bottom {
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}

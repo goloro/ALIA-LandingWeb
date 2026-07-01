@@ -61,97 +61,94 @@
     <!-- Main Desktop App Content -->
     <div class="app-container">
         <!-- Header -->
-        <header class="header" style="border-bottom: 1px solid #e5e7eb;">
+        <header class="header header-bordered">
             <div class="logo-container">
-                <a href="../index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                <a href="../index.html" class="logo-link">
                     <img src="../Images/Logos/LogoHexagonoAlia-SinFondo.png" alt="ALIA Logo" class="logo-img">
                     <img src="../Images/Logos/LogoTextoAlia-SinFondo.png" alt="Texto ALIA Logo" class="logo-img">
                 </a>
             </div>
-            <a href="../index.html" class="btn btn-secondary" style="border: 1px solid #e5e7eb;">Volver al Inicio</a>
+            <a href="../index.html" class="btn btn-secondary btn-secondary-bordered">Volver al Inicio</a>
         </header>
 
         <main class="prototype-workspace">
             <div class="prototype-content">
                 <!-- Contenedor del Portal (Izquierda) -->
-                <div class="portal-container" style="position: relative;">
+                <div class="portal-container">
                     <!-- Loading Overlay for Data Fetching -->
-                    <div id="data-loading-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease-out; border-radius: 24px;">
-                        <div style="width: 50px; height: 50px; border: 4px solid #f3f4f6; border-top: 4px solid #00b4d8; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
-                        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 600; margin-bottom: 8px;">Cargando Información...</h2>
-                        <p style="color: #64748b; font-size: 1rem;">Obteniendo base de datos del negocio</p>
-                        <style>
-                            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-                        </style>
+                    <div id="data-loading-overlay" class="data-loading-overlay">
+                        <div class="data-loading-spinner"></div>
+                        <h2 class="data-loading-title">Cargando Información...</h2>
+                        <p class="data-loading-text">Obteniendo base de datos del negocio</p>
                     </div>
 
                     <!-- Toast Notifications Container (Moved inside portal) -->
                     <div id="toast-container" class="toast-container"></div>
                     
-    <div class="modal-overlay" id="modal-confirm-delete" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; z-index: 9999;">
-        <div class="modal-container" style="max-width: 400px; text-align: center;">
-            <div style="margin-bottom: 24px; color: #ef4444;">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    <div class="modal-overlay modal-overlay-styled" id="modal-confirm-delete">
+        <div class="modal-container modal-container-styled">
+            <div class="modal-icon-danger">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-icon-svg"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
             </div>
-            <h2 class="modal-title" style="margin-bottom: 12px;">¿Eliminar cliente?</h2>
-            <p class="modal-subtitle" style="margin-bottom: 24px; color: #64748b;">Esta acción es irreversible y se borrarán todos los datos y el historial de citas de este cliente.</p>
+            <h2 class="modal-title modal-title-styled">¿Eliminar cliente?</h2>
+            <p class="modal-subtitle modal-subtitle-styled">Esta acción es irreversible y se borrarán todos los datos y el historial de citas de este cliente.</p>
             
-            <div class="modal-actions" style="justify-content: center; gap: 16px;">
-                <button class="btn-cancel" id="btn-cancel-delete" style="flex: 1;">Cancelar</button>
-                <button class="btn-save" id="btn-confirm-delete" style="flex: 1; background-color: #ef4444; color: white;">Sí, Eliminar</button>
+            <div class="modal-actions modal-actions-styled">
+                <button class="btn-cancel btn-cancel-flex" id="btn-cancel-delete">Cancelar</button>
+                <button class="btn-save btn-save-flex btn-danger-bg" id="btn-confirm-delete">Sí, Eliminar</button>
             </div>
         </div>
     </div>
     
-    <div class="modal-overlay" id="modal-confirm-delete-prof" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; z-index: 9999;">
-        <div class="modal-container" style="max-width: 400px; text-align: center;">
-            <div style="margin-bottom: 24px; color: #ef4444;">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    <div class="modal-overlay modal-overlay-styled" id="modal-confirm-delete-prof">
+        <div class="modal-container modal-container-styled">
+            <div class="modal-icon-danger">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-icon-svg"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
             </div>
-            <h2 class="modal-title" style="margin-bottom: 12px;">¿Eliminar profesional?</h2>
-            <p class="modal-subtitle" style="margin-bottom: 24px; color: #64748b;">Esta acción es irreversible y se borrarán todos los datos y la configuración de este profesional.</p>
+            <h2 class="modal-title modal-title-styled">¿Eliminar profesional?</h2>
+            <p class="modal-subtitle modal-subtitle-styled">Esta acción es irreversible y se borrarán todos los datos y la configuración de este profesional.</p>
             
-            <div class="modal-actions" style="justify-content: center; gap: 16px;">
-                <button class="btn-cancel" id="btn-cancel-delete-prof" style="flex: 1;">Cancelar</button>
-                <button class="btn-save" id="btn-confirm-delete-prof" style="flex: 1; background-color: #ef4444; color: white;">Sí, Eliminar</button>
+            <div class="modal-actions modal-actions-styled">
+                <button class="btn-cancel btn-cancel-flex" id="btn-cancel-delete-prof">Cancelar</button>
+                <button class="btn-save btn-save-flex btn-danger-bg" id="btn-confirm-delete-prof">Sí, Eliminar</button>
             </div>
         </div>
     </div>
     
-    <div class="modal-overlay" id="modal-confirm-cancel-add-prof" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; z-index: 9999;">
-        <div class="modal-container" style="max-width: 400px; text-align: center;">
-            <div style="margin-bottom: 24px; color: #f59e0b;">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto;">
+    <div class="modal-overlay modal-overlay-styled" id="modal-confirm-cancel-add-prof" style="display: none;">
+        <div class="modal-container modal-container-styled">
+            <div class="modal-icon-warning">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-icon-svg">
                     <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
                     <line x1="12" y1="9" x2="12" y2="13"></line>
                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
             </div>
-            <h2 class="modal-title" style="margin-bottom: 12px;">¿Cancelar invitación?</h2>
-            <p class="modal-subtitle" style="margin-bottom: 24px; color: #64748b;">Si cancelas ahora, se perderán todos los datos que hayas introducido para este profesional.</p>
+            <h2 class="modal-title modal-title-styled">¿Cancelar invitación?</h2>
+            <p class="modal-subtitle modal-subtitle-styled">Si cancelas ahora, se perderán todos los datos que hayas introducido para este profesional.</p>
             
-            <div class="modal-actions" style="justify-content: center; gap: 16px;">
-                <button class="btn-cancel" id="btn-cancel-cancel-add-prof" style="flex: 1;">Volver atrás</button>
-                <button class="btn-save" id="btn-confirm-cancel-add-prof" style="flex: 1; background-color: #f59e0b; color: white;">Sí, cancelar</button>
+            <div class="modal-actions modal-actions-styled">
+                <button class="btn-cancel btn-cancel-flex" id="btn-cancel-cancel-add-prof">Volver atrás</button>
+                <button class="btn-save btn-save-flex btn-warning-bg" id="btn-confirm-cancel-add-prof">Sí, cancelar</button>
             </div>
         </div>
     </div>
     
-    <div class="modal-overlay" id="modal-confirm-delete-inv" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; z-index: 9999;">
-        <div class="modal-container" style="max-width: 400px; text-align: center;">
-            <div style="margin-bottom: 24px; color: #ef4444;">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto;">
+    <div class="modal-overlay modal-overlay-styled" id="modal-confirm-delete-inv" style="display: none;">
+        <div class="modal-container modal-container-styled">
+            <div class="modal-icon-danger">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-icon-svg">
                     <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
                     <line x1="12" y1="9" x2="12" y2="13"></line>
                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
             </div>
-            <h2 class="modal-title" style="margin-bottom: 12px;">¿Anular invitación?</h2>
-            <p class="modal-subtitle" style="margin-bottom: 24px; color: #64748b;">El profesional ya no podrá acceder a su cuenta y el enlace dejará de ser válido.</p>
+            <h2 class="modal-title modal-title-styled">¿Anular invitación?</h2>
+            <p class="modal-subtitle modal-subtitle-styled">El profesional ya no podrá acceder a su cuenta y el enlace dejará de ser válido.</p>
             
-            <div class="modal-actions" style="justify-content: center; gap: 16px;">
-                <button class="btn-cancel" id="btn-cancel-delete-inv" style="flex: 1;">Cancelar</button>
-                <button class="btn-save" id="btn-confirm-delete-inv" style="flex: 1; background-color: #ef4444; color: white;">Sí, anular</button>
+            <div class="modal-actions modal-actions-styled">
+                <button class="btn-cancel btn-cancel-flex" id="btn-cancel-delete-inv">Cancelar</button>
+                <button class="btn-save btn-save-flex btn-danger-bg" id="btn-confirm-delete-inv">Sí, anular</button>
             </div>
         </div>
     </div>
@@ -207,8 +204,8 @@
                              COMPONENT: TOPBAR 
                              ========================================== -->
                         <header class="portal-topbar">
-                            <div class="topbar-title-wrapper" style="display: flex; align-items: center; gap: 12px;">
-                                <button id="btn-mobile-menu" class="mobile-menu-btn" style="display: none; background: none; border: none; cursor: pointer; color: #0f172a; padding: 4px;">
+                            <div class="topbar-title-wrapper topbar-title-wrapper-flex">
+                                <button id="btn-mobile-menu" class="mobile-menu-btn mobile-menu-btn-hidden">
                                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                                 </button>
                                 <h2 class="topbar-title">Dashboard</h2>
@@ -241,30 +238,28 @@
                                 
                                 <div class="metrics-grid">
                                     <div class="metric-card">
-                                        <div class="metric-title">Ingresos Previstos (<span class="current-month-text">...</span>)</div>
-                                        <div class="metric-value" id="db-ingresos-value">0 <span>€</span></div>
-                                        <div class="metric-line" id="db-ingresos-bar" style="width: 0px;"></div>
+                                        <div class="metric-title">Ingresos Previstos (<span class="current-month-text"></span>)</div>
+                                        <div class="metric-value" id="db-ingresos-value"><span></span></div>
+                                        <div class="metric-line" id="db-ingresos-bar"></div>
                                     </div>
                                     
                                     <div class="metric-card">
-                                        <div class="metric-title">Tasa De Ocupación (<span class="current-month-text">...</span>)</div>
-                                        <div class="metric-value" id="db-ocupacion-value">0 <span>%</span></div>
-                                        <div class="metric-sub" id="db-ocupacion-vs" style="color: #94a3b8;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg> 0% vs mes ant.</div>
+                                        <div class="metric-title">Tasa De Ocupación (<span class="current-month-text"></span>)</div>
+                                        <div class="metric-value" id="db-ocupacion-value"><span></span></div>
+                                        <div class="metric-sub metric-sub-muted" id="db-ocupacion-vs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg> <span></span></div>
                                     </div>
                                             <div class="metric-card">
-                                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                            <div class="metric-title">Nuevos Clientes (<span class="current-month-text">...</span>)</div>
-                                            <div class="pill-green" id="db-nuevos-pill" style="background-color: #f1f5f9; color: #94a3b8;">0%</div>
+                                        <div class="flex-between-start">
+                                            <div class="metric-title">Nuevos Clientes (<span class="current-month-text"></span>)</div>
+                                            <div class="pill-green pill-empty-state" id="db-nuevos-pill"></div>
                                         </div>
-                                        <div class="metric-value" id="db-nuevos-value">0</div>
-                                        <div class="avatars-group" id="db-nuevos-avatars" style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; margin-top: 4px;">
-                                            Sin datos recientes
-                                        </div>
+                                        <div class="metric-value" id="db-nuevos-value"></div>
+                                        <div class="avatars-group avatars-group-empty" id="db-nuevos-avatars"></div>
                                     </div>
                                     
                                     <div class="metric-card purple-card">
-                                        <div class="metric-title">Horas Ahorradas Por ALIA (<span class="current-month-text">...</span>)</div>
-                                        <div class="metric-value" id="db-ahorros-value">✨ 0h</div>
+                                        <div class="metric-title">Horas Ahorradas Por ALIA (<span class="current-month-text"></span>)</div>
+                                        <div class="metric-value" id="db-ahorros-value"></div>
                                         <div class="metric-sub" id="db-ahorros-sub">Gestión automática<br>de reservas</div>
                                     </div>
                                 </div>
@@ -273,9 +268,9 @@
                                     <div class="chart-card">
                                         <div class="chart-header">
                                             <div>
-                                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;">
-                                                    <h3 class="section-title" style="margin-bottom: 0;">Citas reservadas por Día</h3>
-                                                    <span id="db-chart-date-range" style="font-size: 0.85rem; font-weight: 500; color: #64748b; background-color: #f1f5f9; padding: 2px 8px; border-radius: 4px;"></span>
+                                                <div class="flex-center-gap12-mb4">
+                                                    <h3 class="section-title section-title-mb0">Citas reservadas por Día</h3>
+                                                    <span id="db-chart-date-range" class="date-range-badge"></span>
                                                 </div>
                                                 <span class="section-subtitle">Comparativa de canal de entrada</span>
                                             </div>
@@ -298,13 +293,13 @@
                                     </div>
                                     
                                     <div class="team-card">
-                                        <h3 class="section-title" style="margin-bottom: 4px;">Rendimiento del Equipo</h3>
+                                        <h3 class="section-title section-title-mb4">Rendimiento del Equipo</h3>
                                         <span class="section-subtitle">Ocupación semanal</span>
                                         
                                         <div class="team-list" id="db-team-list">
-                                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 0; color: #94a3b8; text-align: center;">
-                                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; opacity: 0.5;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                                                <span style="font-size: 0.875rem;">No hay profesionales registrados</span>
+                                            <div class="empty-state-container">
+                                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="empty-state-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                                <span class="empty-state-text">No hay profesionales registrados</span>
                                             </div>
                                         </div>
                                         
@@ -313,13 +308,13 @@
                                 </div>
 
                                 <h3 class="section-title">Próxima Cita</h3>
-                                <div class="appointment-card" id="db-next-appt-card" style="border-left-color: #e2e8f0;">
+                                <div class="appointment-card appt-card-empty" id="db-next-appt-card">
                                     <div class="appt-left">
                                         <div class="appt-status">
-                                            <span class="badge-green" id="db-next-appt-badge" style="background-color: #f1f5f9; color: #94a3b8;">SIN CITAS</span>
-                                            <span class="appt-time" id="db-next-appt-time" style="color: #94a3b8;">--:--</span>
+                                            <span class="badge-green pill-empty-state" id="db-next-appt-badge"></span>
+                                            <span class="appt-time appt-time-muted" id="db-next-appt-time"></span>
                                         </div>
-                                        <div class="appt-name" id="db-next-appt-name" style="color: #64748b;">No hay citas próximas</div>
+                                        <div class="appt-name appt-name-muted" id="db-next-appt-name"></div>
                                         <div class="appt-service" id="db-next-appt-service">---</div>
                                     </div>
                                     <div class="appt-right" id="db-next-appt-right">
@@ -332,7 +327,7 @@
                                     <div class="mini-stat-card">
                                         <div class="mini-stat-info">
                                             <div class="mini-stat-header">Completadas</div>
-                                            <div class="mini-stat-value" id="db-mini-completadas-value">0 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                                            <div class="mini-stat-value" id="db-mini-completadas-value"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
                                         </div>
                                         <div class="mini-stat-icon-wrapper green-icon">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -341,7 +336,7 @@
                                     <div class="mini-stat-card">
                                         <div class="mini-stat-info">
                                             <div class="mini-stat-header">Citas Hoy</div>
-                                            <div class="mini-stat-value" id="db-mini-citas-hoy-value">0</div>
+                                            <div class="mini-stat-value" id="db-mini-citas-hoy-value"></div>
                                         </div>
                                         <div class="mini-stat-icon-wrapper purple-icon">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -350,7 +345,7 @@
                                     <div class="mini-stat-card">
                                         <div class="mini-stat-info">
                                             <div class="mini-stat-header">Huecos Libres</div>
-                                            <div class="mini-stat-value" id="db-mini-huecos-value">0 <span style="font-size:1rem; color:#d97706; margin-left: 4px;">🕒</span></div>
+                                            <div class="mini-stat-value" id="db-mini-huecos-value"> <span class="icon-small-orange">🕒</span></div>
                                         </div>
                                         <div class="mini-stat-icon-wrapper orange-icon">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -360,7 +355,7 @@
 
                                 <!-- Resto de la jornada -->
                                 <div class="section-header-row">
-                                    <h3 class="section-title" style="margin-bottom: 0;">Resto de la jornada</h3>
+                                    <h3 class="section-title section-title-mb0">Resto de la jornada</h3>
                                     <a href="#" class="link-calendar" onclick="event.preventDefault(); document.querySelector('.nav-item[data-target=\'page-agenda-semanal\']').click()">Ver agenda completa</a>
                                 </div>
                                 <div class="timeline-container" id="db-timeline-container">
@@ -381,7 +376,7 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="agenda-prof-filters" style="display: none;">
+                                        <div class="agenda-prof-filters hidden-initial">
                                             <!-- Los filtros aparecerán aquí cuando haya más de un profesional -->
                                         </div>
                                         
@@ -396,17 +391,17 @@
                                         <!-- Headers -->
                                         <div class="agenda-grid-header-row">
                                             <div class="agenda-time-col-header">
-                                                <span class="time-zone-label" style="display:none; font-size: 10px; font-weight: 600; color: #475569; padding-left: 16px; margin-top: auto; padding-bottom: 8px;">GMT 4</span>
+                                                <span class="time-zone-label time-zone-label-styled hidden-initial">GMT 4</span>
                                             </div>
                                             
-                                            <div class="agenda-prof-headers-wrapper" style="display: contents;">
+                                            <div class="agenda-prof-headers-wrapper display-contents">
                                                 <div class="agenda-prof-header">
                                                     <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Propietario" class="prof-avatar">
                                                     <span class="prof-name">Propietario</span>
                                                 </div>
                                             </div>
 
-                                            <div class="agenda-week-headers-wrapper" style="display: none;">
+                                            <div class="agenda-week-headers-wrapper hidden-initial">
                                                 <div class="agenda-week-header active">
                                                     <span class="day-name">LUNES</span>
                                                     <span class="day-num">20</span>
@@ -463,22 +458,22 @@
                                             <div class="agenda-prof-cols-wrapper">
                                                 <div class="agenda-bg-grid">
                                                     <div class="bg-col"></div>
-                                                    <div class="bg-col week-only" style="display: none;"></div>
-                                                    <div class="bg-col week-only" style="display: none;"></div>
-                                                    <div class="bg-col week-only" style="display: none;"></div>
-                                                    <div class="bg-col week-only" style="display: none;"></div>
-                                                    <div class="bg-col week-only" style="display: none;"></div>
-                                                    <div class="bg-col week-only" style="display: none;"></div>
+                                                    <div class="bg-col week-only hidden-initial"></div>
+                                                    <div class="bg-col week-only hidden-initial"></div>
+                                                    <div class="bg-col week-only hidden-initial"></div>
+                                                    <div class="bg-col week-only hidden-initial"></div>
+                                                    <div class="bg-col week-only hidden-initial"></div>
+                                                    <div class="bg-col week-only hidden-initial"></div>
                                                 </div>
                                                 <div class="agenda-prof-col">
-                                                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #94a3b8; text-align: center; padding: 20px;">
-                                                        <span style="font-size: 0.9rem;">No hay citas en esta fecha</span>
+                                                    <div class="agenda-empty-col">
+                                                        <span class="agenda-empty-text">No hay citas en esta fecha</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="agenda-month-grid" style="display: none;">
+                                    <div class="agenda-month-grid hidden-initial">
                                         <div class="month-grid-header">
                                             <div class="month-header-cell">LUNES</div>
                                             <div class="month-header-cell">MARTES</div>
@@ -612,7 +607,7 @@
                                                 <th>CORREO ELECTRÓNICO</th>
                                                 <th>TELÉFONO</th>
                                                 <th>ÚLTIMA CITA</th>
-                                                <th style="text-align: center;">TOTAL DE CITAS</th>
+                                                <th class="text-center-th">TOTAL DE CITAS</th>
                                                 <th class="th-actions">
                                                     <button class="btn-nuevo-cliente">
                                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
@@ -630,9 +625,9 @@
                                     <div class="pagination-container">
                                         <div class="pagination-info">Mostrando <strong>0 a 0</strong> de 0 clientes</div>
                                         <div class="pagination-controls">
-                                            <button class="page-btn page-arrow" disabled style="opacity: 0.5; cursor: not-allowed;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                                            <button class="page-btn page-arrow page-btn-disabled" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
                                             <button class="page-btn active">1</button>
-                                            <button class="page-btn page-arrow" disabled style="opacity: 0.5; cursor: not-allowed;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                                            <button class="page-btn page-arrow page-btn-disabled" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
                                         </div>
                                     </div>
                                 </div>
@@ -654,7 +649,7 @@
                                     </div>
                                     
                                     <!-- Card 2: Retención -->
-                                    <div class="c-stat-card c-stat-white" style="position:relative;">
+                                    <div class="c-stat-card c-stat-white position-relative">
                                         <div class="c-stat-header">
                                             <div class="c-icon-circle icon-purple">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
@@ -678,7 +673,7 @@
                                     </div>
                                     
                                     <!-- Card 3: Asistencia -->
-                                    <div class="c-stat-card c-stat-white" style="position:relative;">
+                                    <div class="c-stat-card c-stat-white position-relative">
                                         <div class="c-stat-header">
                                             <div class="c-icon-circle icon-green">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><polyline points="9 16 12 19 16 13"></polyline></svg>
@@ -720,18 +715,18 @@
                                         </div>
                                         
                                         <div class="cs-list">
-                                            <div style="padding: 40px 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+                                            <div class="chats-empty-state">
                                                 No hay conversaciones recientes
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <!-- Main Chat Area -->
-                                    <div class="chats-main" style="display: flex; align-items: center; justify-content: center; background-color: #f8fafc;">
-                                        <div style="text-align: center; color: #94a3b8;">
-                                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px; opacity: 0.5;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                            <h3 style="font-size: 1.1rem; color: #64748b;">No hay chat seleccionado</h3>
-                                            <p style="font-size: 0.9rem; margin-top: 8px;">Selecciona una conversación de la lista para leer los mensajes.</p>
+                                    <div class="chats-main chats-main-empty">
+                                        <div class="chats-main-content">
+                                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="chats-main-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                            <h3 class="chats-main-title">No hay chat seleccionado</h3>
+                                            <p class="chats-main-text">Selecciona una conversación de la lista para leer los mensajes.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -771,9 +766,9 @@
                                                              <div class="cal-legend">
                                                     <span class="legend-item"><span class="dot dot-hoy"></span> Hoy</span>
                                                     <span class="legend-item"><span class="dot dot-cerrado"></span> Negocio Cerrado</span>
-                                                    <span class="legend-item"><span class="dot dot-libranza" style="background-color: #e2e8f0;"></span> Libranza</span>
+                                                    <span class="legend-item"><span class="dot dot-libranza bg-e2e8f0"></span> Libranza</span>
                                                     <span class="legend-item"><span class="dot dot-vacas"></span> Vacaciones</span>
-                                                    <span class="legend-item"><span class="dot dot-baja" style="background-color: #fcd34d;"></span> Baja Médica</span>
+                                                    <span class="legend-item"><span class="dot dot-baja bg-fcd34d"></span> Baja Médica</span>
                                                 </div>                                      </div>
                                             </div>
                                             
@@ -781,7 +776,7 @@
                                             <div class="disp-card card-solicitudes">
                                                 <h3 class="card-title-small">Últimas Solicitudes</h3>
                                                 <div class="solicitud-list">
-                                                    <div style="padding: 32px 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+                                                    <div class="solicitud-empty">
                                                         No hay solicitudes recientes
                                                     </div>
                                                 </div>
@@ -803,18 +798,18 @@
                                                             <input type="hidden" id="tipo-ausencia" value="Vacaciones">
                                                         </div>
                                                                 <div class="form-row">
-                                                          <div class="form-group half" style="position: relative;">
+                                                          <div class="form-group half position-relative">
                                                               <label>DESDE</label>
                                                               <div class="disp-input-icon">
                                                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                                                  <input type="text" id="desde-input" class="date-picker-input" value="08/06/2026" data-disable-today="true" readonly style="cursor: pointer;">
+                                                                  <input type="text" id="desde-input" class="date-picker-input cursor-pointer" data-disable-today="true" readonly>
                                                               </div>
                                                           </div>
-                                                          <div class="form-group half" style="position: relative;">
+                                                          <div class="form-group half position-relative">
                                                               <label>HASTA</label>
                                                               <div class="disp-input-icon">
                                                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                                                  <input type="text" id="hasta-input" class="date-picker-input" value="10/06/2026" data-min-date-input="#desde-input" readonly style="cursor: pointer;">
+                                                                  <input type="text" id="hasta-input" class="date-picker-input cursor-pointer" data-min-date-input="#desde-input" readonly>
                                                               </div>
                                                           </div>
                                                       </div>                                            </div>
@@ -854,10 +849,10 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td colspan="5" style="text-align: center; padding: 48px 0; color: #64748b;">
-                                                            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                                                        <td colspan="5" class="disp-table-empty-td">
+                                                            <div class="disp-table-empty-content">
                                                                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                                                <span style="font-size: 1rem; font-weight: 500;">No hay solicitudes de ausencia</span>
+                                                                <span class="disp-table-empty-text">No hay solicitudes de ausencia</span>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -897,10 +892,10 @@
                                 <table class="eq-table">
                                     <thead>
                                         <tr>
-                                            <th style="width: 25%;">NOMBRE</th>
-                                            <th style="width: 25%;">ESPECIALIDAD</th>
-                                            <th style="width: 25%; text-align: center;">ESTADO</th>
-                                            <th style="width: 25%; text-align: center;">ACCIONES</th>
+                                            <th class="w-25">NOMBRE</th>
+                                            <th class="w-25">ESPECIALIDAD</th>
+                                            <th class="w-25-center">ESTADO</th>
+                                            <th class="w-25-center">ACCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody id="eq-table-body">
@@ -921,7 +916,7 @@
                                     </div>
                                     <div class="insight-info">
                                         <span class="insight-label">Horas esta semana</span>
-                                        <span class="insight-value" id="equipo-horas-semana">0 hrs</span>
+                                        <span class="insight-value" id="equipo-horas-semana"><span></span></span>
                                     </div>
                                 </div>
                                 <div class="insight-card insight-purple">
@@ -930,7 +925,7 @@
                                     </div>
                                     <div class="insight-info">
                                         <span class="insight-label">Top Performer</span>
-                                        <span class="insight-value" id="equipo-top-performer">-</span>
+                                        <span class="insight-value" id="equipo-top-performer"><span></span></span>
                                     </div>
                                 </div>
                             </div>
@@ -941,8 +936,8 @@
                                 <h3>Invitaciones enviadas</h3>
                             </div>
                             <div id="invitations-container">
-                                <div class="invitation-card" style="display: flex; align-items: center; justify-content: center; padding: 24px; color: #94a3b8;">
-                                    <span style="font-size: 0.95rem;">No hay invitaciones enviadas</span>
+                                <div class="invitation-card invitation-empty-card">
+                                    <span class="invitation-empty-text">No hay invitaciones enviadas</span>
                                 </div>
                             </div>
                         </div>
@@ -997,12 +992,12 @@
                                             <div class="form-group-clean full-width">
                                                 <label>ROL EN EL EQUIPO (OBLIGATORIO)</label>
                                                 <div class="input-with-icon custom-select-container" id="add-prof-role">
-                                                    <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="left: 12px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                                    <div class="custom-select-trigger" style="border: 1px solid #cbd5e1; border-radius: 8px; background-color: #ffffff; padding: 14px 40px 14px 44px; width: 100%; box-sizing: border-box; cursor: pointer;">
-                                                        <span class="selected-value" style="color: #0f172a;">Estilista</span>
+                                                    <svg class="left-icon left-icon-styled" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                                    <div class="custom-select-trigger custom-select-trigger-styled">
+                                                        <span class="selected-value selected-value-styled">Estilista</span>
                                                     </div>
-                                                    <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right: 14px; top: 16px; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                    <div class="custom-select-options" style="border: 1px solid #cbd5e1; border-top: none; border-radius: 0 0 8px 8px; z-index: 100;">
+                                                    <svg class="select-arrow select-arrow-styled" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                                    <div class="custom-select-options custom-select-options-styled">
                                                         <div class="custom-option">Estilista</div>
                                                         <div class="custom-option">Colorista</div>
                                                         <div class="custom-option">Recepcionista</div>
@@ -1017,7 +1012,7 @@
                                         </div>
 
                                         <!-- Datos Administrativos -->
-                                        <div class="add-prof-card" style="grid-column: 1 / -1;">
+                                        <div class="add-prof-card grid-col-full">
                                             <div class="card-header-with-icon">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cyan"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                                                 <h3>Datos Administrativos</h3>
@@ -1034,8 +1029,8 @@
                                                 <div class="form-group-clean full-width">
                                                     <label>FECHA DE ALTA PREVISTA (OBLIGATORIO)</label>
                                                     <div class="input-with-icon">
-                                                        <svg class="left-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="left: 12px; pointer-events: none;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                                        <input type="text" id="add-prof-hire-date" class="date-picker-input" data-disable-today="true" data-allow-all-days="true" placeholder="dd/mm/yyyy" readonly style="cursor: pointer; padding-left: 36px;">
+                                                        <svg class="left-icon left-icon-pointer-none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                        <input type="text" id="add-prof-hire-date" class="date-picker-input input-cursor-pointer-pl36" data-disable-today="true" data-allow-all-days="true" placeholder="dd/mm/yyyy" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1067,8 +1062,8 @@
                             
                             <!-- Diapositiva: Soporte -->
                             <div class="page-section" id="page-soporte">
-                                <div class="soporte-layout-container" style="max-width: 1600px; margin: 0 auto;">
-                                    <div class="soporte-layout" style="margin: 0; max-width: none;">
+                                <div class="soporte-layout-container soporte-layout-container-styled">
+                                    <div class="soporte-layout soporte-layout-styled">
                                     
                                     <!-- Left Column: Open Ticket Form -->
                                     <div class="soporte-card ticket-form-card">
@@ -1081,11 +1076,11 @@
                                             <div class="form-group-clean">
                                                 <label>CATEGORÍA DEL PROBLEMA</label>
                                                 <div class="input-with-icon custom-select-container">
-                                                    <div class="custom-select-trigger" style="border: 1px solid #cbd5e1; border-radius: 8px; background-color: #f8fafc; padding: 14px 40px 14px 16px; width: 100%; box-sizing: border-box; cursor: pointer;">
-                                                        <span class="selected-value" style="color: #0f172a;">Technical</span>
+                                                    <div class="custom-select-trigger custom-select-trigger-gray">
+                                                        <span class="selected-value selected-value-styled">Technical</span>
                                                     </div>
-                                                    <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right: 14px; top: 16px; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                    <div class="custom-select-options" style="border: 1px solid #cbd5e1; border-top: none; border-radius: 0 0 8px 8px; z-index: 100;">
+                                                    <svg class="select-arrow select-arrow-styled" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                                    <div class="custom-select-options custom-select-options-styled">
                                                         <div class="custom-option">Technical</div>
                                                         <div class="custom-option">Facturación</div>
                                                         <div class="custom-option">Cuenta</div>
@@ -1096,12 +1091,12 @@
                                             
                                             <div class="form-group-clean">
                                                 <label>ASUNTO BREVE</label>
-                                                <input type="text" placeholder="Ej: Error al procesar pago" style="background-color: #f8fafc;">
+                                                <input type="text" placeholder="Ej: Error al procesar pago" class="bg-f8fafc">
                                             </div>
                                             
                                             <div class="form-group-clean full-width">
                                                 <label>DESCRIBE TU PROBLEMA CON DETALLE...</label>
-                                                <textarea placeholder="Por favor, incluye pasos para reproducir el error o cualquier detalle relevante..." rows="6" style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; width: 100%; box-sizing: border-box; resize: vertical; font-family: inherit; font-size: 0.95rem;"></textarea>
+                                                <textarea placeholder="Por favor, incluye pasos para reproducir el error o cualquier detalle relevante..." rows="6" class="textarea-styled"></textarea>
                                             </div>
                                             
                                             <div class="form-group-clean full-width">
@@ -1183,9 +1178,9 @@
                                     <div class="ajustes-content">
                                         <!-- Top Cards -->
                                         <a href="#" class="ajustes-card-link" id="btn-mi-cuenta">
-                                            <div class="card-icon-wrapper" style="background-color: #e2e8f0;">
+                                            <div class="card-icon-wrapper icon-wrapper-gray">
                                                 <!-- Mockup image for user -->
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Usuario" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Usuario" class="img-cover-circle">
                                             </div>
                                             <div class="card-text">
                                                 <h3>Información de Usuario</h3>
@@ -1195,8 +1190,8 @@
                                         </a>
                                         
                                         <a href="#" class="ajustes-card-link" id="btn-portal-negocio">
-                                            <div class="card-icon-wrapper" style="background-color: transparent; padding: 0; overflow: hidden;">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Logo ALIA" style="width: 100%; height: 100%; object-fit: cover;">
+                                            <div class="card-icon-wrapper icon-wrapper-transparent">
+                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Logo ALIA" class="img-cover">
                                             </div>
                                             <div class="card-text">
                                                 <h3>Portal del Negocio</h3>
@@ -1206,7 +1201,7 @@
                                         </a>
                                         
                                         <a href="#" class="ajustes-card-link" id="btn-preferencias">
-                                            <div class="card-icon-wrapper" style="background-color: #f3f4f6; color: #4b5563;">
+                                            <div class="card-icon-wrapper icon-wrapper-light-gray">
                                                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                                             </div>
                                             <div class="card-text">
@@ -1216,13 +1211,13 @@
                                             <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                         </a>
 
-                                        <a href="#" class="ajustes-card-link" id="btn-logout" style="padding: 16px 24px;">
-                                            <div class="card-icon-wrapper" style="background-color: #fee2e2; color: #ef4444; width: 48px; height: 48px;">
+                                        <a href="#" class="ajustes-card-link ajustes-card-logout" id="btn-logout">
+                                            <div class="card-icon-wrapper icon-wrapper-danger">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                             </div>
-                                            <div class="card-text" style="margin-left: 16px;">
-                                                <h3 style="color: #ef4444; font-size: 1.1rem; margin-bottom: 2px;">Cerrar Sesión</h3>
-                                                <p style="font-size: 0.85rem;">Salir de tu cuenta de forma segura</p>
+                                            <div class="card-text card-text-ml16">
+                                                <h3 class="card-title-danger">Cerrar Sesión</h3>
+                                                <p class="card-desc-small">Salir de tu cuenta de forma segura</p>
                                             </div>
                                         </a>
                                         
@@ -1256,27 +1251,27 @@
                                             <div class="mi-cuenta-grid">
                                                 <div class="mi-cuenta-form-group">
                                                     <label class="mi-cuenta-label">NOMBRE COMPLETO</label>
-                                                    <input type="text" id="mi-cuenta-nombre" class="mi-cuenta-input" value="Nombre Apellidos" disabled>
+                                                    <input type="text" id="mi-cuenta-nombre" class="mi-cuenta-input" value="" disabled>
                                                 </div>
                                                 <div class="mi-cuenta-form-group">
                                                     <label class="mi-cuenta-label">FECHA NACIMIENTO</label>
-                                                    <input type="text" id="mi-cuenta-fecha-nacimiento" class="mi-cuenta-input" value="01/01/1990" disabled>
+                                                    <input type="text" id="mi-cuenta-fecha-nacimiento" class="mi-cuenta-input" value="" disabled>
                                                 </div>
                                                 <div class="mi-cuenta-form-group">
                                                     <label class="mi-cuenta-label">EMAIL PROFESIONAL</label>
-                                                    <input type="text" id="mi-cuenta-email" class="mi-cuenta-input" value="usuario@peluqueriaalia.com" disabled>
+                                                    <input type="text" id="mi-cuenta-email" class="mi-cuenta-input" value="" disabled>
                                                 </div>
                                                 <div class="mi-cuenta-form-group">
                                                     <label class="mi-cuenta-label">CORREO PERSONAL</label>
-                                                    <input type="text" id="mi-cuenta-correo-personal" class="mi-cuenta-input" value="usuario@correo.com">
+                                                    <input type="text" id="mi-cuenta-correo-personal" class="mi-cuenta-input" value="">
                                                 </div>
                                                 <div class="mi-cuenta-form-group">
                                                     <label class="mi-cuenta-label">TELÉFONO</label>
-                                                    <input type="text" id="mi-cuenta-telefono" class="mi-cuenta-input" value="+34 600 000 000">
+                                                    <input type="text" id="mi-cuenta-telefono" class="mi-cuenta-input" value="">
                                                 </div>
                                                 <div class="mi-cuenta-form-group">
                                                     <label class="mi-cuenta-label">DIRECCIÓN COMPLETA</label>
-                                                    <input type="text" id="mi-cuenta-direccion" class="mi-cuenta-input" value="Calle Ejemplo, Nº 1, Ciudad, 00000">
+                                                    <input type="text" id="mi-cuenta-direccion" class="mi-cuenta-input" value="">
                                                 </div>
                                             </div>
                                             
@@ -1348,15 +1343,15 @@
                                         <div class="pn-grid">
                                             <div class="pn-form-group">
                                                 <label class="pn-label">NOMBRE DEL NEGOCIO</label>
-                                                <input id="pn-nombre" type="text" class="pn-input" value="Nombre del Negocio">
+                                                <input id="pn-nombre" type="text" class="pn-input" value="">
                                             </div>
                                             <div class="pn-form-group">
                                                 <label class="pn-label">TELÉFONO PÚBLICO</label>
-                                                <input id="pn-telefono" type="text" class="pn-input" value="+34 000 000 000">
+                                                <input id="pn-telefono" type="text" class="pn-input" value="">
                                             </div>
                                             <div class="pn-form-group pn-grid-full">
                                                 <label class="pn-label">DIRECCIÓN</label>
-                                                <input id="pn-direccion" type="text" class="pn-input" value="Calle Ejemplo, Nº 1, Ciudad, 00000">
+                                                <input id="pn-direccion" type="text" class="pn-input" value="">
                                             </div>
                                         </div>
                                         
@@ -1368,11 +1363,11 @@
                                         <div class="pn-grid">
                                             <div class="pn-form-group">
                                                 <label class="pn-label">HORA DE APERTURA</label>
-                                                <input id="pn-hora-apertura" type="text" class="pn-input" value="09:00 AM">
+                                                <input id="pn-hora-apertura" type="text" class="pn-input" value="">
                                             </div>
                                             <div class="pn-form-group">
                                                 <label class="pn-label">HORA DE CIERRE</label>
-                                                <input id="pn-hora-cierre" type="text" class="pn-input" value="08:00 PM">
+                                                <input id="pn-hora-cierre" type="text" class="pn-input" value="">
                                             </div>
                                         </div>
                                         <button id="btn-actualizar-datos-negocio" class="btn-update" style="margin-top: 24px;">Actualizar Datos Generales</button>
@@ -1397,7 +1392,7 @@
                                         </div>
                                         
                                         <div class="pn-service-list">
-                                            <div style="padding: 32px 20px; text-align: center; color: #94a3b8; font-size: 0.95rem;">
+                                            <div class="pn-service-empty">
                                                 No hay servicios configurados
                                             </div>
                                         </div>
@@ -1419,12 +1414,12 @@
                                         
                                         <div class="pn-form-group">
                                             <label class="pn-label">TONO DE LA IA</label>
-                                            <div class="custom-select-container" style="position: relative; width: 100%;">
-                                                <div class="custom-select-trigger pn-select" style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px;">
+                                            <div class="custom-select-container pos-rel-w100">
+                                                <div class="custom-select-trigger pn-select select-trigger-flex">
                                                     <span id="pn-tono-ia" class="selected-value">Informal</span>
                                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                                 </div>
-                                                <div class="custom-select-options" style="top: 100%; left: 0; right: 0; z-index: 10;">
+                                                <div class="custom-select-options select-options-full">
                                                     <div class="custom-option">Informal</div>
                                                     <div class="custom-option">Profesional</div>
                                                     <div class="custom-option">Cercano</div>
@@ -1437,24 +1432,24 @@
                                             <textarea id="pn-prompt-ia" class="pn-textarea">Eres el asistente virtual de Alia Beauty Studio. Tu objetivo es agendar citas de forma amable. Si preguntan por precios, usa la lista de servicios. Sé cercano pero educado.</textarea>
                                         </div>
                                         
-                                        <div class="pn-subheader" style="margin-top: 40px; margin-bottom: 24px;">Configuración de Recordatorios</div>
+                                        <div class="pn-subheader pn-subheader-mt40">Configuración de Recordatorios</div>
                                         <div id="pn-reminder-list">
                                             <!-- Dynamically populated -->
                                         </div>
                                         
-                                        <button id="btn-add-reminder" class="pn-btn-add-outline" style="margin-top: 16px; border: 1px dashed #0891b2; color: #0891b2; background: transparent; padding: 10px 16px; border-radius: 20px; display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 0.9rem;">
+                                        <button id="btn-add-reminder" class="pn-btn-add-dashed">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                             Añadir otro recordatorio
                                         </button>
                                         
-                                        <div class="pn-confirm-row" style="margin-top: 32px; display: flex; align-items: center; justify-content: space-between; padding: 20px; background: #f8fafc; border-radius: 12px;">
-                                            <div style="display: flex; align-items: center; gap: 12px; color: #0891b2; font-weight: 500;">
+                                        <div class="pn-confirm-row pn-confirm-row-styled">
+                                            <div class="pn-confirm-text">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                                                 Solicitar confirmación automática 24h antes por WhatsApp
                                             </div>
                                             <!-- Toggle Switch -->
-                                            <div id="auto-confirm-toggle" style="width: 44px; height: 24px; background-color: #0891b2; border-radius: 12px; position: relative; cursor: pointer; transition: background-color 0.2s;">
-                                                <div style="position: absolute; top: 2px; left: 22px; width: 20px; height: 20px; background-color: white; border-radius: 50%; transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                            <div id="auto-confirm-toggle" class="toggle-switch-track">
+                                                <div class="toggle-switch-thumb"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1477,26 +1472,26 @@
                                 <div class="input-with-icon">
                                     <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                                     <input type="text" class="form-control" placeholder="Buscar por nombre o teléfono...">
-                                    <svg class="right-icon btn-add-client-modal" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; transition: color 0.2s;"><rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                    <svg class="right-icon btn-add-client-modal cursor-pointer-transition" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
                                 </div>
                             </div>
                             
                             <div class="grid-2-col">
-                                <div class="form-group" style="margin-bottom:0;">
+                                <div class="form-group mb-0">
                                     <label class="form-label">FECHA DE LA CITA</label>
                                     <div class="input-with-icon">
                                         <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                                         <input type="text" class="form-control" value="">
                                     </div>
                                 </div>
-                                <div class="form-group" style="margin-bottom:0;">
+                                <div class="form-group mb-0">
                                     <label class="form-label">HORA DE INICIO</label>
                                     <div class="input-with-icon custom-select-container">
                                         <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                                         <div class="custom-select-trigger">
-                                            <span class="selected-value" style="color: #94a3b8;">--:--</span>
+                                            <span class="selected-value text-slate-400">--:--</span>
                                         </div>
-                                        <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right: 14px; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                        <svg class="select-arrow select-arrow-right14" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                         <div class="custom-select-options">
                                             <div class="custom-option">--:-- (Vacío)</div>
                                         </div>
@@ -1505,27 +1500,27 @@
                             </div>
                             
                             <div class="grid-2-col">
-                                <div class="form-group" style="margin-bottom:0;">
+                                <div class="form-group mb-0">
                                     <label class="form-label">SERVICIO</label>
                                     <div class="input-with-icon custom-select-container">
                                         <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
                                         <div class="custom-select-trigger">
-                                            <span class="selected-value" style="color: #94a3b8;">-- Seleccionar --</span>
+                                            <span class="selected-value text-slate-400">-- Seleccionar --</span>
                                         </div>
-                                        <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right: 14px; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                        <svg class="select-arrow select-arrow-right14" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                         <div class="custom-select-options">
                                             <div class="custom-option">-- Seleccionar --</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group" style="margin-bottom:0;">
+                                <div class="form-group mb-0">
                                     <label class="form-label">PROFESIONAL</label>
                                     <div class="input-with-icon custom-select-container">
                                         <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <div class="custom-select-trigger">
                                             <span class="selected-value">Cualquier Disponible</span>
                                         </div>
-                                        <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right: 14px; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                        <svg class="select-arrow select-arrow-right14" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                         <div class="custom-select-options">
                                             <div class="custom-option">Cualquier Disponible</div>
                                         </div>
@@ -1557,7 +1552,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label">CORREO ELECTRÓNICO <span style="color:#94a3b8; font-weight:normal; text-transform:none;">(Opcional)</span></label>
+                                <label class="form-label">CORREO ELECTRÓNICO <span class="label-optional-text">(Opcional)</span></label>
                                 <div class="input-with-icon">
                                     <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                     <input type="email" class="form-control" id="new-client-email" placeholder="Ej. ana@ejemplo.com">
@@ -1597,7 +1592,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label">CORREO ELECTRÓNICO <span style="color:#94a3b8; font-weight:normal; text-transform:none;">(Opcional)</span></label>
+                                <label class="form-label">CORREO ELECTRÓNICO <span class="label-optional-text">(Opcional)</span></label>
                                 <div class="input-with-icon">
                                     <svg class="left-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                     <input type="email" class="form-control" id="edit-client-email" placeholder="Ej. ana@ejemplo.com">
@@ -1614,7 +1609,7 @@
 
                             <div class="form-group">
                                 <label class="form-label">NOTAS INTERNAS</label>
-                                <textarea class="form-control" id="edit-client-notes" placeholder="Preferencias, alergias..." rows="3" style="resize:vertical;"></textarea>
+                                <textarea class="form-control resize-y" id="edit-client-notes" placeholder="Preferencias, alergias..." rows="3"></textarea>
                             </div>
                             
                             <div class="modal-actions">
@@ -1633,10 +1628,9 @@
                         </div>
                         
                         <div class="notif-list">
-                            <!-- Empty State -->
-                            <div style="padding: 40px; text-align: center; color: #94a3b8;">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px; opacity: 0.5;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                                <p style="margin: 0; font-size: 0.9rem; font-weight: 500;">No tienes nuevas notificaciones</p>
+                            <div class="notif-empty-state">
+                                <svg class="notif-empty-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                                <p class="notif-empty-text">No tienes nuevas notificaciones</p>
                             </div>
                         </div>
                         
@@ -1661,10 +1655,10 @@
                             <div class="panel-section">
                                 <h3 class="section-subtitle">Cliente</h3>
                                 <div class="client-card">
-                                    <div class="client-avatar">R</div>
+                                    <div class="client-avatar"></div>
                                     <div class="client-info">
-                                        <div class="client-name">Nombre Cliente</div>
-                                        <div class="client-phone">+34 000 000 000</div>
+                                        <div class="client-name"></div>
+                                        <div class="client-phone"></div>
                                     </div>
                                     <button class="btn-client-chat">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
@@ -1686,84 +1680,8 @@
                             <!-- Historial -->
                             <div class="panel-section">
                                 <h3 class="section-subtitle">Historial</h3>
-                                <div class="history-timeline">
-                                    <!-- History Item 1 -->
-                                    <div class="history-item">
-                                        <div class="history-marker marker-blue">
-                                            <div class="marker-dot"><div class="marker-inner-dot"></div></div>
-                                            <div class="marker-line"></div>
-                                        </div>
-                                        <div class="history-content">
-                                            <div class="history-header">
-                                                <span class="history-date">20 ABR 2026, 13:30</span>
-                                                <span class="history-badge badge-pending">Pendiente</span>
-                                            </div>
-                                            <div class="history-service">Corte de pelo + Barba</div>
-                                            <div class="history-prof">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Profesional" class="prof-mini-avatar">
-                                                <span>Atendido por <strong>Profesional</strong></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- History Item 2 -->
-                                    <div class="history-item">
-                                        <div class="history-marker marker-green">
-                                            <div class="marker-dot">
-                                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                            </div>
-                                            <div class="marker-line"></div>
-                                        </div>
-                                        <div class="history-content">
-                                            <div class="history-header">
-                                                <span class="history-date">20 ENE 2026, 13:30</span>
-                                                <span class="history-badge badge-completed">Completado</span>
-                                            </div>
-                                            <div class="history-service">Corte de pelo + Barba</div>
-                                            <div class="history-prof">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Profesional" class="prof-mini-avatar">
-                                                <span>Atendido por <strong>Profesional</strong></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- History Item 3 -->
-                                    <div class="history-item">
-                                        <div class="history-marker marker-red">
-                                            <div class="marker-dot">
-                                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                            </div>
-                                            <div class="marker-line"></div>
-                                        </div>
-                                        <div class="history-content">
-                                            <div class="history-header">
-                                                <span class="history-date">15 ENE 2026, 11:30</span>
-                                                <span class="history-badge badge-noshow">No Show</span>
-                                            </div>
-                                            <div class="history-service">Corte de pelo + Barba</div>
-                                            <div class="history-prof">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Profesional" class="prof-mini-avatar">
-                                                <span>Atendido por <strong>Profesional</strong></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- History Item 4 -->
-                                    <div class="history-item">
-                                        <div class="history-marker marker-green">
-                                            <div class="marker-dot">
-                                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                            </div>
-                                        </div>
-                                        <div class="history-content">
-                                            <div class="history-header">
-                                                <span class="history-date">20 OCT 2025, 11:30</span>
-                                                <span class="history-badge badge-completed">Completado</span>
-                                            </div>
-                                            <div class="history-service">Corte de pelo + Barba</div>
-                                            <div class="history-prof">
-                                                <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Profesional" class="prof-mini-avatar">
-                                                <span>Atendido por <strong>Profesional</strong></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="history-timeline" id="appointment-history-timeline">
+                                    <!-- Renderizado por JS -->
                                 </div>
                             </div>
                         </div>
@@ -1799,17 +1717,17 @@
                     <div class="cd-body">
                         <!-- Info general -->
                         <div class="cd-client-info">
-                            <div class="cd-avatar">R</div>
+                            <div class="cd-avatar"></div>
                             <div class="cd-details">
-                                <h2 class="cd-name">Nombre Cliente</h2>
+                                <h2 class="cd-name"></h2>
                                 <div class="cd-contact-row">
                                     <div class="cd-contact-item">
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                        cliente@email.com
+                                        <span id="cd-email"></span>
                                     </div>
                                     <div class="cd-contact-item">
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                                        +34 000 000 000
+                                        <span id="cd-phone"></span>
                                     </div>
                                 </div>
                             </div>
@@ -1831,15 +1749,15 @@
                         <div class="cd-stats-row">
                             <div class="cd-stat-box">
                                 <span class="cd-stat-label">ÚLTIMA VISITA</span>
-                                <span class="cd-stat-val">20 Ene</span>
+                                <span class="cd-stat-val"></span>
                             </div>
                             <div class="cd-stat-box">
                                 <span class="cd-stat-label">CITAS TOTALES</span>
-                                <span class="cd-stat-val">4</span>
+                                <span class="cd-stat-val"></span>
                             </div>
                             <div class="cd-stat-box">
                                 <span class="cd-stat-label">TASA ASISTENCIA</span>
-                                <span class="cd-stat-val">75%</span>
+                                <span class="cd-stat-val"></span>
                             </div>
                         </div>
                         
@@ -1851,86 +1769,8 @@
                         
                         <!-- Tab Content: Historial -->
                         <div class="cd-history-content">
-                            <div class="history-timeline">
-                                <!-- History Item 1 -->
-                                <div class="history-item">
-                                    <div class="history-marker marker-blue">
-                                        <div class="marker-dot">
-                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                        </div>
-                                        <div class="marker-line"></div>
-                                    </div>
-                                    <div class="history-content">
-                                        <div class="history-header">
-                                            <span class="history-date">20 ABR 2026, 13:30</span>
-                                            <span class="history-badge badge-pending">Pendiente</span>
-                                        </div>
-                                        <div class="history-service">Corte de pelo + Barba</div>
-                                        <div class="history-prof">
-                                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Profesional" class="prof-mini-avatar">
-                                            <span>Atendido por <strong>Profesional</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- History Item 2 -->
-                                <div class="history-item">
-                                    <div class="history-marker marker-green">
-                                        <div class="marker-dot">
-                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                        </div>
-                                        <div class="marker-line"></div>
-                                    </div>
-                                    <div class="history-content">
-                                        <div class="history-header">
-                                            <span class="history-date">20 ENE 2026, 13:30</span>
-                                            <span class="history-badge badge-completed">Completado</span>
-                                        </div>
-                                        <div class="history-service">Corte de pelo + Barba</div>
-                                        <div class="history-prof">
-                                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Profesional" class="prof-mini-avatar">
-                                            <span>Atendido por <strong>Profesional</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- History Item 3 -->
-                                <div class="history-item">
-                                    <div class="history-marker marker-red">
-                                        <div class="marker-dot">
-                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                        </div>
-                                        <div class="marker-line"></div>
-                                    </div>
-                                    <div class="history-content">
-                                        <div class="history-header">
-                                            <span class="history-date">15 ENE 2026, 11:30</span>
-                                            <span class="history-badge badge-noshow">No Show</span>
-                                        </div>
-                                        <div class="history-service">Corte de pelo + Barba</div>
-                                        <div class="history-prof">
-                                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Profesional" class="prof-mini-avatar">
-                                            <span>Atendido por <strong>Profesional</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- History Item 4 -->
-                                <div class="history-item">
-                                    <div class="history-marker marker-green">
-                                        <div class="marker-dot">
-                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                        </div>
-                                    </div>
-                                    <div class="history-content">
-                                        <div class="history-header">
-                                            <span class="history-date">20 OCT 2025, 11:30</span>
-                                            <span class="history-badge badge-completed">Completado</span>
-                                        </div>
-                                        <div class="history-service">Corte de pelo + Barba</div>
-                                        <div class="history-prof">
-                                            <img src="../Images/Logos/LogoPeluqueríaNegro.png" alt="Profesional" class="prof-mini-avatar">
-                                            <span>Atendido por <strong>Profesional</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="history-timeline" id="cd-history-timeline">
+                                <!-- Renderizado por JS -->
                             </div>
                         </div>
                         
