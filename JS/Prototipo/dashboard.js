@@ -12,14 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Obtener datos de la MockAPI
+            const now = new Date();
+            const startD = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().split('T')[0];
+            const endD = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+            
             const [appointments, clients, team, settings] = await Promise.all([
-                window.MockAPI.getAppointments(),
+                window.MockAPI.getAppointments({ startDate: startD, endDate: endD }),
                 window.MockAPI.getClients(),
                 window.MockAPI.getTeam(),
                 window.MockAPI.getSettings()
             ]);
 
-            const now = new Date();
             const currentMonthStr = new Intl.DateTimeFormat('es-ES', { month: 'short' }).format(now);
             
             // Actualizar Fecha y Saludo
