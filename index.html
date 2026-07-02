@@ -52,7 +52,14 @@
 </head>
 
 <body>
-    <!-- Premium Preloader -->
+    <!-- 
+      ========================================
+      1. COMPONENTES GLOBALES Y OVERLAYS
+      ========================================
+      Estos elementos flotan sobre el contenido principal o se ejecutan antes del renderizado (z-index alto).
+    -->
+    
+    <!-- Premium Preloader: Pantalla de carga inicial (controlado por JS/preloader.js) -->
     <div id="premium-preloader">
         <div class="preloader-content">
             <img src="Images/Logos/LogoHexagonoAlia-SinFondo.png" alt="ALIA Loading" class="preloader-logo">
@@ -64,14 +71,14 @@
         </div>
     </div>
 
-    <!-- AI Chat Toggle Button -->
+    <!-- Botón Flotante del Chat IA: Abre/cierra el modal del chat (Eventos gestionados en ai-chat.js) -->
     <button id="ai-chat-toggle" class="ai-chat-toggle" aria-label="Abrir chat con IA">
         <div class="ai-chat-toggle-icon">
             <img src="Images/Logos/LogoChatAlia-SinFondo.png" alt="Chat IA">
         </div>
     </button>
 
-    <!-- AI Chat Window -->
+    <!-- Ventana del Chat IA: Contenedor principal del asistente. Los mensajes se inyectan en '.ai-chat-body' -->
     <div id="ai-chat-window" class="ai-chat-window">
         <div class="ai-chat-header">
             <img src="Images/Logos/LogoTextoAlia-SinFondo.png" alt="ALIA Logo">
@@ -105,7 +112,13 @@
         </div>
     </div>
 
-    <!-- Header -->
+    <!-- 
+      ========================================
+      2. ESTRUCTURA PRINCIPAL DE LA LANDING
+      ========================================
+    -->
+
+    <!-- Header Principal: Navegación y llamada a la acción hacia el prototipo -->
     <header class="header">
         <div class="logo-container">
             <img src="Images/Logos/LogoHexagonoAlia-SinFondo.png" alt="ALIA Logo" class="logo-img">
@@ -114,7 +127,11 @@
         <a href="HTML/prototipo.html" class="btn btn-primary">PROTOTIPO</a>
     </header>
 
-    <!-- Hero Section -->
+    <!-- 
+      Hero Section (Sección Principal)
+      Contiene el mockup animado del teléfono y la propuesta de valor.
+      Los textos se inyectan dinámicamente desde 'content.json'.
+    -->
     <main class="hero">
         <!-- Text Content -->
         <div class="hero-content">
@@ -192,7 +209,10 @@
         </div>
     </main>
 
-    <!-- Comparison Section -->
+    <!-- 
+      Sección de Comparación (Tradicional vs ALIA)
+      Estructura de cuadrícula que muestra las ventajas de la herramienta.
+    -->
     <section class="comparison">
         <div class="comparison-header">
             <!-- Encabezados inyectados desde content.json -->
@@ -235,7 +255,10 @@
         </div>
     </section>
 
-    <!-- Technology Section -->
+    <!-- 
+      Sección de Tecnología (Características Técnicas)
+      Las tarjetas (.tech-grid) son renderizadas dinámicamente vía JS (content-loader.js).
+    -->
     <section class="technology">
         <div class="tech-header">
             <!-- Título inyectado desde content.json -->
@@ -255,7 +278,10 @@
         <div class="features-grid" id="features-grid"></div>
     </section>
 
-    <!-- Portal Section -->
+    <!-- 
+      Sección Portal del Negocio
+      Demuestra la vista de escritorio del software.
+    -->
     <section class="portal">
         <div class="portal-container">
             <div class="portal-content">
@@ -317,7 +343,11 @@
         </div>
     </section>
 
-    <!-- Calculator Section -->
+    <!-- 
+      Sección de Calculadora (Retorno de Inversión)
+      Contiene inputs tipo 'range' (sliders) que calculan el ahorro en base a volumen de citas.
+      La lógica de cálculo está en 'JS/calculator.js'.
+    -->
     <section class="calculator-section">
         <div class="calc-header">
             <!-- Encabezados inyectados desde content.json -->
@@ -415,7 +445,11 @@
         </div>
     </section>
 
-    <!-- Footer Section -->
+    <!-- 
+      ========================================
+      3. FOOTER
+      ========================================
+    -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-left">
@@ -449,8 +483,14 @@
         </div>
     </footer>
 
-    <!-- App Logic (Modules) -->
-    <!-- content-loader.js debe cargarse antes que calculator.js y ai-chat.js -->
+    <!-- 
+      ========================================
+      4. SCRIPTS DE APLICACIÓN
+      ========================================
+      Nota Importante: El orden es crítico.
+      - content-loader.js se encarga de inyectar los textos y nodos (reemplaza datos hardcodeados).
+      - calculator.js y ai-chat.js asumen que la estructura del DOM ya ha sido generada o inyectada.
+    -->
     <script src="JS/preloader.js"></script>
     <script src="JS/content-loader.js"></script>
     <script type="module" src="JS/Hero/init.js"></script>

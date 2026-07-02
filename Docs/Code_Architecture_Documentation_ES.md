@@ -43,6 +43,7 @@ El CSS está fuertemente fraccionado (Metodología orientada a objetos / OOCSS),
 - `LandingPage/global.css`: Define las **Variables de Sistema** (Colors, Typographies, Roots) y los componentes atómicos (`.btn`, `.btn-primary`).
 - `Prototipo/layout.css`: Define el esqueleto del portal (CSS Grid y Flexbox de alto nivel).
 - `Responsive/prototipo-responsive.css`: Los *Media Queries* que adaptan todos los componentes a tablets y móviles.
+- `Prototipo/prototipo.css`: Contiene todo el **Sistema de Clases Utilitarias (Atomic CSS)** usado para suprimir estilos en línea, además del enrutamiento de modales.
 
 ### 3.2 Módulos CSS Independientes
 Cada "Vista" tiene su propio archivo CSS para que la edición de código esté aislada:
@@ -79,5 +80,6 @@ Para el prototipo se han creado motores de simulación (mocks):
 
 Gracias a esta arquitectura, crear un nuevo componente en la plataforma es tan sencillo como:
 1. Crear el HTML envolviéndolo en una de las clases atómicas globales (ej: `<div class="disp-card">...</div>`).
-2. Aislar cualquier estilo súper específico en un nuevo archivo CSS (ej: `mis-reportes.css`).
+2. Aislar cualquier estilo súper específico en un nuevo archivo CSS (ej: `mis-reportes.css`). **Nota**: Los estilos en línea (`style="..."`) están terminantemente prohibidos. Utiliza las clases utilitarias de `prototipo.css`.
 3. Registrar la pestaña en el `sidebar` dándole un `data-target="page-mis-reportes"`. ¡El sistema de navegación JS lo acogerá automáticamente sin escribir lógica adicional!
+4. Para integrar datos de Backend, mapea los elementos vacíos (inyección de IDs). Consulta la [Guía para Desarrolladores](Developer_Guide.md) para más detalles técnicos de integración.

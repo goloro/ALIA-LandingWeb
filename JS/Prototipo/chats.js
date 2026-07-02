@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Limpiar estilos inline previos y preparar main chat
         chatsMain.style.cssText = '';
+        chatsMain.classList.remove('chats-main-empty');
         chatsMain.innerHTML = `
             <!-- Header -->
             <div class="cm-header">
@@ -347,6 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (resetView) {
                 activeChatId = null;
                 if (chatsMain) {
+                    chatsMain.classList.add('chats-main-empty');
                     chatsMain.style.cssText = ''; // Limpiar estilos inline
                     chatsMain.innerHTML = emptyStateHTML;
                 }

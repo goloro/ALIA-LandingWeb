@@ -154,7 +154,14 @@ body {
 
 .time-select-styled { appearance: none; -webkit-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%2394a3b8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"6 9 12 15 18 9\"></polyline></svg>'); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; cursor: pointer; }
 
-/* Extracted Inline Styles */
+/* 
+  ==========================================
+  SISTEMA DE CLASES UTILITARIAS (ATOMIC CSS)
+  ==========================================
+  Estas clases fueron extraídas para erradicar el uso de 'style="..."' en el HTML.
+  Siguen un principio de utilidad única (espaciados, colores, displays flex)
+  y deben ser reutilizadas al crear nuevos componentes.
+*/
 .header-bordered { border-bottom: 1px solid #e5e7eb; }
 .logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .btn-secondary-bordered { border: 1px solid #e5e7eb; }
@@ -178,7 +185,7 @@ body {
 /* Modals */
 .modal-overlay-styled {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 20px; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4);
+    border-radius: 20px; z-index: 9999; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.4);
 }
 .modal-overlay-styled[style*="display: none"] { display: none !important; }
 .modal-container-styled { max-width: 400px; text-align: center; width: 100%; background: white; padding: 30px; border-radius: 16px; }

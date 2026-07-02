@@ -82,10 +82,12 @@
                         <p class="data-loading-text">Obteniendo base de datos del negocio</p>
                     </div>
 
-                    <!-- Toast Notifications Container (Moved inside portal) -->
+                    <!-- Contenedor de Notificaciones (Toasts):
+                         Se inyectan programáticamente desde JS (ej. showAlert).
+                    -->
                     <div id="toast-container" class="toast-container"></div>
                     
-    <div class="modal-overlay modal-overlay-styled" id="modal-confirm-delete">
+    <div class="modal-overlay modal-overlay-styled" id="modal-confirm-delete" style="display: none;">
         <div class="modal-container modal-container-styled">
             <div class="modal-icon-danger">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-icon-svg"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
@@ -100,7 +102,7 @@
         </div>
     </div>
     
-    <div class="modal-overlay modal-overlay-styled" id="modal-confirm-delete-prof">
+    <div class="modal-overlay modal-overlay-styled" id="modal-confirm-delete-prof" style="display: none;">
         <div class="modal-container modal-container-styled">
             <div class="modal-icon-danger">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="modal-icon-svg"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
@@ -154,8 +156,11 @@
     </div>
                     
                     <!-- ==========================================
-                         COMPONENT: SIDEBAR NAVIGATION 
-                         ========================================== -->
+                         COMPONENTE: SIDEBAR NAVIGATION (NAVEGACIÓN LATERAL)
+                         ==========================================
+                         El atributo 'data-target' indica qué 'page-section' debe activarse.
+                         El ruteo se maneja en 'prototipo.js' sin recargar la página (SPA simulada).
+                    -->
                     <!-- Overlay para el sidebar en móvil -->
                     <div class="sidebar-overlay" id="sidebar-overlay"></div>
                     
@@ -225,9 +230,18 @@
                             </div>
                         </header>
 
-                        <!-- Dynamic Pages Container -->
+                        <!-- ==========================================
+                             CONTENEDORES DE PÁGINAS DINÁMICAS (SPA ROUTING)
+                             ==========================================
+                             Aquí residen las diferentes 'vistas' de la aplicación.
+                             Solo la que tiene la clase 'active' es visible.
+                        -->
                         <div class="portal-page-content">
-                            <!-- Diapositiva 1: Dashboard -->
+                            <!-- ==========================================
+                                 VISTA 1: DASHBOARD PRINCIPAL
+                                 ID de anclaje: #page-dashboard
+                                 Inyectar datos de resumen, métricas y gráficas aquí.
+                                 ========================================== -->
                             <div class="page-section active" id="page-dashboard">
                                 <div class="dashboard-header">
                                     <h1 class="dashboard-greeting">Hola, Usuario 👋</h1>
@@ -292,6 +306,7 @@
                                         </div>
                                     </div>
                                     
+                                    <!-- Tarjeta de Equipo -->
                                     <div class="team-card">
                                         <h3 class="section-title section-title-mb4">Rendimiento del Equipo</h3>
                                         <span class="section-subtitle">Ocupación semanal</span>
@@ -364,7 +379,11 @@
 
                             </div>
 
-                            <!-- Diapositiva 3: Agenda Semanal -->
+                            <!-- ==========================================
+                                 VISTA 2: AGENDA SEMANAL
+                                 ID de anclaje: #page-agenda-semanal
+                                 Contiene el calendario de citas por bloques horarios.
+                                 ========================================== -->
                             <div class="page-section" id="page-agenda-semanal">
                                 <div class="agenda-new-container">
                                     <div class="agenda-new-header">
@@ -595,7 +614,11 @@
                                 </div>
                             </div>
                             
-                            <!-- Diapositiva 4: Clientes -->
+                            <!-- ==========================================
+                                 VISTA 3: CLIENTES (BASE DE DATOS)
+                                 ID de anclaje: #page-clientes
+                                 Tabla que se renderiza iterando los datos JSON en el id 'clientes-tbody'.
+                                 ========================================== -->
                             <div class="page-section" id="page-clientes">
                                 <div class="clientes-table-wrapper">
                                     <div class="table-scroll-container">
@@ -697,7 +720,11 @@
                                     </div>
                                 </div>
                             </div>
-<!-- Diapositiva 5: Chats -->
+                            <!-- ==========================================
+                                 VISTA 4: CHATS (INBOX DE IA Y USUARIOS)
+                                 ID de anclaje: #page-chats
+                                 Muestra las interacciones del bot y permite intervención humana.
+                                 ========================================== -->
                             <div class="page-section" id="page-chats">
                                 <div class="chats-container">
                                     <!-- Sidebar: Lista de Mensajes -->
@@ -732,7 +759,10 @@
                                 </div>
                             </div>
 
-                            <!-- Diapositiva 6: Disponibilidad -->
+                            <!-- ==========================================
+                                 VISTA 5: DISPONIBILIDAD Y AUSENCIAS
+                                 ID de anclaje: #page-disponibilidad
+                                 ========================================== -->
                             <div class="page-section" id="page-disponibilidad">
                                 <div class="disp-grid-container">
                                     <!-- Top Row -->
@@ -868,6 +898,10 @@
                             
 
                         
+                        <!-- ==========================================
+                             VISTA 6: MI EQUIPO
+                             ID de anclaje: #page-mi-equipo
+                             ========================================== -->
                         <div class="page-section" id="page-mi-equipo">
                             <!-- Top Row -->
                             <div class="eq-top-row">
